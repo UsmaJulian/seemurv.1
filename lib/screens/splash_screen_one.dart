@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 class SplashScreenOne extends StatefulWidget {
@@ -5,6 +6,12 @@ class SplashScreenOne extends StatefulWidget {
   _SplashScreenOneState createState() => new _SplashScreenOneState();
  }
 class _SplashScreenOneState extends State<SplashScreenOne> {
+  @override
+  void initState() {
+    // tODO: implement initState
+    super.initState();
+    Timer(Duration(seconds: 10),()=>Navigator.pushNamed(context, '/spalshthird'));
+  }
   @override
   Widget build(BuildContext context) {
    return Scaffold(

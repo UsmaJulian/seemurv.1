@@ -10,7 +10,7 @@ class SplashScreenOneLoading extends StatefulWidget {
 class _SplashScreenOneLoadingState extends State<SplashScreenOneLoading> {
   @override
   void initState() {
-    // TODO: implement initState
+    // tODO: implement initState
     super.initState();
     Timer(Duration(seconds: 10),()=>Navigator.pushNamed(context, '/splashtwo'));
   }
