@@ -9,7 +9,7 @@ var routes =< String, WidgetBuilder>{
 };
 
 void main()=>runApp (MaterialApp(
-  title: 'Flutter splash Lading',
+  title: 'Flutter splash Loading',
   theme: ThemeData(
     primaryColor:Colors.white,
     accentColor: Colors.orange

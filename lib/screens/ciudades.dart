@@ -117,7 +117,7 @@ class _CiudadesState extends State<Ciudades> {
         child: new Text("Continuar"),
          onPressed: () {
            Navigator.push(context, 
-           new MaterialPageRoute(builder: (context) =>new Second ())
+           new MaterialPageRoute(builder: (context) =>new LoginFacebookPage())
            );
          },
       ),

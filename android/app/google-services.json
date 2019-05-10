@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "223755924605",
+    "firebase_url": "https://seemurv1.firebaseio.com",
+    "project_id": "seemurv1",
+    "storage_bucket": "seemurv1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223755924605:android:271f2471bdff58d3",
+        "android_client_info": {
+          "package_name": "com.example.seemur_v1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223755924605-n64hkb8d1ijedv1rpqvco2hacmt0tbrh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKwojaRJJc1FAqcTsS9R5r3z0ThCkBblE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223755924605-n64hkb8d1ijedv1rpqvco2hacmt0tbrh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
