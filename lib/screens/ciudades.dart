@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seemur_v1/screens/second.dart';
+import 'package:seemur_v1/screens/onboard.dart';
 
 
 class Ciudades extends StatefulWidget {

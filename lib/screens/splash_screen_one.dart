@@ -52,12 +52,19 @@ class _SplashScreenOneState extends State<SplashScreenOne> {
                    Padding(
                  padding:EdgeInsets.only(top: 80.0,) ,
                  ),
-                  Text('Por favor espera unos segundos mientras Seemur se instala en tu teléfono',
+                  Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Text('Por favor espera unos segundos mientras Seemur se instala en tu teléfono',
                  style:TextStyle(
-                   color:Colors.black,
-                   fontSize: 24.0, 
-                   ),
-                   ),
+                         color:Colors.black,
+                         fontSize: 24.0, 
+                         ),
+                         ),
+                      ),
+                    ],
+                  ),
                  
              ],
            )
