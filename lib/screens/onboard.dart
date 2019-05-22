@@ -37,8 +37,6 @@ class ImagesCarousel extends StatelessWidget {
 }
 }
 
-
-
 class LoginFacebookPage extends StatefulWidget {
   @override
   _LoginFacebookPageState createState() => new _LoginFacebookPageState();
@@ -55,8 +53,6 @@ class _LoginFacebookPageState extends State<LoginFacebookPage> {
    FacebookAccessToken myToken= result.accessToken;
     final AuthCredential credential= FacebookAuthProvider.getCredential(
       accessToken:myToken.token);
-        
-    
 
     debugPrint(result.status.toString());
 
@@ -89,17 +85,16 @@ class _LoginFacebookPageState extends State<LoginFacebookPage> {
        children: <Widget>[
 
          Padding(
-           padding: const EdgeInsets.all(80.0),           
+           padding: const EdgeInsets.all(10.0),           
            child: ImagesCarousel(),
          ),
          Center(
-           child: isLogged ? null : FacebookSignInButton(
+           child: isLogged  ? null  : FacebookSignInButton(
              onPressed:_logIn,
            ),
          ),
-         
               Padding(
-                padding: const EdgeInsets.all(30.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
              children: <Widget>[
                  Padding(
@@ -116,7 +111,6 @@ class _LoginFacebookPageState extends State<LoginFacebookPage> {
                      child: Text('Ingresar'),
                      ),
                  ),
-                 
                 ],
            ),
               ),

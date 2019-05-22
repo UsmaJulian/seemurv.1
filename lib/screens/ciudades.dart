@@ -54,8 +54,8 @@ class _CiudadesState extends State<Ciudades> {
              new Row(
                mainAxisAlignment: MainAxisAlignment.center,
                children: <Widget>[
-                 new Text('Manizales',style: new TextStyle(
-               fontSize: 18.0, fontWeight: FontWeight.bold,
+                 new Text('Manizales',style: new TextStyle(fontFamily: 'HankenGrotesk',
+               fontSize: 18.0, fontWeight:FontWeight.bold,
              ),
              ),
                  new Radio(
@@ -114,7 +114,7 @@ class _CiudadesState extends State<Ciudades> {
                padding: EdgeInsets.all(8.0),
              ),
              new RaisedButton(
-        child: new Text("Continuar"),
+        child: new Text("Continuar",style:new TextStyle(fontFamily: 'HankenGrotesk',fontWeight:FontWeight.bold)),
          onPressed: () {
            Navigator.push(context, 
            new MaterialPageRoute(builder: (context) =>new LoginFacebookPage())

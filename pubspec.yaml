@@ -39,6 +39,19 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  fonts:
+     - family: HankenGrotesk
+       fonts:
+         - asset: fonts/HankenGrotesk-Regular.ttf
+         - asset: fonts/HankenGrotesk-Bold.ttf
+           #weight: 700
+         - asset: fonts/HankenGrotesk-Light.ttf
+           #weight: 300
+           #style: italic
+         - asset: fonts/HankenGrotesk-Black.ttf
+         - asset: fonts/HankenGrotesk-ExtraLight.ttf
+         - asset: fonts/HankenGrotesk-Medium.ttf
+         - asset: fonts/HankenGrotesk-SemiBold.ttf
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
