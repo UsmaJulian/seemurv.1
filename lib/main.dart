@@ -2,21 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:seemur_v1/screens/ciudades.dart';
 
 import 'package:seemur_v1/screens/splash_screen%20_one_loading.dart';
-import 'package:seemur_v1/screens/splash_screen_one.dart';
+//import 'package:seemur_v1/screens/splash_screen_one.dart';
 
-var routes =< String, WidgetBuilder>{
-  '/splashtwo':(BuildContext context)=>SplashScreenOne(),
-  '/spalshthird':(BuildContext context)=>Ciudades(),
- 
+var routes = <String, WidgetBuilder>{
+  // '/splashtwo': (BuildContext context) => SplashScreenOne(),
+  '/spalshthird': (BuildContext context) => Ciudades(),
 };
 
-void main()=>runApp (MaterialApp(
-  title: 'Flutter splash Loading',
-  theme: ThemeData(
-    primaryColor:Colors.white,
-    accentColor: Colors.orange
-  ),
-  home: SplashScreenOneLoading(),
-  routes: routes,
-)
-); 
+void main() => runApp(MaterialApp(
+      home: SplashScreenOneLoading(),
+      routes: routes,
+    ));
