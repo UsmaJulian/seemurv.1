@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/screens/ingresar.dart';
+import 'package:seemur_v1/screens/terminos_condiciones.dart';
 
 class SignUpPage extends StatefulWidget {
   SignUpPage({
@@ -180,7 +181,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                 )),
                           ],
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context,new MaterialPageRoute(builder: (context)=>new TerminosCondicionesPage ()));
+                        },
                       ),
                     ),
                   ],
