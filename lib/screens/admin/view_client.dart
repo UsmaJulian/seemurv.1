@@ -184,7 +184,7 @@ class _ViewClientState extends State<ViewClient> {
                     onSaved: (value) => _taskname = value.trim(),
                   ),
                   TextFormField(
-                    maxLines: 10,
+                    maxLines: 1,
                     enabled: false,
                     keyboardType: TextInputType.text,
                     initialValue: _tasklocation,
@@ -196,7 +196,7 @@ class _ViewClientState extends State<ViewClient> {
                     onSaved: (value) => _tasklocation = value.trim(),
                   ),
                   TextFormField(
-                    maxLines: 10,
+                    maxLines: 4,
                     enabled: false,
                     keyboardType: TextInputType.text,
                     initialValue: _taskdescription,
@@ -208,7 +208,7 @@ class _ViewClientState extends State<ViewClient> {
                     onSaved: (value) => _taskdescription = value.trim(),
                   ),
                   TextFormField(
-                    maxLines: 10,
+                    maxLines: 1,
                     enabled: false,
                     keyboardType: TextInputType.text,
                     initialValue: _taskphone,
@@ -220,7 +220,7 @@ class _ViewClientState extends State<ViewClient> {
                     onSaved: (value) => _taskphone = value.trim(),
                   ),
                   TextFormField(
-                    maxLines: 10,
+                    maxLines: 1,
                     enabled: false,
                     keyboardType: TextInputType.text,
                     initialValue: _taskprice,
@@ -232,7 +232,7 @@ class _ViewClientState extends State<ViewClient> {
                     onSaved: (value) => _taskprice = value.trim(),
                   ),
                   TextFormField(
-                    maxLines: 10,
+                    maxLines: 1,
                     enabled: false,
                     keyboardType: TextInputType.text,
                     initialValue: _tasktime,

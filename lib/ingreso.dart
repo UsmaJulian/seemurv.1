@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/components/widgets/client_page.dart';
-import 'package:seemur_v1/screens/admin/add_client.dart';
+import 'package:seemur_v1/screens/admin/show_client.dart';
 
 
 
@@ -18,7 +18,7 @@ class Ingreso extends StatelessWidget {
       // ),
       body: StreamBuilder<DocumentSnapshot>(
         stream: Firestore.instance
-            .collection('users')
+            .collection('usuarios')
             .document(user.uid)
             .snapshots(),
         builder:
@@ -48,7 +48,7 @@ class Ingreso extends StatelessWidget {
   }
 
   Center adminPage(DocumentSnapshot snapshot) {
-    return Center(child: ClientAddPage());
+    return Center(child: ShowClientPage());
   }
 
   Center userPage(DocumentSnapshot snapshot) {

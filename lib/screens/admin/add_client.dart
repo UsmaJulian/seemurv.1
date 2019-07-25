@@ -237,103 +237,122 @@ class _ClientAddPageState extends State<ClientAddPage> {
                   Padding(
                     padding: EdgeInsets.only(top: 10),
                   ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Nombre',
-                      fillColor: Colors.grey[300],
-                      filled: true,
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Nombre',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                      },
+                      onSaved: (value) => taskname = value.trim(),
                     ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                    },
-                    onSaved: (value) => taskname = value.trim(),
                   ),
-                  TextFormField(
-                    maxLines: 100, //numero de lineas aceptadas
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Descripción',
-                      fillColor: Colors.grey[300],
-                      filled: true,
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      maxLines: 4, //numero de lineas aceptadas
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Descripción',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some description';
+                        }
+                      },
+                      onSaved: (value) => taskdescription = value,
                     ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some description';
-                      }
-                    },
-                    onSaved: (value) => taskdescription = value,
                   ),
-                  TextFormField(
-                    maxLines: 100, //numero de lineas aceptadas
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Ubicación',
-                      fillColor: Colors.grey[300],
-                      filled: true,
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      maxLines: 1, //numero de lineas aceptadas
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Ubicación',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some location';
+                        }
+                      },
+                      onSaved: (value) => tasklocation = value,
                     ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some location';
-                      }
-                    },
-                    onSaved: (value) => tasklocation = value,
                   ),
-                  TextFormField(
-                    maxLines: 100, //numero de lineas aceptadas
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Telefono',
-                      fillColor: Colors.grey[300],
-                      filled: true,
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      maxLines: 1, //numero de lineas aceptadas
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Telefono',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some phone';
+                        }
+                      },
+                      onSaved: (value) => taskphone = value,
                     ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some phone';
-                      }
-                    },
-                    onSaved: (value) => taskphone = value,
                   ),
-                  TextFormField(
-                    maxLines: 100, //numero de lineas aceptadas
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Precio',
-                      fillColor: Colors.grey[300],
-                      filled: true,
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      maxLines: 1, //numero de lineas aceptadas
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Precio',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some price';
+                        }
+                      },
+                      onSaved: (value) => taskprice = value,
                     ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some price';
-                      }
-                    },
-                    onSaved: (value) => taskprice = value,
                   ),
-                  TextFormField(
-                    maxLines: 100, //numero de lineas aceptadas
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Horario',
-                      fillColor: Colors.grey[300],
-                      filled: true,
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      maxLines: 1, //numero de lineas aceptadas
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Horario',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some time';
+                        }
+                      },
+                      onSaved: (value) => tasktime = value,
                     ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter some time';
-                      }
-                    },
-                    onSaved: (value) => tasktime = value,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       RaisedButton(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                         onPressed: _enviar,
                         child: Text('Crear',
                             style: TextStyle(color: Colors.white)),
-                        color: Colors.green,
+                        color: Color(0xff16202c),
                       ),
                     ],
                   )

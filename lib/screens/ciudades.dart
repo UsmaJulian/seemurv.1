@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
-import 'package:seemur_v1/login_admin/login_page.dart';
+import 'package:seemur_v1/ingreso.dart';
+//import 'package:seemur_v1/login_admin/login_page.dart';
 import 'package:seemur_v1/login_admin/root_page.dart';
 //import 'package:seemur_v1/screens/onboard.dart';
 
@@ -213,7 +214,9 @@ class _CiudadesState extends State<Ciudades> {
                   Navigator.push(
                       context,
                       new MaterialPageRoute(
-                          builder: (context) => new RootPage(auth: Auth(),)));
+                          builder: (context) => RootPage(
+                                auth: Auth(),
+                              )));
                 },
               ),
             ),

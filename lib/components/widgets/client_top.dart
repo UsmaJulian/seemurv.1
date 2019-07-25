@@ -29,10 +29,10 @@ class _ClientTopState extends State<ClientTop> {
   @override
   Widget build(BuildContext context) {
    var height = MediaQuery.of(context).size.height * 0.15; // set height to 40% of the screen height
-    return  Container(
+    return  Container(color: Colors.black,
               height: height,
               width: double.infinity,
-              color: Colors.black38,
+              
               child: StreamBuilder(
                 stream: Firestore.instance.collection("client").snapshots(),
                 builder: (BuildContext context,
@@ -42,7 +42,7 @@ class _ClientTopState extends State<ClientTop> {
                   } else {
                     if (snapshot.data.documents.length == 0) {
                     } else {
-                      return Container(
+                      return Container(color: Colors.black,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: snapshot.data.documents.map((document) {

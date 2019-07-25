@@ -26,40 +26,29 @@ class _ClientPageState extends State<ClientPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              child: Text(
-                'imagen top',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold),
-              ),
+      backgroundColor: Colors.red,
+      body: SingleChildScrollView(
+        child: Stack(
+          children: <Widget>[
+            Container(
+              color: Colors.black,
+              width: MediaQuery.of(context).size.width,
+              height: 2675,
+              child: Stack(children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Container(
+                      color: Colors.black,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      child: ClientBody(),
+                    ),
+                  ],
+                ),
+              ]),
             ),
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: ClientTop(),
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              child: Text(
-                'imagen body',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          Expanded(
-            child: ClientBody(),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
