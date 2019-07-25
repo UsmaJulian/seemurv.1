@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:seemur_v1/screens/ingresar.dart';
 import 'package:seemur_v1/screens/terminos_condiciones.dart';
 
+
 class SignUpPage extends StatefulWidget {
   SignUpPage({
     Key key,
@@ -90,7 +91,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             validator: (input) {
                               if (input.isEmpty) {
                                 return 'Provide an email';
-                              }
+                              }else return null;
                             },
                             decoration: InputDecoration(
                                 border: InputBorder.none, labelText: 'Email'),

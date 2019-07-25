@@ -90,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                               validator: (input) {
                                 if (input.isEmpty) {
                                   return 'Provide an email';
-                                }
+                                }else return null;
                               },
                               decoration: InputDecoration(
                                   border: InputBorder.none, labelText: 'Email'),
@@ -136,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                           validator: (input) {
                             if (input.length < 6) {
                               return 'Longer password please';
-                            }
+                            }else return null;
                           },
                           decoration: InputDecoration(
                             border: InputBorder.none,

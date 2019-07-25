@@ -5,6 +5,7 @@ import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:seemur_v1/screens/ingresar.dart';
 import 'package:seemur_v1/screens/registrarse.dart';
+import 'dart:async';
 
 class ImagesCarousel extends StatelessWidget {
   @override
@@ -13,11 +14,11 @@ class ImagesCarousel extends StatelessWidget {
 
     return new Center(
       child: Container(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.only(top:100.0),
         height: screenHeight / 2,
         child: new ClipRRect(
           borderRadius: BorderRadius.circular(30.0),
-          child: Carousel(
+          child: Carousel(autoplay: true,showIndicator: true,
             boxFit: BoxFit.cover,
             images: [
               AssetImage('assets/images/1.jpg'),
@@ -25,8 +26,8 @@ class ImagesCarousel extends StatelessWidget {
               AssetImage('assets/images/3.jpg'),
               AssetImage('assets/images/4.jpeg'),
             ],
-            animationCurve: Curves.fastOutSlowIn,
-            animationDuration: Duration(microseconds: 2000),
+            animationCurve: Curves.easeInOutQuart,
+            animationDuration: Duration(microseconds: 4000),
           ),
         ),
       ),

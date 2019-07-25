@@ -10,6 +10,7 @@ var routes = <String, WidgetBuilder>{
 };
 
 void main() => runApp(MaterialApp(
+        debugShowCheckedModeBanner: false,
       home: SplashScreenOneLoading(),
       routes: routes,
     ));

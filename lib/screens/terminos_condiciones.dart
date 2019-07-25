@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-
+import 'package:seemur_v1/components/widgets/customappbar_terminos.dart';
 
 String url =
     'https://www.seemur.com/terminos-y-condiciones?fbclid=IwAR15w6blzcEEP6UdqmRQVPtZDyAoV4mZl9k81bUAozR8ttR3YD_7OGo3Bwc';
@@ -9,31 +9,20 @@ class TerminosCondicionesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      theme: ThemeData.dark(),
+      debugShowCheckedModeBanner: false,
+      //theme: ThemeData.dark(),
       routes: {
         "/": (_) => WebviewScaffold(
               url: url,
-              appBar: AppBar(
-                backgroundColor: Color(0xff16202c),
-                elevation: 0,
-                leading: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.white,
-                  ),
-                  tooltip: MaterialLocalizations.of(context).backButtonTooltip,
-                  onPressed: () {
-                    Navigator.maybePop(context);
-                  },
-                ),
-                title: Padding(
-                  padding: const EdgeInsets.only(top:8.0),
-                  child: Text('Términos y condiciones'),
-                ),
-              ),
               withJavascript: true,
               withLocalStorage: true,
               withZoom: true,
+              appBar:  AppBar(
+                  backgroundColor: Color(0xff16202c),
+                  elevation: 0,
+                  title: CustomAppBar(),
+                ),
+              
             ),
       },
     );
@@ -69,16 +58,13 @@ class _TerminosCondicionesState extends State<TerminosCondiciones> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: Center(
-        child: Column(children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(10.0),
-            child: TextField(
-              controller: controller,
-            ),
+      body: Column(children: <Widget>[
+        Container(
+          child: TextField(
+            controller: controller,
           ),
-        ]),
-      ),
+        ),
+      ]),
     );
   }
 }

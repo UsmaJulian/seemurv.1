@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:loading/loading.dart';
 import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
+import 'package:seemur_v1/auth/auth.dart';
 
 class SplashScreenOneLoading extends StatefulWidget {
+  SplashScreenOneLoading({this.auth,this.onSignIn});
+  final BaseAuth auth;
+  final VoidCallback onSignIn;
   @override
   _SplashScreenOneLoadingState createState() =>
       new _SplashScreenOneLoadingState();

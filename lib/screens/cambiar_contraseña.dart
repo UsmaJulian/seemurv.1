@@ -108,7 +108,7 @@ class _RenewContrasenaState extends State<RenewContrasena> {
                             validator: (input) {
                               if (input.isEmpty) {
                                 return 'Provide an email';
-                              }
+                              }else return null;
                             },
                             decoration: InputDecoration(
                                 border: InputBorder.none, labelText: 'Email'),
