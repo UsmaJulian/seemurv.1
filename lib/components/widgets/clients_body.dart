@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:seemur_v1/auth/auth.dart';
@@ -72,7 +73,7 @@ class _ClientBodyState extends State<ClientBody> {
                                 child: Container(
                                     width: MediaQuery.of(context).size.width,
                                     decoration:
-                                        BoxDecoration(color: Colors.black),
+                                        BoxDecoration(color: Colors.white),
                                     child: Stack(children: <Widget>[
                                       Column(
                                         children: <Widget>[
@@ -393,116 +394,388 @@ class _ClientBodyState extends State<ClientBody> {
                                         ),
                                       ),
                                       Positioned(
-                                          top: 600.0,
+                                          top: 690.0,
                                           left: 11.0,
                                           right: 11.0,
-                                          child: SingleChildScrollView(
-                                            child: Container(
-                                                height: 110,
-                                                color: Colors.green,
-                                                child: StreamBuilder(
-                                                  stream: Firestore.instance
-                                                      .collection("client")
-                                                      .snapshots(),
-                                                  builder:
-                                                      (BuildContext context,
+                                          child: Column(
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 210.0),
+                                                child: Text(
+                                                  'Fotos destacadas',
+                                                  style: TextStyle(
+                                                    fontFamily: 'HankenGrotesk',
+                                                    color: Color(0xff000000),
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w700,
+                                                    fontStyle: FontStyle.normal,
+                                                    letterSpacing:
+                                                        -0.1000000014901161,
+                                                  ),
+                                                ),
+                                              ),
+                                              SingleChildScrollView(
+                                                child: Container(
+                                                    height: 120,
+                                                    color: Colors.white,
+                                                    child: StreamBuilder(
+                                                      stream: Firestore.instance
+                                                          .collection("client")
+                                                          .snapshots(),
+                                                      builder: (BuildContext
+                                                              context,
                                                           AsyncSnapshot<
                                                                   QuerySnapshot>
                                                               snapshot) {
-                                                    if (!snapshot.hasData) {
-                                                      return Text(
-                                                          "loading....");
-                                                    } else {
-                                                      if (snapshot
-                                                              .data
-                                                              .documents
-                                                              .length ==
-                                                          0) {
-                                                      } else {
-                                                        return Container(color: Colors.black,
-                                                          child: ListView(
-                                                            scrollDirection:
-                                                                Axis.horizontal,
-                                                            children: snapshot
-                                                                .data.documents
-                                                                .map(
-                                                                    (document) {
-                                                              return Row(
-                                                                children: <
-                                                                    Widget>[
-                                                                  InkWell(
-                                                                    onTap: () {
-                                                                      Client
-                                                                          taskname =
-                                                                          Client(
-                                                                        taskname:
-                                                                            document['taskname'].toString(),
-                                                                        taskclientimage:
-                                                                            document['taskclientimage'].toString(),
-                                                                        taskdescription:
-                                                                            document['taskdescription'].toString(),
-                                                                        taskphone:
-                                                                            document['taskphone'].toString(),
-                                                                        taskprice:
-                                                                            document['taskprice'].toString(),
-                                                                        tasklocation:
-                                                                            document['tasklocation'].toString(),
-                                                                        tasktime:
-                                                                            document['tasktime'].toString(),
-                                                                      );
-                                                                    },
-                                                                    child:
-                                                                        Container(color: Colors.black,
-                                                                      height:
-                                                                          100.0,
-                                                                      margin: EdgeInsets.only(
-                                                                          right:
-                                                                              20.0),
-                                                                      child:
-                                                                          Card(
+                                                        if (!snapshot.hasData) {
+                                                          return Text(
+                                                              "loading....");
+                                                        } else {
+                                                          if (snapshot
+                                                                  .data
+                                                                  .documents
+                                                                  .length ==
+                                                              0) {
+                                                          } else {
+                                                            return Container(
+                                                              color:
+                                                                  Colors.white,
+                                                              child: ListView(
+                                                                scrollDirection:
+                                                                    Axis.horizontal,
+                                                                children: snapshot
+                                                                    .data
+                                                                    .documents
+                                                                    .map(
+                                                                        (document) {
+                                                                  return Row(
+                                                                    children: <
+                                                                        Widget>[
+                                                                      InkWell(
+                                                                        onTap:
+                                                                            () {
+                                                                          Client
+                                                                              taskname =
+                                                                              Client(
+                                                                            taskname:
+                                                                                document['taskname'].toString(),
+                                                                            taskclientimage:
+                                                                                document['taskclientimage'].toString(),
+                                                                            taskdescription:
+                                                                                document['taskdescription'].toString(),
+                                                                            taskphone:
+                                                                                document['taskphone'].toString(),
+                                                                            taskprice:
+                                                                                document['taskprice'].toString(),
+                                                                            tasklocation:
+                                                                                document['tasklocation'].toString(),
+                                                                            tasktime:
+                                                                                document['tasktime'].toString(),
+                                                                          );
+                                                                        },
                                                                         child:
-                                                                            Padding(
-                                                                          padding: EdgeInsets.symmetric(
-                                                                              horizontal: 20.0,
-                                                                              vertical: 10.0),
+                                                                            Container(
+                                                                          color:
+                                                                              Colors.white,
+                                                                          height:
+                                                                              150.0,
+                                                                          margin:
+                                                                              EdgeInsets.only(right: 12.0),
                                                                           child:
-                                                                              Row(
-                                                                            children: <Widget>[
-                                                                              ClipRRect(
-                                                                                borderRadius: BorderRadius.circular(10),
-                                                                                child: FadeInImage(
-                                                                                  fit: BoxFit.cover,
-                                                                                  width: 95,
-                                                                                  height: 95,
-                                                                                  placeholder: AssetImage('assets/images/azucar.gif'),
-                                                                                  image: NetworkImage(document["taskclientimage"]),
-                                                                                ),
+                                                                              Card(
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+                                                                              child: Row(
+                                                                                children: <Widget>[
+                                                                                  ClipRRect(
+                                                                                    borderRadius: BorderRadius.circular(10),
+                                                                                    child: FadeInImage(
+                                                                                      fit: BoxFit.cover,
+                                                                                      width: 149,
+                                                                                      height: 94,
+                                                                                      placeholder: AssetImage('assets/images/azucar.gif'),
+                                                                                      image: NetworkImage(document["taskclientimage"]),
+                                                                                    ),
+                                                                                  ),
+                                                                                  // Column(
+                                                                                  //   mainAxisAlignment: MainAxisAlignment.center,
+                                                                                  //   children: <Widget>[
+                                                                                  //     // Text(
+                                                                                  //     //   document["taskname"].toString(),
+                                                                                  //     //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                                                                                  //     // ),
+                                                                                  //   ],
+                                                                                  // ),
+                                                                                ],
                                                                               ),
-                                                                              // Column(
-                                                                              //   mainAxisAlignment: MainAxisAlignment.center,
-                                                                              //   children: <Widget>[
-                                                                              //     // Text(
-                                                                              //     //   document["taskname"].toString(),
-                                                                              //     //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
-                                                                              //     // ),
-                                                                              //   ],
-                                                                              // ),
-                                                                            ],
+                                                                            ),
                                                                           ),
                                                                         ),
                                                                       ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            }).toList(),
-                                                          ),
-                                                        );
-                                                      }
-                                                    }
-                                                  },
-                                                )),
-                                          ))
+                                                                    ],
+                                                                  );
+                                                                }).toList(),
+                                                              ),
+                                                            );
+                                                          }
+                                                        }
+                                                      },
+                                                    )),
+                                              ),
+                                            ],
+                                          )),
+                                      Positioned(
+                                        top: 890.0,
+                                        left: 11.0,
+                                        right: 11.0,
+                                        child: Column(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 258),
+                                              child: Text("Información",
+                                                  style: TextStyle(
+                                                    fontFamily: 'HankenGrotesk',
+                                                    color: Color(0xff000000),
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w700,
+                                                    fontStyle: FontStyle.normal,
+                                                    letterSpacing:
+                                                        -0.1000000014901161,
+                                                  )),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 32, right: 285.0),
+                                              child: Text('Cómo llegar',
+                                                  style: TextStyle(
+                                                    fontFamily: 'HankenGrotesk',
+                                                    color: Color(0xff000000),
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w700,
+                                                    fontStyle: FontStyle.normal,
+                                                  )),
+                                            ),
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Icon(Icons.room)),
+                                                  Expanded(
+                                                      flex: 5,
+                                                      child: Text(
+                                                          document[
+                                                                  "tasklocation"]
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'OpenSans',
+                                                            color: Color(
+                                                                0xff3d3d3d),
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            fontStyle: FontStyle
+                                                                .normal,
+                                                            letterSpacing: 0,
+                                                          ))),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Icon(CupertinoIcons
+                                                          .right_chevron)),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 980.0,
+                                        left: 15.0,
+                                        right: 15.0,
+                                        child: Column(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 32, right: 285.0),
+                                              child: Text('Precio mínimo',
+                                                  style: TextStyle(
+                                                    fontFamily: 'HankenGrotesk',
+                                                    color: Color(0xff000000),
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w700,
+                                                    fontStyle: FontStyle.normal,
+                                                  )),
+                                            ),
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: Row(
+                                                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                children: <Widget>[
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Icon(Icons.room)),
+                                                  Expanded(
+                                                      flex: 5,
+                                                      child: Text(
+                                                          document["taskprice"]
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'OpenSans',
+                                                            color: Color(
+                                                                0xff3d3d3d),
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            fontStyle: FontStyle
+                                                                .normal,
+                                                            letterSpacing: 0,
+                                                          ))),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 1065.0,
+                                        left: 15.0,
+                                        right: 15.0,
+                                        child: Column(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 32, right: 285.0),
+                                              child: Text('Tipo de vestuario',
+                                                  style: TextStyle(
+                                                    fontFamily: 'HankenGrotesk',
+                                                    color: Color(0xff000000),
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w700,
+                                                    fontStyle: FontStyle.normal,
+                                                  )),
+                                            ),
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: Row(
+                                                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                children: <Widget>[
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Icon(Icons.room)),
+                                                  Expanded(
+                                                      flex: 5,
+                                                      child: Text(
+                                                          document[
+                                                                  "tasklocation"]
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'OpenSans',
+                                                            color: Color(
+                                                                0xff3d3d3d),
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            fontStyle: FontStyle
+                                                                .normal,
+                                                            letterSpacing: 0,
+                                                          ))),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 1150.0,
+                                        left: 11.0,
+                                        right: 11.0,
+                                        child: Column(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 32, right: 285.0),
+                                              child: Text('Domicilio',
+                                                  style: TextStyle(
+                                                    fontFamily: 'HankenGrotesk',
+                                                    color: Color(0xff000000),
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w700,
+                                                    fontStyle: FontStyle.normal,
+                                                  )),
+                                            ),
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: Row(
+                                                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                children: <Widget>[
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Icon(Icons.room)),
+                                                  Expanded(
+                                                    flex: 5,
+                                                    child: Text(
+                                                      document["tasklocation"]
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                        fontFamily: 'OpenSans',
+                                                        color:
+                                                            Color(0xff3d3d3d),
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontStyle:
+                                                            FontStyle.normal,
+                                                        letterSpacing: 0,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 1270.0,
+                                        left: 11.0,
+                                        right: 11.0,
+                                        child: Text(
+                                          "Platos recomendados",
+                                          style: TextStyle(
+                                            fontFamily: 'HankenGrotesk',
+                                            color: Color(0xff000000),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w700,
+                                            fontStyle: FontStyle.normal,
+                                            letterSpacing: -0.1000000014901161,
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 1270.0,
+                                        left: 11.0,
+                                        right: 11.0,
+                                        child: Card(
+                                          child: Column(
+                                            children: <Widget>[],
+                                          ),
+                                        ),
+                                      )
                                     ]))))
                       ]);
                     }).toList(),

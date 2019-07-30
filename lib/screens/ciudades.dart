@@ -4,6 +4,7 @@ import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/ingreso.dart';
 //import 'package:seemur_v1/login_admin/login_page.dart';
 import 'package:seemur_v1/login_admin/root_page.dart';
+import 'package:seemur_v1/screens/home.dart';
 //import 'package:seemur_v1/screens/onboard.dart';
 
 class Ciudades extends StatefulWidget {
@@ -214,9 +215,9 @@ class _CiudadesState extends State<Ciudades> {
                   Navigator.push(
                       context,
                       new MaterialPageRoute(
-                          builder: (context) => RootPage(
-                                auth: Auth(),
-                              )));
+                          builder: (context) =>HomePage(),
+                              ),
+                              );
                 },
               ),
             ),

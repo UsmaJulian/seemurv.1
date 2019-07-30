@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/login_admin/menu_page.dart';
 import 'package:seemur_v1/models/user_model.dart';
@@ -9,6 +10,7 @@ import 'package:seemur_v1/screens/terminos_condiciones.dart';
 class CommonThings {
   static Size size;
 }
+
 class LoginPage extends StatefulWidget {
   LoginPage({this.auth, this.onSignIn});
 
@@ -43,6 +45,7 @@ class _LoginPageState extends State<LoginPage> {
       _isChecked = value;
     });
   }
+
   @override
   void initState() {
     super.initState();
@@ -458,38 +461,38 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
 
-        // DropdownButtonFormField(
-        //   validator: (value) =>
-        //       value == '0' ? 'Debe seleccionar una ciudad' : null,
-        //   decoration: InputDecoration(
-        //       labelText: 'Ciudad', icon: Icon(FontAwesomeIcons.city)),
-        //   value: _itemCiudad,
-        //   items: _ciudadItems,
-        //   onChanged: (value) {
-        //     setState(() {
-        //       _itemCiudad = value;
-        //     });
-        //   }, //seleccionarCiudadItem,
-        //   onSaved: (value) => _itemCiudad = value,
-        // ),
-        // Padding(
-        //   padding: const EdgeInsets.only(top: 32, right: 50),
-        //   child: Column(
-        //     children: <Widget>[
-        //       Container(
-        //         width: 294,
-        //         height: 14,
-        //         child: Text('Dirección',
-        //             style: new TextStyle(
-        //               color: Colors.black,
-        //               fontFamily: 'HankenGrotesk',
-        //               fontSize: 14.0,
-        //               fontWeight: FontWeight.w700,
-        //             )),
-        //       ),
-        //     ],
-        //   ),
-        // ),
+        DropdownButtonFormField(
+          validator: (value) =>
+              value == '0' ? 'Debe seleccionar una ciudad' : null,
+          decoration: InputDecoration(
+              labelText: 'Ciudad', icon: Icon(FontAwesomeIcons.city)),
+          value: _itemCiudad,
+          items: _ciudadItems,
+          onChanged: (value) {
+            setState(() {
+              _itemCiudad = value;
+            });
+          }, //seleccionarCiudadItem,
+          onSaved: (value) => _itemCiudad = value,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 32, right: 50),
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: 294,
+                height: 14,
+                child: Text('Dirección',
+                    style: new TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'HankenGrotesk',
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                    )),
+              ),
+            ],
+          ),
+        ),
         // Padding(
         //   padding: const EdgeInsets.only(top: 12, left: 15, right: 15),
         //   child: Container(
@@ -609,48 +612,56 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         Padding(
-                padding: const EdgeInsets.only(top: 16.0, left: 10,),
-                child: Row(
-                  children: <Widget>[
-                    Checkbox(
-                      value: _isChecked,
-                      onChanged: (bool value) {
-                        onChanged(value);
-                      },
-                      activeColor: Color.fromRGBO(245, 175, 0, 100),
-                    ),
-                    Container(
-                      width: 295,
-                      height: 20,
-                      child: FlatButton(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Text('Acepto ',
-                                textAlign: TextAlign.left,
-                                style: new TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'HankenGrotesk',
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w700,
-                                )),
-                                Text('términos y condiciones',textAlign: TextAlign.left,
-                                style: new TextStyle(
-                                  color: Color.fromRGBO(225, 161, 0, 100),
-                                  fontFamily: 'HankenGrotesk',
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w700,
-                                )),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.push(context,new MaterialPageRoute(builder: (context)=>new TerminosCondicionesPage ()));
-                        },
-                      ),
-                    ),
-                  ],
+          padding: const EdgeInsets.only(
+            top: 16.0,
+            left: 10,
+          ),
+          child: Row(
+            children: <Widget>[
+              Checkbox(
+                value: _isChecked,
+                onChanged: (bool value) {
+                  onChanged(value);
+                },
+                activeColor: Color.fromRGBO(245, 175, 0, 100),
+              ),
+              Container(
+                width: 295,
+                height: 20,
+                child: FlatButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text('Acepto ',
+                          textAlign: TextAlign.left,
+                          style: new TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'HankenGrotesk',
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
+                          )),
+                      Text('términos y condiciones',
+                          textAlign: TextAlign.left,
+                          style: new TextStyle(
+                            color: Color.fromRGBO(225, 161, 0, 100),
+                            fontFamily: 'HankenGrotesk',
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
+                          )),
+                    ],
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) =>
+                                new TerminosCondicionesPage()));
+                  },
                 ),
               ),
+            ],
+          ),
+        ),
         //cerrar
       ];
     }
@@ -727,9 +738,9 @@ class _LoginPageState extends State<LoginPage> {
       ];
     } else {
       return [
-        
         Padding(
-          padding: const EdgeInsets.only(top: 32, bottom: 0, left: 30, right: 30),
+          padding:
+              const EdgeInsets.only(top: 32, bottom: 0, left: 30, right: 30),
           child: Container(
             width: 315,
             height: 44,
@@ -757,7 +768,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         Padding(
           padding: const EdgeInsets.only(
-            top:39,
+            top: 39,
             bottom: 75,
             left: 65,
           ),

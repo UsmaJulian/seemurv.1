@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
-import 'package:seemur_v1/components/widgets/client_top.dart';
+//import 'package:seemur_v1/components/widgets/client_top.dart';
 import 'package:seemur_v1/components/widgets/clients_body.dart';
 
 class ClientPage extends StatefulWidget {
@@ -26,29 +26,19 @@ class _ClientPageState extends State<ClientPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Stack(
-          children: <Widget>[
-            Container(
-              color: Colors.black,
-              width: MediaQuery.of(context).size.width,
-              height: 2675,
-              child: Stack(children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Container(
-                      color: Colors.black,
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      child: ClientBody(),
-                    ),
-                  ],
-                ),
-              ]),
-            ),
-          ],
-        ),
+        child: Stack(children: <Widget>[
+          Column(
+            children: <Widget>[
+              Container(
+                color: Colors.white,
+                height: 2800,
+                child: ClientBody(),
+              ),
+            ],
+          ),
+        ]),
       ),
     );
   }

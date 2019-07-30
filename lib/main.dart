@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/screens/ciudades.dart';
 
+
 import 'package:seemur_v1/screens/splash_screen%20_one_loading.dart';
 //import 'package:seemur_v1/screens/splash_screen_one.dart';
 
@@ -11,6 +12,7 @@ var routes = <String, WidgetBuilder>{
 
 void main() => runApp(MaterialApp(
         debugShowCheckedModeBanner: false,
-      home: SplashScreenOneLoading(),
+      home:
+      SplashScreenOneLoading(),
       routes: routes,
     ));
