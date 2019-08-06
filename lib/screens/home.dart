@@ -1,24 +1,39 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 //import 'package:seemur_v1/components/widgets/searchbar.dart';
 
 class HomePage extends StatefulWidget {
+HomePage({this.auth});
+final BaseAuth auth;  
+@override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  String usuario = 'Usuario'; //user
+  String usuarioEmail = 'Email'; //userEmail
+  String id;
   final formKey = GlobalKey<FormState>();
   String _itemCiudad;
   List<DropdownMenuItem<String>> _ciudadItems;
-  @override
+  
+    @override
   void initState() {
     super.initState();
-    setState(() {
-      _ciudadItems = getCiudadItems();
-      _itemCiudad = _ciudadItems[0].value;
+    widget.auth.infoUser().then((onValue) {
+      setState(() {
+        usuario = onValue.displayName;
+        usuarioEmail = onValue.email;
+        id = onValue.uid;
+        print('ID $id');
+        _ciudadItems = getCiudadItems();
+        _itemCiudad = _ciudadItems[0].value;
+      });
     });
   }
+
 
   getData() async {
     return await Firestore.instance.collection('ciudades').getDocuments();

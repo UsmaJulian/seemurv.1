@@ -1,16 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
-import 'package:seemur_v1/ingreso.dart';
-//import 'package:seemur_v1/login_admin/login_page.dart';
+import 'package:seemur_v1/login_admin/login_page.dart';
 import 'package:seemur_v1/login_admin/root_page.dart';
-import 'package:seemur_v1/screens/home.dart';
-//import 'package:seemur_v1/screens/onboard.dart';
+import 'package:seemur_v1/screens/onboard.dart';
+
 
 class Ciudades extends StatefulWidget {
-  Ciudades({
-    Key key,
-  }) : super(key: key);
   @override
   _CiudadesState createState() => new _CiudadesState();
 }
@@ -169,24 +165,6 @@ class _CiudadesState extends State<Ciudades> {
                 ],
               ),
             ),
-            // new Divider(
-            //   height: 5.0,
-            //   color: Colors.black,
-            // ),
-            // new Padding(
-            //   padding: EdgeInsets.all(8.0),
-            // ),
-            // new Text(
-            //   'Podrás cambiar la ubicación cuando desees en los ajustes de perfil',
-            //   style: new TextStyle(
-            //     fontSize: 18.0,
-            //     fontWeight: FontWeight.bold,
-            //   ),
-            // ),
-            // new Divider(
-            //   height: 5.0,
-            //   color: Colors.white,
-            // ),
             new Padding(
               padding: EdgeInsets.only(top: 32, bottom: 0, left: 30, right: 30),
             ),
@@ -213,11 +191,11 @@ class _CiudadesState extends State<Ciudades> {
                     )),
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (context) =>HomePage(),
-                              ),
-                              );
+                    context,
+                    new MaterialPageRoute(
+                      builder: (context) => RootPage(auth: Auth(),)
+                    ),
+                  );
                 },
               ),
             ),

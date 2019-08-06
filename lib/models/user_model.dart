@@ -5,10 +5,10 @@ class Usuario {
   String uid;
   String foto;
   String nombre;
-  String ciudad;
   String email;
   String password;
   String telefono;
-  String direccion; 
+  String direccion;
+  String ciudad; 
   
 }

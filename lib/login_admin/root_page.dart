@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/login_admin/menu_page.dart';
 import 'package:seemur_v1/login_admin/sliders_page.dart';
+import 'package:seemur_v1/screens/home.dart';
 
 class RootPage extends StatefulWidget {
 
@@ -52,7 +53,8 @@ class _RootPageState extends State<RootPage> {
       return IntroScreen(auth: widget.auth,onSignIn: _signIn,);
       break;
       case AuthStatus.signIn:
-        return MenuPage( auth: widget.auth,onSignedOut: _signOut,);//menu_page.dart
+        return 
+        MenuPage( auth: widget.auth,onSignedOut: _signOut,);//menu_page.dart
         break;
     }
 
