@@ -6,6 +6,9 @@ import 'package:seemur_v1/login_admin/root_page.dart';
 import 'package:seemur_v1/screens/onboard.dart';
 
 
+class CommonThings {
+  static Size size; //size screen
+}
 class Ciudades extends StatefulWidget {
   @override
   _CiudadesState createState() => new _CiudadesState();
@@ -27,6 +30,7 @@ class _CiudadesState extends State<Ciudades> {
 
   @override
   Widget build(BuildContext context) {
+    CommonThings.size = MediaQuery.of(context).size;
     return new Scaffold(
       //appBar: AppBar(),
       body: new Container(

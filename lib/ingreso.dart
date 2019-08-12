@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:seemur_v1/components/widgets/client_page.dart';
+
+import 'package:seemur_v1/components/widgets/leading_page.dart';
 import 'package:seemur_v1/screens/admin/show_client.dart';
 
 
@@ -52,6 +53,6 @@ class Ingreso extends StatelessWidget {
   }
 
   Center userPage(DocumentSnapshot snapshot) {
-    return Center(child: ClientPage());
+    return Center(child: LeadingPage());
   }
 }

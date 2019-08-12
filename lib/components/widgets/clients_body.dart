@@ -21,7 +21,7 @@ class _ClientBodyState extends State<ClientBody> {
     setState(() {
       Auth().currentUser().then((onValue) {
         userID = onValue;
-        print('el futuro Cheft $userID');
+        print(' $userID');
       });
     });
   }

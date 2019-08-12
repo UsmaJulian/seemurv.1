@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:seemur_v1/screens/admin/add_client.dart';
 import 'package:seemur_v1/screens/descubrir.dart';
 import 'package:seemur_v1/screens/home.dart';
 import 'package:seemur_v1/screens/user/perfil.dart';
@@ -47,33 +48,33 @@ class _NavigatorBarState extends State<NavigatorBar> {
                     ))
               ],
             ),
-            Column(
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    FontAwesomeIcons.compass,
-                    color: Color(0xff3d3d3d),
-                    size: 34,
-                  ),
-                  iconSize: 34,
-                  color: Colors.black,
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return Descubrir();
-                    }));
-                  },
-                ),
-                Text("Descubrir",
-                    style: TextStyle(
-                      fontFamily: 'HankenGrotesk',
-                      color: Color(0xff3d3d3d),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      fontStyle: FontStyle.normal,
-                    ))
-              ],
-            ),
+            // Column(
+            //   children: <Widget>[
+            //     IconButton(
+            //       icon: Icon(
+            //         FontAwesomeIcons.compass,
+            //         color: Color(0xff3d3d3d),
+            //         size: 34,
+            //       ),
+            //       iconSize: 34,
+            //       color: Colors.black,
+            //       onPressed: () {
+            //         Navigator.of(context).push(
+            //             MaterialPageRoute(builder: (BuildContext context) {
+            //           return Descubrir();
+            //         }));
+            //       },
+            //     ),
+            //     Text("Descubrir",
+            //         style: TextStyle(
+            //           fontFamily: 'HankenGrotesk',
+            //           color: Color(0xff3d3d3d),
+            //           fontSize: 12,
+            //           fontWeight: FontWeight.w500,
+            //           fontStyle: FontStyle.normal,
+            //         ))
+            //   ],
+            // ),
             Column(
               children: <Widget>[
                 IconButton(
@@ -83,7 +84,8 @@ class _NavigatorBarState extends State<NavigatorBar> {
                   onPressed: () {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (BuildContext context) {
-                      return PerfilPage();
+                      return  PerfilPage();
+                      //return ClientAddPage ();
                     }));
                   },
                 ),

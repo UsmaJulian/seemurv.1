@@ -1,16 +1,17 @@
-import 'package:seemur_v1/components/widgets/client_page.dart';
+
+import 'package:seemur_v1/components/widgets/leading_page.dart';
 import 'package:seemur_v1/screens/admin/show_client.dart';
 
 abstract class Content {
-  Future<ClientPage> lista();
+  Future<LeadingPage> lista();
   //Future<ListPersonalClient> personalclient(String id);
   //  Future<MapsPage> mapa();
   Future<ShowClientPage> admin();
 }
 
 class ContentPage implements Content {
-  Future<ClientPage> lista() async {
-    return ClientPage();
+  Future<LeadingPage> lista() async {
+    return LeadingPage();
   }
 
   //  Future<MapsPage> mapa() async {

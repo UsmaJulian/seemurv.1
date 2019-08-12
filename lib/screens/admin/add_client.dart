@@ -35,6 +35,17 @@ class _ClientAddPageState extends State<ClientAddPage> {
   TextEditingController taskpriceInputController;
   TextEditingController taskphoneInputController;
   TextEditingController tasktimeInputController;
+  TextEditingController taskhomeserviceInputController;
+  TextEditingController taskfoodsInputController;
+  TextEditingController taskpaymentInputController;
+  TextEditingController taskservicesInputController;
+  TextEditingController taskplansInputController;
+  TextEditingController taskfeaturesInputController;
+  TextEditingController taskenvironmentsInputController;
+  TextEditingController tasktagsInputController;
+  TextEditingController taskoutfitInputController;
+  TextEditingController taskrecommendeddishesInputController;
+  TextEditingController taskfeaturedimagesInputController;
 
   String id;
   final db = Firestore.instance;
@@ -47,6 +58,17 @@ class _ClientAddPageState extends State<ClientAddPage> {
   String taskprice;
   String tasktime;
   String taskclientimage;
+  String taskhomeservice;
+  List taskfoods;
+  String taskpayment;
+  List taskservices;
+  List taskplans;
+  List taskfeatures;
+  List taskenvironments;
+  List tasktags;
+  String taskoutfit;
+  List taskrecommendeddishes;
+  List taskfeaturedimages;
 
   //we create a method to obtain the image from the camera or the gallery
 
@@ -137,6 +159,17 @@ class _ClientAddPageState extends State<ClientAddPage> {
               .child('taskprice')
               .child('tasktime')
               .child('taskdescription')
+              .child('taskhomeservice')
+              .child('taskfoods')
+              .child('taskpayment')
+              .child('taskservices')
+              .child('taskplans')
+              .child('taskfeatures')
+              .child('taskenvironments')
+              .child('tasktags')
+              .child('taskoutfit')
+              .child('taskrecommededdishes')
+              .child('taskfeaturedimages')
               .child('$taskclientimage.jpg');
           final StorageUploadTask task = fireStoreRef.putFile(
               _foto, StorageMetadata(contentType: 'image/jpeg'));
@@ -157,6 +190,17 @@ class _ClientAddPageState extends State<ClientAddPage> {
                       'taskphone': taskphone,
                       'taskprice': taskprice,
                       'tasktime': tasktime,
+                      'taskhomeservice': taskhomeservice,
+                      'taskfoods': taskfoods,
+                      'taskpayment': taskpayment,
+                      'taskservices': taskservices,
+                      'taskplans': taskplans,
+                      'taskfeatures': taskfeatures,
+                      'taskenvironments': taskenvironments,
+                      'tasktags': tasktags,
+                      'taskoutfit': taskoutfit,
+                      'taskrecommendeddishes': taskrecommendeddishes,
+                      'tasfeaturedimages': taskfeaturedimages,
                     })
                     .then((value) => Navigator.of(context).pop())
                     .catchError((onError) =>
@@ -178,6 +222,17 @@ class _ClientAddPageState extends State<ClientAddPage> {
                 'taskphone': taskphone,
                 'taskprice': taskprice,
                 'tasktime': tasktime,
+                'taskhomeservice': taskhomeservice,
+                'taskfoods': taskfoods,
+                'taskpayment': taskpayment,
+                'taskservices': taskservices,
+                'taskplans': taskplans,
+                'taskfeatures': taskfeatures,
+                'taskenvironments': taskenvironments,
+                'tasktags': tasktags,
+                'taskoutfit': taskoutfit,
+                'taskrecommendeddishes': taskrecommendeddishes,
+                'tasfeaturedimages': taskfeaturedimages,
               })
               .then((value) => Navigator.of(context).pop())
               .catchError(
@@ -344,11 +399,218 @@ class _ClientAddPageState extends State<ClientAddPage> {
                       onSaved: (value) => tasktime = value,
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      maxLines: 1, //numero de lineas aceptadas
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Domicilio',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some value';
+                        }
+                      },
+                      onSaved: (value) => taskhomeservice = value,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      maxLines: 1, //numero de lineas aceptadas
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Tipo de comida',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some food';
+                        }
+                      },
+                      onSaved: (value) => taskfoods = value.split(','),
+                      // onSaved: (value) => taskfoods = ['comida1','comida2'],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      maxLines: 1, //numero de lineas aceptadas
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Forma de pago',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some type';
+                        }
+                      },
+                      onSaved: (value) => taskpayment = value,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      maxLines: 1, //numero de lineas aceptadas
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Servicios',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some services';
+                        }
+                      },
+                      onSaved: (value) => taskservices = value.split(','),
+                      // onSaved: (value) => taskfoods = ['comida1','comida2'],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      maxLines: 1, //numero de lineas aceptadas
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Plan',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some plan';
+                        }
+                      },
+                      onSaved: (value) => taskplans = value.split(','),
+                      // onSaved: (value) => taskfoods = ['comida1','comida2'],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      maxLines: 1, //numero de lineas aceptadas
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Características',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some features';
+                        }
+                      },
+                      onSaved: (value) => taskfeatures = value.split(','),
+                      // onSaved: (value) => taskfoods = ['comida1','comida2'],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      maxLines: 1, //numero de lineas aceptadas
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Ambiente',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some environment';
+                        }
+                      },
+                      onSaved: (value) => taskenvironments = value.split(','),
+                      // onSaved: (value) => taskfoods = ['comida1','comida2'],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      maxLines: 1, //numero de lineas aceptadas
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Etiquetas',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some tags';
+                        }
+                      },
+                      onSaved: (value) => tasktags = value.split(','),
+                      // onSaved: (value) => taskfoods = ['comida1','comida2'],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      maxLines: 1, //numero de lineas aceptadas
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Tipo de vestuario',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some outfit';
+                        }
+                      },
+                      onSaved: (value) => taskoutfit = value,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      maxLines: 1, //numero de lineas aceptadas
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Platos recomendados',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some dishes';
+                        }
+                      },
+                      onSaved: (value) => taskrecommendeddishes = value.split(','),
+                      // onSaved: (value) => taskfoods = ['comida1','comida2'],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextFormField(
+                      maxLines: 1, //numero de lineas aceptadas
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Imagenes destacadas ',
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some images';
+                        }
+                      },
+                      onSaved: (value) => taskfeaturedimages = ['assets/images/seemurIsotipo.png','assets/images/seemurIsotipo.png','assets/images/seemurIsotipo.png'],
+                      // onSaved: (value) => taskfoods = ['comida1','comida2'],
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       RaisedButton(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0)),
                         onPressed: _enviar,
                         child: Text('Crear',
                             style: TextStyle(color: Colors.white)),
