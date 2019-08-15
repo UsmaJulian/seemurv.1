@@ -2,12 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
+import 'package:seemur_v1/components/widgets/searchbar.dart';
 //import 'package:seemur_v1/components/widgets/searchbar.dart';
 
 class HomePage extends StatefulWidget {
-HomePage({this.auth});
-final BaseAuth auth;  
-@override
+  HomePage({this.auth});
+  final BaseAuth auth;
+  @override
   _HomePageState createState() => _HomePageState();
 }
 
@@ -18,8 +19,8 @@ class _HomePageState extends State<HomePage> {
   final formKey = GlobalKey<FormState>();
   String _itemCiudad;
   List<DropdownMenuItem<String>> _ciudadItems;
-  
-    @override
+
+  @override
   void initState() {
     super.initState();
     widget.auth.infoUser().then((onValue) {
@@ -33,7 +34,6 @@ class _HomePageState extends State<HomePage> {
       });
     });
   }
-
 
   getData() async {
     return await Firestore.instance.collection('ciudades').getDocuments();
@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
     return items;
   }
 
-  Container Explorar(String imageVal, String planname, String cantporplan) {
+  explorar(String imageVal, String planname, String cantporplan) {
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(top: 66.0),
+                        padding: const EdgeInsets.only(left: 24.0, top: 36.0),
                         child: Row(
                           children: <Widget>[
                             Text(
@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 240),
+                        padding: const EdgeInsets.only(top:26,right: 240),
                         child: SizedBox(
                           width: 100,
                           child: DropdownButtonFormField(
@@ -167,6 +167,14 @@ class _HomePageState extends State<HomePage> {
                             }, //seleccionarCiudadItem,
                             onSaved: (value) => _itemCiudad = value,
                           ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top:18.0),
+                        child: Column(
+                          children: <Widget>[
+                             SearchBar(),
+                          ],
                         ),
                       ),
                     ],
@@ -219,22 +227,22 @@ class _HomePageState extends State<HomePage> {
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: <Widget>[
-                                  Explorar("assets/images/eatOutIcon.png",
+                                  explorar("assets/images/eatOutIcon.png",
                                       "Comer", "25 Lugares"),
                                   SizedBox(
                                     width: 12.0,
                                   ),
-                                  Explorar("assets/images/partiyingIcon.png",
+                                  explorar("assets/images/partiyingIcon.png",
                                       "Festejar", "18 Lugares"),
                                   SizedBox(
                                     width: 12.0,
                                   ),
-                                  Explorar("assets/images/afternoonIcon.png",
+                                  explorar("assets/images/afternoonIcon.png",
                                       "Tardear", "9 Lugares"),
                                   SizedBox(
                                     width: 12.0,
                                   ),
-                                  Explorar("assets/images/restingIcon.png",
+                                  explorar("assets/images/restingIcon.png",
                                       "Descansar", "16 Lugares"),
                                 ],
                               ),
@@ -267,22 +275,22 @@ class _HomePageState extends State<HomePage> {
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: <Widget>[
-                                  Explorar("assets/images/eatOutIcon.png",
+                                  explorar("assets/images/eatOutIcon.png",
                                       "Comer", "25 Lugares"),
                                   SizedBox(
                                     width: 12.0,
                                   ),
-                                  Explorar("assets/images/partiyingIcon.png",
+                                  explorar("assets/images/partiyingIcon.png",
                                       "Festejar", "18 Lugares"),
                                   SizedBox(
                                     width: 12.0,
                                   ),
-                                  Explorar("assets/images/afternoonIcon.png",
+                                  explorar("assets/images/afternoonIcon.png",
                                       "Tardear", "9 Lugares"),
                                   SizedBox(
                                     width: 12.0,
                                   ),
-                                  Explorar("assets/images/restingIcon.png",
+                                  explorar("assets/images/restingIcon.png",
                                       "Descansar", "16 Lugares"),
                                 ],
                               ),
@@ -315,22 +323,22 @@ class _HomePageState extends State<HomePage> {
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: <Widget>[
-                                  Explorar("assets/images/eatOutIcon.png",
+                                  explorar("assets/images/eatOutIcon.png",
                                       "Comer", "25 Lugares"),
                                   SizedBox(
                                     width: 12.0,
                                   ),
-                                  Explorar("assets/images/partiyingIcon.png",
+                                  explorar("assets/images/partiyingIcon.png",
                                       "Festejar", "18 Lugares"),
                                   SizedBox(
                                     width: 12.0,
                                   ),
-                                  Explorar("assets/images/afternoonIcon.png",
+                                  explorar("assets/images/afternoonIcon.png",
                                       "Tardear", "9 Lugares"),
                                   SizedBox(
                                     width: 12.0,
                                   ),
-                                  Explorar("assets/images/restingIcon.png",
+                                  explorar("assets/images/restingIcon.png",
                                       "Descansar", "16 Lugares"),
                                 ],
                               ),
@@ -363,22 +371,22 @@ class _HomePageState extends State<HomePage> {
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: <Widget>[
-                                  Explorar("assets/images/eatOutIcon.png",
+                                  explorar("assets/images/eatOutIcon.png",
                                       "Comer", "25 Lugares"),
                                   SizedBox(
                                     width: 12.0,
                                   ),
-                                  Explorar("assets/images/partiyingIcon.png",
+                                  explorar("assets/images/partiyingIcon.png",
                                       "Festejar", "18 Lugares"),
                                   SizedBox(
                                     width: 12.0,
                                   ),
-                                  Explorar("assets/images/afternoonIcon.png",
+                                  explorar("assets/images/afternoonIcon.png",
                                       "Tardear", "9 Lugares"),
                                   SizedBox(
                                     width: 12.0,
                                   ),
-                                  Explorar("assets/images/restingIcon.png",
+                                  explorar("assets/images/restingIcon.png",
                                       "Descansar", "16 Lugares"),
                                 ],
                               ),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
@@ -5,14 +6,20 @@ import 'package:seemur_v1/login_admin/login_page.dart';
 import 'package:seemur_v1/login_admin/root_page.dart';
 import 'package:seemur_v1/screens/onboard.dart';
 
-
 class CommonThings {
   static Size size; //size screen
 }
+
 class Ciudades extends StatefulWidget {
+  Ciudades({this.auth, this.onSignIn, this.onSignOut});
+  final BaseAuth auth;
+  final VoidCallback onSignIn;
+  final VoidCallback onSignOut;
   @override
   _CiudadesState createState() => new _CiudadesState();
 }
+
+enum AuthStatus { notSignIn, signIn }
 
 class _CiudadesState extends State<Ciudades> {
   int _radioValue1 = -1;
@@ -197,8 +204,9 @@ class _CiudadesState extends State<Ciudades> {
                   Navigator.push(
                     context,
                     new MaterialPageRoute(
-                      builder: (context) => RootPage(auth: Auth(),)
-                    ),
+                        builder: (context) => RootPage(
+                              auth: Auth(),
+                            )),
                   );
                 },
               ),

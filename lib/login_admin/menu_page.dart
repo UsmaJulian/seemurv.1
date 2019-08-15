@@ -9,6 +9,7 @@ const PrimaryColor = const Color(0xFF19212B);
 
 class MenuPage extends StatefulWidget {
   MenuPage({this.auth, this.onSignedOut});
+  
   final BaseAuth auth;
   final VoidCallback onSignedOut;
   @override

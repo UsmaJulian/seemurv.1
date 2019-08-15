@@ -1,11 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:seemur_v1/auth/auth.dart';
+import 'package:seemur_v1/login_admin/checkrole.dart';
+import 'package:seemur_v1/models/user_model.dart';
 import 'package:seemur_v1/screens/admin/add_client.dart';
 import 'package:seemur_v1/screens/descubrir.dart';
 import 'package:seemur_v1/screens/home.dart';
 import 'package:seemur_v1/screens/user/perfil.dart';
 
 class NavigatorBar extends StatefulWidget {
+
+  final  usuario=Usuario;
   _NavigatorBarState createState() => _NavigatorBarState();
 }
 
@@ -84,7 +90,10 @@ class _NavigatorBarState extends State<NavigatorBar> {
                   onPressed: () {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (BuildContext context) {
-                      return  PerfilPage();
+                      return CheckRolePage(
+                        auth: Auth(),
+                      );
+
                       //return ClientAddPage ();
                     }));
                   },
