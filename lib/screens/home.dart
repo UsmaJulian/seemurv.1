@@ -70,51 +70,6 @@ class _HomePageState extends State<HomePage> {
     return items;
   }
 
-  explorar(String imageVal, String planname, String cantporplan) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Container(
-            width: 105,
-            height: 92,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: new BorderRadius.circular(16),
-                color: Color(0xff16202c),
-              ),
-              child: Center(
-                child: Wrap(
-                  children: <Widget>[
-                    Image.asset(imageVal),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Text(planname,
-              style: TextStyle(
-                fontFamily: 'HankenGrotesk',
-                color: Color(0xff000000),
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-                fontStyle: FontStyle.normal,
-                letterSpacing: -0.5,
-              )),
-          Text(cantporplan,
-              style: TextStyle(
-                fontFamily: 'OpenSans',
-                color: Color(0xff3d3d3d),
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                fontStyle: FontStyle.normal,
-                letterSpacing: 0.2000000029802322,
-              ))
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top:26,right: 240),
+                        padding: const EdgeInsets.only(top: 26, right: 240),
                         child: SizedBox(
                           width: 100,
                           child: DropdownButtonFormField(
@@ -170,10 +125,10 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top:18.0),
+                        padding: const EdgeInsets.only(top: 18.0),
                         child: Column(
                           children: <Widget>[
-                             SearchBar(),
+                            SearchBar(),
                           ],
                         ),
                       ),
@@ -183,10 +138,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.only(top:88.0),
-          //   child: Container(child: SearchBar()),
-          // ),
+
           Positioned(
             top: 233,
             left: 0,
@@ -227,23 +179,219 @@ class _HomePageState extends State<HomePage> {
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: <Widget>[
-                                  explorar("assets/images/eatOutIcon.png",
-                                      "Comer", "25 Lugares"),
+                                  Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        Container(
+                                          width: 105,
+                                          height: 92,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  new BorderRadius.circular(16),
+                                              color: Color(0xff16202c),
+                                            ),
+                                            child: Center(
+                                              child: Wrap(
+                                                children: <Widget>[
+                                                  FlatButton(
+                                                    child: Image.asset(
+                                                        'assets/images/eatOutIcon@3x.png',width:38 ,height:38 ,),
+                                                    onPressed: () {},
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Text('Comer',
+                                            style: TextStyle(
+                                              fontFamily: 'HankenGrotesk',
+                                              color: Color(0xff000000),
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w700,
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: -0.5,
+                                            )),
+                                        Text('25 lugares',
+                                            style: TextStyle(
+                                              fontFamily: 'OpenSans',
+                                              color: Color(0xff3d3d3d),
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.w400,
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: 0.2000000029802322,
+                                            ))
+                                      ],
+                                    ),
+                                  ),
                                   SizedBox(
                                     width: 12.0,
                                   ),
-                                  explorar("assets/images/partiyingIcon.png",
-                                      "Festejar", "18 Lugares"),
+                                  Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        Container(
+                                          width: 105,
+                                          height: 92,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  new BorderRadius.circular(16),
+                                              color: Color(0xff16202c),
+                                            ),
+                                            child: Center(
+                                              child: Wrap(
+                                                children: <Widget>[
+                                                  SizedBox(
+                                                    height: 92,
+                                                    width: 105,
+                                                    child: FlatButton(
+                                                      child: Image.asset(
+                                                          'partiyingIcon@3x.png'),
+                                                      onPressed: () {},
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Text('Festejar',
+                                            style: TextStyle(
+                                              fontFamily: 'HankenGrotesk',
+                                              color: Color(0xff000000),
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w700,
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: -0.5,
+                                            )),
+                                        Text('18 lugares',
+                                            style: TextStyle(
+                                              fontFamily: 'OpenSans',
+                                              color: Color(0xff3d3d3d),
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.w400,
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: 0.2000000029802322,
+                                            ))
+                                      ],
+                                    ),
+                                  ),
                                   SizedBox(
                                     width: 12.0,
                                   ),
-                                  explorar("assets/images/afternoonIcon.png",
-                                      "Tardear", "9 Lugares"),
+                                  Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        Container(
+                                          width: 105,
+                                          height: 92,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  new BorderRadius.circular(16),
+                                              color: Color(0xff16202c),
+                                            ),
+                                            child: Center(
+                                              child: Wrap(
+                                                children: <Widget>[
+                                                  SizedBox(
+                                                    height: 92,
+                                                    width: 105,
+                                                    child: FlatButton(
+                                                      child: Image.asset(
+                                                          'afternoonIcon@3x.png'),
+                                                      onPressed: () {},
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Text('Tardear',
+                                            style: TextStyle(
+                                              fontFamily: 'HankenGrotesk',
+                                              color: Color(0xff000000),
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w700,
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: -0.5,
+                                            )),
+                                        Text('9 lugares',
+                                            style: TextStyle(
+                                              fontFamily: 'OpenSans',
+                                              color: Color(0xff3d3d3d),
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.w400,
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: 0.2000000029802322,
+                                            ))
+                                      ],
+                                    ),
+                                  ),
                                   SizedBox(
                                     width: 12.0,
                                   ),
-                                  explorar("assets/images/restingIcon.png",
-                                      "Descansar", "16 Lugares"),
+                                  Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        Container(
+                                          width: 105,
+                                          height: 92,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  new BorderRadius.circular(16),
+                                              color: Color(0xff16202c),
+                                            ),
+                                            child: Center(
+                                              child: Wrap(
+                                                children: <Widget>[
+                                                  SizedBox(
+                                                    height: 92,
+                                                    width: 105,
+                                                    child: FlatButton(
+                                                      child: Image.asset(
+                                                          'restingIcon@3x.png'),
+                                                      onPressed: () {},
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Text('Descansar',
+                                            style: TextStyle(
+                                              fontFamily: 'HankenGrotesk',
+                                              color: Color(0xff000000),
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w700,
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: -0.5,
+                                            )),
+                                        Text('16 lugares',
+                                            style: TextStyle(
+                                              fontFamily: 'OpenSans',
+                                              color: Color(0xff3d3d3d),
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.w400,
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: 0.2000000029802322,
+                                            ))
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -275,23 +423,23 @@ class _HomePageState extends State<HomePage> {
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: <Widget>[
-                                  explorar("assets/images/eatOutIcon.png",
-                                      "Comer", "25 Lugares"),
-                                  SizedBox(
-                                    width: 12.0,
-                                  ),
-                                  explorar("assets/images/partiyingIcon.png",
-                                      "Festejar", "18 Lugares"),
-                                  SizedBox(
-                                    width: 12.0,
-                                  ),
-                                  explorar("assets/images/afternoonIcon.png",
-                                      "Tardear", "9 Lugares"),
-                                  SizedBox(
-                                    width: 12.0,
-                                  ),
-                                  explorar("assets/images/restingIcon.png",
-                                      "Descansar", "16 Lugares"),
+                                  // explorar("assets/images/eatOutIcon.png",
+                                  //     "Comer", "25 Lugares"),
+                                  // SizedBox(
+                                  //   width: 12.0,
+                                  // ),
+                                  // explorar("assets/images/partiyingIcon.png",
+                                  //     "Festejar", "18 Lugares"),
+                                  // SizedBox(
+                                  //   width: 12.0,
+                                  // ),
+                                  // explorar("assets/images/afternoonIcon.png",
+                                  //     "Tardear", "9 Lugares"),
+                                  // SizedBox(
+                                  //   width: 12.0,
+                                  // ),
+                                  // explorar("assets/images/restingIcon.png",
+                                  //     "Descansar", "16 Lugares"),
                                 ],
                               ),
                             ),
@@ -323,23 +471,23 @@ class _HomePageState extends State<HomePage> {
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: <Widget>[
-                                  explorar("assets/images/eatOutIcon.png",
-                                      "Comer", "25 Lugares"),
-                                  SizedBox(
-                                    width: 12.0,
-                                  ),
-                                  explorar("assets/images/partiyingIcon.png",
-                                      "Festejar", "18 Lugares"),
-                                  SizedBox(
-                                    width: 12.0,
-                                  ),
-                                  explorar("assets/images/afternoonIcon.png",
-                                      "Tardear", "9 Lugares"),
-                                  SizedBox(
-                                    width: 12.0,
-                                  ),
-                                  explorar("assets/images/restingIcon.png",
-                                      "Descansar", "16 Lugares"),
+                                  // explorar("assets/images/eatOutIcon.png",
+                                  //     "Comer", "25 Lugares"),
+                                  // SizedBox(
+                                  //   width: 12.0,
+                                  // ),
+                                  // explorar("assets/images/partiyingIcon.png",
+                                  //     "Festejar", "18 Lugares"),
+                                  // SizedBox(
+                                  //   width: 12.0,
+                                  // ),
+                                  // explorar("assets/images/afternoonIcon.png",
+                                  //     "Tardear", "9 Lugares"),
+                                  // SizedBox(
+                                  //   width: 12.0,
+                                  // ),
+                                  // explorar("assets/images/restingIcon.png",
+                                  //     "Descansar", "16 Lugares"),
                                 ],
                               ),
                             ),
@@ -371,23 +519,23 @@ class _HomePageState extends State<HomePage> {
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: <Widget>[
-                                  explorar("assets/images/eatOutIcon.png",
-                                      "Comer", "25 Lugares"),
-                                  SizedBox(
-                                    width: 12.0,
-                                  ),
-                                  explorar("assets/images/partiyingIcon.png",
-                                      "Festejar", "18 Lugares"),
-                                  SizedBox(
-                                    width: 12.0,
-                                  ),
-                                  explorar("assets/images/afternoonIcon.png",
-                                      "Tardear", "9 Lugares"),
-                                  SizedBox(
-                                    width: 12.0,
-                                  ),
-                                  explorar("assets/images/restingIcon.png",
-                                      "Descansar", "16 Lugares"),
+                                  // explorar("assets/images/eatOutIcon.png",
+                                  //     "Comer", "25 Lugares"),
+                                  // SizedBox(
+                                  //   width: 12.0,
+                                  // ),
+                                  // explorar("assets/images/partiyingIcon.png",
+                                  //     "Festejar", "18 Lugares"),
+                                  // SizedBox(
+                                  //   width: 12.0,
+                                  // ),
+                                  // explorar("assets/images/afternoonIcon.png",
+                                  //     "Tardear", "9 Lugares"),
+                                  // SizedBox(
+                                  //   width: 12.0,
+                                  // ),
+                                  // explorar("assets/images/restingIcon.png",
+                                  //     "Descansar", "16 Lugares"),
                                 ],
                               ),
                             ),

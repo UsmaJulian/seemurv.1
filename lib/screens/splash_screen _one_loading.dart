@@ -5,6 +5,10 @@ import 'package:loading/loading.dart';
 import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
 import 'package:seemur_v1/auth/auth.dart';
 
+class CommonThings {
+  static Size size; //size screen
+}
+
 class SplashScreenOneLoading extends StatefulWidget {
   SplashScreenOneLoading({this.auth,this.onSignIn});
   final BaseAuth auth;
@@ -25,6 +29,7 @@ class _SplashScreenOneLoadingState extends State<SplashScreenOneLoading> {
 
   @override
   Widget build(BuildContext context) {
+    CommonThings.size = MediaQuery.of(context).size;
     var assetsImageiso = AssetImage('assets/seemurIsotipo.png');
     var assetsImagelogo = AssetImage('assets/logoSombrero.png');
     var imageiso = Image(

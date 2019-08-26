@@ -57,6 +57,18 @@ flutter:
          - asset: fonts/HankenGrotesk-ExtraLight.ttf
          - asset: fonts/HankenGrotesk-Medium.ttf
          - asset: fonts/HankenGrotesk-SemiBold.ttf
+     - family: OpenSans
+       fonts:
+         - asset: fonts/OpenSans-Bold.ttf
+         - asset: fonts/OpenSans-BoldItalic.ttf
+         - asset: fonts/OpenSans-ExtraBold.ttf
+         - asset: fonts/OpenSans-ExtraBoldItalic.ttf
+         - asset: fonts/OpenSans-Italic.ttf
+         - asset: fonts/OpenSans-Light.ttf
+         - asset: fonts/OpenSans-LightItalic.ttf
+         - asset: fonts/OpenSans-Regular.ttf
+         - asset: fonts/OpenSans-SemiBold.ttf
+         - asset: fonts/OpenSans-SemiBoldItalic.ttf
 
 
   uses-material-design: true
