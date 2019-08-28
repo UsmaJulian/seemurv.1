@@ -651,11 +651,12 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) =>
-                                new TerminosCondicionesPage()));
+                    // Navigator.push(
+                    //     context,
+                    //     new MaterialPageRoute(
+                    //         builder: (context) =>
+                    //             new TerminosCondicionesPage())
+                    //             );
                   },
                 ),
               ),

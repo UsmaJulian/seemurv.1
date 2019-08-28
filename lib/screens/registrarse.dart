@@ -183,7 +183,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ],
                         ),
                         onPressed: () {
-                          Navigator.push(context,new MaterialPageRoute(builder: (context)=>new TerminosCondicionesPage ()));
+                         
                         },
                       ),
                     ),

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:seemur_v1/models/user_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -19,12 +20,17 @@ abstract class BaseAuth {
 }
 final LocalStorage storage = new LocalStorage('userdata');
 
+
 class Auth implements BaseAuth {
+  
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Future<String> signInEmailPassword(String email, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     FirebaseUser user = await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
+        storage.setItem('userdata',user.uid);
+       await prefs.setString('userdata', user.uid);
     return user.uid;
   }
 
@@ -73,6 +79,7 @@ class Auth implements BaseAuth {
     String userId = user != null ? user.uid : 'No se pudo recuperar el usuario';
     print('recuperando usuario + $userId');
     storage.setItem('userdata',user.uid);
+   
     return user;
   }
 
@@ -80,7 +87,7 @@ class Auth implements BaseAuth {
     FirebaseUser user = await _firebaseAuth.currentUser();
     print(user.uid);
     String userId = user != null ? user.uid : 'No se pudo recuperar el usuario';
-    //print('recuperando usuario + $userId');
+    print('recuperando usuario + $userId');
     return userId;
   }
 

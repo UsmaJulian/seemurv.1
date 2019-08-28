@@ -1,22 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
-import 'package:seemur_v1/screens/subcatscreens/bares.dart';
-import 'package:seemur_v1/screens/subcatscreens/gastropubs.dart';
+import 'package:seemur_v1/screens/subcatscreens/chalets.dart';
+import 'package:seemur_v1/screens/subcatscreens/hospedajes.dart';
+import 'package:seemur_v1/screens/subcatscreens/hostales.dart';
 import 'package:seemur_v1/screens/subcatscreens/hoteles.dart';
-import 'package:seemur_v1/screens/subcatscreens/restaurantes.dart';
 
 class CommonThings {
   static Size size; //size screen
 }
 
-class ComerPage extends StatefulWidget {
+class DescansarPage extends StatefulWidget {
   //ComerPage({Key key}) : super(key: key);
 
-  _ComerPageState createState() => _ComerPageState();
+  _DescansarPageState createState() => _DescansarPageState();
 }
 
-class _ComerPageState extends State<ComerPage> {
+class _DescansarPageState extends State<DescansarPage> {
   @override
   Widget build(BuildContext context) {
     CommonThings.size = MediaQuery.of(context).size;
@@ -30,7 +30,7 @@ class _ComerPageState extends State<ComerPage> {
           title: Padding(
             padding: const EdgeInsets.only(top: 30.0),
             child: Text(
-              'Comer',
+              'Descansar',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
           ),
@@ -95,7 +95,7 @@ class _ComerPageState extends State<ComerPage> {
                                             children: <Widget>[
                                               FlatButton(
                                                 child: Image.asset(
-                                                  'assets/images/restaurantsIcon@3x.png',
+                                                  'assets/images/hotelIcon@3x.png',
                                                   width: 38,
                                                   height: 38,
                                                 ),
@@ -103,7 +103,7 @@ class _ComerPageState extends State<ComerPage> {
                                                   Navigator.of(context).push(
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              RestaurantesPage()));
+                                                              HotelesPage()));
                                                 },
                                               ),
                                             ],
@@ -111,7 +111,7 @@ class _ComerPageState extends State<ComerPage> {
                                         ),
                                       ),
                                     ),
-                                    Text('Restaurantes',
+                                    Text('Hoteles',
                                         style: TextStyle(
                                           fontFamily: 'HankenGrotesk',
                                           color: Color(0xff000000),
@@ -157,7 +157,7 @@ class _ComerPageState extends State<ComerPage> {
                                                 width: 105,
                                                 child: FlatButton(
                                                   child: Image.asset(
-                                                    'assets/images/gastroPubIcon@3x.png',
+                                                    'assets/images/hostelIcon@3x.png',
                                                     width: 38,
                                                     height: 38,
                                                   ),
@@ -165,7 +165,7 @@ class _ComerPageState extends State<ComerPage> {
                                                     Navigator.of(context).push(
                                                         MaterialPageRoute(
                                                             builder: (context) =>
-                                                                GastroPubsPage()));
+                                                                HostalesPage()));
                                                   },
                                                 ),
                                               )
@@ -174,7 +174,7 @@ class _ComerPageState extends State<ComerPage> {
                                         ),
                                       ),
                                     ),
-                                    Text('GastroPubs',
+                                    Text('Hostales',
                                         style: TextStyle(
                                           fontFamily: 'HankenGrotesk',
                                           color: Color(0xff000000),
@@ -220,7 +220,7 @@ class _ComerPageState extends State<ComerPage> {
                                                 width: 105,
                                                 child: FlatButton(
                                                   child: Image.asset(
-                                                    'assets/images/barIcon@3x.png',
+                                                    'assets/images/innIcon@3x.png',
                                                     width: 38,
                                                     height: 38,
                                                   ),
@@ -228,7 +228,7 @@ class _ComerPageState extends State<ComerPage> {
                                                     Navigator.of(context).push(
                                                         MaterialPageRoute(
                                                             builder: (context) =>
-                                                                BaresPage()));
+                                                                HospedajesPage()));
                                                   },
                                                 ),
                                               )
@@ -237,7 +237,7 @@ class _ComerPageState extends State<ComerPage> {
                                         ),
                                       ),
                                     ),
-                                    Text('Bares',
+                                    Text('Hospedajes',
                                         style: TextStyle(
                                           fontFamily: 'HankenGrotesk',
                                           color: Color(0xff000000),
@@ -283,7 +283,7 @@ class _ComerPageState extends State<ComerPage> {
                                                 width: 105,
                                                 child: FlatButton(
                                                   child: Image.asset(
-                                                    'assets/images/hotelIcon@3x.png',
+                                                    'assets/images/chaletIcon@3x.png',
                                                     width: 38,
                                                     height: 38,
                                                   ),
@@ -291,7 +291,7 @@ class _ComerPageState extends State<ComerPage> {
                                                     Navigator.of(context).push(
                                                         MaterialPageRoute(
                                                             builder: (context) =>
-                                                                HotelesPage()));
+                                                                ChaletsPage()));
                                                   },
                                                 ),
                                               )
@@ -300,7 +300,7 @@ class _ComerPageState extends State<ComerPage> {
                                         ),
                                       ),
                                     ),
-                                    Text('Hoteles',
+                                    Text('Chalets',
                                         style: TextStyle(
                                           fontFamily: 'HankenGrotesk',
                                           color: Color(0xff000000),

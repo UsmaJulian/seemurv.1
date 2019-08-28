@@ -3,8 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/components/widgets/searchbar.dart';
+import 'package:seemur_v1/screens/comer.dart';
+import 'package:seemur_v1/screens/descansar.dart';
+import 'package:seemur_v1/screens/festejar.dart';
+import 'package:seemur_v1/screens/tardear.dart';
 //import 'package:seemur_v1/components/widgets/searchbar.dart';
 
+class CommonThings {
+  static Size size; //size screen
+}
 class HomePage extends StatefulWidget {
   HomePage({this.auth});
   final BaseAuth auth;
@@ -29,6 +36,7 @@ class _HomePageState extends State<HomePage> {
         usuarioEmail = onValue.email;
         id = onValue.uid;
         print('ID $id');
+        
         _ciudadItems = getCiudadItems();
         _itemCiudad = _ciudadItems[0].value;
       });
@@ -72,6 +80,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    CommonThings.size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(children: <Widget>[
@@ -138,7 +147,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-
           Positioned(
             top: 233,
             left: 0,
@@ -190,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                                           child: Container(
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                                  new BorderRadius.circular(16),
+                                                  new BorderRadius.circular(6),
                                               color: Color(0xff16202c),
                                             ),
                                             child: Center(
@@ -199,7 +207,9 @@ class _HomePageState extends State<HomePage> {
                                                   FlatButton(
                                                     child: Image.asset(
                                                         'assets/images/eatOutIcon@3x.png',width:38 ,height:38 ,),
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ComerPage())) ;
+                                                    },
                                                   ),
                                                 ],
                                               ),
@@ -252,8 +262,10 @@ class _HomePageState extends State<HomePage> {
                                                     width: 105,
                                                     child: FlatButton(
                                                       child: Image.asset(
-                                                          'partiyingIcon@3x.png'),
-                                                      onPressed: () {},
+                                                        'assets/images/partiyingIcon@3x.png',width:38 ,height:38 ,),
+                                                    onPressed: () {
+                                                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>FestejarPage())) ;
+                                                    }
                                                     ),
                                                   )
                                                 ],
@@ -307,8 +319,10 @@ class _HomePageState extends State<HomePage> {
                                                     width: 105,
                                                     child: FlatButton(
                                                       child: Image.asset(
-                                                          'afternoonIcon@3x.png'),
-                                                      onPressed: () {},
+                                                        'assets/images/afternoonIcon@3x.png',width:38 ,height:38 ,),
+                                                    onPressed: () {
+                                                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>TardearPage())) ;
+                                                    }
                                                     ),
                                                   )
                                                 ],
@@ -362,8 +376,10 @@ class _HomePageState extends State<HomePage> {
                                                     width: 105,
                                                     child: FlatButton(
                                                       child: Image.asset(
-                                                          'restingIcon@3x.png'),
-                                                      onPressed: () {},
+                                                        'assets/images/restingIcon@3x.png',width:38 ,height:38 ,),
+                                                    onPressed: () {
+                                                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>DescansarPage())) ;
+                                                    }
                                                     ),
                                                   )
                                                 ],
