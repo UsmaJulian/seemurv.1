@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/components/widgets/searchbar.dart';
@@ -12,6 +13,7 @@ import 'package:seemur_v1/screens/tardear.dart';
 class CommonThings {
   static Size size; //size screen
 }
+final LocalStorage storage = new LocalStorage('userdata');
 class HomePage extends StatefulWidget {
   HomePage({this.auth});
   final BaseAuth auth;
