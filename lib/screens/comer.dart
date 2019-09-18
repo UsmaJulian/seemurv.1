@@ -52,7 +52,7 @@ class _ComerPageState extends State<ComerPage> {
               child: Column(
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(top: 48.0, left: 24, right: 195.0),
+                    padding: EdgeInsets.only(top: 48.0, left: 0, right: 125.0),
                     child: Text('Sugerencias para ti',
                         style: TextStyle(
                           fontFamily: 'HankenGrotesk',

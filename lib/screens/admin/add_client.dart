@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:seemur_v1/auth/auth.dart';
+import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/login_admin/login_page.dart';
 
 class CommonThings {
@@ -14,13 +16,30 @@ class CommonThings {
 
 class ClientAddPage extends StatefulWidget {
   final String id;
-  const ClientAddPage({this.id});
+  const ClientAddPage({this.id, this.user, this.auth});
+  final FirebaseUser user;
+  final BaseAuth auth;
   @override
   _ClientAddPageState createState() => _ClientAddPageState();
 }
 
 class _ClientAddPageState extends State<ClientAddPage> {
+  String usuario = 'Usuario'; //user
+  String usuarioEmail = 'Email'; //userEmail
+
   //we declare the variables
+  @override
+  void initState() {
+    super.initState();
+    widget.auth.infoUser().then((onValue) {
+      setState(() {
+        usuario = onValue.displayName;
+        usuarioEmail = onValue.email;
+        id = onValue.uid;
+        print('ID $id');
+      });
+    });
+  }
 
   File _foto;
   String urlFoto;
@@ -46,6 +65,9 @@ class _ClientAddPageState extends State<ClientAddPage> {
   TextEditingController taskoutfitInputController;
   TextEditingController taskrecommendeddishesInputController;
   TextEditingController taskfeaturedimagesInputController;
+  TextEditingController taskfeaturedratingInputController;
+  TextEditingController taskfeaturedratingcountInputController;
+  TextEditingController taskfeaturedtotalratingInputController;
 
   String id;
   final db = Firestore.instance;
@@ -69,6 +91,9 @@ class _ClientAddPageState extends State<ClientAddPage> {
   String taskoutfit;
   List taskrecommendeddishes;
   List taskfeaturedimages;
+  String rating;
+  String ratingcount;
+  String totalrating;
 
   //we create a method to obtain the image from the camera or the gallery
 
@@ -170,6 +195,9 @@ class _ClientAddPageState extends State<ClientAddPage> {
               .child('taskoutfit')
               .child('taskrecommededdishes')
               .child('taskfeaturedimages')
+              .child('rating')
+              .child('ratingcount')
+              .child('totalrating')
               .child('$taskclientimage.jpg');
           final StorageUploadTask task = fireStoreRef.putFile(
               _foto, StorageMetadata(contentType: 'image/jpeg'));
@@ -201,6 +229,9 @@ class _ClientAddPageState extends State<ClientAddPage> {
                       'taskoutfit': taskoutfit,
                       'taskrecommendeddishes': taskrecommendeddishes,
                       'tasfeaturedimages': taskfeaturedimages,
+                      'rating': rating,
+                      'ratingcount': ratingcount,
+                      'totalrating': totalrating,
                     })
                     .then((value) => Navigator.of(context).pop())
                     .catchError((onError) =>
@@ -233,6 +264,9 @@ class _ClientAddPageState extends State<ClientAddPage> {
                 'taskoutfit': taskoutfit,
                 'taskrecommendeddishes': taskrecommendeddishes,
                 'tasfeaturedimages': taskfeaturedimages,
+                'rating': rating,
+                'ratingcount': ratingcount,
+                'totalrating': totalrating,
               })
               .then((value) => Navigator.of(context).pop())
               .catchError(
@@ -254,374 +288,399 @@ class _ClientAddPageState extends State<ClientAddPage> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Add Client'),
+          backgroundColor: Color.fromRGBO(22, 32, 44, 1),
+          title: Text('Agregar cliente'),
         ),
-        body: ModalProgressHUD(
-          inAsyncCall: _isInAsyncCall,
-          opacity: 0.5,
-          dismissible: false,
-          progressIndicator: CircularProgressIndicator(),
-          color: Colors.blueGrey,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.only(left: 10, right: 15),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  Row(
+        body: Stack(
+          children: <Widget>[
+            ModalProgressHUD(
+              inAsyncCall: _isInAsyncCall,
+              opacity: 0.5,
+              dismissible: false,
+              progressIndicator: CircularProgressIndicator(),
+              color: Colors.blueGrey,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.only(left: 10, right: 15),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
                     children: <Widget>[
-                      Container(
-                        child: GestureDetector(
-                          onTap: getImage,
+                      Row(
+                        children: <Widget>[
+                          Container(
+                            child: GestureDetector(
+                              onTap: getImage,
+                            ),
+                            margin: EdgeInsets.only(top: 20),
+                            height: 120,
+                            width: 120,
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 1.0, color: Colors.black),
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: _foto == null
+                                        ? AssetImage('assets/images/azucar.gif')
+                                        : FileImage(_foto))),
+                          )
+                        ],
+                      ),
+                      Text('click para cambiar foto'),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Nombre',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                          },
+                          onSaved: (value) => taskname = value.trim(),
                         ),
-                        margin: EdgeInsets.only(top: 20),
-                        height: 120,
-                        width: 120,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 1.0, color: Colors.black),
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: _foto == null
-                                    ? AssetImage('assets/images/azucar.gif')
-                                    : FileImage(_foto))),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          maxLines: 4, //numero de lineas aceptadas
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Descripción',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some description';
+                            }
+                          },
+                          onSaved: (value) => taskdescription = value,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          maxLines: 1, //numero de lineas aceptadas
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Ubicación',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some location';
+                            }
+                          },
+                          onSaved: (value) => tasklocation = value,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          maxLines: 1, //numero de lineas aceptadas
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Telefono',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some phone';
+                            }
+                          },
+                          onSaved: (value) => taskphone = value,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          maxLines: 1, //numero de lineas aceptadas
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Precio',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some price';
+                            }
+                          },
+                          onSaved: (value) => taskprice = value,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          maxLines: 1, //numero de lineas aceptadas
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Horario',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some time';
+                            }
+                          },
+                          onSaved: (value) => tasktime = value,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          maxLines: 1, //numero de lineas aceptadas
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Domicilio',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some value';
+                            }
+                          },
+                          onSaved: (value) => taskhomeservice = value,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          maxLines: 1, //numero de lineas aceptadas
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Tipo de comida',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some food';
+                            }
+                          },
+                          onSaved: (value) => taskfoods = value.split(','),
+                          // onSaved: (value) => taskfoods = ['comida1','comida2'],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          maxLines: 1, //numero de lineas aceptadas
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Forma de pago',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some type';
+                            }
+                          },
+                          onSaved: (value) => taskpayment = value,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          maxLines: 1, //numero de lineas aceptadas
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Servicios',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some services';
+                            }
+                          },
+                          onSaved: (value) => taskservices = value.split(','),
+                          // onSaved: (value) => taskfoods = ['comida1','comida2'],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          maxLines: 1, //numero de lineas aceptadas
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Plan',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some plan';
+                            }
+                          },
+                          onSaved: (value) => taskplans = value.split(','),
+                          // onSaved: (value) => taskfoods = ['comida1','comida2'],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          maxLines: 1, //numero de lineas aceptadas
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Características',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some features';
+                            }
+                          },
+                          onSaved: (value) => taskfeatures = value.split(','),
+                          // onSaved: (value) => taskfoods = ['comida1','comida2'],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          maxLines: 1, //numero de lineas aceptadas
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Ambiente',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some environment';
+                            }
+                          },
+                          onSaved: (value) =>
+                              taskenvironments = value.split(','),
+                          // onSaved: (value) => taskfoods = ['comida1','comida2'],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          maxLines: 1, //numero de lineas aceptadas
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Etiquetas',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some tags';
+                            }
+                          },
+                          onSaved: (value) => tasktags = value.split(','),
+                          // onSaved: (value) => taskfoods = ['comida1','comida2'],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          maxLines: 1, //numero de lineas aceptadas
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Tipo de vestuario',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some outfit';
+                            }
+                          },
+                          onSaved: (value) => taskoutfit = value,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          maxLines: 1, //numero de lineas aceptadas
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: ' Recomendados',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some dishes';
+                            }
+                          },
+                          onSaved: (value) =>
+                              taskrecommendeddishes = value.split(','),
+                          // onSaved: (value) => taskfoods = ['comida1','comida2'],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          maxLines: 1, //numero de lineas aceptadas
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Imagenes destacadas ',
+                            fillColor: Colors.grey[300],
+                            filled: true,
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some images';
+                            }
+                          },
+                          onSaved: (value) => taskfeaturedimages = [
+                            'assets/images/seemurIsotipo.png',
+                            'assets/images/seemurIsotipo.png',
+                            'assets/images/seemurIsotipo.png'
+                          ],
+                          // onSaved: (value) => taskfoods = ['comida1','comida2'],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 98.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0)),
+                              onPressed: _enviar,
+                              child: Text('Crear',
+                                  style: TextStyle(color: Colors.white)),
+                              color: Color(0xff16202c),
+                            ),
+                          ],
+                        ),
                       )
                     ],
                   ),
-                  Text('click para cambiar foto'),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Nombre',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                      },
-                      onSaved: (value) => taskname = value.trim(),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      maxLines: 4, //numero de lineas aceptadas
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Descripción',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some description';
-                        }
-                      },
-                      onSaved: (value) => taskdescription = value,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      maxLines: 1, //numero de lineas aceptadas
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Ubicación',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some location';
-                        }
-                      },
-                      onSaved: (value) => tasklocation = value,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      maxLines: 1, //numero de lineas aceptadas
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Telefono',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some phone';
-                        }
-                      },
-                      onSaved: (value) => taskphone = value,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      maxLines: 1, //numero de lineas aceptadas
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Precio',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some price';
-                        }
-                      },
-                      onSaved: (value) => taskprice = value,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      maxLines: 1, //numero de lineas aceptadas
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Horario',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some time';
-                        }
-                      },
-                      onSaved: (value) => tasktime = value,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      maxLines: 1, //numero de lineas aceptadas
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Domicilio',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some value';
-                        }
-                      },
-                      onSaved: (value) => taskhomeservice = value,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      maxLines: 1, //numero de lineas aceptadas
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Tipo de comida',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some food';
-                        }
-                      },
-                      onSaved: (value) => taskfoods = value.split(','),
-                      // onSaved: (value) => taskfoods = ['comida1','comida2'],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      maxLines: 1, //numero de lineas aceptadas
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Forma de pago',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some type';
-                        }
-                      },
-                      onSaved: (value) => taskpayment = value,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      maxLines: 1, //numero de lineas aceptadas
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Servicios',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some services';
-                        }
-                      },
-                      onSaved: (value) => taskservices = value.split(','),
-                      // onSaved: (value) => taskfoods = ['comida1','comida2'],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      maxLines: 1, //numero de lineas aceptadas
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Plan',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some plan';
-                        }
-                      },
-                      onSaved: (value) => taskplans = value.split(','),
-                      // onSaved: (value) => taskfoods = ['comida1','comida2'],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      maxLines: 1, //numero de lineas aceptadas
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Características',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some features';
-                        }
-                      },
-                      onSaved: (value) => taskfeatures = value.split(','),
-                      // onSaved: (value) => taskfoods = ['comida1','comida2'],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      maxLines: 1, //numero de lineas aceptadas
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Ambiente',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some environment';
-                        }
-                      },
-                      onSaved: (value) => taskenvironments = value.split(','),
-                      // onSaved: (value) => taskfoods = ['comida1','comida2'],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      maxLines: 1, //numero de lineas aceptadas
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Etiquetas',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some tags';
-                        }
-                      },
-                      onSaved: (value) => tasktags = value.split(','),
-                      // onSaved: (value) => taskfoods = ['comida1','comida2'],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      maxLines: 1, //numero de lineas aceptadas
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Tipo de vestuario',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some outfit';
-                        }
-                      },
-                      onSaved: (value) => taskoutfit = value,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      maxLines: 1, //numero de lineas aceptadas
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Platos recomendados',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some dishes';
-                        }
-                      },
-                      onSaved: (value) => taskrecommendeddishes = value.split(','),
-                      // onSaved: (value) => taskfoods = ['comida1','comida2'],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      maxLines: 1, //numero de lineas aceptadas
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Imagenes destacadas ',
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some images';
-                        }
-                      },
-                      onSaved: (value) => taskfeaturedimages = ['assets/images/seemurIsotipo.png','assets/images/seemurIsotipo.png','assets/images/seemurIsotipo.png'],
-                      // onSaved: (value) => taskfoods = ['comida1','comida2'],
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0)),
-                        onPressed: _enviar,
-                        child: Text('Crear',
-                            style: TextStyle(color: Colors.white)),
-                        color: Color(0xff16202c),
-                      ),
-                    ],
-                  )
-                ],
+                ),
               ),
             ),
-          ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 70,
+                child: NavigatorBar(),
+              ),
+            ),
+          ],
         ));
   }
 }

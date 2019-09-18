@@ -18,7 +18,10 @@ class Client {
     this.tasktags,
     this.taskoutfit,
     this.taskrecommendeddishes,
-    this.taskfeaturedimages
+    this.taskfeaturedimages,
+    this.rating,
+    this.ratingcount,
+    this.totalrating,
   });
 
   String uid;
@@ -40,4 +43,7 @@ class Client {
   String taskoutfit;
   List taskrecommendeddishes;
   List taskfeaturedimages; 
+  String rating;
+  String ratingcount;
+  String totalrating;
 }

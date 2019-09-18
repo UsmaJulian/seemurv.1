@@ -40,7 +40,7 @@ class _BaresPageState extends State<BaresPage> {
 }
 
 class ListBaresPage extends StatefulWidget {
- // ListBaresPage({Key key}) : super(key: key);
+  // ListBaresPage({Key key}) : super(key: key);
 
   _ListBaresPageState createState() => _ListBaresPageState();
 }
@@ -52,7 +52,7 @@ class _ListBaresPageState extends State<ListBaresPage> {
 
     QuerySnapshot qn = await firestore
         .collection('client')
-        .where('tasktags', arrayContains: 'VOb4NRKrQgseTWjlLrW2')
+        .where('tasktags', arrayContains: 'Bares')
         .getDocuments();
     return qn.documents;
   }
@@ -72,7 +72,8 @@ class _ListBaresPageState extends State<ListBaresPage> {
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, index) {
                 return ListTile(
-                  title: Text(snapshot.data[index].data['taskname'],
+                    title: Text(
+                  snapshot.data[index].data['taskname'],
                 ));
               },
             );

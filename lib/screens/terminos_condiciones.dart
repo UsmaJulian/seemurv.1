@@ -17,6 +17,8 @@ class TerminosCondicionesPage extends StatelessWidget {
               withJavascript: true,
               withLocalStorage: true,
               withZoom: true,
+              clearCookies: true,
+              clearCache: true,
               appBar:  AppBar(
                   backgroundColor: Color(0xff16202c),
                   elevation: 0,

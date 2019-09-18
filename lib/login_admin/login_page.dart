@@ -4,12 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/login_admin/menu_page.dart';
 import 'package:seemur_v1/models/user_model.dart';
-import 'package:seemur_v1/screens/cambiar_contrase%C3%B1a.dart';
+import 'package:seemur_v1/screens/cambiar_contraseña.dart';
 import 'package:seemur_v1/screens/terminos_condiciones.dart';
-
-class CommonThings {
-  static Size size;
-}
 
 class LoginPage extends StatefulWidget {
   LoginPage({this.auth, this.onSignIn});
@@ -31,14 +27,14 @@ class _LoginPageState extends State<LoginPage> {
   String _password;
   String _nombre;
   String _telefono;
-  String _itemCiudad;
-  String _direccion;
+  // String _itemCiudad;
+  //String _direccion;
   String _urlFoto = '';
   String usuario;
 
   bool _obscureText = true;
   FormType _formType = FormType.login;
-  List<DropdownMenuItem<String>> _ciudadItems; //list city from Firestore
+  // List<DropdownMenuItem<String>> _ciudadItems; //list city from Firestore
   bool _isChecked = false;
   void onChanged(value) {
     setState(() {
@@ -47,40 +43,40 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    setState(() {
-      _ciudadItems = getCiudadItems();
-      _itemCiudad = _ciudadItems[0].value;
-    });
-  }
+  // void initState() {
+  //   super.initState();
+  //   setState(() {
+  //     _ciudadItems = getCiudadItems();
+  //     _itemCiudad = _ciudadItems[0].value;
+  //   });
+  // }
 
-  getData() async {
-    return await Firestore.instance.collection('ciudades').getDocuments();
-  }
+  // getData() async {
+  //   return await Firestore.instance.collection('ciudades').getDocuments();
+  // }
 
   //Dropdownlist from firestore
-  List<DropdownMenuItem<String>> getCiudadItems() {
-    List<DropdownMenuItem<String>> items = List();
-    QuerySnapshot dataCiudades;
-    getData().then((data) {
-      dataCiudades = data;
-      dataCiudades.documents.forEach((obj) {
-        print('${obj.documentID} ${obj['nombre']}');
-        items.add(DropdownMenuItem(
-          value: obj.documentID,
-          child: Text(obj['nombre']),
-        ));
-      });
-    }).catchError((error) => print('hay un error.....' + error));
+  // List<DropdownMenuItem<String>> getCiudadItems() {
+  //   List<DropdownMenuItem<String>> items = List();
+  //   QuerySnapshot dataCiudades;
+  //   getData().then((data) {
+  //     dataCiudades = data;
+  //     dataCiudades.documents.forEach((obj) {
+  //       print('${obj.documentID} ${obj['nombre']}');
+  //       items.add(DropdownMenuItem(
+  //         value: obj.documentID,
+  //         child: Text(obj['nombre']),
+  //       ));
+  //     });
+  //   }).catchError((error) => print('hay un error.....' + error));
 
-    items.add(DropdownMenuItem(
-      value: '0',
-      child: Text('- Seleccione -'),
-    ));
+  //   items.add(DropdownMenuItem(
+  //     value: '0',
+  //     child: Text('- Seleccione -'),
+  //   ));
 
-    return items;
-  }
+  //   return items;
+  // }
 
   bool _validarGuardar() {
     final form = formKey.currentState;
@@ -120,8 +116,8 @@ class _LoginPageState extends State<LoginPage> {
         Usuario usuario = Usuario(
             //model/user_model.dart instance usuario
             nombre: _nombre,
-            ciudad: _itemCiudad,
-            direccion: _direccion,
+            // ciudad: _itemCiudad,
+            //direccion: _direccion,
             email: _email,
             password: _password,
             telefono: _telefono,
@@ -161,7 +157,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    CommonThings.size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -177,30 +172,34 @@ class _LoginPageState extends State<LoginPage> {
           },
         ),
       ),
-      body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Container(
-              padding: EdgeInsets.all(16.0),
-              child: Center(
-                  child: Form(
-                key: formKey,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment
-                        .stretch, //ajusta los widgets a lso extremos
-                    children:
-                        // [
-                        //       Padding(padding: EdgeInsets.only(top: 15.0)),
-                        //       Text(
-                        //         'Recetas Mundiales \n Mis recetas',
-                        //         textAlign: TextAlign.center,
-                        //         style: TextStyle(
-                        //           fontSize: 17.0,
-                        //         ),
-                        //       ),
-                        //       Padding(padding: EdgeInsets.only(bottom: 15.0)),
-                        //     ] +
-                        buildInputs() + buildSubmitButtons()),
-              )))),
+      body: SafeArea(
+        child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: SizedBox(
+              child: Container(
+                  padding: EdgeInsets.all(8.0),
+                  child: Center(
+                      child: Form(
+                    key: formKey,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment
+                            .stretch, //ajusta los widgets a lso extremos
+                        children:
+                            // [
+                            //       Padding(padding: EdgeInsets.only(top: 15.0)),
+                            //       Text(
+                            //         'Recetas Mundiales \n Mis recetas',
+                            //         textAlign: TextAlign.center,
+                            //         style: TextStyle(
+                            //           fontSize: 17.0,
+                            //         ),
+                            //       ),
+                            //       Padding(padding: EdgeInsets.only(bottom: 15.0)),
+                            //     ] +
+                            buildInputs() + buildSubmitButtons()),
+                  ))),
+            )),
+      ),
     );
   }
 
@@ -211,10 +210,10 @@ class _LoginPageState extends State<LoginPage> {
         Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 50, right: 105, left: 0),
+              padding: const EdgeInsets.only(top: 84.0, right: 90.0, left: 5.0),
               child: Container(
-                  width: 245,
-                  height: 28,
+                  width: 245.0,
+                  height: 28.0,
                   child: Text('Inicia sesión',
                       style: new TextStyle(
                         color: Colors.black,
@@ -226,12 +225,12 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 22, right: 55),
+          padding: const EdgeInsets.only(top: 16.0, right: 180.0),
           child: Column(
             children: <Widget>[
               Container(
-                width: 294,
-                height: 14,
+                width: 147.0,
+                height: 28.0,
                 child: Text('Correo electrónico',
                     style: new TextStyle(
                       color: Colors.black,
@@ -245,9 +244,9 @@ class _LoginPageState extends State<LoginPage> {
         ),
         Padding(
           padding: const EdgeInsets.only(
-            top: 12,
-            left: 15,
-            right: 15,
+            top: 6.0,
+            left: 7.5,
+            right: 7.5,
           ),
           child: Container(
             decoration: BoxDecoration(
@@ -256,7 +255,7 @@ class _LoginPageState extends State<LoginPage> {
                     left: Radius.circular(8), right: Radius.circular(8)),
                 color: Color.fromRGBO(246, 247, 250, 100)),
             child: Padding(
-              padding: const EdgeInsets.only(left: 17),
+              padding: const EdgeInsets.only(left: 8.5),
               child: TextFormField(
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
@@ -271,11 +270,12 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 24, left: 15, right: 30),
+          padding: const EdgeInsets.only(
+              top: 12.0, left: 7.5, right: 15.0, bottom: 6.0),
           child: Container(
-            width: 294,
-            height: 14,
-            child: Text('Contraseña (Mínimo 6 caractéres)',
+            width: 294.0,
+            height: 14.0,
+            child: Text('Contraseña (Mínimo 8 caractéres)',
                 style: new TextStyle(
                   color: Colors.black,
                   fontFamily: 'HankenGrotesk',
@@ -287,9 +287,9 @@ class _LoginPageState extends State<LoginPage> {
 
         Padding(
           padding: const EdgeInsets.only(
-            top: 12,
-            left: 15,
-            right: 15,
+            top: 12.0,
+            left: 7.5,
+            right: 7.5,
           ),
           child: Container(
             decoration: BoxDecoration(
@@ -298,7 +298,7 @@ class _LoginPageState extends State<LoginPage> {
                     left: Radius.circular(8), right: Radius.circular(8)),
                 color: Color.fromRGBO(246, 247, 250, 100)),
             child: Padding(
-              padding: const EdgeInsets.only(left: 17),
+              padding: const EdgeInsets.only(left: 10),
               child: TextFormField(
                 keyboardType: TextInputType.text,
                 obscureText: _obscureText,
@@ -312,7 +312,7 @@ class _LoginPageState extends State<LoginPage> {
                         });
                       },
                       child: Padding(
-                        padding: const EdgeInsets.only(right: 20),
+                        padding: const EdgeInsets.only(right: 10),
                         child: Icon(
                           _obscureText
                               ? Icons.visibility
@@ -330,9 +330,9 @@ class _LoginPageState extends State<LoginPage> {
         ),
 
         Padding(
-          padding: const EdgeInsets.only(top: 16.0, left: 160, right: 0),
+          padding: const EdgeInsets.only(top: 16.0, left: 134.0, right: 0),
           child: Container(
-            width: 295,
+            width: 147.5,
             height: 20,
             child: FlatButton(
               child: Text('¿Olvidaste tu contraseña?',
@@ -359,10 +359,10 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(top: 0, right: 95, left: 0),
+                padding: const EdgeInsets.only(top: 0, right: 90, left: 0),
                 child: Container(
-                    width: 245,
-                    height: 28,
+                    width: 245.0,
+                    height: 30.0,
                     child: Text('Crea una cuenta',
                         style: new TextStyle(
                           color: Colors.black,
@@ -375,12 +375,12 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 32, right: 50),
+          padding: const EdgeInsets.only(top: 32, right: 30),
           child: Column(
             children: <Widget>[
               Container(
-                width: 294,
-                height: 14,
+                width: 294.0,
+                height: 14.0,
                 child: Text('Nombre',
                     style: new TextStyle(
                       color: Colors.black,
@@ -393,7 +393,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 12, left: 15, right: 15),
+          padding: const EdgeInsets.only(top: 6.0, left: 7.5, right: 7.5),
           child: Container(
             decoration: BoxDecoration(
                 border: Border.all(width: 0, style: BorderStyle.solid),
@@ -416,13 +416,13 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 32, right: 50),
+          padding: const EdgeInsets.only(top: 16.0, right: 25.0),
           child: Column(
             children: <Widget>[
               Container(
-                width: 294,
-                height: 14,
-                child: Text('Celular',
+                width: 294.0,
+                height: 14.0,
+                child: Text('Teléfono',
                     style: new TextStyle(
                       color: Colors.black,
                       fontFamily: 'HankenGrotesk',
@@ -435,9 +435,9 @@ class _LoginPageState extends State<LoginPage> {
         ),
         Padding(
           padding: const EdgeInsets.only(
-            top: 12,
-            left: 15,
-            right: 15,
+            top: 6.0,
+            left: 7.5,
+            right: 7.5,
           ),
           child: Container(
             decoration: BoxDecoration(
@@ -451,7 +451,7 @@ class _LoginPageState extends State<LoginPage> {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  labelText: 'Celular',
+                  labelText: '(+57)',
                 ),
                 validator: (value) =>
                     value.isEmpty ? 'El campo Telefono esta vacio' : null,
@@ -461,35 +461,38 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
 
-        DropdownButtonFormField(
-          validator: (value) =>
-              value == '0' ? 'Debe seleccionar una ciudad' : null,
-          decoration: InputDecoration(
-              labelText: 'Ciudad', icon: Icon(FontAwesomeIcons.city)),
-          value: _itemCiudad,
-          items: _ciudadItems,
-          onChanged: (value) {
-            setState(() {
-              _itemCiudad = value;
-            });
-          }, //seleccionarCiudadItem,
-          onSaved: (value) => _itemCiudad = value,
-        ),
+        // Container(
+        //   child: DropdownButtonFormField(
+        //     validator: (value) =>
+        //         value == '0' ? 'Debe seleccionar una ciudad' : null,
+        //     decoration: InputDecoration(
+        //       labelText: 'Ciudad',
+        //     ),
+        //     value: _itemCiudad,
+        //     items: _ciudadItems,
+        //     onChanged: (value) {
+        //       setState(() {
+        //         _itemCiudad = value;
+        //       });
+        //     }, //seleccionarCiudadItem,
+        //     onSaved: (value) => _itemCiudad = value,
+        //   ),
+        // ),
         Padding(
-          padding: const EdgeInsets.only(top: 32, right: 50),
+          padding: const EdgeInsets.only(top: 16.0, right: 25.0),
           child: Column(
             children: <Widget>[
-              Container(
-                width: 294,
-                height: 14,
-                child: Text('Dirección',
-                    style: new TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'HankenGrotesk',
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w700,
-                    )),
-              ),
+              // Container(
+              //   width: 294.0,
+              //   height: 14.0,
+              //   child: Text('Dirección',
+              //       style: new TextStyle(
+              //         color: Colors.black,
+              //         fontFamily: 'HankenGrotesk',
+              //         fontSize: 14.0,
+              //         fontWeight: FontWeight.w700,
+              //       )),
+              // ),
             ],
           ),
         ),
@@ -516,12 +519,12 @@ class _LoginPageState extends State<LoginPage> {
         //   ),
         // ),
         Padding(
-          padding: const EdgeInsets.only(top: 32, right: 40),
+          padding: const EdgeInsets.only(top: 1.0, right: 30.0),
           child: Column(
             children: <Widget>[
               Container(
-                width: 294,
-                height: 14,
+                width: 294.0,
+                height: 14.0,
                 child: Text('Correo electrónico',
                     style: new TextStyle(
                       color: Colors.black,
@@ -534,7 +537,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 12, left: 15, right: 15),
+          padding: const EdgeInsets.only(top: 6.0, left: 7.5, right: 7.5),
           child: Container(
             decoration: BoxDecoration(
                 border: Border.all(width: 0, style: BorderStyle.solid),
@@ -542,7 +545,7 @@ class _LoginPageState extends State<LoginPage> {
                     left: Radius.circular(8), right: Radius.circular(8)),
                 color: Color.fromRGBO(246, 247, 250, 100)),
             child: Padding(
-              padding: const EdgeInsets.only(left: 17),
+              padding: const EdgeInsets.only(left: 8.5),
               child: TextFormField(
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
@@ -557,11 +560,11 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 24, left: 15, right: 40),
+          padding: const EdgeInsets.only(top: 12.0, left: 7.5, right: 20),
           child: Container(
-            width: 294,
-            height: 14,
-            child: Text('Contraseña (Mínimo 6 caractéres)',
+            width: 294.0,
+            height: 20.0,
+            child: Text('Contraseña (Mínimo 8 caractéres)',
                 style: new TextStyle(
                   color: Colors.black,
                   fontFamily: 'HankenGrotesk',
@@ -573,9 +576,9 @@ class _LoginPageState extends State<LoginPage> {
         Container(
           child: Padding(
             padding: const EdgeInsets.only(
-              top: 12,
-              left: 15,
-              right: 15,
+              top: 6.0,
+              left: 7.5,
+              right: 7.5,
             ),
             child: Container(
               decoration: BoxDecoration(
@@ -584,7 +587,7 @@ class _LoginPageState extends State<LoginPage> {
                       left: Radius.circular(8), right: Radius.circular(8)),
                   color: Color.fromRGBO(246, 247, 250, 100)),
               child: Padding(
-                padding: const EdgeInsets.only(left: 17),
+                padding: const EdgeInsets.only(left: 8.5),
                 child: TextFormField(
                   obscureText: _obscureText, //password
                   decoration: InputDecoration(
@@ -613,8 +616,8 @@ class _LoginPageState extends State<LoginPage> {
         ),
         Padding(
           padding: const EdgeInsets.only(
-            top: 16.0,
-            left: 10,
+            top: 8.0,
+            left: 5.0,
           ),
           child: Row(
             children: <Widget>[
@@ -626,8 +629,8 @@ class _LoginPageState extends State<LoginPage> {
                 activeColor: Color.fromRGBO(245, 175, 0, 100),
               ),
               Container(
-                width: 295,
-                height: 20,
+                width: 290.0,
+                height: 20.0,
                 child: FlatButton(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -651,12 +654,11 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     new MaterialPageRoute(
-                    //         builder: (context) =>
-                    //             new TerminosCondicionesPage())
-                    //             );
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) =>
+                                new TerminosCondicionesPage()));
                   },
                 ),
               ),
@@ -672,11 +674,11 @@ class _LoginPageState extends State<LoginPage> {
     if (_formType == FormType.login) {
       return [
         Padding(
-          padding:
-              const EdgeInsets.only(top: 32, bottom: 0, left: 30, right: 30),
+          padding: const EdgeInsets.only(
+              top: 16.0, bottom: 0, left: 15.0, right: 15.0),
           child: Container(
-            width: 315,
-            height: 44,
+            width: 295.0,
+            height: 44.0,
             decoration: BoxDecoration(
               border: Border.all(width: 0, style: BorderStyle.none),
               borderRadius: BorderRadius.horizontal(
@@ -701,14 +703,14 @@ class _LoginPageState extends State<LoginPage> {
         ),
         Padding(
           padding: const EdgeInsets.only(
-            top: 209,
-            bottom: 75,
-            left: 50,
+            top: 104.5,
+            bottom: 37.5,
+            left: 25.0,
           ),
           child: Row(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(bottom: 75.0),
+                padding: const EdgeInsets.only(bottom: 37.5),
                 child: Container(
                     child: Text('¿Aún no tienes cuenta?',
                         style: new TextStyle(
@@ -719,7 +721,8 @@ class _LoginPageState extends State<LoginPage> {
                         ))),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 0, right: 20, bottom: 75),
+                padding:
+                    const EdgeInsets.only(left: 0, right: 10.0, bottom: 37.5),
                 child: Container(
                   child: FlatButton(
                     onPressed: _irRegistro,
@@ -740,10 +743,10 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       return [
         Padding(
-          padding:
-              const EdgeInsets.only(top: 32, bottom: 0, left: 30, right: 30),
+          padding: const EdgeInsets.only(
+              top: 16.0, bottom: 0, left: 15.0, right: 15.0),
           child: Container(
-            width: 315,
+            width: 295.0,
             height: 44,
             decoration: BoxDecoration(
               border: Border.all(width: 0, style: BorderStyle.none),
@@ -769,9 +772,9 @@ class _LoginPageState extends State<LoginPage> {
         ),
         Padding(
           padding: const EdgeInsets.only(
-            top: 39,
-            bottom: 75,
-            left: 65,
+            top: 19.5,
+            bottom: 37.5,
+            left: 32.5,
           ),
           child: Row(
             children: <Widget>[
@@ -784,7 +787,7 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.w700,
                       ))),
               Padding(
-                padding: const EdgeInsets.only(right: 65),
+                padding: const EdgeInsets.only(right: 32.5),
                 child: Container(
                   child: FlatButton(
                     onPressed: _irLogin,

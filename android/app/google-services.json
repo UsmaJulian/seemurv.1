@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "223755924605-hqsgf9fj9qs1jlf4orccug4jsmpjoqko.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.seemur_v1",
+            "certificate_hash": "6222c3d0f4b06f68fe08776ca8632a4fde7e7ef1"
+          }
+        },
+        {
           "client_id": "223755924605-n64hkb8d1ijedv1rpqvco2hacmt0tbrh.apps.googleusercontent.com",
           "client_type": 3
         }

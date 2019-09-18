@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -32,6 +33,52 @@ class _HostalesPageState extends State<HostalesPage> {
             ),
           ),
         ),
+      ),
+      body: ListHostales(),
+    );
+  }
+}
+
+class ListHostales extends StatefulWidget {
+  // ListBaresPage({Key key}) : super(key: key);
+
+  _ListHostalesState createState() => _ListHostalesState();
+}
+
+class _ListHostalesState extends State<ListHostales> {
+  Future getClient() async {
+    print('hola');
+    var firestore = Firestore.instance;
+
+    QuerySnapshot qn = await firestore
+        .collection('client')
+        .where('tasktags', arrayContains: 'Hostales')
+        .getDocuments();
+    return qn.documents;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: FutureBuilder(
+        future: getClient(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: Text('Cargando Datos...'),
+            );
+          } else {
+            return ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (BuildContext context, index) {
+                return ListTile(
+                    title: Text(
+                  snapshot.data[index].data['taskname'],
+                ));
+              },
+            );
+          }
+        },
       ),
     );
   }

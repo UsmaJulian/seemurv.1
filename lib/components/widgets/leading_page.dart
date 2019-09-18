@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
+import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/screens/home.dart';
 
-class CommonThings{
+class CommonThings {
   static Size size;
 }
 
@@ -28,10 +29,24 @@ class _LeadingPageState extends State<LeadingPage> {
 
   @override
   Widget build(BuildContext context) {
-    CommonThings.size=MediaQuery.of(context).size;
+    CommonThings.size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      body:HomePage(auth: Auth(),),
+      body: Stack(children: <Widget>[
+        HomePage(
+          auth: Auth(),
+        ),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: 70,
+            child: NavigatorBar(),
+          ),
+        ),
+      ]),
     );
   }
 }

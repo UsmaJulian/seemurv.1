@@ -1,6 +1,12 @@
 class Usuario {
-    
-  Usuario({this.uid,this.foto,this.ciudad, this.email, this.nombre, this.password, this.telefono, this.direccion});
+  Usuario(
+      {this.uid,
+      this.foto,
+      this.email,
+      this.nombre,
+      this.password,
+      this.telefono,
+      this.calificaciones});
 
   String uid;
   String foto;
@@ -8,7 +14,7 @@ class Usuario {
   String email;
   String password;
   String telefono;
-  String direccion;
-  String ciudad; 
-  
+  //String direccion;
+  // String ciudad;
+  List calificaciones;
 }
