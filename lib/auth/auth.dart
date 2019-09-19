@@ -18,15 +18,16 @@ class Auth implements BaseAuth {
 
   Future<String> signInEmailPassword(String email, String password) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    FirebaseUser user = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password);
+    FirebaseUser user = (await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password)).user;
     await prefs.setString('userdata', user.uid);
     return user.uid;
   }
 
   Future<String> signUpEmailPassword(Usuario usuarioModel) async {
-    FirebaseUser user = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: usuarioModel.email, password: usuarioModel.password);
+    FirebaseUser user = (await _firebaseAuth.createUserWithEmailAndPassword(
+        email: usuarioModel.email, password: usuarioModel.password)).user
+    ;
 
     UserUpdateInfo usuario = UserUpdateInfo();
     usuario.displayName = usuarioModel.nombre;
