@@ -17,20 +17,24 @@ class Auth implements BaseAuth {
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Future<String> signInEmailPassword(String email, String password) async {
+    await Firestore().settings(timestampsInSnapshotsEnabled: true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FirebaseUser user = (await _firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password)).user;
+            email: email, password: password))
+        .user;
     await prefs.setString('userdata', user.uid);
     return user.uid;
   }
 
   Future<String> signUpEmailPassword(Usuario usuarioModel) async {
+    await Firestore().settings(timestampsInSnapshotsEnabled: true);
     FirebaseUser user = (await _firebaseAuth.createUserWithEmailAndPassword(
-        email: usuarioModel.email, password: usuarioModel.password)).user
-    ;
+            email: usuarioModel.email, password: usuarioModel.password))
+        .user;
 
     UserUpdateInfo usuario = UserUpdateInfo();
     usuario.displayName = usuarioModel.nombre;
+    await Firestore().settings(timestampsInSnapshotsEnabled: true);
     await user.updateProfile(usuario);
     await user
         .sendEmailVerification()
@@ -56,16 +60,19 @@ class Auth implements BaseAuth {
   }
 
   Future<void> signOut() async {
+    await Firestore().settings(timestampsInSnapshotsEnabled: true);
     return _firebaseAuth.signOut();
   }
 
   Future<String> currentUser() async {
+    await Firestore().settings(timestampsInSnapshotsEnabled: true);
     FirebaseUser user = await _firebaseAuth.currentUser();
     String userId = user != null ? user.uid : 'no_login';
     return userId;
   }
 
   Future<FirebaseUser> infoUser() async {
+    await Firestore().settings(timestampsInSnapshotsEnabled: true);
     FirebaseUser user = await _firebaseAuth.currentUser();
     String userId = user != null ? user.uid : 'No se pudo recuperar el usuario';
     print('recuperando usuario + $userId');
@@ -74,6 +81,7 @@ class Auth implements BaseAuth {
   }
 
   Future<String> getIdUser() async {
+    await Firestore().settings(timestampsInSnapshotsEnabled: true);
     FirebaseUser user = await _firebaseAuth.currentUser();
     print(user.uid);
     String userId = user != null ? user.uid : 'No se pudo recuperar el usuario';

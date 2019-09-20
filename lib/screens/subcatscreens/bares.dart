@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:seemur_v1/components/widgets/clients_body.dart';
 
 class BaresPage extends StatefulWidget {
   _BaresPageState createState() => _BaresPageState();
@@ -71,10 +72,63 @@ class _ListBaresPageState extends State<ListBaresPage> {
             return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, index) {
-                return ListTile(
-                    title: Text(
-                  snapshot.data[index].data['taskname'],
-                ));
+                return Hero(
+                  tag: snapshot.data[index].data['taskname'],
+                  child: Container(
+                    child: Card(
+                      color: Color.fromRGBO(246, 247, 250, 5),
+                      elevation: 1,
+                      child: InkWell(
+                        onTap: () {
+                          //print('${snapshot.data[index].data['taskname']}');
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ClientBody()));
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            SizedBox(width: 30.0, height: 47.0),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: FadeInImage.assetNetwork(
+                                width: 47,
+                                height: 47,
+                                fit: BoxFit.fill,
+                                placeholder:
+                                    ('assets/images/seemurIsotipo.png'),
+                                image: (snapshot.data[index].data['logos']),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 21.0,
+                              height: 47.0,
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              height: 72.0,
+                              child: ListTile(
+                                title: Container(
+                                  child: Text(
+                                    snapshot.data[index].data['taskname'],
+                                    style: TextStyle(
+                                      fontFamily: 'HankenGrotesk',
+                                      color: Color(0xff000000),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
+                                      fontStyle: FontStyle.normal,
+                                      letterSpacing: -0.5,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
               },
             );
           }

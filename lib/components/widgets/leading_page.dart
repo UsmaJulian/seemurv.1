@@ -36,16 +36,16 @@ class _LeadingPageState extends State<LeadingPage> {
         HomePage(
           auth: Auth(),
         ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: 70,
-            child: NavigatorBar(),
-          ),
-        ),
+        // Positioned(
+        //   bottom: 0,
+        //   left: 0,
+        //   right: 0,
+        //   child: Container(
+        //     width: MediaQuery.of(context).size.width,
+        //     height: 70,
+        //     //child: NavigatorBar(),
+        //   ),
+        //),
       ]),
     );
   }
