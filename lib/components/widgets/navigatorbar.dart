@@ -10,6 +10,7 @@ import 'package:seemur_v1/screens/admin/add_client.dart';
 import 'package:seemur_v1/screens/descubrir.dart';
 import 'package:seemur_v1/screens/home.dart';
 import 'package:seemur_v1/screens/user/perfil.dart';
+import 'package:seemur_v1/screens/user/preferences_page.dart';
 
 //final LocalStorage storage = new LocalStorage('userdata');
 class NavigatorBar extends StatefulWidget {
@@ -40,9 +41,10 @@ class _NavigatorBarState extends State<NavigatorBar> {
                   focusColor: Colors.red,
                   tooltip: 'Inicio',
                   icon: Icon(
-                    Icons.home,
+                    IconData(0xF447, fontFamily: 'CupertinoIcons'),
+                    color: Colors.black,
                   ),
-                  iconSize: 34,
+                  iconSize: 24,
                   color: Color(0xff17202c),
                   onPressed: () {
                     Navigator.of(context).push(
@@ -69,9 +71,8 @@ class _NavigatorBarState extends State<NavigatorBar> {
                   icon: Icon(
                     FontAwesomeIcons.compass,
                     color: Color(0xff3d3d3d),
-                    size: 34,
                   ),
-                  iconSize: 34,
+                  iconSize: 24,
                   color: Colors.black,
                   onPressed: () {
                     Navigator.of(context).push(
@@ -93,8 +94,8 @@ class _NavigatorBarState extends State<NavigatorBar> {
             Column(
               children: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.person_outline),
-                  iconSize: 34,
+                  icon: Icon(IconData(59558, fontFamily: 'MaterialIcons')),
+                  iconSize: 24,
                   color: Colors.black,
                   onPressed: () {
                     Navigator.of(context).push(
@@ -108,6 +109,35 @@ class _NavigatorBarState extends State<NavigatorBar> {
                   },
                 ),
                 Text("Perfil",
+                    style: TextStyle(
+                      fontFamily: 'HankenGrotesk',
+                      color: Color(0xff3d3d3d),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      fontStyle: FontStyle.normal,
+                    ))
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    IconData(0xF43C, fontFamily: 'CupertinoIcons'),
+                    color: Colors.black,
+                  ),
+                  iconSize: 24,
+                  color: Colors.black,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return PreferencesPage(
+                        auth: Auth(),
+                      );
+                      //return ClientAddPage ();
+                    }));
+                  },
+                ),
+                Text("Ajustes",
                     style: TextStyle(
                       fontFamily: 'HankenGrotesk',
                       color: Color(0xff3d3d3d),

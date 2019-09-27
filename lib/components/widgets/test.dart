@@ -1,133 +1,85 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:seemur_v1/auth/auth.dart';
 
-import 'package:seemur_v1/models/client_model.dart';
-import 'package:seemur_v1/screens/admin/show_client.dart';
-
-class ClientBody extends StatefulWidget {
-  ClientBody({
+class FichaPage extends StatefulWidget {
+  FichaPage({
     this.datos,
   });
   final datos;
-
   @override
-  _ClientBodyState createState() => _ClientBodyState();
+  _FichaPageState createState() => _FichaPageState();
 }
 
-class _ClientBodyState extends State<ClientBody> {
-  String userID;
-
-  @override
-  void initState() {
-    super.initState();
-
-    setState(() {
-      Auth().currentUser().then((onValue) {
-        userID = onValue;
-      });
-    });
-  }
-
+class _FichaPageState extends State<FichaPage> {
   @override
   Widget build(BuildContext context) {
-    widget.datos;
+    dynamic datos;
     return Scaffold(
-      body: Container(
-          height: MediaQuery.of(context).size.height,
-          alignment: Alignment.center,
-          color: Color.fromRGBO(246, 247, 250, 1),
-          child: StreamBuilder(
-            stream: Firestore.instance.collection("client").snapshots(),
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (!snapshot.hasData) {
-                return Text("loading....");
-              } else {
-                if (snapshot.data.documents.length == 0) {
-                } else {
-                  return SingleChildScrollView(
-                    child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.width * 0.939,
-                              child: FadeInImage(
-                                fit: BoxFit.fill,
-                                placeholder:
-                                    AssetImage('assets/images/azucar.gif'),
-                                image: NetworkImage(
-                                    widget.datos["taskclientimage"]),
-                              ),
-                            ),
-                            getMainCard(),
+      body: SingleChildScrollView(
+        child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  color: Colors.blue,
+                  height: 140,
+                ),
+                getMainCard(),
 
-                            SizedBox(height: 40),
+                SizedBox(height: 40),
 
-                            // otro widget
+                // otro widget
+                getFotosDestacadas(),
 
-                            getFotosDestacadas(),
+                SizedBox(height: 40),
 
-                            SizedBox(height: 40),
-
-                            getPanelInformacion(),
-                            SizedBox(height: 40),
-                            getPlatosRecomendados(),
-                            SizedBox(height: 40),
-                            getReviews(),
-                            // como llegar.
-                          ],
-                        )),
-                  );
-                }
-              }
-            },
-          )),
+                getPanelInformacion(),
+                SizedBox(height: 40),
+                getPlatosRecomendados(),
+                SizedBox(height: 40),
+                getReviews(),
+                // como llegar.
+              ],
+            )),
+      ),
     );
   }
 
   getMainCard() {
-    return Card(
-      child: Container(
+    return Container(
 //      margin: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-        padding: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black26, blurRadius: 4, offset: Offset(0, 1))
-            ]),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              widget.datos['taskname'].toString(),
-              style: TextStyle(
-                fontSize: 26,
-              ),
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black26, blurRadius: 4, offset: Offset(0, 1))
+          ]),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            "Jardin sichuan\nresturante japones",
+            style: TextStyle(
+              fontSize: 26,
             ),
-            SizedBox(height: 20),
-            Text(
-              widget.datos['taskdescription'].toString(),
-              style: TextStyle(
-                fontSize: 18,
-              ),
+          ),
+          SizedBox(height: 20),
+          Text(
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean porta feugiat tincidunt. Nullam maximus ornare sodales.",
+            style: TextStyle(
+              fontSize: 18,
             ),
-            SizedBox(height: 20),
-            getStarRating(4),
-            SizedBox(height: 10),
-            getHoursDistance(),
-            SizedBox(height: 30),
-            getCardButtons(),
-          ],
-        ),
+          ),
+          SizedBox(height: 20),
+          getStarRating(4),
+          SizedBox(height: 10),
+          getHoursDistance(),
+          SizedBox(height: 30),
+          getCardButtons(),
+        ],
       ),
     );
   }
@@ -149,7 +101,7 @@ class _ClientBodyState extends State<ClientBody> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text("Horarios:", style: style1),
-            Text(widget.datos['tasktime'].toString(), style: style2)
+            Text("9am - 8.30pm", style: style2)
           ],
         ),
         Spacer(),
@@ -157,7 +109,7 @@ class _ClientBodyState extends State<ClientBody> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text("Distance:", style: style1),
-            Text(widget.datos['tasklocation'].toString(), style: style2)
+            Text("1.2 km", style: style2)
           ],
         ),
         SizedBox(width: 20),
@@ -229,7 +181,7 @@ class _ClientBodyState extends State<ClientBody> {
                   return Container(
                     width: 150,
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Colors.red,
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
@@ -238,20 +190,13 @@ class _ClientBodyState extends State<ClientBody> {
                             offset: Offset(0, 1),
                           )
                         ]),
-                    child: FadeInImage.assetNetwork(
-                        width: 47,
-                        height: 47,
-                        fit: BoxFit.cover,
-                        placeholder: ('assets/images/seemurIsotipo.png'),
-                        image: (widget.datos['taskfeaturedimages'][idx]
-                            .toString())),
                   );
                 },
                 separatorBuilder: (ctx, idx) {
                   return SizedBox(width: 15);
                 },
                 padding: EdgeInsets.zero,
-                itemCount: widget.datos['taskfeaturedimages'].length),
+                itemCount: 10),
           )
         ],
       ),
@@ -308,14 +253,10 @@ class _ClientBodyState extends State<ClientBody> {
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 20),
-        buildInfoItem(
-            "Como llegar", widget.datos['tasklocation'].toString(), Icons.map),
-        buildInfoItem("Precio Mínimo", widget.datos['taskprice'].toString(),
-            Icons.shop_two),
-        buildInfoItem("Tipo de Vestuario",
-            widget.datos['taskoutfit'].toString(), Icons.accessibility_new),
-        buildInfoItem("Domicilio", widget.datos['taskhomeservice'].toString(),
-            Icons.directions_car),
+        buildInfoItem("Como llegar", "Calle 57, C2", Icons.map),
+        buildInfoItem("Precio Mínimo", "80.000 por persona", Icons.shop_two),
+        buildInfoItem("Tipo de Vestuario", "Formal", Icons.accessibility_new),
+        buildInfoItem("Domicilio", "Si", Icons.directions_car),
       ],
     );
   }
@@ -327,7 +268,7 @@ class _ClientBodyState extends State<ClientBody> {
         child: Row(
           children: <Widget>[
             Text(
-              '$title',
+              title,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Spacer(),
@@ -351,29 +292,24 @@ class _ClientBodyState extends State<ClientBody> {
       ),
       SizedBox(height: 10),
       Container(
-        padding: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 4,
-                offset: Offset(0, 2),
-              )
-            ]),
-        child: Column(
-          children: [
-            buildRow(
-                widget.datos['taskrecommendeddishes']
-                    .toString()
-                    .replaceAll(new RegExp(r'[^\w\s]+'), ''),
-                1022),
-            // buildRow("Fillet Mignon", 340),
-            // buildRow("Tempura", 126),
-          ],
-        ),
-      ),
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 4,
+                  offset: Offset(0, 2),
+                )
+              ]),
+          child: Column(
+            children: [
+              buildRow("Salmon Sichuan", 1022),
+              buildRow("Fillet Mignon", 340),
+              buildRow("Tempura", 126),
+            ],
+          )),
     ]);
   }
 

@@ -381,7 +381,7 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 width: 294.0,
                 height: 14.0,
-                child: Text('Nombre',
+                child: Text('Nombre y apellidos',
                     style: new TextStyle(
                       color: Colors.black,
                       fontFamily: 'HankenGrotesk',
@@ -406,7 +406,7 @@ class _LoginPageState extends State<LoginPage> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  labelText: 'Nombre',
+                  labelText: 'Nombre y apellidos',
                 ),
                 validator: (value) =>
                     value.isEmpty ? 'El campo Nombre esta vacio' : null,

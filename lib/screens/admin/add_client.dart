@@ -65,9 +65,9 @@ class _ClientAddPageState extends State<ClientAddPage> {
   TextEditingController taskoutfitInputController;
   TextEditingController taskrecommendeddishesInputController;
   TextEditingController taskfeaturedimagesInputController;
-  TextEditingController taskfeaturedratingInputController;
-  TextEditingController taskfeaturedratingcountInputController;
-  TextEditingController taskfeaturedtotalratingInputController;
+  TextEditingController taskratingInputController;
+  TextEditingController taskratingcountInputController;
+  TextEditingController tasktotalratingInputController;
 
   String id;
   final db = Firestore.instance;
@@ -228,7 +228,7 @@ class _ClientAddPageState extends State<ClientAddPage> {
                       'tasktags': tasktags,
                       'taskoutfit': taskoutfit,
                       'taskrecommendeddishes': taskrecommendeddishes,
-                      'tasfeaturedimages': taskfeaturedimages,
+                      'taskfeaturedimages': taskfeaturedimages,
                       'rating': rating,
                       'ratingcount': ratingcount,
                       'totalrating': totalrating,
@@ -263,7 +263,7 @@ class _ClientAddPageState extends State<ClientAddPage> {
                 'tasktags': tasktags,
                 'taskoutfit': taskoutfit,
                 'taskrecommendeddishes': taskrecommendeddishes,
-                'tasfeaturedimages': taskfeaturedimages,
+                'taskfeaturedimages': taskfeaturedimages,
                 'rating': rating,
                 'ratingcount': ratingcount,
                 'totalrating': totalrating,

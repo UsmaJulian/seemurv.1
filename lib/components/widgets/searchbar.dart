@@ -86,8 +86,10 @@ class _SearchBarState extends State<SearchBar> {
           ),
         ),
         Positioned(
-          top: 3,
-          right: 3,
+          top: 6,
+          right: 6,
+          bottom: 6,
+          left: 220.0,
           child: Container(
             height: MediaQuery.of(context).size.height * 0.055,
             width: MediaQuery.of(context).size.width * 0.25,

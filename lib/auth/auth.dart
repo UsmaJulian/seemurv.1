@@ -64,13 +64,6 @@ class Auth implements BaseAuth {
     return _firebaseAuth.signOut();
   }
 
-  Future<String> currentUser() async {
-    await Firestore().settings(timestampsInSnapshotsEnabled: true);
-    FirebaseUser user = await _firebaseAuth.currentUser();
-    String userId = user != null ? user.uid : 'no_login';
-    return userId;
-  }
-
   Future<FirebaseUser> infoUser() async {
     await Firestore().settings(timestampsInSnapshotsEnabled: true);
     FirebaseUser user = await _firebaseAuth.currentUser();
@@ -80,12 +73,20 @@ class Auth implements BaseAuth {
     return user;
   }
 
+  Future<String> currentUser() async {
+    await Firestore().settings(timestampsInSnapshotsEnabled: true);
+    FirebaseUser user = await _firebaseAuth.currentUser();
+    String userId = user != null ? user.uid : 'no_login';
+    print('recuperando usuario actual  + $userId');
+    return userId;
+  }
+
   Future<String> getIdUser() async {
     await Firestore().settings(timestampsInSnapshotsEnabled: true);
     FirebaseUser user = await _firebaseAuth.currentUser();
     print(user.uid);
     String userId = user != null ? user.uid : 'No se pudo recuperar el usuario';
-    print('recuperando usuario + $userId');
+    print('recuperando ID de usuario + $userId');
     return userId;
   }
 }
