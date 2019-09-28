@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,7 @@ class CheckRoles extends StatefulWidget {
 }
 
 class _CheckRolesState extends State<CheckRoles> {
-  
+  StreamController<String> streamController = new StreamController();
   String usuario = 'Usuario'; //user
   String usuarioEmail = 'Email'; //userEmail
   String id;
@@ -29,6 +31,12 @@ class _CheckRolesState extends State<CheckRoles> {
         print('ID $id');
       });
     });
+  }
+
+  @override
+  void dispose() {
+    streamController.close();
+    super.dispose();
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -21,16 +23,14 @@ TextEditingController taskclientimageInputController;
 String id;
 final db = Firestore.instance;
 String taskdescription;
-  String tasklocation;
-  String taskname;
-  String taskphone;
-  String taskprice;
-  String tasktime;
-  String taskclientimage;
-
+String tasklocation;
+String taskname;
+String taskphone;
+String taskprice;
+String tasktime;
+String taskclientimage;
 
 class ShowClientPage extends StatefulWidget {
-
   final String id;
   ShowClientPage({this.auth, this.onSignedOut, this.id});
   final BaseAuth auth;
@@ -41,8 +41,8 @@ class ShowClientPage extends StatefulWidget {
 }
 
 class _ShowClientPageState extends State<ShowClientPage> {
-
-   String userID;
+  StreamController<String> streamController = new StreamController();
+  String userID;
   //Widget content;
 
   @override
@@ -55,6 +55,12 @@ class _ShowClientPageState extends State<ShowClientPage> {
         print('user id $userID');
       });
     });
+  }
+
+  @override
+  void dispose() {
+    streamController.close();
+    super.dispose();
   }
 
   @override
@@ -109,7 +115,8 @@ class _ShowClientPageState extends State<ShowClientPage> {
                               fit: BoxFit.cover,
                               width: 100,
                               height: 100,
-                              placeholder: AssetImage('assets/images/azucar.gif'),
+                              placeholder:
+                                  AssetImage('assets/images/azucar.gif'),
                               image: NetworkImage(document["taskclientimage"]),
                             ),
                           ),
@@ -124,7 +131,9 @@ class _ShowClientPageState extends State<ShowClientPage> {
                               ),
                             ),
                             subtitle: Text(
-                              document['taskdescription'].toString().toUpperCase(),
+                              document['taskdescription']
+                                  .toString()
+                                  .toUpperCase(),
                               style: TextStyle(
                                   color: Colors.black, fontSize: 12.0),
                             ),
@@ -132,9 +141,12 @@ class _ShowClientPageState extends State<ShowClientPage> {
                             onTap: () {
                               Client client = Client(
                                 taskname: document['taskname'].toString(),
-                                taskclientimage: document['taskclientimage'].toString(),
-                                taskdescription: document['taskdescription'].toString(),
-                                tasklocation: document['tasklocation'].toString(),
+                                taskclientimage:
+                                    document['taskclientimage'].toString(),
+                                taskdescription:
+                                    document['taskdescription'].toString(),
+                                tasklocation:
+                                    document['tasklocation'].toString(),
                                 taskphone: document['taskphone'].toString(),
                                 taskprice: document['taskprice'].toString(),
                                 tasktime: document['tasktime'].toString(),
@@ -143,7 +155,7 @@ class _ShowClientPageState extends State<ShowClientPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => EditClient(
-                                          client:client,
+                                          client: client,
                                           idClient: document.documentID,
                                           uid: userID)));
                             },
@@ -170,7 +182,6 @@ class _ShowClientPageState extends State<ShowClientPage> {
                             });
                           }, //funciona
                         ),
-                        
                         IconButton(
                           icon: Icon(
                             Icons.remove_red_eye,
@@ -180,8 +191,10 @@ class _ShowClientPageState extends State<ShowClientPage> {
                           onPressed: () {
                             Client taskdescription = Client(
                               taskname: document['taskname'].toString(),
-                              taskclientimage: document['taskclientimage'].toString(),
-                              taskdescription: document['taskdescription'].toString(),
+                              taskclientimage:
+                                  document['taskclientimage'].toString(),
+                              taskdescription:
+                                  document['taskdescription'].toString(),
                               tasklocation: document['tasklocation'].toString(),
                               taskphone: document['taskphone'].toString(),
                               taskprice: document['taskprice'].toString(),
@@ -212,7 +225,8 @@ class _ShowClientPageState extends State<ShowClientPage> {
         ),
         backgroundColor: Colors.pinkAccent,
         onPressed: () {
-          Route route = MaterialPageRoute(builder: (context) => ClientAddPage());
+          Route route =
+              MaterialPageRoute(builder: (context) => ClientAddPage());
           Navigator.push(context, route);
         },
       ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
@@ -9,6 +11,8 @@ class ClientTop extends StatefulWidget {
 }
 
 class _ClientTopState extends State<ClientTop> {
+  StreamController<String> streamController = new StreamController();
+
   String userID;
   //Widget content;
 
@@ -22,6 +26,12 @@ class _ClientTopState extends State<ClientTop> {
         print('print userid $userID');
       });
     });
+  }
+
+  @override
+  void dispose() {
+    streamController.close();
+    super.dispose();
   }
 
   @override

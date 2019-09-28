@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "223755924605",
-    "firebase_url": "https://seemurv1.firebaseio.com",
-    "project_id": "seemurv1",
-    "storage_bucket": "seemurv1.appspot.com"
+    "project_number": "361028565572",
+    "firebase_url": "https://seemur-a9726.firebaseio.com",
+    "project_id": "seemur-a9726",
+    "storage_bucket": "seemur-a9726.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:223755924605:android:271f2471bdff58d3",
+        "mobilesdk_app_id": "1:361028565572:android:3f60263a8cccbdfb875a11",
         "android_client_info": {
-          "package_name": "com.example.seemur_v1"
+          "package_name": "com.seemur.seemur_v1"
         }
       },
       "oauth_client": [
         {
-          "client_id": "223755924605-hqsgf9fj9qs1jlf4orccug4jsmpjoqko.apps.googleusercontent.com",
+          "client_id": "361028565572-telg76kvolk6v0nd2k4teln92ralfnfk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.seemur_v1",
-            "certificate_hash": "6222c3d0f4b06f68fe08776ca8632a4fde7e7ef1"
+            "package_name": "com.seemur.seemur_v1",
+            "certificate_hash": "ea677fb253ef3889d022a036e4e04fb518973a6d"
           }
         },
         {
-          "client_id": "223755924605-n64hkb8d1ijedv1rpqvco2hacmt0tbrh.apps.googleusercontent.com",
+          "client_id": "361028565572-ltbejh9bfadvkqi8kbpc54rdk2j6q9rg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBKwojaRJJc1FAqcTsS9R5r3z0ThCkBblE"
+          "current_key": "AIzaSyCi5DH7D5JcuDi5eZTny17tOfKeuYJTEzY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "223755924605-n64hkb8d1ijedv1rpqvco2hacmt0tbrh.apps.googleusercontent.com",
+              "client_id": "361028565572-ltbejh9bfadvkqi8kbpc54rdk2j6q9rg.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

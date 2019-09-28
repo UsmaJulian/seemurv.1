@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   String usuario = 'Usuario'; //user
   String usuarioEmail = 'Email'; //userEmail
   String id;
@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
     widget.auth.infoUser().then((onValue) {
       setState(() {
@@ -43,6 +44,17 @@ class _HomePageState extends State<HomePage> {
         _itemCiudad = _ciudadItems[0].value;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('state = $state');
   }
 
   getData() async {
