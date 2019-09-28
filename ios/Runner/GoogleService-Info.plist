@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>223755924605-ge18soss1nk5dsahn94c0blvpoj533sq.apps.googleusercontent.com</string>
+	<string>361028565572-uoj0i184nr91ke9t6tfsmlb21gr37eav.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.223755924605-ge18soss1nk5dsahn94c0blvpoj533sq</string>
+	<string>com.googleusercontent.apps.361028565572-uoj0i184nr91ke9t6tfsmlb21gr37eav</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>223755924605-hqsgf9fj9qs1jlf4orccug4jsmpjoqko.apps.googleusercontent.com</string>
+	<string>361028565572-telg76kvolk6v0nd2k4teln92ralfnfk.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyB_EW-yHNAZYoPQcMwWdN8XdyfWba6P8_c</string>
+	<string>AIzaSyCW0KlvZpAlZZeREKi8f6gmSk7fljrjzMQ</string>
 	<key>GCM_SENDER_ID</key>
-	<string>223755924605</string>
+	<string>361028565572</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.seemurV1</string>
+	<string>com.seemur.seemurV1</string>
 	<key>PROJECT_ID</key>
-	<string>seemurv1</string>
+	<string>seemur-a9726</string>
 	<key>STORAGE_BUCKET</key>
-	<string>seemurv1.appspot.com</string>
+	<string>seemur-a9726.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,8 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:223755924605:ios:730333c1ae842fae252d14</string>
+	<string>1:361028565572:ios:d54925d3d629f035875a11</string>
 	<key>DATABASE_URL</key>
-	<string>https://seemurv1.firebaseio.com</string>
+	<string>https://seemur-a9726.firebaseio.com</string>
 </dict>
 </plist>
