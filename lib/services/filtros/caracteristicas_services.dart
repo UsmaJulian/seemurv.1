@@ -1,23 +1,25 @@
 import 'package:rect_getter/rect_getter.dart';
 
 class CaracteristicaService {
-  static final CaracteristicaService _singleton = new CaracteristicaService._internal();
+  static final CaracteristicaService _singleton =
+      new CaracteristicaService._internal();
   factory CaracteristicaService() {
     return _singleton;
   }
   CaracteristicaService._internal();
 
   List<Caracteristica> allCaracteristica = [
-    Caracteristica(21, 'Pet Friendly'),
-    Caracteristica(22, 'Acceso silla de ruedas'),
-    Caracteristica(23, 'Estacionamiento'),
-    Caracteristica(24, 'Wi-fi'),
-    Caracteristica(25, 'Televisión'),
-    Caracteristica(26, 'Niños'),
-    Caracteristica(27, 'Grupos Grandes'),
+    Caracteristica(25, 'Pet Friendly'),
+    Caracteristica(26, 'Acceso silla de ruedas'),
+    Caracteristica(27, 'Estacionamiento'),
+    Caracteristica(28, 'Wi-fi'),
+    Caracteristica(29, 'Televisión'),
+    Caracteristica(30, 'Niños'),
+    Caracteristica(31, 'Grupos Grandes'),
   ];
   List<Caracteristica> selectedCaracteristica = [];
 }
+
 class Caracteristica {
   int id;
   String name;
@@ -27,5 +29,5 @@ class Caracteristica {
   Caracteristica(this.id, this.name) {
     this.key = RectGetter.createGlobalKey();
     this.width = 0.0;
-  } 
+  }
 }

@@ -79,7 +79,7 @@ class _LoadCardsState extends State<LoadCards> {
         ),
       ),
       child: FlatButton(
-        onPressed: _incrementitems,
+        onPressed: () => _incrementitems,
         child: Text('Ver más categorías',
             style: new TextStyle(
               color: Colors.black,
@@ -93,7 +93,7 @@ class _LoadCardsState extends State<LoadCards> {
 
   void _incrementitems() {
     setState(() {
-      items++;
+      items = 2;
     });
   }
 }
@@ -112,7 +112,7 @@ class DescubirCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // int cardslength;
 
-    var items = new List.generate(8, (items) => ' $items');
+    var items = (8);
     return Column(
       children: <Widget>[
         Flexible(
@@ -122,7 +122,7 @@ class DescubirCard extends StatelessWidget {
             mainAxisSpacing: 16.0,
             childAspectRatio: (itemWidth / itemHeight),
             crossAxisCount: 2,
-            children: List.generate(items.length, (items) {
+            children: List.generate(items, (items) {
               return Container(
                 width: MediaQuery.of(context).size.width * 0.4187,
                 height: MediaQuery.of(context).size.height * 0.862,
@@ -147,7 +147,7 @@ class DescubirCard extends StatelessWidget {
           fit: FlexFit.loose,
           child: Padding(
               padding: const EdgeInsets.only(top: 16.0, bottom: 2.0),
-              child: LoadCards(items: items)),
+              child: LoadCards()),
         ),
       ],
     );

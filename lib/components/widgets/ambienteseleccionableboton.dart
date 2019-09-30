@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/services/filtros/ambiente_services.dart';
 
-
 class SelectableAmbienteChip extends StatelessWidget {
   final Ambiente ambiente;
   final Function onPressed;
@@ -13,7 +12,7 @@ class SelectableAmbienteChip extends StatelessWidget {
     TextStyle chipStyle = Theme.of(context)
         .textTheme
         .body2
-        .copyWith(color: Colors.white, fontSize: 14.0);
+        .copyWith(color: Colors.black, fontSize: 14.0);
 
     if (ambiente.name.isEmpty) {
       return Container(
@@ -30,16 +29,20 @@ class SelectableAmbienteChip extends StatelessWidget {
         label: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text(
-              ambiente.name,
-              style: chipStyle,
+            Padding(
+              padding: const EdgeInsets.only(left: 4.0),
+              child: Text(
+                ambiente.name,
+                style: chipStyle,
+                textAlign: TextAlign.center,
+              ),
             ),
             IconButton(
               icon: Icon(
                 Icons.add,
                 size: 20.0,
               ),
-              color: Colors.white,
+              color: Colors.black,
               onPressed: () {},
             )
           ],
@@ -58,7 +61,7 @@ class SelectedAmbienteChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextStyle whiteTextTheme =
-        Theme.of(context).textTheme.button.copyWith(color: Colors.white);
+        Theme.of(context).textTheme.button.copyWith(color: Colors.black);
 
     return Chip(
       backgroundColor: this.color,
@@ -73,7 +76,7 @@ class SelectedAmbienteChip extends StatelessWidget {
             child: Icon(
               Icons.check,
               size: 16.0,
-              color: Colors.white,
+              color: Colors.black,
             ),
           )
         ],

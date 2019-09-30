@@ -94,6 +94,7 @@ class _ClientAddPageState extends State<ClientAddPage> {
   String rating;
   String ratingcount;
   String totalrating;
+  String logo;
 
   //we create a method to obtain the image from the camera or the gallery
 
@@ -176,10 +177,11 @@ class _ClientAddPageState extends State<ClientAddPage> {
           final StorageReference fireStoreRef = FirebaseStorage.instance
               .ref()
               .child('client')
+              .child('taskname')
               .child(uid)
               .child('uid')
               .child('tasklocation')
-              .child('taskname')
+              .child('logo')
               .child('taskphone')
               .child('taskprice')
               .child('tasktime')
@@ -209,12 +211,13 @@ class _ClientAddPageState extends State<ClientAddPage> {
                 Firestore.instance
                     .collection('client')
                     .add({
+                      'taskname': taskname,
                       'uid': uid,
                       'taskclientimage': taskclientimage,
                       'taskclientimage': urlFoto,
                       'taskdescription': taskdescription,
                       'tasklocation': tasklocation,
-                      'taskname': taskname,
+                      'logo': logo,
                       'taskphone': taskphone,
                       'taskprice': taskprice,
                       'tasktime': tasktime,
@@ -244,12 +247,13 @@ class _ClientAddPageState extends State<ClientAddPage> {
           Firestore.instance
               .collection('client')
               .add({
+                'taskname': taskname,
                 'uid': uid,
                 'taskclientimage': taskclientimage,
                 'taskclientimage': urlFoto,
                 'taskdescription': taskdescription,
                 'tasklocation': tasklocation,
-                'taskname': taskname,
+                'logo': logo,
                 'taskphone': taskphone,
                 'taskprice': taskprice,
                 'tasktime': tasktime,

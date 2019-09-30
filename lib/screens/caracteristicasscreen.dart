@@ -3,40 +3,42 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:rect_getter/rect_getter.dart';
-import 'package:seemur_v1/components/widgets/ambienteseleccionableboton.dart';
-import 'package:seemur_v1/services/filtros/ambiente_services.dart';
+import 'package:seemur_v1/components/widgets/caracteristicaseleccionableboton.dart';
+import 'package:seemur_v1/services/filtros/caracteristicas_services.dart';
 
-class AmbienteSelectionScreen extends StatefulWidget {
-  _AmbienteSelectionScreenState createState() =>
-      _AmbienteSelectionScreenState();
+class CaracteristicaSelectionScreen extends StatefulWidget {
+  _CaracteristicaSelectionScreenState createState() =>
+      _CaracteristicaSelectionScreenState();
 }
 
-class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
+class _CaracteristicaSelectionScreenState
+    extends State<CaracteristicaSelectionScreen>
     with SingleTickerProviderStateMixin {
-  AmbienteService service = AmbienteService();
-  List<Ambiente> allAmbientes, selectedAmbiente;
+  CaracteristicaService service = CaracteristicaService();
+  List<Caracteristica> allCaracteristica, selectedCaracteristica;
   AnimationController _controller;
   Animation<Rect> _moveAnimation;
   Animation<Offset> _siMoveAnimation;
   Animation<double> _scaleAnimation,
-      _clippedAmbienteScaleAnim,
+      _clippedCaracteristicaScaleAnim,
       _clippedNotificationScaleAnim;
-  Animation<Color> _clippedAmbienteColorAnim, _selectedAmbienteColorAnim;
-  int selectedId, ambienteFound = 0;
-  Offset ambienteStartOffset;
+  Animation<Color> _clippedCaracteristicaColorAnim,
+      _selectedCaracteristicaColorAnim;
+  int selectedId, caracteristicaFound = 0;
+  Offset caracteristicaStartOffset;
 
   Timer cleanupTimer;
 
   bool showCounter = false;
-  int noClippedSelectedAmbiente = 0;
+  int noClippedSelectedCaracteristica = 0;
 
-  var firstAmbienteKey = RectGetter.createGlobalKey();
+  var firstCaracteristicaKey = RectGetter.createGlobalKey();
 
   @override
   void initState() {
     super.initState();
-    allAmbientes = service.allAmbiente;
-    selectedAmbiente = service.selectedAmbiente;
+    allCaracteristica = service.allCaracteristica;
+    selectedCaracteristica = service.selectedCaracteristica;
     _controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
 
@@ -45,18 +47,19 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
             parent: _controller,
             curve: Interval(0.5, 0.7, curve: Curves.elasticInOut)));
 
-    _clippedAmbienteScaleAnim = Tween<double>(begin: 1.0, end: 0.3).animate(
-        CurvedAnimation(parent: _controller, curve: Interval(0.5, 0.8)));
+    _clippedCaracteristicaScaleAnim = Tween<double>(begin: 1.0, end: 0.3)
+        .animate(
+            CurvedAnimation(parent: _controller, curve: Interval(0.5, 0.8)));
 
     _clippedNotificationScaleAnim = Tween<double>(begin: 35.0, end: 45.0)
         .animate(
             CurvedAnimation(parent: _controller, curve: Interval(0.7, 0.8)));
 
-    _clippedAmbienteColorAnim =
+    _clippedCaracteristicaColorAnim =
         ColorTween(begin: Color(0xfff8c300), end: Colors.black).animate(
             CurvedAnimation(parent: _controller, curve: Interval(0.5, 1.0)));
 
-    _selectedAmbienteColorAnim =
+    _selectedCaracteristicaColorAnim =
         ColorTween(begin: Color(0xff16202c), end: Color(0xfff8c300)).animate(
             CurvedAnimation(
                 parent: _controller,
@@ -77,18 +80,18 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
               children: <Widget>[
                 Container(
                   height: 50.0,
-                  child: _getSelectedAmbiente(),
+                  child: _getSelectedCaracteristica(),
                 ),
                 Expanded(
                   child: Container(
-                    height: 20,
-                    padding: const EdgeInsets.only(bottom: 30.0),
+                    height: 80,
+                    padding: const EdgeInsets.only(bottom: 0.0),
                     color: Color(0xfff6f7fa),
                     child: Center(
                       child: Wrap(
                         alignment: WrapAlignment.center,
                         spacing: 5.0,
-                        children: _getUnselectedAmbiente(),
+                        children: _getUnselectedCaracteristica(),
                       ),
                     ),
                   ),
@@ -101,13 +104,13 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
     );
   }
 
-  _getSelectedAmbiente() {
-    if (selectedAmbiente.length == 0) {
+  _getSelectedCaracteristica() {
+    if (selectedCaracteristica.length == 0) {
       return RectGetter(
-        key: firstAmbienteKey,
+        key: firstCaracteristicaKey,
         child: Center(
             child: Text(
-          "Ambientes seleccionados ",
+          "Comodidades seleccionadas ",
           style: Theme.of(context).textTheme.title,
         )),
       );
@@ -116,20 +119,23 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Transform.translate(
-          offset: getSelAmbienteMoveOffset(),
+          offset: getSelCaracteristicaMoveOffset(),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: selectedAmbiente.map((ambiente) {
+            children: selectedCaracteristica.map((caracteristica) {
               return Transform(
                 transform: Matrix4.diagonal3Values(
-                    getSelectedAmbienteScaleOffset(ambiente.id), 1.0, 1.0),
+                    getSelectedCaracteristicaScaleOffset(caracteristica.id),
+                    1.0,
+                    1.0),
                 child: RectGetter(
-                  key: ambiente.key,
+                  key: caracteristica.key,
                   child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: SelectedAmbienteChip(
-                        ambiente: ambiente,
-                        color: _getSelectedAmbienteColor(ambiente.id),
+                      child: SelectedCaracteristicaChip(
+                        caracteristica: caracteristica,
+                        color:
+                            _getSelectedCaracteristicaColor(caracteristica.id),
                       )),
                 ),
               );
@@ -152,7 +158,7 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
           color: Colors.black,
           child: Center(
             child: Text(
-              "+$noClippedSelectedAmbiente",
+              "+$noClippedSelectedCaracteristica",
               style: whiteTextTheme,
             ),
           ),
@@ -162,19 +168,19 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
     return Container();
   }
 
-  _getUnselectedAmbiente() {
-    return allAmbientes.map((ambiente) {
+  _getUnselectedCaracteristica() {
+    return allCaracteristica.map((caracteristica) {
       return RectGetter(
-        key: ambiente.key,
+        key: caracteristica.key,
         child: Padding(
           padding: const EdgeInsets.all(2.0),
           child: Transform.translate(
-            offset: getOffsetValue(ambiente.id),
+            offset: getOffsetValue(caracteristica.id),
             child: Transform.scale(
-              scale: getScaleValue(ambiente.id),
-              child: SelectableAmbienteChip(
-                ambiente: ambiente,
-                color: getSelectableAmbienteColor(ambiente.id),
+              scale: getScaleValue(caracteristica.id),
+              child: SelectableCaracteristicaChip(
+                caracteristica: caracteristica,
+                color: getSelectableCaracteristicaColor(caracteristica.id),
                 onPressed: (id) => _chipPressed(id),
               ),
             ),
@@ -185,28 +191,31 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
   }
 
   _chipPressed(int id) async {
-    var ambiente = service.allAmbiente.firstWhere((ing) => ing.id == id);
+    var caracteristica =
+        service.allCaracteristica.firstWhere((ing) => ing.id == id);
 
-    var ambienteBeginRect = RectGetter.getRectFromKey(ambiente.key);
-    var ambienteEndRect;
-    if (selectedAmbiente.length > 0) {
-      var firstSelectedAmbiente = selectedAmbiente[0];
-      ambienteEndRect = RectGetter.getRectFromKey(firstSelectedAmbiente.key);
+    var caracteristicaBeginRect = RectGetter.getRectFromKey(caracteristica.key);
+    var caracteristicaEndRect;
+    if (selectedCaracteristica.length > 0) {
+      var firstSelectedCaracteristica = selectedCaracteristica[0];
+      caracteristicaEndRect =
+          RectGetter.getRectFromKey(firstSelectedCaracteristica.key);
     } else {
-      ambienteEndRect = RectGetter.getRectFromKey(firstAmbienteKey);
+      caracteristicaEndRect = RectGetter.getRectFromKey(firstCaracteristicaKey);
     }
 
     setState(() {
       selectedId = id;
-      ambienteStartOffset = ambienteBeginRect.center;
+      caracteristicaStartOffset = caracteristicaBeginRect.center;
     });
 
-    setupMovementAnimation(ambienteBeginRect, ambienteEndRect);
+    setupMovementAnimation(caracteristicaBeginRect, caracteristicaEndRect);
 
     await _controller.forward();
 
-    Ambiente selIng = new Ambiente(ambiente.id, ambiente.name);
-    ambiente.width = RectGetter.getRectFromKey(ambiente.key).width;
+    Caracteristica selIng =
+        new Caracteristica(caracteristica.id, caracteristica.name);
+    caracteristica.width = RectGetter.getRectFromKey(caracteristica.key).width;
 
     if (cleanupTimer != null) {
       cleanupTimer.cancel();
@@ -214,18 +223,18 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
 
     setState(() {
       selectedId = null;
-      ambiente.name = "";
+      caracteristica.name = "";
       cleanupTimer = new Timer(new Duration(seconds: 2), () => _timerCleanup());
-      selectedAmbiente.insert(0, selIng);
+      selectedCaracteristica.insert(0, selIng);
     });
 
-    cleanupSelectedAmbiente();
+    cleanupSelectedCaracteristica();
     _controller.reset();
   }
 
   getOffsetValue(int id) {
     if (selectedId != null && selectedId == id) {
-      var offset = _moveAnimation.value.center - ambienteStartOffset;
+      var offset = _moveAnimation.value.center - caracteristicaStartOffset;
       return offset;
     }
     return Offset.zero;
@@ -238,7 +247,7 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
     return 1.0;
   }
 
-  getSelAmbienteMoveOffset() {
+  getSelCaracteristicaMoveOffset() {
     if (selectedId != null) {
       return _siMoveAnimation.value;
     }
@@ -253,52 +262,54 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
             CurvedAnimation(parent: _controller, curve: Interval(0.5, 1.0)));
   }
 
-  void cleanupSelectedAmbiente() {
+  void cleanupSelectedCaracteristica() {
     var screenWidth = MediaQuery.of(context).size.width;
 
     var totalWidth = 0.0;
-    selectedAmbiente.forEach((ambiente) {
-      var rect = RectGetter.getRectFromKey(ambiente.key);
+    selectedCaracteristica.forEach((caracteristica) {
+      var rect = RectGetter.getRectFromKey(caracteristica.key);
       if (rect != null) totalWidth += rect.width;
     });
 
     if (totalWidth >= screenWidth - 200.0) {
       setState(() {
-        noClippedSelectedAmbiente += 1;
+        noClippedSelectedCaracteristica += 1;
         showCounter = true;
       });
-      selectedAmbiente.removeLast();
+      selectedCaracteristica.removeLast();
     }
   }
 
-  getSelectedAmbienteScaleOffset(int id) {
-    if (id == selectedAmbiente.last.id && noClippedSelectedAmbiente > 0) {
-      return _clippedAmbienteScaleAnim.value;
+  getSelectedCaracteristicaScaleOffset(int id) {
+    if (id == selectedCaracteristica.last.id &&
+        noClippedSelectedCaracteristica > 0) {
+      return _clippedCaracteristicaScaleAnim.value;
     }
     return 1.0;
   }
 
-  _getSelectedAmbienteColor(int id) {
-    if (id == selectedAmbiente.last.id && noClippedSelectedAmbiente > 0) {
-      return _clippedAmbienteColorAnim.value;
+  _getSelectedCaracteristicaColor(int id) {
+    if (id == selectedCaracteristica.last.id &&
+        noClippedSelectedCaracteristica > 0) {
+      return _clippedCaracteristicaColorAnim.value;
     }
     return Color(0xfff8c300);
   }
 
   void _timerCleanup() {
     var toCleanupCount =
-        allAmbientes.where((ing) => ing.name.isEmpty).toList().length;
+        allCaracteristica.where((ing) => ing.name.isEmpty).toList().length;
     if (toCleanupCount > 0) {
       setState(() {
-        allAmbientes.removeWhere((ing) => ing.name.isEmpty);
-        ambienteFound = new Random().nextInt(2000);
+        allCaracteristica.removeWhere((ing) => ing.name.isEmpty);
+        caracteristicaFound = new Random().nextInt(2000);
       });
     }
   }
 
-  getSelectableAmbienteColor(int id) {
+  getSelectableCaracteristicaColor(int id) {
     if (selectedId != null && selectedId == id) {
-      return _selectedAmbienteColorAnim.value;
+      return _selectedCaracteristicaColorAnim.value;
     }
     return Colors.white;
   }

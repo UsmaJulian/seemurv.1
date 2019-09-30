@@ -12,7 +12,7 @@ class PlanesSelectionScreen extends StatefulWidget {
 
 class _PlanesSelectionScreenState extends State<PlanesSelectionScreen>
     with SingleTickerProviderStateMixin {
-  AmbienteService service = AmbienteService();
+  PlanesServices service = PlanesServices();
   List<Planes> allPlanes, selectedPlan;
   AnimationController _controller;
   Animation<Rect> _moveAnimation;
@@ -30,7 +30,7 @@ class _PlanesSelectionScreenState extends State<PlanesSelectionScreen>
   int noClippedSelectedPlan = 0;
 
   var firstPlanKey = RectGetter.createGlobalKey();
-  @override
+
   @override
   void initState() {
     super.initState();
@@ -52,11 +52,11 @@ class _PlanesSelectionScreenState extends State<PlanesSelectionScreen>
             CurvedAnimation(parent: _controller, curve: Interval(0.7, 0.8)));
 
     _clippedPlanesColorAnim =
-        ColorTween(begin: Colors.pink[300], end: Colors.black).animate(
+        ColorTween(begin: Color(0xfff8c300), end: Colors.black).animate(
             CurvedAnimation(parent: _controller, curve: Interval(0.5, 1.0)));
 
     _selectedPlanColorAnim =
-        ColorTween(begin: Colors.blue[800], end: Colors.pink[300]).animate(
+        ColorTween(begin: Color(0xff16202c), end: Color(0xfff8c300)).animate(
             CurvedAnimation(
                 parent: _controller,
                 curve: Interval(0.0, 0.3, curve: Curves.elasticInOut)));
@@ -80,8 +80,9 @@ class _PlanesSelectionScreenState extends State<PlanesSelectionScreen>
                 ),
                 Expanded(
                   child: Container(
+                    height: 20,
                     padding: const EdgeInsets.only(bottom: 30.0),
-                    color: Colors.black12,
+                    color: Color(0xfff6f7fa),
                     child: Center(
                       child: Wrap(
                         alignment: WrapAlignment.center,
@@ -138,10 +139,11 @@ class _PlanesSelectionScreenState extends State<PlanesSelectionScreen>
       ],
     );
   }
-    Widget getNotificationBubble() {
+
+  Widget getNotificationBubble() {
     TextStyle whiteTextTheme =
         Theme.of(context).textTheme.button.copyWith(color: Colors.white);
-            if (showCounter) {
+    if (showCounter) {
       return ClipOval(
         child: Container(
           width: _clippedNotificationScaleAnim.value,
@@ -157,7 +159,8 @@ class _PlanesSelectionScreenState extends State<PlanesSelectionScreen>
       );
     }
     return Container();
-}
+  }
+
   _getUnselectedPlan() {
     return allPlanes.map((planes) {
       return RectGetter(
@@ -179,15 +182,15 @@ class _PlanesSelectionScreenState extends State<PlanesSelectionScreen>
       );
     }).toList();
   }
-    _chipPressed(int id) async {
+
+  _chipPressed(int id) async {
     var planes = service.allPlanes.firstWhere((ing) => ing.id == id);
 
     var planesBeginRect = RectGetter.getRectFromKey(planes.key);
     var planesEndRect;
     if (selectedPlan.length > 0) {
       var firstSelectedPlan = selectedPlan[0];
-      planesEndRect =
-          RectGetter.getRectFromKey(firstSelectedPlan.key);
+      planesEndRect = RectGetter.getRectFromKey(firstSelectedPlan.key);
     } else {
       planesEndRect = RectGetter.getRectFromKey(firstPlanKey);
     }
@@ -218,25 +221,29 @@ class _PlanesSelectionScreenState extends State<PlanesSelectionScreen>
     cleanupSelectedPlan();
     _controller.reset();
   }
-    getOffsetValue(int id) {
+
+  getOffsetValue(int id) {
     if (selectedId != null && selectedId == id) {
       var offset = _moveAnimation.value.center - planesStartOffset;
       return offset;
     }
     return Offset.zero;
-    }
-      getScaleValue(int id) {
+  }
+
+  getScaleValue(int id) {
     if (selectedId != null && selectedId == id) {
       return _scaleAnimation.value;
     }
     return 1.0;
   }
+
   getSelPlanesMoveOffset() {
     if (selectedId != null) {
       return _siMoveAnimation.value;
     }
     return Offset.zero;
   }
+
   setupMovementAnimation(Rect begin, Rect end) {
     _moveAnimation = RectTween(begin: begin, end: end).animate(
         CurvedAnimation(parent: _controller, curve: Interval(0.5, 1.0)));
@@ -244,6 +251,7 @@ class _PlanesSelectionScreenState extends State<PlanesSelectionScreen>
         Tween<Offset>(begin: Offset.zero, end: Offset(100.0, 0.0)).animate(
             CurvedAnimation(parent: _controller, curve: Interval(0.5, 1.0)));
   }
+
   void cleanupSelectedPlan() {
     var screenWidth = MediaQuery.of(context).size.width;
 
@@ -255,24 +263,27 @@ class _PlanesSelectionScreenState extends State<PlanesSelectionScreen>
 
     if (totalWidth >= screenWidth - 200.0) {
       setState(() {
-        noClippedSelectedPlan+= 1;
+        noClippedSelectedPlan += 1;
         showCounter = true;
       });
       selectedPlan.removeLast();
     }
   }
+
   getSelectedPlanScaleOffset(int id) {
     if (id == selectedPlan.last.id && noClippedSelectedPlan > 0) {
       return _clippedPlanesScaleAnim.value;
     }
     return 1.0;
   }
+
   _getSelectedPlanColor(int id) {
     if (id == selectedPlan.last.id && noClippedSelectedPlan > 0) {
       return _clippedPlanesColorAnim.value;
     }
-    return Colors.pink[300];
+    return Color(0xfff8c300);
   }
+
   void _timerCleanup() {
     var toCleanupCount =
         allPlanes.where((ing) => ing.name.isEmpty).toList().length;
@@ -283,11 +294,11 @@ class _PlanesSelectionScreenState extends State<PlanesSelectionScreen>
       });
     }
   }
+
   getSelectablePlanColor(int id) {
     if (selectedId != null && selectedId == id) {
       return _selectedPlanColorAnim.value;
     }
-    return Colors.blue[800];
+    return Colors.white;
   }
-
-    }
+}

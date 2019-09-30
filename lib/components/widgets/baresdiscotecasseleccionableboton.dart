@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:seemur_v1/services/filtros/planes_services.dart';
+import 'package:seemur_v1/services/filtros/BaresDiscotecasCervecerias_services.dart';
 
-class SelectablePlanesChip extends StatelessWidget {
-  final Planes planes;
+class SelectableBarDiscotecaChip extends StatelessWidget {
+  final BarDiscoCerv bardiscocerv;
   final Function onPressed;
   final Color color;
-  SelectablePlanesChip({this.planes, this.onPressed, this.color});
+  SelectableBarDiscotecaChip({this.bardiscocerv, this.onPressed, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +14,15 @@ class SelectablePlanesChip extends StatelessWidget {
         .body2
         .copyWith(color: Colors.black, fontSize: 14.0);
 
-    if (planes.name.isEmpty) {
+    if (bardiscocerv.name.isEmpty) {
       return Container(
-        width: planes.width - 4.0,
+        width: bardiscocerv.width - 4.0,
         height: 45.0,
       );
     }
 
     return GestureDetector(
-      onTap: () => this.onPressed(planes.id),
+      onTap: () => this.onPressed(bardiscocerv.id),
       child: Chip(
         padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 0.0),
         backgroundColor: this.color,
@@ -32,7 +32,7 @@ class SelectablePlanesChip extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 4.0),
               child: Text(
-                planes.name,
+                bardiscocerv.name,
                 style: chipStyle,
                 textAlign: TextAlign.center,
               ),
@@ -52,11 +52,11 @@ class SelectablePlanesChip extends StatelessWidget {
   }
 }
 
-class SelectedPlanesChip extends StatelessWidget {
-  final Planes planes;
+class SelectedBarDiscoCervChip extends StatelessWidget {
+  final BarDiscoCerv bardiscocerv;
   final Function onPressed;
   final Color color;
-  SelectedPlanesChip({this.planes, this.onPressed, this.color});
+  SelectedBarDiscoCervChip({this.bardiscocerv, this.onPressed, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class SelectedPlanesChip extends StatelessWidget {
       label: Row(
         children: <Widget>[
           Text(
-            planes.name,
+            bardiscocerv.name,
             style: whiteTextTheme,
           ),
           Padding(

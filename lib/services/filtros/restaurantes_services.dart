@@ -1,29 +1,32 @@
 import 'package:rect_getter/rect_getter.dart';
 
-class RestaurantesService {
-  static final RestaurantesService _singleton = new RestaurantesService._internal();
-  factory RestaurantesService() {
+class RestauranteService {
+  static final RestauranteService _singleton =
+      new RestauranteService._internal();
+  factory RestauranteService() {
     return _singleton;
   }
-  RestaurantesService._internal();
+  RestauranteService._internal();
 
-  List<Restaurantes> allRestaurantes = [
-    Restaurantes(10, 'Desayuno'),
-    Restaurantes(11, 'Brunch'),
-    Restaurantes(12, 'Almuerzos'),
-    Restaurantes(13, 'Vegetariano'),
-    Restaurantes(14, 'Sirve Alcohol'),
+  List<Restaurante> allRestaurante = [
+    Restaurante(11, 'Desayuno'),
+    Restaurante(12, 'Brunch'),
+    Restaurante(13, 'Almuerzos'),
+    Restaurante(14, 'Onces'),
+    Restaurante(15, 'Cena'),
+    Restaurante(16, 'Snacks'),
   ];
-  List<Restaurantes> selectedRestaurantes = [];
+  List<Restaurante> selectedRestaurante = [];
 }
-class Restaurantes {
+
+class Restaurante {
   int id;
   String name;
   var key;
   double width;
 
-  Restaurantes(this.id, this.name) {
+  Restaurante(this.id, this.name) {
     this.key = RectGetter.createGlobalKey();
     this.width = 0.0;
-  } 
+  }
 }

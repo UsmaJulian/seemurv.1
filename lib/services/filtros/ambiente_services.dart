@@ -8,14 +8,15 @@ class AmbienteService {
   AmbienteService._internal();
 
   List<Ambiente> allAmbiente = [
-    Ambiente(5, 'Bohemio'),
-    Ambiente(6, 'Tranquilo'),
-    Ambiente(7, 'Familiar'),
-    Ambiente(8, 'Concurrido'),
-    Ambiente(9, 'Acogedor'),
+    Ambiente(6, 'Bohemio'),
+    Ambiente(7, 'Tranquilo'),
+    Ambiente(8, 'Familiar'),
+    Ambiente(9, 'Concurrido'),
+    Ambiente(10, 'Acogedor'),
   ];
   List<Ambiente> selectedAmbiente = [];
 }
+
 class Ambiente {
   int id;
   String name;
@@ -25,5 +26,5 @@ class Ambiente {
   Ambiente(this.id, this.name) {
     this.key = RectGetter.createGlobalKey();
     this.width = 0.0;
-  } 
+  }
 }

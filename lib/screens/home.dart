@@ -561,7 +561,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 47.0, right: 175.0),
+                                    top: 47.0, right: 155.0),
                                 child: Text("Restaurantes para ti",
                                     style: TextStyle(
                                       fontFamily: 'HankenGrotesk',

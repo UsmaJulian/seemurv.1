@@ -3,40 +3,42 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:rect_getter/rect_getter.dart';
-import 'package:seemur_v1/components/widgets/ambienteseleccionableboton.dart';
-import 'package:seemur_v1/services/filtros/ambiente_services.dart';
+import 'package:seemur_v1/components/widgets/baresdiscotecasseleccionableboton.dart';
+import 'package:seemur_v1/services/filtros/BaresDiscotecasCervecerias_services.dart';
 
-class AmbienteSelectionScreen extends StatefulWidget {
-  _AmbienteSelectionScreenState createState() =>
-      _AmbienteSelectionScreenState();
+class BarDiscoCervSelectionScreen extends StatefulWidget {
+  _BarDiscoCervSelectionScreenState createState() =>
+      _BarDiscoCervSelectionScreenState();
 }
 
-class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
+class _BarDiscoCervSelectionScreenState
+    extends State<BarDiscoCervSelectionScreen>
     with SingleTickerProviderStateMixin {
-  AmbienteService service = AmbienteService();
-  List<Ambiente> allAmbientes, selectedAmbiente;
+  BarDiscoCervService service = BarDiscoCervService();
+  List<BarDiscoCerv> allBarDiscoCerv, selectedBarDiscoCerv;
   AnimationController _controller;
   Animation<Rect> _moveAnimation;
   Animation<Offset> _siMoveAnimation;
   Animation<double> _scaleAnimation,
-      _clippedAmbienteScaleAnim,
+      _clippedBarDiscoCervScaleAnim,
       _clippedNotificationScaleAnim;
-  Animation<Color> _clippedAmbienteColorAnim, _selectedAmbienteColorAnim;
-  int selectedId, ambienteFound = 0;
-  Offset ambienteStartOffset;
+  Animation<Color> _clippedBarDiscoCervColorAnim,
+      _selectedBarDiscoCervColorAnim;
+  int selectedId, bardiscocervFound = 0;
+  Offset bardiscocervStartOffset;
 
   Timer cleanupTimer;
 
   bool showCounter = false;
-  int noClippedSelectedAmbiente = 0;
+  int noClippedSelectedBarDiscoCerv = 0;
 
-  var firstAmbienteKey = RectGetter.createGlobalKey();
+  var firstBarDiscoCervKey = RectGetter.createGlobalKey();
 
   @override
   void initState() {
     super.initState();
-    allAmbientes = service.allAmbiente;
-    selectedAmbiente = service.selectedAmbiente;
+    allBarDiscoCerv = service.allBarDiscoCerv;
+    selectedBarDiscoCerv = service.selectedBarDiscoCerv;
     _controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
 
@@ -45,18 +47,18 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
             parent: _controller,
             curve: Interval(0.5, 0.7, curve: Curves.elasticInOut)));
 
-    _clippedAmbienteScaleAnim = Tween<double>(begin: 1.0, end: 0.3).animate(
+    _clippedBarDiscoCervScaleAnim = Tween<double>(begin: 1.0, end: 0.3).animate(
         CurvedAnimation(parent: _controller, curve: Interval(0.5, 0.8)));
 
     _clippedNotificationScaleAnim = Tween<double>(begin: 35.0, end: 45.0)
         .animate(
             CurvedAnimation(parent: _controller, curve: Interval(0.7, 0.8)));
 
-    _clippedAmbienteColorAnim =
+    _clippedBarDiscoCervColorAnim =
         ColorTween(begin: Color(0xfff8c300), end: Colors.black).animate(
             CurvedAnimation(parent: _controller, curve: Interval(0.5, 1.0)));
 
-    _selectedAmbienteColorAnim =
+    _selectedBarDiscoCervColorAnim =
         ColorTween(begin: Color(0xff16202c), end: Color(0xfff8c300)).animate(
             CurvedAnimation(
                 parent: _controller,
@@ -77,18 +79,18 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
               children: <Widget>[
                 Container(
                   height: 50.0,
-                  child: _getSelectedAmbiente(),
+                  child: _getSelectedBarDiscoCerv(),
                 ),
                 Expanded(
                   child: Container(
-                    height: 20,
-                    padding: const EdgeInsets.only(bottom: 30.0),
+                    height: 80,
+                    padding: const EdgeInsets.only(bottom: 0.0),
                     color: Color(0xfff6f7fa),
                     child: Center(
                       child: Wrap(
                         alignment: WrapAlignment.center,
                         spacing: 5.0,
-                        children: _getUnselectedAmbiente(),
+                        children: _getUnselectedBarDiscoCerv(),
                       ),
                     ),
                   ),
@@ -101,13 +103,13 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
     );
   }
 
-  _getSelectedAmbiente() {
-    if (selectedAmbiente.length == 0) {
+  _getSelectedBarDiscoCerv() {
+    if (selectedBarDiscoCerv.length == 0) {
       return RectGetter(
-        key: firstAmbienteKey,
+        key: firstBarDiscoCervKey,
         child: Center(
             child: Text(
-          "Ambientes seleccionados ",
+          "Bares y discotecas seleccionados ",
           style: Theme.of(context).textTheme.title,
         )),
       );
@@ -116,20 +118,22 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Transform.translate(
-          offset: getSelAmbienteMoveOffset(),
+          offset: getSelBarDiscoCervMoveOffset(),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: selectedAmbiente.map((ambiente) {
+            children: selectedBarDiscoCerv.map((bardiscocerv) {
               return Transform(
                 transform: Matrix4.diagonal3Values(
-                    getSelectedAmbienteScaleOffset(ambiente.id), 1.0, 1.0),
+                    getSelectedBarDiscoCervScaleOffset(bardiscocerv.id),
+                    1.0,
+                    1.0),
                 child: RectGetter(
-                  key: ambiente.key,
+                  key: bardiscocerv.key,
                   child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: SelectedAmbienteChip(
-                        ambiente: ambiente,
-                        color: _getSelectedAmbienteColor(ambiente.id),
+                      child: SelectedBarDiscoCervChip(
+                        bardiscocerv: bardiscocerv,
+                        color: getSelectableBarDiscoCervColor(bardiscocerv.id),
                       )),
                 ),
               );
@@ -152,7 +156,7 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
           color: Colors.black,
           child: Center(
             child: Text(
-              "+$noClippedSelectedAmbiente",
+              "+$noClippedSelectedBarDiscoCerv",
               style: whiteTextTheme,
             ),
           ),
@@ -162,19 +166,19 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
     return Container();
   }
 
-  _getUnselectedAmbiente() {
-    return allAmbientes.map((ambiente) {
+  _getUnselectedBarDiscoCerv() {
+    return allBarDiscoCerv.map((bardiscocerv) {
       return RectGetter(
-        key: ambiente.key,
+        key: bardiscocerv.key,
         child: Padding(
           padding: const EdgeInsets.all(2.0),
           child: Transform.translate(
-            offset: getOffsetValue(ambiente.id),
+            offset: getOffsetValue(bardiscocerv.id),
             child: Transform.scale(
-              scale: getScaleValue(ambiente.id),
-              child: SelectableAmbienteChip(
-                ambiente: ambiente,
-                color: getSelectableAmbienteColor(ambiente.id),
+              scale: getScaleValue(bardiscocerv.id),
+              child: SelectableBarDiscotecaChip(
+                bardiscocerv: bardiscocerv,
+                color: getSelectableBarDiscoCervColor(bardiscocerv.id),
                 onPressed: (id) => _chipPressed(id),
               ),
             ),
@@ -185,28 +189,30 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
   }
 
   _chipPressed(int id) async {
-    var ambiente = service.allAmbiente.firstWhere((ing) => ing.id == id);
+    var bardiscocerv =
+        service.allBarDiscoCerv.firstWhere((ing) => ing.id == id);
 
-    var ambienteBeginRect = RectGetter.getRectFromKey(ambiente.key);
-    var ambienteEndRect;
-    if (selectedAmbiente.length > 0) {
-      var firstSelectedAmbiente = selectedAmbiente[0];
-      ambienteEndRect = RectGetter.getRectFromKey(firstSelectedAmbiente.key);
+    var bardiscocervBeginRect = RectGetter.getRectFromKey(bardiscocerv.key);
+    var bardiscocervEndRect;
+    if (selectedBarDiscoCerv.length > 0) {
+      var firstSelectedBarDiscoCerv = selectedBarDiscoCerv[0];
+      bardiscocervEndRect =
+          RectGetter.getRectFromKey(firstSelectedBarDiscoCerv.key);
     } else {
-      ambienteEndRect = RectGetter.getRectFromKey(firstAmbienteKey);
+      bardiscocervEndRect = RectGetter.getRectFromKey(firstBarDiscoCervKey);
     }
 
     setState(() {
       selectedId = id;
-      ambienteStartOffset = ambienteBeginRect.center;
+      bardiscocervStartOffset = bardiscocervBeginRect.center;
     });
 
-    setupMovementAnimation(ambienteBeginRect, ambienteEndRect);
+    setupMovementAnimation(bardiscocervBeginRect, bardiscocervEndRect);
 
     await _controller.forward();
 
-    Ambiente selIng = new Ambiente(ambiente.id, ambiente.name);
-    ambiente.width = RectGetter.getRectFromKey(ambiente.key).width;
+    BarDiscoCerv selIng = new BarDiscoCerv(bardiscocerv.id, bardiscocerv.name);
+    bardiscocerv.width = RectGetter.getRectFromKey(bardiscocerv.key).width;
 
     if (cleanupTimer != null) {
       cleanupTimer.cancel();
@@ -214,18 +220,18 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
 
     setState(() {
       selectedId = null;
-      ambiente.name = "";
+      bardiscocerv.name = "";
       cleanupTimer = new Timer(new Duration(seconds: 2), () => _timerCleanup());
-      selectedAmbiente.insert(0, selIng);
+      selectedBarDiscoCerv.insert(0, selIng);
     });
 
-    cleanupSelectedAmbiente();
+    cleanupSelectedBarDiscoCerv();
     _controller.reset();
   }
 
   getOffsetValue(int id) {
     if (selectedId != null && selectedId == id) {
-      var offset = _moveAnimation.value.center - ambienteStartOffset;
+      var offset = _moveAnimation.value.center - bardiscocervStartOffset;
       return offset;
     }
     return Offset.zero;
@@ -238,7 +244,7 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
     return 1.0;
   }
 
-  getSelAmbienteMoveOffset() {
+  getSelBarDiscoCervMoveOffset() {
     if (selectedId != null) {
       return _siMoveAnimation.value;
     }
@@ -253,52 +259,54 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
             CurvedAnimation(parent: _controller, curve: Interval(0.5, 1.0)));
   }
 
-  void cleanupSelectedAmbiente() {
+  void cleanupSelectedBarDiscoCerv() {
     var screenWidth = MediaQuery.of(context).size.width;
 
     var totalWidth = 0.0;
-    selectedAmbiente.forEach((ambiente) {
-      var rect = RectGetter.getRectFromKey(ambiente.key);
+    selectedBarDiscoCerv.forEach((bardiscocerv) {
+      var rect = RectGetter.getRectFromKey(bardiscocerv.key);
       if (rect != null) totalWidth += rect.width;
     });
 
     if (totalWidth >= screenWidth - 200.0) {
       setState(() {
-        noClippedSelectedAmbiente += 1;
+        noClippedSelectedBarDiscoCerv += 1;
         showCounter = true;
       });
-      selectedAmbiente.removeLast();
+      selectedBarDiscoCerv.removeLast();
     }
   }
 
-  getSelectedAmbienteScaleOffset(int id) {
-    if (id == selectedAmbiente.last.id && noClippedSelectedAmbiente > 0) {
-      return _clippedAmbienteScaleAnim.value;
+  getSelectedBarDiscoCervScaleOffset(int id) {
+    if (id == selectedBarDiscoCerv.last.id &&
+        noClippedSelectedBarDiscoCerv > 0) {
+      return _clippedBarDiscoCervScaleAnim.value;
     }
     return 1.0;
   }
 
-  _getSelectedAmbienteColor(int id) {
-    if (id == selectedAmbiente.last.id && noClippedSelectedAmbiente > 0) {
-      return _clippedAmbienteColorAnim.value;
+  _getSelectedPlanColor(int id) {
+    if (id == selectedBarDiscoCerv.last.id &&
+        noClippedSelectedBarDiscoCerv > 0) {
+      return _clippedBarDiscoCervColorAnim.value;
     }
     return Color(0xfff8c300);
   }
 
   void _timerCleanup() {
     var toCleanupCount =
-        allAmbientes.where((ing) => ing.name.isEmpty).toList().length;
+        allBarDiscoCerv.where((ing) => ing.name.isEmpty).toList().length;
     if (toCleanupCount > 0) {
       setState(() {
-        allAmbientes.removeWhere((ing) => ing.name.isEmpty);
-        ambienteFound = new Random().nextInt(2000);
+        allBarDiscoCerv.removeWhere((ing) => ing.name.isEmpty);
+        bardiscocervFound = new Random().nextInt(2000);
       });
     }
   }
 
-  getSelectableAmbienteColor(int id) {
+  getSelectableBarDiscoCervColor(int id) {
     if (selectedId != null && selectedId == id) {
-      return _selectedAmbienteColorAnim.value;
+      return _selectedBarDiscoCervColorAnim.value;
     }
     return Colors.white;
   }

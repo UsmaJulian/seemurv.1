@@ -3,40 +3,40 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:rect_getter/rect_getter.dart';
-import 'package:seemur_v1/components/widgets/ambienteseleccionableboton.dart';
-import 'package:seemur_v1/services/filtros/ambiente_services.dart';
+import 'package:seemur_v1/components/widgets/restaurantesseleccionableboton.dart';
+import 'package:seemur_v1/services/filtros/restaurantes_services.dart';
 
-class AmbienteSelectionScreen extends StatefulWidget {
-  _AmbienteSelectionScreenState createState() =>
-      _AmbienteSelectionScreenState();
+class RestauranteSelectionScreen extends StatefulWidget {
+  _RestauranteSelectionScreenState createState() =>
+      _RestauranteSelectionScreenState();
 }
 
-class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
+class _RestauranteSelectionScreenState extends State<RestauranteSelectionScreen>
     with SingleTickerProviderStateMixin {
-  AmbienteService service = AmbienteService();
-  List<Ambiente> allAmbientes, selectedAmbiente;
+  RestauranteService service = RestauranteService();
+  List<Restaurante> allRestaurante, selectedRestaurante;
   AnimationController _controller;
   Animation<Rect> _moveAnimation;
   Animation<Offset> _siMoveAnimation;
   Animation<double> _scaleAnimation,
-      _clippedAmbienteScaleAnim,
+      _clippedRestauranteScaleAnim,
       _clippedNotificationScaleAnim;
-  Animation<Color> _clippedAmbienteColorAnim, _selectedAmbienteColorAnim;
-  int selectedId, ambienteFound = 0;
-  Offset ambienteStartOffset;
+  Animation<Color> _clippedRestauranteColorAnim, _selectedRestauranteColorAnim;
+  int selectedId, restauranteFound = 0;
+  Offset restauranteStartOffset;
 
   Timer cleanupTimer;
 
   bool showCounter = false;
-  int noClippedSelectedAmbiente = 0;
+  int noClippedSelectedRestaurante = 0;
 
-  var firstAmbienteKey = RectGetter.createGlobalKey();
+  var firstRestauranteKey = RectGetter.createGlobalKey();
 
   @override
   void initState() {
     super.initState();
-    allAmbientes = service.allAmbiente;
-    selectedAmbiente = service.selectedAmbiente;
+    allRestaurante = service.allRestaurante;
+    selectedRestaurante = service.selectedRestaurante;
     _controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
 
@@ -45,18 +45,18 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
             parent: _controller,
             curve: Interval(0.5, 0.7, curve: Curves.elasticInOut)));
 
-    _clippedAmbienteScaleAnim = Tween<double>(begin: 1.0, end: 0.3).animate(
+    _clippedRestauranteScaleAnim = Tween<double>(begin: 1.0, end: 0.3).animate(
         CurvedAnimation(parent: _controller, curve: Interval(0.5, 0.8)));
 
     _clippedNotificationScaleAnim = Tween<double>(begin: 35.0, end: 45.0)
         .animate(
             CurvedAnimation(parent: _controller, curve: Interval(0.7, 0.8)));
 
-    _clippedAmbienteColorAnim =
+    _clippedRestauranteColorAnim =
         ColorTween(begin: Color(0xfff8c300), end: Colors.black).animate(
             CurvedAnimation(parent: _controller, curve: Interval(0.5, 1.0)));
 
-    _selectedAmbienteColorAnim =
+    _selectedRestauranteColorAnim =
         ColorTween(begin: Color(0xff16202c), end: Color(0xfff8c300)).animate(
             CurvedAnimation(
                 parent: _controller,
@@ -77,7 +77,7 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
               children: <Widget>[
                 Container(
                   height: 50.0,
-                  child: _getSelectedAmbiente(),
+                  child: _getSelectedRestaurante(),
                 ),
                 Expanded(
                   child: Container(
@@ -88,7 +88,7 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
                       child: Wrap(
                         alignment: WrapAlignment.center,
                         spacing: 5.0,
-                        children: _getUnselectedAmbiente(),
+                        children: _getUnselectedRestaurante(),
                       ),
                     ),
                   ),
@@ -101,13 +101,13 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
     );
   }
 
-  _getSelectedAmbiente() {
-    if (selectedAmbiente.length == 0) {
+  _getSelectedRestaurante() {
+    if (selectedRestaurante.length == 0) {
       return RectGetter(
-        key: firstAmbienteKey,
+        key: firstRestauranteKey,
         child: Center(
             child: Text(
-          "Ambientes seleccionados ",
+          "Restaurantes seleccionados ",
           style: Theme.of(context).textTheme.title,
         )),
       );
@@ -116,20 +116,22 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Transform.translate(
-          offset: getSelAmbienteMoveOffset(),
+          offset: getSelRestauranteMoveOffset(),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: selectedAmbiente.map((ambiente) {
+            children: selectedRestaurante.map((restaurante) {
               return Transform(
                 transform: Matrix4.diagonal3Values(
-                    getSelectedAmbienteScaleOffset(ambiente.id), 1.0, 1.0),
+                    getSelectedRestauranteScaleOffset(restaurante.id),
+                    1.0,
+                    1.0),
                 child: RectGetter(
-                  key: ambiente.key,
+                  key: restaurante.key,
                   child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: SelectedAmbienteChip(
-                        ambiente: ambiente,
-                        color: _getSelectedAmbienteColor(ambiente.id),
+                      child: SelectedRestauranteChip(
+                        restaurante: restaurante,
+                        color: getSelectableRestauranteColor(restaurante.id),
                       )),
                 ),
               );
@@ -152,7 +154,7 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
           color: Colors.black,
           child: Center(
             child: Text(
-              "+$noClippedSelectedAmbiente",
+              "+$noClippedSelectedRestaurante",
               style: whiteTextTheme,
             ),
           ),
@@ -162,19 +164,19 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
     return Container();
   }
 
-  _getUnselectedAmbiente() {
-    return allAmbientes.map((ambiente) {
+  _getUnselectedRestaurante() {
+    return allRestaurante.map((restaurante) {
       return RectGetter(
-        key: ambiente.key,
+        key: restaurante.key,
         child: Padding(
           padding: const EdgeInsets.all(2.0),
           child: Transform.translate(
-            offset: getOffsetValue(ambiente.id),
+            offset: getOffsetValue(restaurante.id),
             child: Transform.scale(
-              scale: getScaleValue(ambiente.id),
-              child: SelectableAmbienteChip(
-                ambiente: ambiente,
-                color: getSelectableAmbienteColor(ambiente.id),
+              scale: getScaleValue(restaurante.id),
+              child: SelectableRestauranteChip(
+                restaurante: restaurante,
+                color: getSelectableRestauranteColor(restaurante.id),
                 onPressed: (id) => _chipPressed(id),
               ),
             ),
@@ -185,28 +187,29 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
   }
 
   _chipPressed(int id) async {
-    var ambiente = service.allAmbiente.firstWhere((ing) => ing.id == id);
+    var restaurante = service.allRestaurante.firstWhere((ing) => ing.id == id);
 
-    var ambienteBeginRect = RectGetter.getRectFromKey(ambiente.key);
-    var ambienteEndRect;
-    if (selectedAmbiente.length > 0) {
-      var firstSelectedAmbiente = selectedAmbiente[0];
-      ambienteEndRect = RectGetter.getRectFromKey(firstSelectedAmbiente.key);
+    var restauranteBeginRect = RectGetter.getRectFromKey(restaurante.key);
+    var restauranteEndRect;
+    if (selectedRestaurante.length > 0) {
+      var firstSelectedRestaurante = selectedRestaurante[0];
+      restauranteEndRect =
+          RectGetter.getRectFromKey(firstSelectedRestaurante.key);
     } else {
-      ambienteEndRect = RectGetter.getRectFromKey(firstAmbienteKey);
+      restauranteEndRect = RectGetter.getRectFromKey(firstRestauranteKey);
     }
 
     setState(() {
       selectedId = id;
-      ambienteStartOffset = ambienteBeginRect.center;
+      restauranteStartOffset = restauranteBeginRect.center;
     });
 
-    setupMovementAnimation(ambienteBeginRect, ambienteEndRect);
+    setupMovementAnimation(restauranteBeginRect, restauranteEndRect);
 
     await _controller.forward();
 
-    Ambiente selIng = new Ambiente(ambiente.id, ambiente.name);
-    ambiente.width = RectGetter.getRectFromKey(ambiente.key).width;
+    Restaurante selIng = new Restaurante(restaurante.id, restaurante.name);
+    restaurante.width = RectGetter.getRectFromKey(restaurante.key).width;
 
     if (cleanupTimer != null) {
       cleanupTimer.cancel();
@@ -214,18 +217,18 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
 
     setState(() {
       selectedId = null;
-      ambiente.name = "";
+      restaurante.name = "";
       cleanupTimer = new Timer(new Duration(seconds: 2), () => _timerCleanup());
-      selectedAmbiente.insert(0, selIng);
+      selectedRestaurante.insert(0, selIng);
     });
 
-    cleanupSelectedAmbiente();
+    cleanupSelectedRestaurante();
     _controller.reset();
   }
 
   getOffsetValue(int id) {
     if (selectedId != null && selectedId == id) {
-      var offset = _moveAnimation.value.center - ambienteStartOffset;
+      var offset = _moveAnimation.value.center - restauranteStartOffset;
       return offset;
     }
     return Offset.zero;
@@ -238,7 +241,7 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
     return 1.0;
   }
 
-  getSelAmbienteMoveOffset() {
+  getSelRestauranteMoveOffset() {
     if (selectedId != null) {
       return _siMoveAnimation.value;
     }
@@ -253,52 +256,52 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
             CurvedAnimation(parent: _controller, curve: Interval(0.5, 1.0)));
   }
 
-  void cleanupSelectedAmbiente() {
+  void cleanupSelectedRestaurante() {
     var screenWidth = MediaQuery.of(context).size.width;
 
     var totalWidth = 0.0;
-    selectedAmbiente.forEach((ambiente) {
-      var rect = RectGetter.getRectFromKey(ambiente.key);
+    selectedRestaurante.forEach((restaurante) {
+      var rect = RectGetter.getRectFromKey(restaurante.key);
       if (rect != null) totalWidth += rect.width;
     });
 
     if (totalWidth >= screenWidth - 200.0) {
       setState(() {
-        noClippedSelectedAmbiente += 1;
+        noClippedSelectedRestaurante += 1;
         showCounter = true;
       });
-      selectedAmbiente.removeLast();
+      selectedRestaurante.removeLast();
     }
   }
 
-  getSelectedAmbienteScaleOffset(int id) {
-    if (id == selectedAmbiente.last.id && noClippedSelectedAmbiente > 0) {
-      return _clippedAmbienteScaleAnim.value;
+  getSelectedRestauranteScaleOffset(int id) {
+    if (id == selectedRestaurante.last.id && noClippedSelectedRestaurante > 0) {
+      return _clippedRestauranteScaleAnim.value;
     }
     return 1.0;
   }
 
-  _getSelectedAmbienteColor(int id) {
-    if (id == selectedAmbiente.last.id && noClippedSelectedAmbiente > 0) {
-      return _clippedAmbienteColorAnim.value;
+  _getSelectedPlanColor(int id) {
+    if (id == selectedRestaurante.last.id && noClippedSelectedRestaurante > 0) {
+      return _clippedRestauranteColorAnim.value;
     }
     return Color(0xfff8c300);
   }
 
   void _timerCleanup() {
     var toCleanupCount =
-        allAmbientes.where((ing) => ing.name.isEmpty).toList().length;
+        allRestaurante.where((ing) => ing.name.isEmpty).toList().length;
     if (toCleanupCount > 0) {
       setState(() {
-        allAmbientes.removeWhere((ing) => ing.name.isEmpty);
-        ambienteFound = new Random().nextInt(2000);
+        allRestaurante.removeWhere((ing) => ing.name.isEmpty);
+        restauranteFound = new Random().nextInt(2000);
       });
     }
   }
 
-  getSelectableAmbienteColor(int id) {
+  getSelectableRestauranteColor(int id) {
     if (selectedId != null && selectedId == id) {
-      return _selectedAmbienteColorAnim.value;
+      return _selectedRestauranteColorAnim.value;
     }
     return Colors.white;
   }
