@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/components/widgets/clients_body.dart';
 
-import 'package:seemur_v1/components/widgets/test.dart';
-
 class BaresPage extends StatefulWidget {
   _BaresPageState createState() => _BaresPageState();
 }
