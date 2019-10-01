@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>361028565572-uoj0i184nr91ke9t6tfsmlb21gr37eav.apps.googleusercontent.com</string>
+	<string>361028565572-ffb8vsikekndgfr3jt8a8q8oegjalrtg.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.361028565572-uoj0i184nr91ke9t6tfsmlb21gr37eav</string>
+	<string>com.googleusercontent.apps.361028565572-ffb8vsikekndgfr3jt8a8q8oegjalrtg</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>361028565572-telg76kvolk6v0nd2k4teln92ralfnfk.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:361028565572:ios:d54925d3d629f035875a11</string>
+	<string>1:361028565572:ios:cbe5b2c04cdfae95875a11</string>
 	<key>DATABASE_URL</key>
 	<string>https://seemur-a9726.firebaseio.com</string>
 </dict>
