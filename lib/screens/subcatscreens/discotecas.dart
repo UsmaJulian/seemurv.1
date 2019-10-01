@@ -85,7 +85,7 @@ class _ListDiscotecasPageState extends State<ListDiscotecasPage> {
                             height: 47,
                             fit: BoxFit.fill,
                             placeholder: ('assets/images/seemurIsotipo.png'),
-                            image: (snapshot.data[index].data['logos']),
+                            image: (snapshot.data[index].data['logo']),
                           ),
                         ),
                         SizedBox(

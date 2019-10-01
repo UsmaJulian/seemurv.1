@@ -43,7 +43,7 @@ class _ClientBodyState extends State<ClientBody> {
 
   @override
   Widget build(BuildContext context) {
-    widget.datos();
+    widget.datos;
     return Scaffold(
       body: Container(
           height: MediaQuery.of(context).size.height,
@@ -72,7 +72,7 @@ class _ClientBodyState extends State<ClientBody> {
                                 placeholder:
                                     AssetImage('assets/images/azucar.gif'),
                                 image: NetworkImage(
-                                    widget.datos()["taskclientimage"]),
+                                    widget.datos["taskclientimage"]),
                               ),
                             ),
                             getMainCard(),
@@ -119,14 +119,14 @@ class _ClientBodyState extends State<ClientBody> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              widget.datos()['taskname'].toString(),
+              widget.datos['taskname'].toString(),
               style: TextStyle(
                 fontSize: 26,
               ),
             ),
             SizedBox(height: 20),
             Text(
-              widget.datos()['taskdescription'].toString(),
+              widget.datos['taskdescription'].toString(),
               style: TextStyle(
                 fontSize: 18,
               ),
@@ -160,7 +160,7 @@ class _ClientBodyState extends State<ClientBody> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text("Horarios:", style: style1),
-            Text(widget.datos()['tasktime'].toString(), style: style2)
+            Text(widget.datos['tasktime'].toString(), style: style2)
           ],
         ),
         Spacer(),
@@ -168,7 +168,7 @@ class _ClientBodyState extends State<ClientBody> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text("Distance:", style: style1),
-            Text(widget.datos()['tasklocation'].toString(), style: style2)
+            Text(widget.datos['tasklocation'].toString(), style: style2)
           ],
         ),
         SizedBox(width: 20),
@@ -254,8 +254,7 @@ class _ClientBodyState extends State<ClientBody> {
                         height: 47,
                         fit: BoxFit.cover,
                         placeholder: ('assets/images/seemurIsotipo.png'),
-                        image: (widget
-                            .datos()['taskfeaturedimages'][idx]
+                        image: (widget.datos['taskfeaturedimages'][idx]
                             .toString())),
                   );
                 },
@@ -263,7 +262,7 @@ class _ClientBodyState extends State<ClientBody> {
                   return SizedBox(width: 15);
                 },
                 padding: EdgeInsets.zero,
-                itemCount: widget.datos()['taskfeaturedimages'].length),
+                itemCount: widget.datos['taskfeaturedimages'].length),
           )
         ],
       ),
@@ -320,13 +319,13 @@ class _ClientBodyState extends State<ClientBody> {
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 20),
-        buildInfoItem("Como llegar", widget.datos()['tasklocation'].toString(),
-            Icons.map),
-        buildInfoItem("Precio Mínimo", widget.datos()['taskprice'].toString(),
+        buildInfoItem(
+            "Como llegar", widget.datos['tasklocation'].toString(), Icons.map),
+        buildInfoItem("Precio Mínimo", widget.datos['taskprice'].toString(),
             Icons.shop_two),
         buildInfoItem("Tipo de Vestuario",
-            widget.datos()['taskoutfit'].toString(), Icons.accessibility_new),
-        buildInfoItem("Domicilio", widget.datos()['taskhomeservice'].toString(),
+            widget.datos['taskoutfit'].toString(), Icons.accessibility_new),
+        buildInfoItem("Domicilio", widget.datos['taskhomeservice'].toString(),
             Icons.directions_car),
       ],
     );
@@ -377,8 +376,7 @@ class _ClientBodyState extends State<ClientBody> {
         child: Column(
           children: [
             buildRow(
-                widget
-                    .datos()['taskrecommendeddishes']
+                widget.datos['taskrecommendeddishes']
                     .toString()
                     .replaceAll(new RegExp(r'[^\w\s]+'), ''),
                 1022),

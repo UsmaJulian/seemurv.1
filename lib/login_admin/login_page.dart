@@ -27,56 +27,19 @@ class _LoginPageState extends State<LoginPage> {
   String _password;
   String _nombre;
   String _telefono;
-  // String _itemCiudad;
-  //String _direccion;
+
   String _urlFoto = '';
   String usuario;
 
   bool _obscureText = true;
   FormType _formType = FormType.login;
-  // List<DropdownMenuItem<String>> _ciudadItems; //list city from Firestore
+
   bool _isChecked = false;
   void onChanged(value) {
     setState(() {
       _isChecked = value;
     });
   }
-
-  @override
-  // void initState() {
-  //   super.initState();
-  //   setState(() {
-  //     _ciudadItems = getCiudadItems();
-  //     _itemCiudad = _ciudadItems[0].value;
-  //   });
-  // }
-
-  // getData() async {
-  //   return await Firestore.instance.collection('ciudades').getDocuments();
-  // }
-
-  //Dropdownlist from firestore
-  // List<DropdownMenuItem<String>> getCiudadItems() {
-  //   List<DropdownMenuItem<String>> items = List();
-  //   QuerySnapshot dataCiudades;
-  //   getData().then((data) {
-  //     dataCiudades = data;
-  //     dataCiudades.documents.forEach((obj) {
-  //       print('${obj.documentID} ${obj['nombre']}');
-  //       items.add(DropdownMenuItem(
-  //         value: obj.documentID,
-  //         child: Text(obj['nombre']),
-  //       ));
-  //     });
-  //   }).catchError((error) => print('hay un error.....' + error));
-
-  //   items.add(DropdownMenuItem(
-  //     value: '0',
-  //     child: Text('- Seleccione -'),
-  //   ));
-
-  //   return items;
-  // }
 
   bool _validarGuardar() {
     final form = formKey.currentState;
@@ -95,12 +58,12 @@ class _LoginPageState extends State<LoginPage> {
             await widget.auth.signInEmailPassword(_email, _password);
         print('Usuario logueado : $userId '); //ok
         widget.onSignIn();
-        MenuPage(auth: widget.auth); //return menu_page.dart
+
         Navigator.of(context).pop();
       } catch (e) {
         print('Error .... $e');
         AlertDialog alerta = new AlertDialog(
-          content: Text('Error en la Autenticación'),
+          content: Text('Error en la Autenticación Usuario no encontrado'),
           title: Text('Error'),
           actions: <Widget>[],
         );
@@ -114,10 +77,7 @@ class _LoginPageState extends State<LoginPage> {
     if (_validarGuardar()) {
       try {
         Usuario usuario = Usuario(
-            //model/user_model.dart instance usuario
             nombre: _nombre,
-            // ciudad: _itemCiudad,
-            //direccion: _direccion,
             email: _email,
             password: _password,
             telefono: _telefono,
@@ -125,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
         String userId = await widget.auth.signUpEmailPassword(usuario);
         print('Usuario logueado : $userId'); //ok
         widget.onSignIn();
-        MenuPage(auth: widget.auth); //menu_page.dart
+
         Navigator.of(context).pop();
       } catch (e) {
         print('Error .... $e');
@@ -184,19 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment
                             .stretch, //ajusta los widgets a lso extremos
-                        children:
-                            // [
-                            //       Padding(padding: EdgeInsets.only(top: 15.0)),
-                            //       Text(
-                            //         'Recetas Mundiales \n Mis recetas',
-                            //         textAlign: TextAlign.center,
-                            //         style: TextStyle(
-                            //           fontSize: 17.0,
-                            //         ),
-                            //       ),
-                            //       Padding(padding: EdgeInsets.only(bottom: 15.0)),
-                            //     ] +
-                            buildInputs() + buildSubmitButtons()),
+                        children: buildInputs() + buildSubmitButtons()),
                   ))),
             )),
       ),
