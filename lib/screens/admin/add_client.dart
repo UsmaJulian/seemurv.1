@@ -94,7 +94,7 @@ class _ClientAddPageState extends State<ClientAddPage> {
   String rating;
   String ratingcount;
   String totalrating;
-  String logo;
+  String logos;
 
   //we create a method to obtain the image from the camera or the gallery
 
@@ -181,7 +181,7 @@ class _ClientAddPageState extends State<ClientAddPage> {
               .child(uid)
               .child('uid')
               .child('tasklocation')
-              .child('logo')
+              .child('logos')
               .child('taskphone')
               .child('taskprice')
               .child('tasktime')
@@ -217,7 +217,7 @@ class _ClientAddPageState extends State<ClientAddPage> {
                       'taskclientimage': urlFoto,
                       'taskdescription': taskdescription,
                       'tasklocation': tasklocation,
-                      'logo': logo,
+                      'logos': logos,
                       'taskphone': taskphone,
                       'taskprice': taskprice,
                       'tasktime': tasktime,
@@ -253,7 +253,7 @@ class _ClientAddPageState extends State<ClientAddPage> {
                 'taskclientimage': urlFoto,
                 'taskdescription': taskdescription,
                 'tasklocation': tasklocation,
-                'logo': logo,
+                'logos': logos,
                 'taskphone': taskphone,
                 'taskprice': taskprice,
                 'tasktime': tasktime,

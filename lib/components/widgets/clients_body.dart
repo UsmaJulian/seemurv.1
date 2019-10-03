@@ -43,7 +43,7 @@ class _ClientBodyState extends State<ClientBody> {
 
   @override
   Widget build(BuildContext context) {
-    widget.datos;
+    widget.datos.toString();
     return Scaffold(
       body: Container(
           height: MediaQuery.of(context).size.height,
@@ -67,12 +67,11 @@ class _ClientBodyState extends State<ClientBody> {
                             Container(
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.width * 0.939,
-                              child: FadeInImage(
+                              child: FadeInImage.assetNetwork(
                                 fit: BoxFit.fill,
-                                placeholder:
-                                    AssetImage('assets/images/azucar.gif'),
-                                image: NetworkImage(
-                                    widget.datos["taskclientimage"]),
+                                placeholder: ('assets/images/azucar.gif'),
+                                image: (widget.datos['taskclientimage']
+                                    .toString()),
                               ),
                             ),
                             getMainCard(),

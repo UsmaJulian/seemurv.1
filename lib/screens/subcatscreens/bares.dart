@@ -98,7 +98,7 @@ class _ListBaresPageState extends State<ListBaresPage> {
                               height: 47,
                               fit: BoxFit.fill,
                               placeholder: ('assets/images/seemurIsotipo.png'),
-                              image: (snapshot.data[index].data['logo']),
+                              image: (snapshot.data[index].data['logos']),
                             ),
                           ),
                           SizedBox(

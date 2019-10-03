@@ -96,7 +96,7 @@ class _ListCafesPageState extends State<ListCafesPage> {
                               height: 47,
                               fit: BoxFit.fill,
                               placeholder: ('assets/images/seemurIsotipo.png'),
-                              image: (snapshot.data[index].data['logo']),
+                              image: (snapshot.data[index].data['logos']),
                             ),
                           ),
                           SizedBox(
