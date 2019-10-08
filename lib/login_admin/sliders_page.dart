@@ -34,64 +34,23 @@ class _IntroScreenState extends State<IntroScreen> {
     //pages slide
     slides.add(
       new Slide(
-        title: "Ingredientes",
-        maxLineTitle: 2,
-        styleTitle: TextStyle(
-            color: Colors.white,
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoMono'),
-        description: "Crea tus propias recetas",
-        styleDescription: TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-            fontStyle: FontStyle.italic,
-            fontFamily: 'Raleway'),
-        marginDescription:
-            EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0, bottom: 70.0),
-        centerWidget: Text("Deslice para pasar siguiente pantalla",
-            style: TextStyle(color: Colors.white)),
-        backgroundImage: 'assets/images/huevos.gif',
+        backgroundImage: 'assets/images/parte1videoaooseemur[1].gif',
+        backgroundOpacity: 0,
         onCenterItemPress: () {},
       ),
     );
     //two
     slides.add(
       new Slide(
-        title: "Recetas Mundiales",
-        styleTitle: TextStyle(
-            color: Colors.blueAccent,
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoMono'),
-        description:
-            "Waffles, Postres, Tortas, Comida Thailandesa, Arabe, Mexicana, Peruana, Italiana, Argentina...",
-        styleDescription: TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-            fontStyle: FontStyle.italic,
-            fontFamily: 'Raleway'),
-        backgroundImage: "assets/images/azucar.gif",
+        backgroundOpacity: 0,
+        backgroundImage: "assets/images/parte2videoappseemur.gif",
       ),
     );
     //three page
     slides.add(
       new Slide(
-        title: "Receta pizza italiana",
-        styleTitle: TextStyle(
-            color: Colors.white,
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoMono'),
-        description:
-            "Ordena todo antes de iniciar la preparacion, vamos adelante...",
-        styleDescription: TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-            fontStyle: FontStyle.italic,
-            fontFamily: 'Raleway'),
-        backgroundImage: "assets/images/pizzacaliente.gif",
-        maxLineTextDescription: 3,
+        backgroundOpacity: 0,
+        backgroundImage: "assets/images/parte3videoappseemur.gif",
       ),
     );
   }
@@ -137,8 +96,8 @@ class _IntroScreenState extends State<IntroScreen> {
 
       // Skip button
       renderSkipBtn: this.renderSkipBtn(),
-      colorSkipBtn: Colors.orangeAccent,
-      highlightColorSkipBtn: Color(0xff000000),
+      colorSkipBtn: Color(0xffF5AF00),
+      highlightColorSkipBtn: Color(0xffFFE231),
 
       // Next button
       renderNextBtn: this.renderNextBtn(),
@@ -146,12 +105,12 @@ class _IntroScreenState extends State<IntroScreen> {
       // Done button
       renderDoneBtn: this.renderDoneBtn(),
       onDonePress: this.onDonePress,
-      colorDoneBtn: Colors.blueAccent,
+      colorDoneBtn: Color(0xff16202C),
       highlightColorDoneBtn: Color(0xfF69303),
 
       // Dot indicator
       colorDot: Colors.white,
-      colorActiveDot: Colors.orangeAccent[200],
+      colorActiveDot: Color(0xffF5AF00),
       sizeDot: 13.0,
 
       // Show or hide status bar

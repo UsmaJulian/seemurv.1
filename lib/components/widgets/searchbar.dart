@@ -9,23 +9,24 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-  String inputval = '';
   final TextEditingController controller = new TextEditingController();
+
   var queryResultSet = [];
   var tempSearchStore = [];
 
-  initiateSearch(val) {
-    if (val.length == 0) {
+  initiateSearch(value) {
+    if (value.length == 0) {
       setState(() {
         queryResultSet = [];
         tempSearchStore = [];
       });
     }
 
-    var capitalizedValue = val.substring(0, 1).toUpperCase() + val.substring(1);
+    var capitalizedValue =
+        value.substring(0, 1).toUpperCase() + value.substring(1);
 
-    if (queryResultSet.length == 0 && val.length == 1) {
-      SearchService().searchByString(val).then((QuerySnapshot docs) {
+    if (queryResultSet.length == 0 && value.length == 1) {
+      SearchService().searchByString(value).then((QuerySnapshot docs) {
         for (int i = 0; i < docs.documents.length; ++i) {
           queryResultSet.add(docs.documents[i].data);
         }
@@ -63,26 +64,13 @@ class _SearchBarState extends State<SearchBar> {
                 Icons.search,
               ),
             ),
-
-            onChanged: (val) {
-              initiateSearch(val);
+            onChanged: (value) {
+              initiateSearch(value);
             },
-
-            // onSubmitted: (val) {
-
-            //   SearchResult();
-
-            //   setState(() {
-
-            //     inputval = inputval + val;
-
-            //     controller.text = "";
-
-            //   });
-
-            // },
-
-            controller: controller,
+            onSubmitted: (String value) {
+              Navigator.push(context,
+                  new MaterialPageRoute(builder: (context) => SearchResult()));
+            },
           ),
         ),
         Positioned(

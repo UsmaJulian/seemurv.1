@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
+import 'package:seemur_v1/screens/descubrircat.dart';
 
 class Descubrir extends StatefulWidget {
   @override
@@ -56,20 +58,21 @@ class LoadCards extends StatefulWidget {
   LoadCards({
     this.items,
   });
-  List<String> items;
+  String items;
   @override
   _LoadCardsState createState() => _LoadCardsState();
 }
 
 class _LoadCardsState extends State<LoadCards> {
-  int items = 8;
+  final databaseReference = Firestore.instance;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 295.0,
       height: 44.0,
       decoration: BoxDecoration(
-        border: Border.all(width: 0, style: BorderStyle.none),
+        border: new Border.all(width: 0, color: Colors.transparent),
         borderRadius: BorderRadius.horizontal(
             left: Radius.circular(22), right: Radius.circular(22)),
         gradient: LinearGradient(
@@ -79,7 +82,7 @@ class _LoadCardsState extends State<LoadCards> {
         ),
       ),
       child: FlatButton(
-        onPressed: () => _incrementitems,
+        onPressed: () {},
         child: Text('Ver más categorías',
             style: new TextStyle(
               color: Colors.black,
@@ -90,16 +93,10 @@ class _LoadCardsState extends State<LoadCards> {
       ),
     );
   }
-
-  void _incrementitems() {
-    setState(() {
-      items = 2;
-    });
-  }
 }
 
 class DescubirCard extends StatelessWidget {
-  const DescubirCard({
+  DescubirCard({
     Key key,
     @required this.itemWidth,
     @required this.itemHeight,
@@ -110,46 +107,87 @@ class DescubirCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // int cardslength;
-
-    var items = (8);
-    return Column(
-      children: <Widget>[
-        Flexible(
-          flex: 3,
-          child: GridView.count(
-            crossAxisSpacing: 13.0,
-            mainAxisSpacing: 16.0,
-            childAspectRatio: (itemWidth / itemHeight),
-            crossAxisCount: 2,
-            children: List.generate(items, (items) {
-              return Container(
-                width: MediaQuery.of(context).size.width * 0.4187,
-                height: MediaQuery.of(context).size.height * 0.862,
-                child: Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  color: Color(0xffF8C300),
-                  child: Center(
-                    child: Text(
-                      ' $items',
-                      style: Theme.of(context).textTheme.headline,
-                    ),
-                  ),
-                ),
-              );
+    var items = (12);
+    return Scaffold(
+      body: Container(
+        child: StreamBuilder(
+            stream: Firestore.instance.collection("descubrir").snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (!snapshot.hasData) {
+                return Text("loading....");
+              } else {
+                if (snapshot.data.documents.length == 0) {
+                } else {
+                  return Column(
+                    children: <Widget>[
+                      Flexible(
+                        flex: 3,
+                        child: GridView.count(
+                          crossAxisSpacing: 13.0,
+                          mainAxisSpacing: 16.0,
+                          childAspectRatio: (itemWidth / itemHeight),
+                          crossAxisCount: 2,
+                          children: List.generate(items, (items) {
+                            return Container(
+                              width: MediaQuery.of(context).size.width * 0.4187,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.862,
+                              child: Card(
+                                elevation: 4,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                color: Colors.white,
+                                child: InkWell(
+                                  highlightColor: Color(0xffF8C300),
+                                  child: Center(
+                                    child: Text(
+                                        (snapshot
+                                            .data.documents[items].documentID),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontFamily: 'HankenGrotesk',
+                                          color: Color(0xff000000),
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w700,
+                                          fontStyle: FontStyle.normal,
+                                          letterSpacing: -0.5,
+                                        )),
+                                  ),
+                                  onTap: () {
+                                    final documentocliente = (snapshot
+                                        .data.documents[items].documentID);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DescubrircatPage(
+                                                    idcliente:
+                                                        documentocliente)));
+                                  },
+                                ),
+                              ),
+                            );
+                          }),
+                        ),
+                      ),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: Container(
+                          child: Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 16.0, bottom: 2.0),
+                              child: LoadCards()),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return Text("loading....");
+              }
             }),
-          ),
-        ),
-        Flexible(
-          fit: FlexFit.loose,
-          child: Padding(
-              padding: const EdgeInsets.only(top: 16.0, bottom: 2.0),
-              child: LoadCards()),
-        ),
-      ],
+      ),
     );
   }
 }

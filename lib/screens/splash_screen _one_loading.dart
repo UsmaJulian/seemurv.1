@@ -61,23 +61,30 @@ class _SplashScreenOneLoadingState extends State<SplashScreenOneLoading> {
                     ),
                   ),
                   Container(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          top: 26.5, left: 40.5, right: 40.5),
-                      child: imagelogo,
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 5.0, right: 0, left: 12),
-                    child: Text(
-                      'Descubre, elige y disfruta',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'HankenGrotesk',
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 26.5, left: 81.0, right: 81.0, bottom: 3.0),
+                          child: imagelogo,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 41.0,
+                            right: 31.0,
+                          ),
+                          child: Text(
+                            'Descubre, elige y disfruta',
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'HankenGrotesk',
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Container(

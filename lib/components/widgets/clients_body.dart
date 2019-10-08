@@ -6,9 +6,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:seemur_v1/auth/auth.dart';
+import 'package:seemur_v1/components/widgets/calificar.dart';
 
 import 'package:seemur_v1/models/client_model.dart';
 import 'package:seemur_v1/screens/admin/show_client.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ClientBody extends StatefulWidget {
   ClientBody({
@@ -43,7 +45,7 @@ class _ClientBodyState extends State<ClientBody> {
 
   @override
   Widget build(BuildContext context) {
-    widget.datos.toString();
+    widget.datos;
     return Scaffold(
       body: Container(
           height: MediaQuery.of(context).size.height,
@@ -64,17 +66,30 @@ class _ClientBodyState extends State<ClientBody> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.width * 0.939,
-                              child: FadeInImage.assetNetwork(
-                                fit: BoxFit.fill,
-                                placeholder: ('assets/images/azucar.gif'),
-                                image: (widget.datos['taskclientimage']
-                                    .toString()),
-                              ),
+                            Stack(
+                              children: <Widget>[
+                                Column(
+                                  children: <Widget>[
+                                    Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 226.0,
+                                      child: FadeInImage.assetNetwork(
+                                        fit: BoxFit.fill,
+                                        placeholder:
+                                            ('assets/images/azucar.gif'),
+                                        image:
+                                            (widget.datos['taskclientimage']),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(
+                                      top: 190, left: 4.0, right: 4.0),
+                                  child: getMainCard(),
+                                )
+                              ],
                             ),
-                            getMainCard(),
 
                             SizedBox(height: 40),
 
@@ -108,7 +123,7 @@ class _ClientBodyState extends State<ClientBody> {
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(8.0),
             boxShadow: [
               BoxShadow(
                   color: Colors.black26, blurRadius: 4, offset: Offset(0, 1))
@@ -117,17 +132,24 @@ class _ClientBodyState extends State<ClientBody> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              widget.datos['taskname'].toString(),
-              style: TextStyle(
-                fontSize: 26,
-              ),
-            ),
+            Text(widget.datos['taskname'].toString(),
+                style: TextStyle(
+                  fontFamily: 'HankenGrotesk',
+                  color: Color(0xff000000),
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                  fontStyle: FontStyle.normal,
+                  letterSpacing: -0.4000000059604645,
+                )),
             SizedBox(height: 20),
             Text(
               widget.datos['taskdescription'].toString(),
               style: TextStyle(
-                fontSize: 18,
+                fontFamily: 'OpenSans',
+                color: Color(0xff3d3d3d),
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                fontStyle: FontStyle.normal,
               ),
             ),
             SizedBox(height: 20),
@@ -143,9 +165,20 @@ class _ClientBodyState extends State<ClientBody> {
   }
 
   getStarRating(int num) {
-    String str = List.generate(5, (idx) => idx < num ? "★" : "☆").join('') +
+    String str = List.generate(
+          5,
+          (idx) => idx < num ? "★" : "☆",
+        ).join('') +
         "  ${num.toStringAsFixed(1)}";
-    return Text(str);
+    return Text(str,
+        style: TextStyle(
+          fontFamily: 'HankenGrotesk',
+          color: Color(0xff000000),
+          fontSize: 15,
+          fontWeight: FontWeight.w700,
+          fontStyle: FontStyle.normal,
+          letterSpacing: -0.5,
+        ));
   }
 
   getHoursDistance() {
@@ -176,17 +209,18 @@ class _ClientBodyState extends State<ClientBody> {
   }
 
   getCardButtons() {
+    var numero = widget.datos['taskphone'];
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        getFav(Icons.favorite_border, Colors.red),
-        getFav(Icons.star_border, Colors.yellow),
-        getFav(Icons.share, Colors.green),
+        getFav1(Icons.favorite_border, Color(0xffff2f8e)),
+        getFav2(Icons.star_border, Color(0xfff5af00)),
+        getFav3(Icons.share, Color(0xff4cd964)),
         Spacer(),
         MaterialButton(
           onPressed: () {},
-          color: Colors.black,
+          color: Color(0xff16202c),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: Row(
@@ -196,10 +230,13 @@ class _ClientBodyState extends State<ClientBody> {
                 Icons.phone,
                 color: Colors.white,
               ),
-              Text(
-                "Llamar",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              FlatButton(
+                onPressed: () => launch("tel://$numero"),
+                child: Text(
+                  "Llamar",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
               )
             ],
           ),
@@ -208,10 +245,37 @@ class _ClientBodyState extends State<ClientBody> {
     );
   }
 
-  getFav(IconData iconData, Color color) {
+  getFav1(IconData iconData, Color color) {
+    return FloatingActionButton(
+      onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => CalificarPage()));
+      },
+      backgroundColor: Color(0xff16202c),
+      mini: true,
+      child: Icon(
+        iconData,
+        color: color,
+      ),
+    );
+  }
+
+  getFav2(IconData iconData, Color color) {
     return FloatingActionButton(
       onPressed: () {},
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xff16202c),
+      mini: true,
+      child: Icon(
+        iconData,
+        color: color,
+      ),
+    );
+  }
+
+  getFav3(IconData iconData, Color color) {
+    return FloatingActionButton(
+      onPressed: () {},
+      backgroundColor: Color(0xff16202c),
       mini: true,
       child: Icon(
         iconData,
@@ -354,37 +418,49 @@ class _ClientBodyState extends State<ClientBody> {
       );
     }
 
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(
-        "Platos recomendados",
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-      ),
-      SizedBox(height: 10),
-      Container(
-        padding: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 4,
-                offset: Offset(0, 2),
-              )
-            ]),
-        child: Column(
-          children: [
-            buildRow(
-                widget.datos['taskrecommendeddishes']
-                    .toString()
-                    .replaceAll(new RegExp(r'[^\w\s]+'), ''),
-                1022),
-            // buildRow("Fillet Mignon", 340),
-            // buildRow("Tempura", 126),
-          ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Platos recomendados",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-      ),
-    ]);
+        SizedBox(height: 10),
+        Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                  )
+                ]),
+            child: Column(
+              children: [
+                buildRow(
+                    widget.datos['taskrecommendeddishes'][0]
+                        .toString()
+                        .replaceAll(new RegExp(r'[^\w\s]+'), ''),
+                    1022),
+                buildRow(
+                    widget.datos['taskrecommendeddishes'][1]
+                        .toString()
+                        .replaceAll(new RegExp(r'[^\w\s]+'), ''),
+                    1022),
+                buildRow(
+                    widget.datos['taskrecommendeddishes'][2]
+                        .toString()
+                        .replaceAll(new RegExp(r'[^\w\s]+'), ''),
+                    1022),
+
+                // buildRow("Tempura", 126),
+              ],
+            ))
+      ].toList(),
+    );
   }
 
   final String loremipsum =
@@ -488,7 +564,7 @@ class _ClientBodyState extends State<ClientBody> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Icon(Icons.star, color: Colors.orange),
+            Icon(Icons.star, color: Color(0xfff5af00)),
             SizedBox(width: 5),
             Text(
               "4.0",
