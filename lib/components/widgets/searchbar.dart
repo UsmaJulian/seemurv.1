@@ -34,7 +34,7 @@ class _SearchBarState extends State<SearchBar> {
     } else {
       tempSearchStore = [];
       queryResultSet.forEach((element) {
-        if (element['taskname'].startsWith(capitalizedValue)) {
+        if (element['tasktags'].startsWith(capitalizedValue)) {
           setState(() {
             tempSearchStore.add(element);
           });
