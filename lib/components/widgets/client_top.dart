@@ -36,102 +36,92 @@ class _ClientTopState extends State<ClientTop> {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height *
-        0.15; // set height to 40% of the screen height
+    var height = MediaQuery.of(context).size.height * 0.15;
     return Container(
-      color: Colors.black,
-      height: height,
-      width: double.infinity,
-      child: StreamBuilder(
-        stream: Firestore.instance.collection("client").snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return Text("loading....");
-          } else {
-            if (snapshot.data.documents.length == 0) {
-            } else {
-              return Container(
-                color: Colors.black,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: snapshot.data.documents.map((document) {
-                    return Row(
-                      children: <Widget>[
-                        InkWell(
-                          onTap: () {
-                            Client taskname = Client(
-                              taskname: document['taskname'].toString(),
-                              taskclientimage:
-                                  document['taskclientimage'].toString(),
-                              taskdescription:
-                                  document['taskdescription'].toString(),
-                              taskphone: document['taskphone'].toString(),
-                              taskprice: document['taskprice'].toString(),
-                              tasklocation: document['tasklocation'].toString(),
-                              tasktime: document['tasktime'].toString(),
-                            );
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => VerReceta(
-                            //             recipe: recipe,
-                            //             idRecipe:
-                            //                 document.documentID,
-                            //             uid: userID)
-                            //             )
-                            //             );
-                          },
-                          child: Container(
-                            height: 100.0,
-                            margin: EdgeInsets.only(right: 20.0),
-                            child: Card(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 20.0, vertical: 10.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: FadeInImage(
-                                        fit: BoxFit.cover,
-                                        width: 65,
-                                        height: 65,
-                                        placeholder: AssetImage(
-                                            'assets/images/azucar.gif'),
-                                        image: NetworkImage(
-                                            document["taskclientimage"]),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 2.0,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+        color: Colors.black,
+        height: height,
+        width: double.infinity,
+        child: StreamBuilder(
+            stream: Firestore.instance.collection("client").snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (!snapshot.hasData) {
+                return Text("loading....");
+              } else {
+                if (snapshot.data.documents.length == 0) {
+                } else {
+                  return Container(
+                    color: Colors.black,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: snapshot.data.documents.map((document) {
+                        return Row(
+                          children: <Widget>[
+                            InkWell(
+                              onTap: () {
+                                Client taskname = Client(
+                                  taskname: document['taskname'].toString(),
+                                  taskclientimage:
+                                      document['taskclientimage'].toString(),
+                                  taskdescription:
+                                      document['taskdescription'].toString(),
+                                  taskphone: document['taskphone'].toString(),
+                                  taskprice: document['taskprice'].toString(),
+                                  tasklocation:
+                                      document['tasklocation'].toString(),
+                                  tasktime: document['tasktime'].toString(),
+                                );
+                              },
+                              child: Container(
+                                height: 100.0,
+                                margin: EdgeInsets.only(right: 20.0),
+                                child: Card(
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20.0, vertical: 10.0),
+                                    child: Row(
                                       children: <Widget>[
-                                        Text(
-                                          document["taskname"].toString(),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16.0),
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: FadeInImage(
+                                            fit: BoxFit.cover,
+                                            width: 65,
+                                            height: 65,
+                                            placeholder: AssetImage(
+                                                'assets/images/azucar.gif'),
+                                            image: NetworkImage(
+                                                document["taskclientimage"]),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 2.0,
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Text(
+                                              document["taskname"].toString(),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16.0),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                      ],
-                    );
-                  }).toList(),
-                ),
-              );
-            }
-          }
-        },
-      ),
-    );
+                          ],
+                        );
+                      }).toList(),
+                    ),
+                  );
+                }
+              }
+            }));
   }
 }

@@ -45,363 +45,369 @@ class _TardearPageState extends State<TardearPage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(top: 48.0, left: 24, right: 195.0),
-                    child: Text('Sugerencias para ti',
-                        style: TextStyle(
-                          fontFamily: 'HankenGrotesk',
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.normal,
-                          letterSpacing: -0.1,
-                        )),
+      body: Column(
+        children: <Widget>[
+          SingleChildScrollView(
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding:
+                            EdgeInsets.only(top: 48.0, left: 0, right: 125.0),
+                        child: Text('Sugerencias para ti',
+                            style: TextStyle(
+                              fontFamily: 'HankenGrotesk',
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.normal,
+                              letterSpacing: -0.1,
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 24.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(26)),
+                              margin: EdgeInsets.symmetric(vertical: 30.0),
+                              height: 125,
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: <Widget>[
+                                  Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        Container(
+                                          width: 105,
+                                          height: 92,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  new BorderRadius.circular(6),
+                                              color: Color(0xff16202c),
+                                            ),
+                                            child: Center(
+                                              child: Wrap(
+                                                children: <Widget>[
+                                                  FlatButton(
+                                                    child: Image.asset(
+                                                      'assets/images/coffeeIcon@3x.png',
+                                                      width: 38,
+                                                      height: 38,
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.of(context).push(
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  CafesPage()));
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Text('Cafés',
+                                            style: TextStyle(
+                                              fontFamily: 'HankenGrotesk',
+                                              color: Color(0xff000000),
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w700,
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: -0.5,
+                                            )),
+                                        Text('7 lugares',
+                                            style: TextStyle(
+                                              fontFamily: 'OpenSans',
+                                              color: Color(0xff3d3d3d),
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.w400,
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: 0.2000000029802322,
+                                            ))
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 12.0,
+                                  ),
+                                  Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        Container(
+                                          width: 105,
+                                          height: 92,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  new BorderRadius.circular(6),
+                                              color: Color(0xff16202c),
+                                            ),
+                                            child: Center(
+                                              child: Wrap(
+                                                children: <Widget>[
+                                                  SizedBox(
+                                                    height: 92,
+                                                    width: 105,
+                                                    child: FlatButton(
+                                                      child: Image.asset(
+                                                        'assets/images/restaurantsIcon@3x.png',
+                                                        width: 38,
+                                                        height: 38,
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context).push(
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        RestaurantesPage()));
+                                                      },
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Text('Restaurantes',
+                                            style: TextStyle(
+                                              fontFamily: 'HankenGrotesk',
+                                              color: Color(0xff000000),
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w700,
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: -0.5,
+                                            )),
+                                        Text('5 lugares',
+                                            style: TextStyle(
+                                              fontFamily: 'OpenSans',
+                                              color: Color(0xff3d3d3d),
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.w400,
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: 0.2000000029802322,
+                                            ))
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 12.0,
+                                  ),
+                                  Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        Container(
+                                          width: 105,
+                                          height: 92,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  new BorderRadius.circular(6),
+                                              color: Color(0xff16202c),
+                                            ),
+                                            child: Center(
+                                              child: Wrap(
+                                                children: <Widget>[
+                                                  SizedBox(
+                                                    height: 92,
+                                                    width: 105,
+                                                    child: FlatButton(
+                                                      child: Image.asset(
+                                                        'assets/images/icreamIcon@3x.png',
+                                                        width: 38,
+                                                        height: 38,
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context).push(
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        HeladeriaPage()));
+                                                      },
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Text('Heladerías',
+                                            style: TextStyle(
+                                              fontFamily: 'HankenGrotesk',
+                                              color: Color(0xff000000),
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w700,
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: -0.5,
+                                            )),
+                                        Text('3 lugares',
+                                            style: TextStyle(
+                                              fontFamily: 'OpenSans',
+                                              color: Color(0xff3d3d3d),
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.w400,
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: 0.2000000029802322,
+                                            ))
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 12.0,
+                                  ),
+                                  Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        Container(
+                                          width: 105,
+                                          height: 92,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  new BorderRadius.circular(6),
+                                              color: Color(0xff16202c),
+                                            ),
+                                            child: Center(
+                                              child: Wrap(
+                                                children: <Widget>[
+                                                  SizedBox(
+                                                    height: 92,
+                                                    width: 105,
+                                                    child: FlatButton(
+                                                      child: Image.asset(
+                                                        'assets/images/beerIcon@3x.png',
+                                                        width: 38,
+                                                        height: 38,
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context).push(
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        CerveceriasPage()));
+                                                      },
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Text('Cervecerías',
+                                            style: TextStyle(
+                                              fontFamily: 'HankenGrotesk',
+                                              color: Color(0xff000000),
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w700,
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: -0.5,
+                                            )),
+                                        Text('2 lugares',
+                                            style: TextStyle(
+                                              fontFamily: 'OpenSans',
+                                              color: Color(0xff3d3d3d),
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.w400,
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: 0.2000000029802322,
+                                            ))
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 24.0),
+                ),
+                Positioned(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: 288.0,
+                    ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(26)),
-                          margin: EdgeInsets.symmetric(vertical: 30.0),
-                          height: 125,
-                          child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: <Widget>[
-                              Container(
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    Container(
-                                      width: 105,
-                                      height: 92,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              new BorderRadius.circular(6),
-                                          color: Color(0xff16202c),
-                                        ),
-                                        child: Center(
-                                          child: Wrap(
-                                            children: <Widget>[
-                                              FlatButton(
-                                                child: Image.asset(
-                                                  'assets/images/coffeeIcon@3x.png',
-                                                  width: 38,
-                                                  height: 38,
-                                                ),
-                                                onPressed: () {
-                                                  Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              CafesPage()));
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Text('Cafés',
-                                        style: TextStyle(
-                                          fontFamily: 'HankenGrotesk',
-                                          color: Color(0xff000000),
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w700,
-                                          fontStyle: FontStyle.normal,
-                                          letterSpacing: -0.5,
-                                        )),
-                                    Text('7 lugares',
-                                        style: TextStyle(
-                                          fontFamily: 'OpenSans',
-                                          color: Color(0xff3d3d3d),
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w400,
-                                          fontStyle: FontStyle.normal,
-                                          letterSpacing: 0.2000000029802322,
-                                        ))
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 12.0,
-                              ),
-                              Container(
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    Container(
-                                      width: 105,
-                                      height: 92,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              new BorderRadius.circular(6),
-                                          color: Color(0xff16202c),
-                                        ),
-                                        child: Center(
-                                          child: Wrap(
-                                            children: <Widget>[
-                                              SizedBox(
-                                                height: 92,
-                                                width: 105,
-                                                child: FlatButton(
-                                                  child: Image.asset(
-                                                    'assets/images/restaurantsIcon@3x.png',
-                                                    width: 38,
-                                                    height: 38,
-                                                  ),
-                                                  onPressed: () {
-                                                    Navigator.of(context).push(
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                RestaurantesPage()));
-                                                  },
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Text('Restaurantes',
-                                        style: TextStyle(
-                                          fontFamily: 'HankenGrotesk',
-                                          color: Color(0xff000000),
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w700,
-                                          fontStyle: FontStyle.normal,
-                                          letterSpacing: -0.5,
-                                        )),
-                                    Text('5 lugares',
-                                        style: TextStyle(
-                                          fontFamily: 'OpenSans',
-                                          color: Color(0xff3d3d3d),
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w400,
-                                          fontStyle: FontStyle.normal,
-                                          letterSpacing: 0.2000000029802322,
-                                        ))
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 12.0,
-                              ),
-                              Container(
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    Container(
-                                      width: 105,
-                                      height: 92,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              new BorderRadius.circular(6),
-                                          color: Color(0xff16202c),
-                                        ),
-                                        child: Center(
-                                          child: Wrap(
-                                            children: <Widget>[
-                                              SizedBox(
-                                                height: 92,
-                                                width: 105,
-                                                child: FlatButton(
-                                                  child: Image.asset(
-                                                    'assets/images/icreamIcon@3x.png',
-                                                    width: 38,
-                                                    height: 38,
-                                                  ),
-                                                  onPressed: () {
-                                                    Navigator.of(context).push(
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                HeladeriaPage()));
-                                                  },
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Text('Heladerías',
-                                        style: TextStyle(
-                                          fontFamily: 'HankenGrotesk',
-                                          color: Color(0xff000000),
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w700,
-                                          fontStyle: FontStyle.normal,
-                                          letterSpacing: -0.5,
-                                        )),
-                                    Text('3 lugares',
-                                        style: TextStyle(
-                                          fontFamily: 'OpenSans',
-                                          color: Color(0xff3d3d3d),
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w400,
-                                          fontStyle: FontStyle.normal,
-                                          letterSpacing: 0.2000000029802322,
-                                        ))
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 12.0,
-                              ),
-                              Container(
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    Container(
-                                      width: 105,
-                                      height: 92,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              new BorderRadius.circular(6),
-                                          color: Color(0xff16202c),
-                                        ),
-                                        child: Center(
-                                          child: Wrap(
-                                            children: <Widget>[
-                                              SizedBox(
-                                                height: 92,
-                                                width: 105,
-                                                child: FlatButton(
-                                                  child: Image.asset(
-                                                    'assets/images/beerIcon@3x.png',
-                                                    width: 38,
-                                                    height: 38,
-                                                  ),
-                                                  onPressed: () {
-                                                    Navigator.of(context).push(
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                CerveceriasPage()));
-                                                  },
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Text('Cervecerías',
-                                        style: TextStyle(
-                                          fontFamily: 'HankenGrotesk',
-                                          color: Color(0xff000000),
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w700,
-                                          fontStyle: FontStyle.normal,
-                                          letterSpacing: -0.5,
-                                        )),
-                                    Text('2 lugares',
-                                        style: TextStyle(
-                                          fontFamily: 'OpenSans',
-                                          color: Color(0xff3d3d3d),
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w400,
-                                          fontStyle: FontStyle.normal,
-                                          letterSpacing: 0.2000000029802322,
-                                        ))
-                                  ],
-                                ),
-                              ),
-                            ],
+                          width: MediaQuery.of(context).size.width,
+                          height: 50.0,
+                          decoration: new BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 15.0, left: 24),
+                            child: Text('Lugares',
+                                style: TextStyle(
+                                  fontFamily: 'HankenGrotesk',
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.normal,
+                                  letterSpacing: -0.5,
+                                )),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: 352.0,
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 50.0,
+                          decoration: new BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 15.0, left: 24),
+                            child: Text('Lugares Cerrados',
+                                style: TextStyle(
+                                  fontFamily: 'HankenGrotesk',
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.normal,
+                                  letterSpacing: -0.5,
+                                )),
                           ),
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            Positioned(
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: 288.0,
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50.0,
-                      decoration: new BoxDecoration(
-                        color: Colors.white,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 15.0, left: 24),
-                        child: Text('Lugares',
-                            style: TextStyle(
-                              fontFamily: 'HankenGrotesk',
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal,
-                              letterSpacing: -0.5,
-                            )),
-                      ),
-                    )
-                  ],
-                ),
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 61, bottom: 0),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 70,
+              child: NavigatorBar(),
             ),
-            Positioned(
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: 352.0,
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50.0,
-                      decoration: new BoxDecoration(
-                        color: Colors.white,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 15.0, left: 24),
-                        child: Text('Lugares Cerrados',
-                            style: TextStyle(
-                              fontFamily: 'HankenGrotesk',
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal,
-                              letterSpacing: -0.5,
-                            )),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 608.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 90,
-                  child: NavigatorBar(),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -54,7 +54,7 @@ class _FestejarPageState extends State<FestejarPage> {
                   children: <Widget>[
                     Padding(
                       padding:
-                          EdgeInsets.only(top: 48.0, left: 24, right: 195.0),
+                          EdgeInsets.only(top: 48.0, left: 0, right: 125.0),
                       child: Text('Sugerencias para ti',
                           style: TextStyle(
                             fontFamily: 'HankenGrotesk',
@@ -395,10 +395,10 @@ class _FestejarPageState extends State<FestejarPage> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 41, bottom: 0),
+            padding: const EdgeInsets.only(top: 61, bottom: 0),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 90,
+              height: 70,
               child: NavigatorBar(),
             ),
           ),

@@ -71,16 +71,22 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         print('${obj.documentID} ${obj['nombre']}');
         items.add(DropdownMenuItem(
           value: obj.documentID,
-          child: Text(
-            obj['nombre'],
-          ),
+          child: Text(obj['nombre'],
+              style: TextStyle(
+                fontFamily: 'OpenSans',
+                color: Color(0xffffffff),
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                fontStyle: FontStyle.normal,
+                letterSpacing: 0,
+              )),
         ));
       });
     }).catchError((error) => print('hay un error.....' + error));
 
     items.add(DropdownMenuItem(
       value: '0',
-      child: Text('Manizales ',
+      child: Text('Ciudad ',
           style: TextStyle(
             fontFamily: 'OpenSans',
             color: Color(0xffffffff),
@@ -140,28 +146,33 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                     top: 26, left: 0.0, right: 201.0),
                                 child: SizedBox(
                                   width: 100,
-                                  child: DropdownButtonFormField(
-                                    icon: Icon(
-                                      IconData(0xF3D0,
-                                          fontFamily: "CupertinoIcons"),
-                                      size: 16, color: Colors.white,
-                                      // CupertinoIcons.down_arrow,
-                                      // color: Colors.white,
+                                  child: Theme(
+                                    data: Theme.of(context).copyWith(
+                                      canvasColor: Color(0xff16202c),
                                     ),
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        isDense: true),
-                                    validator: (value) => value == '0'
-                                        ? 'Debe seleccionar una ciudad'
-                                        : null,
-                                    value: _itemCiudad,
-                                    items: _ciudadItems,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _itemCiudad = value;
-                                      });
-                                    }, //seleccionarCiudadItem,
-                                    onSaved: (value) => _itemCiudad = value,
+                                    child: DropdownButtonFormField(
+                                      icon: Icon(
+                                        IconData(0xF3D0,
+                                            fontFamily: "CupertinoIcons"),
+                                        size: 16, color: Colors.white,
+                                        // CupertinoIcons.down_arrow,
+                                        // color: Colors.white,
+                                      ),
+                                      decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          isDense: true),
+                                      validator: (value) => value == '0'
+                                          ? 'Debe seleccionar una ciudad'
+                                          : null,
+                                      value: _itemCiudad,
+                                      items: _ciudadItems,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _itemCiudad = value;
+                                        });
+                                      }, //seleccionarCiudadItem,
+                                      onSaved: (value) => _itemCiudad = value,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -510,15 +521,19 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                               Padding(
                                 padding: const EdgeInsets.only(
                                     top: 47.0, right: 180.0),
-                                child: Text("Próximos eventos",
-                                    style: TextStyle(
-                                      fontFamily: 'HankenGrotesk',
-                                      color: Color(0xff000000),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700,
-                                      fontStyle: FontStyle.normal,
-                                      letterSpacing: -0.1000000014901161,
-                                    )),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text("Próximos eventos",
+                                        style: TextStyle(
+                                          fontFamily: 'HankenGrotesk',
+                                          color: Color(0xff000000),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w700,
+                                          fontStyle: FontStyle.normal,
+                                          letterSpacing: -0.1000000014901161,
+                                        )),
+                                  ],
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 24.0),

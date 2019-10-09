@@ -395,10 +395,10 @@ class _ComerPageState extends State<ComerPage> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 41, bottom: 0),
+            padding: const EdgeInsets.only(top: 61, bottom: 0),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 90,
+              height: 70,
               child: NavigatorBar(),
             ),
           ),
