@@ -7,6 +7,7 @@ import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/components/widgets/searchbar.dart';
 import 'package:seemur_v1/screens/comer.dart';
 import 'package:seemur_v1/screens/descansar.dart';
+import 'package:seemur_v1/screens/eventos.dart';
 import 'package:seemur_v1/screens/festejar.dart';
 import 'package:seemur_v1/screens/filtros.dart';
 import 'package:seemur_v1/screens/tardear.dart';
@@ -116,7 +117,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       children: <Widget>[
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 1472.0,
+                          height: 1372.0,
                           decoration:
                               new BoxDecoration(color: Color(0xff16202c)),
                           child: Column(
@@ -154,9 +155,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                       icon: Icon(
                                         IconData(0xF3D0,
                                             fontFamily: "CupertinoIcons"),
-                                        size: 16, color: Colors.white,
-                                        // CupertinoIcons.down_arrow,
-                                        // color: Colors.white,
+                                        size: 16,
+                                        color: Colors.white,
                                       ),
                                       decoration: InputDecoration(
                                           border: InputBorder.none,
@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       children: <Widget>[
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 1872,
+                          // height: 1872,
                           decoration: new BoxDecoration(
                             color: Color(0xfff6f7fa),
                             borderRadius: BorderRadius.circular(10),
@@ -207,7 +207,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 47.0, right: 275.0),
+                                    left: 24.0, top: 47.0, right: 250.0),
                                 child: Text("Explorar",
                                     style: TextStyle(
                                       fontFamily: 'HankenGrotesk',
@@ -234,10 +234,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                       child: ListView(
                                         scrollDirection: Axis.horizontal,
                                         children: <Widget>[
+                                          SizedBox(
+                                            width: 24.0,
+                                          ),
                                           Container(
                                             child: Column(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
+                                                  MainAxisAlignment.start,
                                               children: <Widget>[
                                                 Container(
                                                   width: 105,
@@ -314,7 +317,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                     decoration: BoxDecoration(
                                                       borderRadius:
                                                           new BorderRadius
-                                                              .circular(16),
+                                                              .circular(6),
                                                       color: Color(0xff16202c),
                                                     ),
                                                     child: Center(
@@ -385,7 +388,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                     decoration: BoxDecoration(
                                                       borderRadius:
                                                           new BorderRadius
-                                                              .circular(16),
+                                                              .circular(6),
                                                       color: Color(0xff16202c),
                                                     ),
                                                     child: Center(
@@ -456,7 +459,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                     decoration: BoxDecoration(
                                                       borderRadius:
                                                           new BorderRadius
-                                                              .circular(16),
+                                                              .circular(6),
                                                       color: Color(0xff16202c),
                                                     ),
                                                     child: Center(
@@ -518,65 +521,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                   ],
                                 ),
                               ),
+                              Container(child: ProximosEventosPage()),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 47.0, right: 180.0),
-                                child: Column(
-                                  children: <Widget>[
-                                    Text("Próximos eventos",
-                                        style: TextStyle(
-                                          fontFamily: 'HankenGrotesk',
-                                          color: Color(0xff000000),
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w700,
-                                          fontStyle: FontStyle.normal,
-                                          letterSpacing: -0.1000000014901161,
-                                        )),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 24.0),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(26)),
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 30.0),
-                                      height: 125,
-                                      child: ListView(
-                                        scrollDirection: Axis.horizontal,
-                                        children: <Widget>[
-                                          // explorar("assets/images/eatOutIcon.png",
-                                          //     "Comer", "25 Lugares"),
-                                          // SizedBox(
-                                          //   width: 12.0,
-                                          // ),
-                                          // explorar("assets/images/partiyingIcon.png",
-                                          //     "Festejar", "18 Lugares"),
-                                          // SizedBox(
-                                          //   width: 12.0,
-                                          // ),
-                                          // explorar("assets/images/afternoonIcon.png",
-                                          //     "Tardear", "9 Lugares"),
-                                          // SizedBox(
-                                          //   width: 12.0,
-                                          // ),
-                                          // explorar("assets/images/restingIcon.png",
-                                          //     "Descansar", "16 Lugares"),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 47.0, right: 155.0),
+                                    left: 24.0, top: 47.0, right: 121.0),
                                 child: Text("Restaurantes para ti",
                                     style: TextStyle(
                                       fontFamily: 'HankenGrotesk',
@@ -588,47 +536,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                     )),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 24.0),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(26)),
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 30.0),
-                                      height: 125,
-                                      child: ListView(
-                                        scrollDirection: Axis.horizontal,
-                                        children: <Widget>[
-                                          // explorar("assets/images/eatOutIcon.png",
-                                          //     "Comer", "25 Lugares"),
-                                          // SizedBox(
-                                          //   width: 12.0,
-                                          // ),
-                                          // explorar("assets/images/partiyingIcon.png",
-                                          //     "Festejar", "18 Lugares"),
-                                          // SizedBox(
-                                          //   width: 12.0,
-                                          // ),
-                                          // explorar("assets/images/afternoonIcon.png",
-                                          //     "Tardear", "9 Lugares"),
-                                          // SizedBox(
-                                          //   width: 12.0,
-                                          // ),
-                                          // explorar("assets/images/restingIcon.png",
-                                          //     "Descansar", "16 Lugares"),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 47.0, right: 104.0),
+                                    left: 24.0, top: 47.0, right: 80.0),
                                 child: Text("Bares y discotecas para ti",
                                     style: TextStyle(
                                       fontFamily: 'HankenGrotesk',
@@ -638,45 +547,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                       fontStyle: FontStyle.normal,
                                       letterSpacing: -0.1000000014901161,
                                     )),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 24.0),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(26)),
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 30.0),
-                                      height: 125,
-                                      child: ListView(
-                                        scrollDirection: Axis.horizontal,
-                                        children: <Widget>[
-                                          // explorar("assets/images/eatOutIcon.png",
-                                          //     "Comer", "25 Lugares"),
-                                          // SizedBox(
-                                          //   width: 12.0,
-                                          // ),
-                                          // explorar("assets/images/partiyingIcon.png",
-                                          //     "Festejar", "18 Lugares"),
-                                          // SizedBox(
-                                          //   width: 12.0,
-                                          // ),
-                                          // explorar("assets/images/afternoonIcon.png",
-                                          //     "Tardear", "9 Lugares"),
-                                          // SizedBox(
-                                          //   width: 12.0,
-                                          // ),
-                                          // explorar("assets/images/restingIcon.png",
-                                          //     "Descansar", "16 Lugares"),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
                               ),
                             ],
                           ),

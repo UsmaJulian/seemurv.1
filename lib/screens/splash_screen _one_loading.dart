@@ -19,7 +19,7 @@ class _SplashScreenOneLoadingState extends State<SplashScreenOneLoading> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 10),
+    Timer(Duration(seconds: 5),
         () => Navigator.pushNamed(context, '/spalshthird'));
   }
 
@@ -102,7 +102,7 @@ class _SplashScreenOneLoadingState extends State<SplashScreenOneLoading> {
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Text(
-                          'Espera un momento mientras me instalo en tu teléfono',
+                          "Espera un momento mientras inicio en tu teléfono",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.black,

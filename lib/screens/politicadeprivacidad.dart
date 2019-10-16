@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:seemur_v1/components/widgets/customappbar_terminos.dart';
 
-String url = 'https://www.seemur.com/terminos-y-condiciones';
+String url = 'https://www.seemur.com/politica-de-privacidad';
 
-class TerminosCondicionesPage extends StatelessWidget {
+class PoliticaDePrivacidadPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -19,9 +19,23 @@ class TerminosCondicionesPage extends StatelessWidget {
               clearCookies: true,
               clearCache: true,
               appBar: AppBar(
+                centerTitle: true,
                 backgroundColor: Color(0xff16202c),
                 elevation: 0,
-                title: CustomAppBar(),
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                title: Text('Politica de privacidad',
+                    style: new TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'HankenGrotesk',
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                    )),
               ),
             ),
       },
@@ -29,12 +43,12 @@ class TerminosCondicionesPage extends StatelessWidget {
   }
 }
 
-class TerminosCondiciones extends StatefulWidget {
+class PoliticaDePrivacidad extends StatefulWidget {
   @override
-  _TerminosCondicionesState createState() => new _TerminosCondicionesState();
+  _PoliticaDePrivacidadState createState() => new _PoliticaDePrivacidadState();
 }
 
-class _TerminosCondicionesState extends State<TerminosCondiciones> {
+class _PoliticaDePrivacidadState extends State<PoliticaDePrivacidad> {
   final webView = FlutterWebviewPlugin();
   TextEditingController controller = TextEditingController(text: url);
 

@@ -2,7 +2,7 @@ name: seemur_v1
 description: A new Flutter project.
 
 
-version: 1.0.3+2
+version: 1.0.3+3
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -95,10 +95,6 @@ flutter:
 
   assets:
      - assets/images/
-     - assets/images/1.jpg
-     - assets/images/2.jpg
-     - assets/images/3.jpg
-     - assets/images/4.jpeg
      - assets/seemurIsotipo.png
      - assets/logoSombrero.png
      - assets/logoblanco.png

@@ -8,13 +8,27 @@ class SearchResult extends StatefulWidget {
 }
 
 class _SearchResultState extends State<SearchResult> {
+  List<DocumentSnapshot> documents;
+  Future getTaskList() async {
+    QuerySnapshot tasklist =
+        await Firestore.instance.collection('client').getDocuments();
+
+    documents = tasklist.documents;
+
+    return tasklist;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: Firestore.instance.collection('client').snapshots(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
+    return FutureBuilder(
+      future: getTaskList(),
+      builder: (BuildContext context, snapshot) {
+        var itemcount = documents?.length;
+        int end = itemcount;
         return ListView.builder(
+          itemCount: snapshot.data.documents.length - 1,
           itemBuilder: (BuildContext context, int index) {
+            DocumentSnapshot lista = snapshot.data.documents[index];
             return Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
@@ -22,14 +36,13 @@ class _SearchResultState extends State<SearchResult> {
                 child: Container(
                     child: Center(
                         child: Text(
-                  snapshot.data.documents['tasktags'],
+                  lista['tasktags'][index],
+                  // snapshot.data.documents[index]['tasktags'][index].toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 20.0,
                   ),
                 ))));
-            ;
           },
         );
       },

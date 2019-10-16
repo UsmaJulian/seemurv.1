@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
+import 'package:seemur_v1/screens/politicadeprivacidad.dart';
+import 'package:seemur_v1/screens/terminos_condiciones.dart';
 
 class AyudaPage extends StatefulWidget {
   AyudaPage({this.auth});
@@ -91,7 +93,13 @@ class _AyudaPageState extends State<AyudaPage> {
                   height: 66.0,
                   width: MediaQuery.of(context).size.width,
                   child: new FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    PoliticaDePrivacidadPage()));
+                      },
                       child: Row(
                         children: <Widget>[
                           SizedBox(
@@ -119,7 +127,13 @@ class _AyudaPageState extends State<AyudaPage> {
                   height: 66.0,
                   width: MediaQuery.of(context).size.width,
                   child: new FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    TerminosCondicionesPage()));
+                      },
                       child: Row(
                         children: <Widget>[
                           SizedBox(

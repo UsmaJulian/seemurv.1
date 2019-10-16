@@ -4,9 +4,9 @@ import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/screens/Informaciondestacada.dart';
 import 'package:seemur_v1/screens/ayuda.dart';
-import 'package:seemur_v1/screens/ciudades.dart';
 import 'package:seemur_v1/screens/cuenta.dart';
 import 'package:seemur_v1/screens/empresas.dart';
+import 'package:seemur_v1/screens/splash_screen%20_one_loading.dart';
 
 class PreferencesPage extends StatefulWidget {
   PreferencesPage({this.auth, this.onSignOut});
@@ -23,26 +23,14 @@ class _PreferencesPageState extends State<PreferencesPage> {
   String usuarioEmail = 'Email'; //userEmail
   String id;
   @override
-  void initState() {
-    widget.auth.infoUser().then((onValue) {
-      setState(() {
-        usuario = onValue.displayName;
-        usuarioEmail = onValue.email;
-        id = onValue.uid;
-        print('ID $id');
-      });
-      super.initState();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     void _signOut() async {
       try {
         await widget.auth.signOut();
         //onSignOut();
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => Ciudades()));
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => SplashScreenOneLoading()));
       } catch (e) {
         print(e);
       }

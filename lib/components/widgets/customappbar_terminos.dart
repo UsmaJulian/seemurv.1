@@ -13,12 +13,7 @@ class CustomAppBar extends StatelessWidget {
             Icons.arrow_back_ios,
             color: Colors.white,
           ),
-          onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                new MaterialPageRoute(
-                    builder: (context) => (new SignUpPage())));
-          },
+          onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text('Términos y condiciones',
             style: new TextStyle(

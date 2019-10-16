@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
+import 'package:seemur_v1/screens/user/lugaresfavoritos.dart';
+import 'package:seemur_v1/screens/user/lugaresvisitados.dart';
+import 'package:seemur_v1/screens/user/misrese%C3%B1as.dart';
 
 class InfoDestacadaPage extends StatefulWidget {
   InfoDestacadaPage({this.auth});
@@ -63,7 +66,12 @@ class _InfoDestacadaPageState extends State<InfoDestacadaPage> {
                   height: 66.0,
                   width: MediaQuery.of(context).size.width,
                   child: new FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LugaresVistadosPage()));
+                      },
                       child: Row(
                         children: <Widget>[
                           SizedBox(
@@ -91,7 +99,12 @@ class _InfoDestacadaPageState extends State<InfoDestacadaPage> {
                   height: 66.0,
                   width: MediaQuery.of(context).size.width,
                   child: new FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LugaresFavoritosPage()));
+                      },
                       child: Row(
                         children: <Widget>[
                           SizedBox(
@@ -119,7 +132,12 @@ class _InfoDestacadaPageState extends State<InfoDestacadaPage> {
                   height: 66.0,
                   width: MediaQuery.of(context).size.width,
                   child: new FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MisResenasPage()));
+                      },
                       child: Row(
                         children: <Widget>[
                           SizedBox(

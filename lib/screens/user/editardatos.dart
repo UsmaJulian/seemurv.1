@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/models/user_model.dart';
-import 'package:seemur_v1/screens/admin/show_client.dart';
 
 class EditarDatosPage extends StatefulWidget {
   EditarDatosPage(
@@ -152,8 +151,6 @@ class _EditarDatosPageState extends State<EditarDatosPage> {
                   decoration: InputDecoration(
                     labelText: _nombre,
                   ),
-                  validator: (value) =>
-                      value.isEmpty ? 'El campo Nombre esta vacio' : null,
                   onSaved: (value) => _nombre = value.trim(),
                 ),
                 Text("Correo electrónico",
@@ -171,33 +168,63 @@ class _EditarDatosPageState extends State<EditarDatosPage> {
                   decoration: InputDecoration(
                     labelText: _email,
                   ),
-                  validator: (value) =>
-                      value.isEmpty ? 'El campo Email esta vacio' : null,
                   onSaved: (value) => _email = value.trim(),
                 ),
-                // Text("Teléfono",
-                //     style: TextStyle(
-                //       fontFamily: 'HankenGrotesk',
-                //       color: Color(0xff000000),
-                //       fontSize: 14,
-                //       fontWeight: FontWeight.w700,
-                //       fontStyle: FontStyle.normal,
-                //       letterSpacing: -0.1000000014901161,
-                //     )),
-                // TextFormField(
-                //   controller: _tcontroller,
-                //   keyboardType: TextInputType.emailAddress,
-                //   decoration: InputDecoration(
-                //     labelText: telefono,
-                //   ),
-                //   validator: (value) =>
-                //       value.isEmpty ? 'El campo Email esta vacio' : null,
-                //   onSaved: (value) => telefono = value.trim(),
-                // ),
-                RaisedButton(
-                  onPressed: _enviar,
-                  child: Text('Crear', style: TextStyle(color: Colors.white)),
-                  color: Colors.green,
+                Text("Teléfono",
+                    style: TextStyle(
+                      fontFamily: 'HankenGrotesk',
+                      color: Color(0xff000000),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      fontStyle: FontStyle.normal,
+                      letterSpacing: -0.1000000014901161,
+                    )),
+                TextFormField(
+                  controller: _tcontroller,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: _telefono,
+                  ),
+                  validator: (value) =>
+                      value.isEmpty ? 'El campo Email esta vacio' : null,
+                  onSaved: (value) => _telefono = value.trim(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: RaisedButton(
+                      color: Colors.transparent,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(22.0)),
+                      onPressed: _enviar,
+                      child: Container(
+                        width: 181.0,
+                        height: 44.0,
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 0, style: BorderStyle.none),
+                          borderRadius: BorderRadius.horizontal(
+                              left: Radius.circular(22),
+                              right: Radius.circular(22)),
+                          gradient: LinearGradient(
+                            colors: [
+                              new Color(0xFFFFE231),
+                              new Color(0xFFF5AF00)
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+                        ),
+                        child: Center(
+                          child: Text('Guardar',
+                              style: TextStyle(
+                                fontFamily: 'HankenGrotesk',
+                                color: Color(0xff16202c),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                fontStyle: FontStyle.normal,
+                              )),
+                        ),
+                      )),
                 ),
               ],
             ),

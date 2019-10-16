@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
+import 'package:seemur_v1/inscribirempresa.dart';
 
 class EmpresasPage extends StatefulWidget {
   EmpresasPage({this.auth});
@@ -63,7 +64,12 @@ class _EmpresasPageState extends State<EmpresasPage> {
                   height: 66.0,
                   width: MediaQuery.of(context).size.width,
                   child: new FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => InscribirEmpresaPage()));
+                      },
                       child: Row(
                         children: <Widget>[
                           SizedBox(
