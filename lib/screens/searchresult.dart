@@ -2,18 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class SearchResult extends StatefulWidget {
-  SearchResult();
+  SearchResult({this.data});
+  final data;
 
   _SearchResultState createState() => _SearchResultState();
 }
 
 class _SearchResultState extends State<SearchResult> {
-  List<DocumentSnapshot> documents;
   Future getTaskList() async {
     QuerySnapshot tasklist =
         await Firestore.instance.collection('client').getDocuments();
-
-    documents = tasklist.documents;
 
     return tasklist;
   }
@@ -23,10 +21,8 @@ class _SearchResultState extends State<SearchResult> {
     return FutureBuilder(
       future: getTaskList(),
       builder: (BuildContext context, snapshot) {
-        var itemcount = documents?.length;
-        int end = itemcount;
         return ListView.builder(
-          itemCount: snapshot.data.documents.length - 1,
+          itemCount: snapshot.data.documents.length,
           itemBuilder: (BuildContext context, int index) {
             DocumentSnapshot lista = snapshot.data.documents[index];
             return Card(
@@ -36,7 +32,7 @@ class _SearchResultState extends State<SearchResult> {
                 child: Container(
                     child: Center(
                         child: Text(
-                  lista['tasktags'][index],
+                  lista['taskname'][index].toString(),
                   // snapshot.data.documents[index]['tasktags'][index].toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(

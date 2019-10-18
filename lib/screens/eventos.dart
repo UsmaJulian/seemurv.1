@@ -6,6 +6,13 @@ class ProximosEventosPage extends StatefulWidget {
 }
 
 class _ProximosEventosPageState extends State<ProximosEventosPage> {
+  Future getEvent() async {
+    var firestore = Firestore.instance;
+
+    QuerySnapshot qn = await firestore.collection('evento').getDocuments();
+    return qn.documents;
+  }
+
   @override
   Widget build(
     BuildContext context,
@@ -57,7 +64,7 @@ class _ProximosEventosPageState extends State<ProximosEventosPage> {
                               child: FadeInImage.assetNetwork(
                                 width: 149,
                                 height: 94,
-                                fit: BoxFit.contain,
+                                fit: BoxFit.cover,
                                 placeholder:
                                     ('assets/images/seemurIsotipo.png'),
                                 image: (snapshot.data.documents[idx]['imagen']),
@@ -66,11 +73,12 @@ class _ProximosEventosPageState extends State<ProximosEventosPage> {
                         separatorBuilder: (ctx, idx) {
                           return SizedBox(width: 15);
                         },
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.fromLTRB(24.0, 0, 0, 0),
                         itemCount: snapshot.data.documents.length),
                   )
                 ]);
           }
+          return Container();
         });
   }
 }

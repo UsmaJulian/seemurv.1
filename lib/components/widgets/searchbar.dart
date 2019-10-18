@@ -34,7 +34,7 @@ class _SearchBarState extends State<SearchBar> {
     } else {
       tempSearchStore = [];
       queryResultSet.forEach((element) {
-        if (element['tasktags'].startsWith(capitalizedValue)) {
+        if (element['taskname'].startsWith(capitalizedValue)) {
           setState(() {
             tempSearchStore.add(element);
           });
@@ -45,6 +45,7 @@ class _SearchBarState extends State<SearchBar> {
 
   @override
   Widget build(BuildContext context) {
+    var element = tempSearchStore.map((element) {});
     return Stack(
       children: <Widget>[
         Container(
@@ -67,7 +68,7 @@ class _SearchBarState extends State<SearchBar> {
             onChanged: (value) {
               initiateSearch(value);
             },
-            onSubmitted: (String value) {
+            onEditingComplete: () {
               Navigator.push(context,
                   new MaterialPageRoute(builder: (context) => SearchResult()));
             },

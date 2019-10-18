@@ -49,7 +49,6 @@ class ListRestaurantes extends StatefulWidget {
 
 class _ListRestaurantesState extends State<ListRestaurantes> {
   Future getClient() async {
-    print('hola');
     var firestore = Firestore.instance;
 
     QuerySnapshot qn = await firestore

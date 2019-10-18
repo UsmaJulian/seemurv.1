@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/components/widgets/searchbar.dart';
+import 'package:seemur_v1/screens/bares_discos_recomendados.dart';
+
 import 'package:seemur_v1/screens/comer.dart';
 import 'package:seemur_v1/screens/descansar.dart';
 import 'package:seemur_v1/screens/eventos.dart';
 import 'package:seemur_v1/screens/festejar.dart';
 import 'package:seemur_v1/screens/filtros.dart';
+import 'package:seemur_v1/screens/restaurantes_recomendados.dart';
 import 'package:seemur_v1/screens/tardear.dart';
 
 //import 'package:seemur_v1/components/widgets/searchbar.dart';
@@ -117,7 +120,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       children: <Widget>[
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 1372.0,
+                          height: 1120.0,
                           decoration:
                               new BoxDecoration(color: Color(0xff16202c)),
                           child: Column(
@@ -287,7 +290,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                           FontStyle.normal,
                                                       letterSpacing: -0.5,
                                                     )),
-                                                Text('25 lugares',
+                                                Text('',
                                                     style: TextStyle(
                                                       fontFamily: 'OpenSans',
                                                       color: Color(0xff3d3d3d),
@@ -358,7 +361,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                           FontStyle.normal,
                                                       letterSpacing: -0.5,
                                                     )),
-                                                Text('18 lugares',
+                                                Text('',
                                                     style: TextStyle(
                                                       fontFamily: 'OpenSans',
                                                       color: Color(0xff3d3d3d),
@@ -429,7 +432,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                           FontStyle.normal,
                                                       letterSpacing: -0.5,
                                                     )),
-                                                Text('9 lugares',
+                                                Text('',
                                                     style: TextStyle(
                                                       fontFamily: 'OpenSans',
                                                       color: Color(0xff3d3d3d),
@@ -500,7 +503,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                           FontStyle.normal,
                                                       letterSpacing: -0.5,
                                                     )),
-                                                Text('16 lugares',
+                                                Text('',
                                                     style: TextStyle(
                                                       fontFamily: 'OpenSans',
                                                       color: Color(0xff3d3d3d),
@@ -521,33 +524,19 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                   ],
                                 ),
                               ),
-                              Container(child: ProximosEventosPage()),
+                              ProximosEventosPage(),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 24.0, top: 47.0, right: 121.0),
-                                child: Text("Restaurantes para ti",
-                                    style: TextStyle(
-                                      fontFamily: 'HankenGrotesk',
-                                      color: Color(0xff000000),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700,
-                                      fontStyle: FontStyle.normal,
-                                      letterSpacing: -0.1000000014901161,
-                                    )),
+                                    left: 0, top: 47.0, right: 0),
+                                child: RestaurantesParaTi(),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 24.0, top: 47.0, right: 80.0),
-                                child: Text("Bares y discotecas para ti",
-                                    style: TextStyle(
-                                      fontFamily: 'HankenGrotesk',
-                                      color: Color(0xff000000),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700,
-                                      fontStyle: FontStyle.normal,
-                                      letterSpacing: -0.1000000014901161,
-                                    )),
-                              ),
+                                  padding: const EdgeInsets.only(
+                                      left: 0,
+                                      top: 47.0,
+                                      right: 0.0,
+                                      bottom: 50.0),
+                                  child: BaresyDiscosParaTi()),
                             ],
                           ),
                         ),

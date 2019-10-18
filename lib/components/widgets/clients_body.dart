@@ -2,14 +2,12 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/calificar.dart';
 
-import 'package:seemur_v1/models/client_model.dart';
-import 'package:seemur_v1/screens/admin/show_client.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ClientBody extends StatefulWidget {
