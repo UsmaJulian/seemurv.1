@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/calificar.dart';
+import 'package:seemur_v1/screens/admin/show_client.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
@@ -43,7 +44,6 @@ class _ClientBodyState extends State<ClientBody> {
 
   @override
   Widget build(BuildContext context) {
-    widget.datos;
     return Scaffold(
       body: Container(
           height: MediaQuery.of(context).size.height,
@@ -246,8 +246,7 @@ class _ClientBodyState extends State<ClientBody> {
   getFav1(IconData iconData, Color color) {
     return FloatingActionButton(
       onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => CalificarPage()));
+        favoritos();
       },
       backgroundColor: Color(0xff16202c),
       mini: true,
@@ -285,7 +284,7 @@ class _ClientBodyState extends State<ClientBody> {
   getFotosDestacadas() {
     return Flexible(
       child: Column(
-//        mainAxisSize: MainAxisSize.max,
+        //        mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
@@ -581,5 +580,19 @@ class _ClientBodyState extends State<ClientBody> {
         ...buildReviewList(),
       ],
     );
+  }
+
+  void favoritos() {
+    setState(() {
+      Firestore.instance
+          .collection('usuarios')
+          .document(userID)
+          .collection('favoritos')
+          .document()
+          .setData({
+        'taskname': widget.datos['taskname'].toString(),
+        'logos': widget.datos['logos'].toString(),
+      });
+    });
   }
 }

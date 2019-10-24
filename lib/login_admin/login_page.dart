@@ -27,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
   String _password;
   String _nombre;
   String _telefono;
-
   String _urlFoto = '';
   String usuario;
 
@@ -77,11 +76,12 @@ class _LoginPageState extends State<LoginPage> {
     if (_validarGuardar()) {
       try {
         Usuario usuario = Usuario(
-            nombre: _nombre,
-            email: _email,
-            password: _password,
-            telefono: _telefono,
-            foto: _urlFoto);
+          nombre: _nombre,
+          email: _email,
+          password: _password,
+          telefono: _telefono,
+          foto: _urlFoto,
+        );
         String userId = await widget.auth.signUpEmailPassword(usuario);
         print('Usuario logueado : $userId'); //ok
         widget.onSignIn();

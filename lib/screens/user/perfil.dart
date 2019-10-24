@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/login_admin/root_page.dart';
+import 'package:seemur_v1/screens/user/lugaresfavoritos.dart';
 
 class PerfilPage extends StatefulWidget {
   PerfilPage({this.auth});
@@ -154,8 +155,11 @@ class _PerfilPageState extends State<PerfilPage> {
                                   fontWeight: FontWeight.w700,
                                 )),
                             onPressed: () {
-                              // Navigator.push(context,
-                              //     new MaterialPageRoute(builder: (context) => FiltrosPage()));
+                              Navigator.push(
+                                  context,
+                                  new MaterialPageRoute(
+                                      builder: (context) =>
+                                          LugaresFavoritosPage(auth: Auth())));
                             },
                           ),
                         ),
