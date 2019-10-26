@@ -99,6 +99,6 @@ flutter:
         - assets/logoSombrero.png
         - assets/logoblanco.png
         - assets/icon/icon.png
-        - assets/jsonfiles/client.json
+        
 
       

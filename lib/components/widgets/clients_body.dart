@@ -245,6 +245,7 @@ class _ClientBodyState extends State<ClientBody> {
 
   getFav1(IconData iconData, Color color) {
     return FloatingActionButton(
+      heroTag: "button1",
       onPressed: () {
         favoritos();
       },
@@ -259,7 +260,14 @@ class _ClientBodyState extends State<ClientBody> {
 
   getFav2(IconData iconData, Color color) {
     return FloatingActionButton(
-      onPressed: () {},
+      heroTag: "button2",
+      onPressed: () {
+        var datos = widget.datos;
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CalificarPage(datos: datos)));
+      },
       backgroundColor: Color(0xff16202c),
       mini: true,
       child: Icon(
@@ -271,6 +279,7 @@ class _ClientBodyState extends State<ClientBody> {
 
   getFav3(IconData iconData, Color color) {
     return FloatingActionButton(
+      heroTag: "button3",
       onPressed: () {},
       backgroundColor: Color(0xff16202c),
       mini: true,

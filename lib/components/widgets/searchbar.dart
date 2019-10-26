@@ -45,7 +45,6 @@ class _SearchBarState extends State<SearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    var element = tempSearchStore.map((element) {});
     return Stack(
       children: <Widget>[
         Container(
@@ -69,8 +68,11 @@ class _SearchBarState extends State<SearchBar> {
               initiateSearch(value);
             },
             onEditingComplete: () {
-              Navigator.push(context,
-                  new MaterialPageRoute(builder: (context) => SearchResult()));
+              var element = queryResultSet;
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => SearchResult(element: element)));
             },
           ),
         ),
