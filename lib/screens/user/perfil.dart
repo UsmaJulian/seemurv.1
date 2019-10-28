@@ -96,105 +96,9 @@ class _PerfilPageState extends State<PerfilPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Container(
-                          height: 32,
-                          width: 88,
-                          decoration: BoxDecoration(
-                            border:
-                                Border.all(width: 0, style: BorderStyle.none),
-                            borderRadius: BorderRadius.horizontal(
-                                left: Radius.circular(22),
-                                right: Radius.circular(22)),
-                            gradient: LinearGradient(
-                              colors: [
-                                new Color(0xFFFFE231),
-                                new Color(0xFFF5AF00)
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                          ),
-                          child: FlatButton(
-                            child: Text('Visitados',
-                                style: new TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'HankenGrotesk',
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w700,
-                                )),
-                            onPressed: () {
-                              // Navigator.push(context,
-                              //     new MaterialPageRoute(builder: (context) => FiltrosPage()));
-                            },
-                          ),
-                        ),
-                        Container(
-                          height: 32,
-                          width: 88,
-                          decoration: BoxDecoration(
-                            border:
-                                Border.all(width: 0, style: BorderStyle.none),
-                            borderRadius: BorderRadius.horizontal(
-                                left: Radius.circular(22),
-                                right: Radius.circular(22)),
-                            gradient: LinearGradient(
-                              colors: [
-                                new Color(0xFFFFE231),
-                                new Color(0xFFF5AF00)
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                          ),
-                          child: FlatButton(
-                            child: Text('Favoritos',
-                                style: new TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'HankenGrotesk',
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w700,
-                                )),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  new MaterialPageRoute(
-                                      builder: (context) =>
-                                          LugaresFavoritosPage(auth: Auth())));
-                            },
-                          ),
-                        ),
-                        Container(
-                          height: 32,
-                          width: 88,
-                          decoration: BoxDecoration(
-                            border:
-                                Border.all(width: 0, style: BorderStyle.none),
-                            borderRadius: BorderRadius.horizontal(
-                                left: Radius.circular(22),
-                                right: Radius.circular(22)),
-                            gradient: LinearGradient(
-                              colors: [
-                                new Color(0xFFFFE231),
-                                new Color(0xFFF5AF00)
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                          ),
-                          child: FlatButton(
-                            child: Text('Reseñas',
-                                style: new TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'HankenGrotesk',
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w700,
-                                )),
-                            onPressed: () {
-                              // Navigator.push(context,
-                              //     new MaterialPageRoute(builder: (context) => FiltrosPage()));
-                            },
-                          ),
-                        ),
+                        botonvisitados(),
+                        botonfavoritos(context),
+                        botonresenas(),
                       ],
                     ),
                   ),
@@ -219,6 +123,98 @@ class _PerfilPageState extends State<PerfilPage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Container botonresenas() {
+    return Container(
+      height: 32,
+      width: 88,
+      decoration: BoxDecoration(
+        border: Border.all(width: 0, style: BorderStyle.none),
+        borderRadius: BorderRadius.horizontal(
+            left: Radius.circular(22), right: Radius.circular(22)),
+        gradient: LinearGradient(
+          colors: [new Color(0xFFFFE231), new Color(0xFFF5AF00)],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: FlatButton(
+        child: Text('Reseñas',
+            style: new TextStyle(
+              color: Colors.black,
+              fontFamily: 'HankenGrotesk',
+              fontSize: 12.0,
+              fontWeight: FontWeight.w700,
+            )),
+        onPressed: () {
+          // Navigator.push(context,
+          //     new MaterialPageRoute(builder: (context) => FiltrosPage()));
+        },
+      ),
+    );
+  }
+
+  botonfavoritos(BuildContext context) {
+    return Container(
+      height: 32,
+      width: 88,
+      decoration: BoxDecoration(
+        border: Border.all(width: 0, style: BorderStyle.none),
+        borderRadius: BorderRadius.horizontal(
+            left: Radius.circular(22), right: Radius.circular(22)),
+        gradient: LinearGradient(
+          colors: [new Color(0xFFFFE231), new Color(0xFFF5AF00)],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: FlatButton(
+        child: Text('Favoritos',
+            style: new TextStyle(
+              color: Colors.black,
+              fontFamily: 'HankenGrotesk',
+              fontSize: 12.0,
+              fontWeight: FontWeight.w700,
+            )),
+        onPressed: () {
+          Navigator.push(
+              context,
+              new MaterialPageRoute(
+                  builder: (context) => LugaresFavoritosPage(auth: Auth())));
+        },
+      ),
+    );
+  }
+
+  Container botonvisitados() {
+    return Container(
+      height: 32,
+      width: 88,
+      decoration: BoxDecoration(
+        border: Border.all(width: 0, style: BorderStyle.none),
+        borderRadius: BorderRadius.horizontal(
+            left: Radius.circular(22), right: Radius.circular(22)),
+        gradient: LinearGradient(
+          colors: [new Color(0xFFFFE231), new Color(0xFFF5AF00)],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: FlatButton(
+        child: Text('Visitados',
+            style: new TextStyle(
+              color: Colors.black,
+              fontFamily: 'HankenGrotesk',
+              fontSize: 12.0,
+              fontWeight: FontWeight.w700,
+            )),
+        onPressed: () {
+          // Navigator.push(context,
+          //     new MaterialPageRoute(builder: (context) => FiltrosPage()));
+        },
       ),
     );
   }

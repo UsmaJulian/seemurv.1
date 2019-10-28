@@ -3,6 +3,7 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
+import 'package:seemur_v1/components/widgets/clients_body.dart';
 
 class LugaresFavoritosPage extends StatefulWidget {
   final BaseAuth auth;
@@ -84,6 +85,16 @@ class _LugaresFavoritosPageState extends State<LugaresFavoritosPage> {
                       width: MediaQuery.of(context).size.width * 0.6,
                       height: 72.0,
                       child: ListTile(
+                        dense: true,
+                        onTap: () {
+                          var datasnp = snapshot.data.documents[index].data;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ClientBody(datos: datasnp)),
+                          );
+                        },
                         title: Container(
                           child: Text(
                             snapshot.data.documents[index]['taskname'],

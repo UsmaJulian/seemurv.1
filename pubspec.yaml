@@ -37,6 +37,7 @@ dependencies:
   flutter_responsive_screen: ^1.0.0
   flutter_launcher_icons: ^0.7.3
   flutter_range_slider: ^1.4.0
+  smooth_star_rating: ^1.0.3
 
 
 

@@ -57,6 +57,7 @@ class _SearchBarState extends State<SearchBar> {
                 color: Colors.transparent,
               )),
           child: new TextField(
+            controller: controller,
             decoration: new InputDecoration(
               border: InputBorder.none,
               hintText: 'Buscar planes o lugares',
@@ -68,11 +69,17 @@ class _SearchBarState extends State<SearchBar> {
               initiateSearch(value);
             },
             onEditingComplete: () {
-              var element = queryResultSet;
+              controller.text = controller.text[0].toUpperCase() +
+                  controller.text.substring(1);
+              print(controller.text);
+              var valor = controller.text;
               Navigator.push(
                   context,
                   new MaterialPageRoute(
-                      builder: (context) => SearchResult(element: element)));
+                      builder: (context) => SearchResult(valor: valor)));
+            },
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
             },
           ),
         ),

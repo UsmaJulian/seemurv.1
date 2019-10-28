@@ -601,6 +601,23 @@ class _ClientBodyState extends State<ClientBody> {
           .setData({
         'taskname': widget.datos['taskname'].toString(),
         'logos': widget.datos['logos'].toString(),
+        'taskclientimage': widget.datos['taskclientimage'].toString(),
+        'taskdescription': widget.datos['taskdescription'].toString(),
+        'taskenvironments': widget.datos['taskenvironments'],
+        'taskfeaturedimages': widget.datos['taskfeaturedimages'],
+        'taskfeatures': widget.datos['taskfeatures'],
+        'taskfoods': widget.datos['taskcfoods'],
+        'taskhomeservice': widget.datos['taskhomeservice'].toString(),
+        'tasklocation': widget.datos['tasklocation'].toString(),
+        'taskoutfit': widget.datos['taskoutfit'].toString(),
+        'taskpayment': widget.datos['taskpayment'].toString(),
+        'taskphone': widget.datos['taskphone'].toString(),
+        'taskplans': widget.datos['taskplans'],
+        'taskprice': widget.datos['taskprice'].toString(),
+        'taskrecommendeddishes': widget.datos['taskrecommendeddishes'],
+        'taskservices': widget.datos['taskservices'],
+        'tasktags': widget.datos['tasktags'],
+        'tasktime': widget.datos['tasktime'].toString(),
       });
     });
   }
