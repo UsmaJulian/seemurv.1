@@ -23,6 +23,18 @@ class _PreferencesPageState extends State<PreferencesPage> {
   String usuarioEmail = 'Email'; //userEmail
   String id;
   @override
+  void initState() {
+    widget.auth.infoUser().then((onValue) {
+      setState(() {
+        usuario = onValue.displayName;
+        usuarioEmail = onValue.email;
+        id = onValue.uid;
+        print('ID $id');
+      });
+      super.initState();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     void _signOut() async {

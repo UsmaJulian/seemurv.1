@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/clients_body.dart';
 
-class LugaresVistadosPage extends StatefulWidget {
+class ResenasPage extends StatefulWidget {
   final BaseAuth auth;
-  LugaresVistadosPage({this.auth});
+  ResenasPage({this.auth});
 
-  _LugaresVistadosPageState createState() => _LugaresVistadosPageState();
+  _ResenasPageState createState() => _ResenasPageState();
 }
 
-class _LugaresVistadosPageState extends State<LugaresVistadosPage> {
+class _ResenasPageState extends State<ResenasPage> {
   String id;
 
   @override
@@ -40,7 +40,7 @@ class _LugaresVistadosPageState extends State<LugaresVistadosPage> {
         title: Center(
             child: Padding(
           padding: const EdgeInsets.only(right: 50.0),
-          child: Text('Lugares visitados',
+          child: Text('Reseñas',
               style: TextStyle(
                 fontFamily: 'HankenGrotesk',
                 color: Color(0xffffffff),
@@ -55,7 +55,7 @@ class _LugaresVistadosPageState extends State<LugaresVistadosPage> {
         future: Firestore.instance
             .collection('usuarios')
             .document(id)
-            .collection('visitados')
+            .collection('reseñas')
             .getDocuments(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (!snapshot.hasData) {

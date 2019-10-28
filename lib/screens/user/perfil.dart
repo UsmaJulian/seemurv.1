@@ -1,13 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:seemur_v1/auth/auth.dart';
+import 'package:seemur_v1/components/widgets/clients_body.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
+import 'package:seemur_v1/login_admin/login_page.dart';
 import 'package:seemur_v1/login_admin/root_page.dart';
 import 'package:seemur_v1/screens/user/lugaresfavoritos.dart';
+import 'package:seemur_v1/screens/user/lugaresvisitados.dart';
+import 'package:seemur_v1/screens/user/rese%C3%B1as.dart';
 
 class PerfilPage extends StatefulWidget {
-  PerfilPage({this.auth});
+  PerfilPage({this.auth, this.datos});
   final BaseAuth auth;
+  final datos;
   @override
   _PerfilPageState createState() => _PerfilPageState();
 }
@@ -17,6 +25,8 @@ class _PerfilPageState extends State<PerfilPage> {
   String usuarioEmail = 'Email'; //userEmail
   String id;
   AuthStatus authStatus = AuthStatus.notSignIn;
+  int _widgetIndex = 0;
+  File _foto;
 
   void signOut() async {
     setState(() {
@@ -35,6 +45,48 @@ class _PerfilPageState extends State<PerfilPage> {
         print('ID $id');
       });
     });
+  }
+
+  Future captureImage(SelectSource opcion) async {
+    File userimage;
+
+    opcion == SelectSource.camara
+        ? userimage = await ImagePicker.pickImage(source: ImageSource.camera)
+        : userimage = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _foto = userimage;
+    });
+  }
+
+  Future getImage() async {
+    AlertDialog alerta = new AlertDialog(
+      content: Text('Seleccione de donde desea capturar la imagen'),
+      title: Text('Seleccione Imagen'),
+      actions: <Widget>[
+        FlatButton(
+          onPressed: () {
+            // seleccion = SelectSource.camara;
+            captureImage(SelectSource.camara);
+            Navigator.of(context, rootNavigator: true).pop();
+          },
+          child: Row(
+            children: <Widget>[Text('Camara'), Icon(Icons.camera)],
+          ),
+        ),
+        FlatButton(
+          onPressed: () {
+            // seleccion = SelectSource.galeria;
+            captureImage(SelectSource.galeria);
+            Navigator.of(context, rootNavigator: true).pop();
+          },
+          child: Row(
+            children: <Widget>[Text('Galeria'), Icon(Icons.image)],
+          ),
+        )
+      ],
+    );
+    showDialog(context: context, child: alerta);
   }
 
   @override
@@ -60,12 +112,39 @@ class _PerfilPageState extends State<PerfilPage> {
             child: Center(
               child: Column(
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 22.0),
-                    child: new Container(
-                        width: 80,
-                        height: 80,
-                        decoration: new BoxDecoration(color: Colors.red)),
+                  Row(
+                    children: <Widget>[
+                      Padding(
+                          padding: const EdgeInsets.only(top: 22.0),
+                          child: Container(
+                            child: GestureDetector(
+                              onTap: getImage,
+                            ),
+                            margin:
+                                EdgeInsets.only(top: 20, left: 140.0, right: 0),
+                            height: 80,
+                            width: 80,
+                            decoration: BoxDecoration(
+                                color: Color(0xffd8d8d8),
+                                borderRadius: BorderRadius.circular(6),
+                                image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: _foto == null
+                                        ? AssetImage(
+                                            'assets/images/seemurIsotipo.png')
+                                        : FileImage(_foto))),
+                          )),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 90.0),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.save_alt,
+                            size: 25,
+                          ),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 24.0),
@@ -102,12 +181,269 @@ class _PerfilPageState extends State<PerfilPage> {
                       ],
                     ),
                   ),
-                  new Container(
-                      width: 375,
-                      height: 446,
-                      decoration: new BoxDecoration(
-                          color: Color(0xfff6f7fa),
-                          borderRadius: BorderRadius.circular(8)))
+                  SizedBox(
+                    height: 32.0,
+                  ),
+                  IndexedStack(
+                    index: _widgetIndex,
+                    children: <Widget>[
+                      Container(
+                        //visitados
+                        width: 375,
+                        height: 446,
+                        decoration: new BoxDecoration(
+                            color: Color(0xfff6f7fa),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: FutureBuilder(
+                          future: Firestore.instance
+                              .collection('usuarios')
+                              .document(id)
+                              .collection('visitados')
+                              .getDocuments(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (!snapshot.hasData) {
+                              Text('Loading');
+                            } else {
+                              return ListView.builder(
+                                addAutomaticKeepAlives: true,
+                                itemCount: snapshot.data.documents.length,
+                                itemBuilder: (BuildContext context, index) {
+                                  return Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 16.0),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: FadeInImage.assetNetwork(
+                                            width: 46,
+                                            height: 46,
+                                            fit: BoxFit.cover,
+                                            placeholder:
+                                                ('assets/images/seemurIsotipo.png'),
+                                            image: (snapshot
+                                                .data.documents[index]['logos']
+                                                .toString()),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.6,
+                                        height: 72.0,
+                                        child: ListTile(
+                                          dense: true,
+                                          onTap: () {
+                                            var datasnp = snapshot
+                                                .data.documents[index].data;
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ClientBody(
+                                                          datos: datasnp)),
+                                            );
+                                          },
+                                          title: Container(
+                                            child: Text(
+                                              snapshot.data.documents[index]
+                                                  ['taskname'],
+                                              style: TextStyle(
+                                                fontFamily: 'HankenGrotesk',
+                                                color: Color(0xff000000),
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w700,
+                                                fontStyle: FontStyle.normal,
+                                                letterSpacing: -0.5,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+                            return Container();
+                          },
+                        ),
+                      ),
+                      Container(
+                        //favoritos
+                        width: 375,
+                        height: 446,
+                        decoration: new BoxDecoration(
+                            color: Color(0xfff6f7fa),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: FutureBuilder(
+                          future: Firestore.instance
+                              .collection('usuarios')
+                              .document(id)
+                              .collection('favoritos')
+                              .getDocuments(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (!snapshot.hasData) {
+                              Text('Loading');
+                            } else {
+                              return ListView.builder(
+                                addAutomaticKeepAlives: true,
+                                itemCount: snapshot.data.documents.length,
+                                itemBuilder: (BuildContext context, index) {
+                                  return Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 16.0),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: FadeInImage.assetNetwork(
+                                            width: 46,
+                                            height: 46,
+                                            fit: BoxFit.cover,
+                                            placeholder:
+                                                ('assets/images/seemurIsotipo.png'),
+                                            image: (snapshot
+                                                .data.documents[index]['logos']
+                                                .toString()),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.6,
+                                        height: 72.0,
+                                        child: ListTile(
+                                          dense: true,
+                                          onTap: () {
+                                            var datasnp = snapshot
+                                                .data.documents[index].data;
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ClientBody(
+                                                          datos: datasnp)),
+                                            );
+                                          },
+                                          title: Container(
+                                            child: Text(
+                                              snapshot.data.documents[index]
+                                                  ['taskname'],
+                                              style: TextStyle(
+                                                fontFamily: 'HankenGrotesk',
+                                                color: Color(0xff000000),
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w700,
+                                                fontStyle: FontStyle.normal,
+                                                letterSpacing: -0.5,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+                            return Container();
+                          },
+                        ),
+                      ),
+                      Container(
+                        //reseñas
+                        width: 375,
+                        height: 446,
+                        decoration: new BoxDecoration(
+                            color: Color(0xfff6f7fa),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: FutureBuilder(
+                          future: Firestore.instance
+                              .collection('usuarios')
+                              .document(id)
+                              .collection('reseñas')
+                              .getDocuments(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (!snapshot.hasData) {
+                              Text('Loading');
+                            } else {
+                              return ListView.builder(
+                                addAutomaticKeepAlives: true,
+                                itemCount: snapshot.data.documents.length,
+                                itemBuilder: (BuildContext context, index) {
+                                  return Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 16.0),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: FadeInImage.assetNetwork(
+                                            width: 46,
+                                            height: 46,
+                                            fit: BoxFit.cover,
+                                            placeholder:
+                                                ('assets/images/seemurIsotipo.png'),
+                                            image: (snapshot
+                                                .data.documents[index]['logos']
+                                                .toString()),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.6,
+                                        height: 72.0,
+                                        child: ListTile(
+                                          dense: true,
+                                          onTap: () {
+                                            var datasnp = snapshot
+                                                .data.documents[index].data;
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ClientBody(
+                                                          datos: datasnp)),
+                                            );
+                                          },
+                                          title: Container(
+                                            child: Text(
+                                              snapshot.data.documents[index]
+                                                  ['taskname'],
+                                              style: TextStyle(
+                                                fontFamily: 'HankenGrotesk',
+                                                color: Color(0xff000000),
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w700,
+                                                fontStyle: FontStyle.normal,
+                                                letterSpacing: -0.5,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+                            return Container();
+                          },
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
@@ -127,7 +463,7 @@ class _PerfilPageState extends State<PerfilPage> {
     );
   }
 
-  Container botonresenas() {
+  botonresenas() {
     return Container(
       height: 32,
       width: 88,
@@ -150,8 +486,11 @@ class _PerfilPageState extends State<PerfilPage> {
               fontWeight: FontWeight.w700,
             )),
         onPressed: () {
-          // Navigator.push(context,
-          //     new MaterialPageRoute(builder: (context) => FiltrosPage()));
+          _widgetIndex == 2 ? null : setState(() => _widgetIndex = 2);
+          // Navigator.push(
+          //     context,
+          //     new MaterialPageRoute(
+          //         builder: (context) => ResenasPage(auth: Auth())));
         },
       ),
     );
@@ -180,16 +519,17 @@ class _PerfilPageState extends State<PerfilPage> {
               fontWeight: FontWeight.w700,
             )),
         onPressed: () {
-          Navigator.push(
-              context,
-              new MaterialPageRoute(
-                  builder: (context) => LugaresFavoritosPage(auth: Auth())));
+          _widgetIndex == 1 ? null : setState(() => _widgetIndex = 1);
+          // Navigator.push(
+          //     context,
+          //     new MaterialPageRoute(
+          //         builder: (context) => LugaresFavoritosPage(auth: Auth())));
         },
       ),
     );
   }
 
-  Container botonvisitados() {
+  botonvisitados() {
     return Container(
       height: 32,
       width: 88,
@@ -212,8 +552,11 @@ class _PerfilPageState extends State<PerfilPage> {
               fontWeight: FontWeight.w700,
             )),
         onPressed: () {
-          // Navigator.push(context,
-          //     new MaterialPageRoute(builder: (context) => FiltrosPage()));
+          _widgetIndex == 0 ? null : setState(() => _widgetIndex = 0);
+          // Navigator.push(
+          //     context,
+          //     new MaterialPageRoute(
+          //         builder: (context) => LugaresVistadosPage(auth: Auth())));
         },
       ),
     );

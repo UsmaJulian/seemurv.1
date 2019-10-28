@@ -68,16 +68,133 @@ class _ClientBodyState extends State<ClientBody> {
                               children: <Widget>[
                                 Column(
                                   children: <Widget>[
-                                    Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      height: 226.0,
-                                      child: FadeInImage.assetNetwork(
-                                        fit: BoxFit.fill,
-                                        placeholder:
-                                            ('assets/images/azucar.gif'),
-                                        image:
-                                            (widget.datos['taskclientimage']),
-                                      ),
+                                    Stack(
+                                      children: <Widget>[
+                                        Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          height: 226.0,
+                                          child: FadeInImage.assetNetwork(
+                                            fit: BoxFit.fill,
+                                            placeholder:
+                                                ('assets/images/azucar.gif'),
+                                            image: (widget
+                                                .datos['taskclientimage']),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          top: 55.0,
+                                          right: 5.0,
+                                          child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.055,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.30,
+                                              decoration: new BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(22),
+                                                  gradient: LinearGradient(
+                                                      colors: [
+                                                        Color(0xfffbd800),
+                                                        Color(0xfff5af00)
+                                                      ],
+                                                      stops: [
+                                                        0,
+                                                        1
+                                                      ])),
+                                              child: FlatButton(
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    cambiarIcono(),
+                                                    Text('Visitado',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'HankenGrotesk',
+                                                          color:
+                                                              Color(0xff16202c),
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontStyle:
+                                                              FontStyle.normal,
+                                                        )),
+                                                  ],
+                                                ),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    Firestore.instance
+                                                        .collection('usuarios')
+                                                        .document(userID)
+                                                        .collection('visitados')
+                                                        .document()
+                                                        .setData({
+                                                      'taskname': widget
+                                                          .datos['taskname']
+                                                          .toString(),
+                                                      'logos': widget
+                                                          .datos['logos']
+                                                          .toString(),
+                                                      'taskclientimage': widget
+                                                          .datos[
+                                                              'taskclientimage']
+                                                          .toString(),
+                                                      'taskdescription': widget
+                                                          .datos[
+                                                              'taskdescription']
+                                                          .toString(),
+                                                      'taskenvironments': widget
+                                                              .datos[
+                                                          'taskenvironments'],
+                                                      'taskfeaturedimages': widget
+                                                              .datos[
+                                                          'taskfeaturedimages'],
+                                                      'taskfeatures':
+                                                          widget.datos[
+                                                              'taskfeatures'],
+                                                      'taskfoods': widget
+                                                          .datos['taskcfoods'],
+                                                      'taskhomeservice': widget
+                                                          .datos[
+                                                              'taskhomeservice']
+                                                          .toString(),
+                                                      'tasklocation': widget
+                                                          .datos['tasklocation']
+                                                          .toString(),
+                                                      'taskoutfit': widget
+                                                          .datos['taskoutfit']
+                                                          .toString(),
+                                                      'taskpayment': widget
+                                                          .datos['taskpayment']
+                                                          .toString(),
+                                                      'taskphone': widget
+                                                          .datos['taskphone']
+                                                          .toString(),
+                                                      'taskplans': widget
+                                                          .datos['taskplans'],
+                                                      'taskprice': widget
+                                                          .datos['taskprice']
+                                                          .toString(),
+                                                      'taskrecommendeddishes':
+                                                          widget.datos[
+                                                              'taskrecommendeddishes'],
+                                                      'taskservices':
+                                                          widget.datos[
+                                                              'taskservices'],
+                                                      'tasktags': widget
+                                                          .datos['tasktags'],
+                                                      'tasktime': widget
+                                                          .datos['tasktime']
+                                                          .toString(),
+                                                    });
+                                                  });
+                                                },
+                                              )),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -111,6 +228,12 @@ class _ClientBodyState extends State<ClientBody> {
               return Text("loading....");
             },
           )),
+    );
+  }
+
+  Icon cambiarIcono() {
+    return Icon(
+      Icons.add,
     );
   }
 
