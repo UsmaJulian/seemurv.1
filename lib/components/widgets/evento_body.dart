@@ -13,17 +13,17 @@ import 'package:seemur_v1/screens/admin/show_client.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
-class ClientBody extends StatefulWidget {
-  ClientBody({
+class EventoBody extends StatefulWidget {
+  EventoBody({
     this.datos,
   });
   final datos;
 
   @override
-  _ClientBodyState createState() => _ClientBodyState();
+  _EventoBodyState createState() => _EventoBodyState();
 }
 
-class _ClientBodyState extends State<ClientBody> {
+class _EventoBodyState extends State<EventoBody> {
   StreamController<String> streamController = new StreamController();
   String userID;
 
@@ -54,7 +54,7 @@ class _ClientBodyState extends State<ClientBody> {
               alignment: Alignment.center,
               color: Color.fromRGBO(246, 247, 250, 1),
               child: StreamBuilder(
-                stream: Firestore.instance.collection("client").snapshots(),
+                stream: Firestore.instance.collection("eventos").snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
@@ -83,8 +83,7 @@ class _ClientBodyState extends State<ClientBody> {
                                                 fit: BoxFit.fill,
                                                 placeholder:
                                                     ('assets/images/seemurIsotipo.png'),
-                                                image: (widget
-                                                    .datos['taskclientimage']),
+                                                image: (widget.datos['imagen']),
                                               ),
                                             ),
                                             Positioned(
@@ -155,70 +154,31 @@ class _ClientBodyState extends State<ClientBody> {
                                                                 'visitados')
                                                             .document()
                                                             .setData({
-                                                          'taskname': widget
-                                                              .datos['taskname']
+                                                          'nombre': widget
+                                                              .datos['nombre']
                                                               .toString(),
-                                                          'logos': widget
-                                                              .datos['logos']
+                                                          'imagen': widget
+                                                              .datos['imagen']
                                                               .toString(),
-                                                          'taskclientimage': widget
+                                                          'descripcion': widget
                                                               .datos[
-                                                                  'taskclientimage']
+                                                                  'descripcion']
                                                               .toString(),
-                                                          'taskdescription': widget
+                                                          'lugar': widget
+                                                              .datos['lugar']
+                                                              .toString(),
+                                                          'tipodevestuario': widget
                                                               .datos[
-                                                                  'taskdescription']
+                                                                  'tipodevestuario']
                                                               .toString(),
-                                                          'taskenvironments':
-                                                              widget.datos[
-                                                                  'taskenvironments'],
-                                                          'taskfeaturedimages':
-                                                              widget.datos[
-                                                                  'taskfeaturedimages'],
-                                                          'taskfeatures': widget
-                                                                  .datos[
-                                                              'taskfeatures'],
-                                                          'taskfoods':
-                                                              widget.datos[
-                                                                  'taskcfoods'],
-                                                          'taskhomeservice': widget
-                                                              .datos[
-                                                                  'taskhomeservice']
+                                                          'telefono': widget
+                                                              .datos['telefono']
                                                               .toString(),
-                                                          'tasklocation': widget
-                                                              .datos[
-                                                                  'tasklocation']
+                                                          'precio': widget
+                                                              .datos['precio']
                                                               .toString(),
-                                                          'taskoutfit': widget
-                                                              .datos[
-                                                                  'taskoutfit']
-                                                              .toString(),
-                                                          'taskpayment': widget
-                                                              .datos[
-                                                                  'taskpayment']
-                                                              .toString(),
-                                                          'taskphone': widget
-                                                              .datos[
-                                                                  'taskphone']
-                                                              .toString(),
-                                                          'taskplans':
-                                                              widget.datos[
-                                                                  'taskplans'],
-                                                          'taskprice': widget
-                                                              .datos[
-                                                                  'taskprice']
-                                                              .toString(),
-                                                          'taskrecommendeddishes':
-                                                              widget.datos[
-                                                                  'taskrecommendeddishes'],
-                                                          'taskservices': widget
-                                                                  .datos[
-                                                              'taskservices'],
-                                                          'tasktags':
-                                                              widget.datos[
-                                                                  'tasktags'],
-                                                          'tasktime': widget
-                                                              .datos['tasktime']
+                                                          'horario': widget
+                                                              .datos['horario']
                                                               .toString(),
                                                         });
                                                       });
@@ -241,13 +201,13 @@ class _ClientBodyState extends State<ClientBody> {
 
                                 // otro widget
 
-                                getFotosDestacadas(),
+                                // getFotosDestacadas(),
 
                                 SizedBox(height: 40),
 
                                 getPanelInformacion(),
                                 SizedBox(height: 40),
-                                getPlatosRecomendados(),
+                                //getPlatosRecomendados(),
                                 SizedBox(height: 40),
                                 getReviews(),
                                 // como llegar.
@@ -294,7 +254,7 @@ class _ClientBodyState extends State<ClientBody> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(widget.datos['taskname'].toString(),
+            Text(widget.datos['nombre'].toString(),
                 style: TextStyle(
                   fontFamily: 'HankenGrotesk',
                   color: Color(0xff000000),
@@ -305,7 +265,7 @@ class _ClientBodyState extends State<ClientBody> {
                 )),
             SizedBox(height: 20),
             Text(
-              widget.datos['taskdescription'].toString(),
+              widget.datos['descripcion'].toString(),
               style: TextStyle(
                 fontFamily: 'OpenSans',
                 color: Color(0xff3d3d3d),
@@ -354,7 +314,7 @@ class _ClientBodyState extends State<ClientBody> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text("Horarios:", style: style1),
-            Text(widget.datos['tasktime'].toString(), style: style2)
+            Text(widget.datos['horario'].toString(), style: style2)
           ],
         ),
         Spacer(),
@@ -362,7 +322,7 @@ class _ClientBodyState extends State<ClientBody> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text("Distancia:", style: style1),
-            Text(widget.datos['tasklocation'].toString(), style: style2)
+            Text(widget.datos['lugar'].toString(), style: style2)
           ],
         ),
         SizedBox(width: 20),
@@ -371,7 +331,7 @@ class _ClientBodyState extends State<ClientBody> {
   }
 
   getCardButtons() {
-    var numero = widget.datos['taskphone'];
+    var numero = widget.datos['telefono'];
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -409,7 +369,7 @@ class _ClientBodyState extends State<ClientBody> {
 
   getFav1(IconData iconData, Color color) {
     return FloatingActionButton(
-      heroTag: "button1",
+      heroTag: "button4",
       onPressed: () {
         favoritos();
       },
@@ -424,7 +384,7 @@ class _ClientBodyState extends State<ClientBody> {
 
   getFav2(IconData iconData, Color color) {
     return FloatingActionButton(
-      heroTag: "button2",
+      heroTag: "button5",
       onPressed: () {
         var datos = widget.datos;
         Navigator.push(
@@ -443,7 +403,7 @@ class _ClientBodyState extends State<ClientBody> {
 
   getFav3(IconData iconData, Color color) {
     return FloatingActionButton(
-      heroTag: "button3",
+      heroTag: "button6",
       onPressed: () {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => ShareButtonPage()));
@@ -457,81 +417,81 @@ class _ClientBodyState extends State<ClientBody> {
     );
   }
 
-  getFotosDestacadas() {
-    return Flexible(
-      child: Column(
-        //        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 24.0),
-            child: Text(
-              "Fotos destacadas",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(height: 10),
-          StreamBuilder(
-            stream: Firestore.instance.collection('client').snapshots(),
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (!snapshot.hasData) {
-                const Text('loading');
-              } else {
-                return SizedBox(
-                  height: 110,
-                  child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (ctx, idx) {
-                        return Container(
-                          width: 150,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 1),
-                                )
-                              ]),
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                idx = idx;
-                              });
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (_) {
-                                var datos = widget.datos['taskfeaturedimages']
-                                        [idx]
-                                    .toString();
-                                return DetailScreen(infoimagen: datos);
-                              }));
-                            },
-                            child: FadeInImage.assetNetwork(
-                                width: 47,
-                                height: 47,
-                                fit: BoxFit.cover,
-                                placeholder:
-                                    ('assets/images/seemurIsotipo.png'),
-                                image: (widget.datos['taskfeaturedimages'][idx]
-                                    .toString())),
-                          ),
-                        );
-                      },
-                      separatorBuilder: (ctx, idx) {
-                        return SizedBox(width: 15);
-                      },
-                      padding: EdgeInsets.fromLTRB(24, 0, 0, 0),
-                      itemCount: widget.datos['taskfeaturedimages'].length),
-                );
-              }
-            },
-          )
-        ],
-      ),
-    );
-  }
+  // getFotosDestacadas() {
+  //   return Flexible(
+  //     child: Column(
+  //       //        mainAxisSize: MainAxisSize.max,
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: <Widget>[
+  //         Padding(
+  //           padding: const EdgeInsets.only(left: 24.0),
+  //           child: Text(
+  //             "Fotos destacadas",
+  //             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  //           ),
+  //         ),
+  //         SizedBox(height: 10),
+  //         StreamBuilder(
+  //           stream: Firestore.instance.collection('eventos').snapshots(),
+  //           builder:
+  //               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+  //             if (!snapshot.hasData) {
+  //               const Text('loading');
+  //             } else {
+  //               return SizedBox(
+  //                 height: 110,
+  //                 child: ListView.separated(
+  //                     scrollDirection: Axis.horizontal,
+  //                     itemBuilder: (ctx, idx) {
+  //                       return Container(
+  //                         width: 150,
+  //                         decoration: BoxDecoration(
+  //                             color: Colors.white,
+  //                             borderRadius: BorderRadius.circular(12),
+  //                             boxShadow: [
+  //                               BoxShadow(
+  //                                 color: Colors.black12,
+  //                                 blurRadius: 4,
+  //                                 offset: Offset(0, 1),
+  //                               )
+  //                             ]),
+  //                         child: InkWell(
+  //                           onTap: () {
+  //                             setState(() {
+  //                               idx = idx;
+  //                             });
+  //                             Navigator.push(context,
+  //                                 MaterialPageRoute(builder: (_) {
+  //                               var datos = widget.datos['taskfeaturedimages']
+  //                                       [idx]
+  //                                   .toString();
+  //                               return DetailScreen(infoimagen: datos);
+  //                             }));
+  //                           },
+  //                           child: FadeInImage.assetNetwork(
+  //                               width: 47,
+  //                               height: 47,
+  //                               fit: BoxFit.cover,
+  //                               placeholder:
+  //                                   ('assets/images/seemurIsotipo.png'),
+  //                               image: (widget.datos['taskfeaturedimages'][idx]
+  //                                   .toString())),
+  //                         ),
+  //                       );
+  //                     },
+  //                     separatorBuilder: (ctx, idx) {
+  //                       return SizedBox(width: 15);
+  //                     },
+  //                     padding: EdgeInsets.fromLTRB(24, 0, 0, 0),
+  //                     itemCount: widget.datos['taskfeaturedimages'].length),
+  //               );
+  //             }
+  //           },
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
 
   getPanelInformacion() {
     Widget buildInfoItem(String title, String desc, IconData icon) {
@@ -593,89 +553,91 @@ class _ClientBodyState extends State<ClientBody> {
         ),
         SizedBox(height: 20),
         buildInfoItem(
-            "Como llegar", widget.datos['tasklocation'].toString(), Icons.map),
-        buildInfoItem("Precio Mínimo", widget.datos['taskprice'].toString(),
-            Icons.shop_two),
-        buildInfoItem("Tipo de Vestuario",
-            widget.datos['taskoutfit'].toString(), Icons.accessibility_new),
-        buildInfoItem("Domicilio", widget.datos['taskhomeservice'].toString(),
-            Icons.directions_car),
+            "Como llegar", widget.datos['lugar'].toString(), Icons.map),
+        buildInfoItem(
+            "Precio Mínimo", widget.datos['precio'].toString(), Icons.shop_two),
+        buildInfoItem(
+            "Tipo de Vestuario",
+            widget.datos['tipodevestuario'].toString(),
+            Icons.accessibility_new),
+        // buildInfoItem("Domicilio", widget.datos['taskhomeservice'].toString(),
+        //     Icons.directions_car),
       ],
     );
   }
 
-  getPlatosRecomendados() {
-    Widget buildRow(String title, int likes) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Row(
-          children: <Widget>[
-            Text(
-              '$title',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Spacer(),
-            Icon(Icons.thumb_up, color: Colors.teal),
-            SizedBox(width: 10),
-            SizedBox(
-                width: 50,
-                child: Text(
-                  "",
-                  // "$likes",
-                  style: TextStyle(fontSize: 14, color: Colors.teal),
-                )),
-          ],
-        ),
-      );
-    }
+  // getPlatosRecomendados() {
+  //   Widget buildRow(String title, int likes) {
+  //     return Padding(
+  //       padding: const EdgeInsets.symmetric(vertical: 8.0),
+  //       child: Row(
+  //         children: <Widget>[
+  //           Text(
+  //             '$title',
+  //             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  //           ),
+  //           Spacer(),
+  //           Icon(Icons.thumb_up, color: Colors.teal),
+  //           SizedBox(width: 10),
+  //           SizedBox(
+  //               width: 50,
+  //               child: Text(
+  //                 "",
+  //                 // "$likes",
+  //                 style: TextStyle(fontSize: 14, color: Colors.teal),
+  //               )),
+  //         ],
+  //       ),
+  //     );
+  //   }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 24.0),
-          child: Text(
-            "Recomendamos",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-        ),
-        SizedBox(height: 10),
-        Container(
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 4,
-                    offset: Offset(0, 2),
-                  )
-                ]),
-            child: Column(
-              children: [
-                buildRow(
-                    widget.datos['taskrecommendeddishes'][0]
-                        .toString()
-                        .replaceAll(new RegExp(r'[^\w\s]+'), ''),
-                    1022),
-                buildRow(
-                    widget.datos['taskrecommendeddishes'][1]
-                        .toString()
-                        .replaceAll(new RegExp(r'[^\w\s]+'), ''),
-                    1022),
-                buildRow(
-                    widget.datos['taskrecommendeddishes'][2]
-                        .toString()
-                        .replaceAll(new RegExp(r'[^\w\s]+'), ''),
-                    1022),
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Padding(
+  //         padding: const EdgeInsets.only(left: 24.0),
+  //         child: Text(
+  //           "Recomendamos",
+  //           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  //         ),
+  //       ),
+  //       SizedBox(height: 10),
+  //       Container(
+  //           padding: EdgeInsets.all(20),
+  //           decoration: BoxDecoration(
+  //               borderRadius: BorderRadius.circular(20),
+  //               color: Colors.white,
+  //               boxShadow: [
+  //                 BoxShadow(
+  //                   color: Colors.black12,
+  //                   blurRadius: 4,
+  //                   offset: Offset(0, 2),
+  //                 )
+  //               ]),
+  //           child: Column(
+  //             children: [
+  //               buildRow(
+  //                   widget.datos['taskrecommendeddishes'][0]
+  //                       .toString()
+  //                       .replaceAll(new RegExp(r'[^\w\s]+'), ''),
+  //                   1022),
+  //               buildRow(
+  //                   widget.datos['taskrecommendeddishes'][1]
+  //                       .toString()
+  //                       .replaceAll(new RegExp(r'[^\w\s]+'), ''),
+  //                   1022),
+  //               buildRow(
+  //                   widget.datos['taskrecommendeddishes'][2]
+  //                       .toString()
+  //                       .replaceAll(new RegExp(r'[^\w\s]+'), ''),
+  //                   1022),
 
-                // buildRow("Tempura", 126),
-              ],
-            ))
-      ].toList(),
-    );
-  }
+  //               // buildRow("Tempura", 126),
+  //             ],
+  //           ))
+  //     ].toList(),
+  //   );
+  // }
 
   final String loremipsum =
       "Vivamus sit amet justo dapibus, ultrices metus vel, viverra mi. Morbi malesuada mauris quam, ut consequat turpis posuere vel. Morbi dictum erat a arcu bibendum condimentum. Integer volutpat eleifend eros, ut porttitor lacus imperdie . Integer volutpat eleifend eros, ut porttitor lacus imperdie ";
@@ -816,25 +778,14 @@ class _ClientBodyState extends State<ClientBody> {
           .collection('favoritos')
           .document()
           .setData({
-        'taskname': widget.datos['taskname'].toString(),
-        'logos': widget.datos['logos'].toString(),
-        'taskclientimage': widget.datos['taskclientimage'].toString(),
-        'taskdescription': widget.datos['taskdescription'].toString(),
-        'taskenvironments': widget.datos['taskenvironments'],
-        'taskfeaturedimages': widget.datos['taskfeaturedimages'],
-        'taskfeatures': widget.datos['taskfeatures'],
-        'taskfoods': widget.datos['taskcfoods'],
-        'taskhomeservice': widget.datos['taskhomeservice'].toString(),
-        'tasklocation': widget.datos['tasklocation'].toString(),
-        'taskoutfit': widget.datos['taskoutfit'].toString(),
-        'taskpayment': widget.datos['taskpayment'].toString(),
-        'taskphone': widget.datos['taskphone'].toString(),
-        'taskplans': widget.datos['taskplans'],
-        'taskprice': widget.datos['taskprice'].toString(),
-        'taskrecommendeddishes': widget.datos['taskrecommendeddishes'],
-        'taskservices': widget.datos['taskservices'],
-        'tasktags': widget.datos['tasktags'],
-        'tasktime': widget.datos['tasktime'].toString(),
+        'nombre': widget.datos['nombre'].toString(),
+        'imagen': widget.datos['imagen'].toString(),
+        'descripcion': widget.datos['descripcion'].toString(),
+        'lugar': widget.datos['lugar'].toString(),
+        'tipodevestuario': widget.datos['tipodevestuario'].toString(),
+        'telefono': widget.datos['telefono'].toString(),
+        'precio': widget.datos['precio'].toString(),
+        'horario': widget.datos['horario'].toString(),
       });
     });
   }

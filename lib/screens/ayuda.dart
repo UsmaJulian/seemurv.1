@@ -5,6 +5,7 @@ import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/screens/politicadeprivacidad.dart';
 import 'package:seemur_v1/screens/terminos_condiciones.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AyudaPage extends StatefulWidget {
   AyudaPage({this.auth});
@@ -65,7 +66,9 @@ class _AyudaPageState extends State<AyudaPage> {
                   height: 66.0,
                   width: MediaQuery.of(context).size.width,
                   child: new FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _launchURL();
+                      },
                       child: Row(
                         children: <Widget>[
                           SizedBox(
@@ -171,5 +174,14 @@ class _AyudaPageState extends State<AyudaPage> {
         ],
       ),
     );
+  }
+
+  _launchURL() async {
+    const url = 'https://www.seemur.com/establecimientos';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'No se puede lanzar la url $url';
+    }
   }
 }

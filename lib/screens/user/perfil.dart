@@ -1,21 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/clients_body.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
-import 'package:seemur_v1/login_admin/login_page.dart';
+import 'package:path/path.dart';
 import 'package:seemur_v1/login_admin/root_page.dart';
-import 'package:seemur_v1/screens/user/lugaresfavoritos.dart';
-import 'package:seemur_v1/screens/user/lugaresvisitados.dart';
-import 'package:seemur_v1/screens/user/rese%C3%B1as.dart';
+import 'package:seemur_v1/screens/politicadeprivacidad.dart';
 
 class PerfilPage extends StatefulWidget {
   PerfilPage({this.auth, this.datos});
   final BaseAuth auth;
   final datos;
+
   @override
   _PerfilPageState createState() => _PerfilPageState();
 }
@@ -26,7 +27,8 @@ class _PerfilPageState extends State<PerfilPage> {
   String id;
   AuthStatus authStatus = AuthStatus.notSignIn;
   int _widgetIndex = 0;
-  File _foto;
+  File _image;
+  String imageurl;
 
   void signOut() async {
     setState(() {
@@ -47,46 +49,34 @@ class _PerfilPageState extends State<PerfilPage> {
     });
   }
 
-  Future captureImage(SelectSource opcion) async {
-    File userimage;
-
-    opcion == SelectSource.camara
-        ? userimage = await ImagePicker.pickImage(source: ImageSource.camera)
-        : userimage = await ImagePicker.pickImage(source: ImageSource.gallery);
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
-      _foto = userimage;
+      _image = image;
+      print('Image Path $_image');
     });
   }
 
-  Future getImage() async {
-    AlertDialog alerta = new AlertDialog(
-      content: Text('Seleccione de donde desea capturar la imagen'),
-      title: Text('Seleccione Imagen'),
-      actions: <Widget>[
-        FlatButton(
-          onPressed: () {
-            // seleccion = SelectSource.camara;
-            captureImage(SelectSource.camara);
-            Navigator.of(context, rootNavigator: true).pop();
-          },
-          child: Row(
-            children: <Widget>[Text('Camara'), Icon(Icons.camera)],
-          ),
-        ),
-        FlatButton(
-          onPressed: () {
-            // seleccion = SelectSource.galeria;
-            captureImage(SelectSource.galeria);
-            Navigator.of(context, rootNavigator: true).pop();
-          },
-          child: Row(
-            children: <Widget>[Text('Galeria'), Icon(Icons.image)],
-          ),
-        )
-      ],
-    );
-    showDialog(context: context, child: alerta);
+  Future uploadPic(
+    BuildContext context,
+  ) async {
+    String fileName = basename(_image.path);
+    StorageReference firebaseStorageRef =
+        FirebaseStorage.instance.ref().child(fileName);
+    StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
+    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+    String imagenurl = (await firebaseStorageRef.getDownloadURL()).toString();
+    print(imagenurl);
+
+    setState(() {
+      print("imagen de perfil actualizada");
+      Scaffold.of(context).showSnackBar(
+          SnackBar(content: Text('Imagen de perfil actualizada')));
+    });
+    setState(() {
+      imagenurl = imagenurl;
+    });
   }
 
   @override
@@ -114,34 +104,156 @@ class _PerfilPageState extends State<PerfilPage> {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Padding(
-                          padding: const EdgeInsets.only(top: 22.0),
-                          child: Container(
-                            child: GestureDetector(
-                              onTap: getImage,
-                            ),
-                            margin:
-                                EdgeInsets.only(top: 20, left: 140.0, right: 0),
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                                color: Color(0xffd8d8d8),
-                                borderRadius: BorderRadius.circular(6),
-                                image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: _foto == null
-                                        ? AssetImage(
-                                            'assets/images/seemurIsotipo.png')
-                                        : FileImage(_foto))),
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 90.0),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.save_alt,
-                            size: 25,
+                      Builder(
+                        builder: (context) => Padding(
+                          padding: const EdgeInsets.only(
+                            left: 40,
                           ),
-                          onPressed: () {},
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 60.0),
+                                      child: CircleAvatar(
+                                        radius: 70,
+                                        backgroundColor: Color(0xffd8d8d8),
+                                        child: ClipOval(
+                                          child: new SizedBox(
+                                            width: 180.0,
+                                            height: 180.0,
+                                            child: (_image != null)
+                                                ? FadeInImage.assetNetwork(
+                                                    fit: BoxFit.fill,
+                                                    placeholder:
+                                                        ('assets/images/seemurIsotipo.png'),
+                                                    image: (''),
+                                                  )
+                                                : Image.network(
+                                                    "https://firebasestorage.googleapis.com/v0/b/seemur-a9726.appspot.com/o/recursos%2FseemurIsotipo.png?alt=media&token=6adb8643-8c0b-488d-a965-8f59b7452378",
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 60.0),
+                                      child: IconButton(
+                                        icon: Icon(
+                                          CupertinoIcons.switch_camera,
+                                          size: 30.0,
+                                        ),
+                                        onPressed: () {
+                                          getImage();
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    RaisedButton(
+                                      color: Colors.transparent,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              new BorderRadius.circular(22.0)),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      elevation: 0,
+                                      child: Container(
+                                        height: 32,
+                                        width: 88,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: 0,
+                                              style: BorderStyle.none),
+                                          borderRadius: BorderRadius.horizontal(
+                                              left: Radius.circular(22),
+                                              right: Radius.circular(22)),
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              new Color(0xFFFFE231),
+                                              new Color(0xFFF5AF00)
+                                            ],
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Cancelar',
+                                            style: new TextStyle(
+                                              color: Colors.black,
+                                              fontFamily: 'HankenGrotesk',
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 65.0,
+                                    ),
+                                    RaisedButton(
+                                      color: Colors.transparent,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              new BorderRadius.circular(22.0)),
+                                      onPressed: () {
+                                        uploadPic(
+                                          context,
+                                        );
+                                        subirImagen();
+                                      },
+                                      elevation: 0,
+                                      child: Container(
+                                        height: 32,
+                                        width: 88,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: 0,
+                                              style: BorderStyle.none),
+                                          borderRadius: BorderRadius.horizontal(
+                                              left: Radius.circular(22),
+                                              right: Radius.circular(22)),
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              new Color(0xFFFFE231),
+                                              new Color(0xFFF5AF00)
+                                            ],
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Text('Enviar',
+                                              style: new TextStyle(
+                                                color: Colors.black,
+                                                fontFamily: 'HankenGrotesk',
+                                                fontSize: 12.0,
+                                                fontWeight: FontWeight.w700,
+                                              )),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -560,5 +672,14 @@ class _PerfilPageState extends State<PerfilPage> {
         },
       ),
     );
+  }
+
+  subirImagen() {
+    setState(() {
+      Firestore.instance
+          .collection('usuarios')
+          .document(id)
+          .updateData({'imagen de perfil': imageurl});
+    });
   }
 }

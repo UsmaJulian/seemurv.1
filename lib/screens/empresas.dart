@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/inscribirempresa.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EmpresasPage extends StatefulWidget {
   EmpresasPage({this.auth});
@@ -65,10 +66,7 @@ class _EmpresasPageState extends State<EmpresasPage> {
                   width: MediaQuery.of(context).size.width,
                   child: new FlatButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => InscribirEmpresaPage()));
+                        _launchURL();
                       },
                       child: Row(
                         children: <Widget>[
@@ -78,34 +76,6 @@ class _EmpresasPageState extends State<EmpresasPage> {
                           Padding(
                             padding: const EdgeInsets.only(right: 92.0),
                             child: new Text('Inscribir mi empresa en Seemur',
-                                style: new TextStyle(
-                                    fontSize: 14.0, color: Colors.black)),
-                          ),
-                          Icon(
-                            IconData(
-                              0xF3D3,
-                              fontFamily: 'CupertinoIcons',
-                            ),
-                            size: 16,
-                          ),
-                        ],
-                      )),
-                ),
-              ),
-              Card(
-                child: Container(
-                  height: 66.0,
-                  width: MediaQuery.of(context).size.width,
-                  child: new FlatButton(
-                      onPressed: () {},
-                      child: Row(
-                        children: <Widget>[
-                          SizedBox(
-                            width: 12.0,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 100.0),
-                            child: new Text('Cambiar a usuario empresarial',
                                 style: new TextStyle(
                                     fontSize: 14.0, color: Colors.black)),
                           ),
@@ -135,5 +105,14 @@ class _EmpresasPageState extends State<EmpresasPage> {
         ],
       ),
     );
+  }
+}
+
+_launchURL() async {
+  const url = 'https://www.seemur.com/establecimientos';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'No se puede lanzar la url $url';
   }
 }

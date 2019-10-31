@@ -70,7 +70,9 @@ class _InfoDestacadaPageState extends State<InfoDestacadaPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LugaresVistadosPage()));
+                                builder: (context) => LugaresVistadosPage(
+                                      auth: Auth(),
+                                    )));
                       },
                       child: Row(
                         children: <Widget>[
@@ -103,7 +105,9 @@ class _InfoDestacadaPageState extends State<InfoDestacadaPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LugaresFavoritosPage()));
+                                builder: (context) => LugaresFavoritosPage(
+                                      auth: Auth(),
+                                    )));
                       },
                       child: Row(
                         children: <Widget>[
@@ -136,7 +140,8 @@ class _InfoDestacadaPageState extends State<InfoDestacadaPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MisResenasPage()));
+                                builder: (context) =>
+                                    MisResenasPage(auth: Auth())));
                       },
                       child: Row(
                         children: <Widget>[

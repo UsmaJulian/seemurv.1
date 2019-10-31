@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:seemur_v1/auth/auth.dart';
 
 class MisResenasPage extends StatefulWidget {
-  MisResenasPage({Key key}) : super(key: key);
+  final BaseAuth auth;
+  MisResenasPage({this.auth});
 
   _MisResenasPageState createState() => _MisResenasPageState();
 }

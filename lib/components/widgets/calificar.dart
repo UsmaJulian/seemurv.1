@@ -56,7 +56,7 @@ class _CalificarPageState extends State<CalificarPage> {
                   decoration: new BoxDecoration(color: Color(0xffffffff)),
                   child: Center(
                       child: SmoothStarRating(
-                    borderColor: Color(0xfff6f7fa),
+                    borderColor: Color(0xff16202C),
                     color: Color(0xfff5af00),
                     allowHalfRating: true,
                     rating: rating,

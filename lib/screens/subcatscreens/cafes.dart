@@ -62,7 +62,7 @@ class _ListCafesPageState extends State<ListCafesPage> {
     return Stack(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(bottom: 78.0),
+          padding: const EdgeInsets.only(bottom: 70),
           child: Container(
             child: FutureBuilder(
               future: getClient(),
@@ -77,63 +77,61 @@ class _ListCafesPageState extends State<ListCafesPage> {
                     itemBuilder: (BuildContext context, index) {
                       final datasnp = snapshot.data[index].data;
                       return Container(
-                        child: Card(
-                          color: Color.fromRGBO(246, 247, 250, 5),
-                          elevation: 1,
-                          child: InkWell(
-                            onTap: () {
-                              //print('${snapshot.data[index].data['taskname']}');
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ClientBody(
-                                          datos: datasnp,
-                                        )),
-                              );
-                            },
-                            child: Row(
-                              children: <Widget>[
-                                SizedBox(width: 30.0, height: 47.0),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: FadeInImage.assetNetwork(
-                                    width: 47,
-                                    height: 47,
-                                    fit: BoxFit.fill,
-                                    placeholder:
-                                        ('assets/images/seemurIsotipo.png'),
-                                    image: (snapshot.data[index].data['logos']),
-                                  ),
+                          child: Card(
+                        color: Color.fromRGBO(246, 247, 250, 5),
+                        elevation: 1,
+                        child: InkWell(
+                          onTap: () {
+                            //print('${snapshot.data[index].data['taskname']}');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ClientBody(
+                                        datos: datasnp,
+                                      )),
+                            );
+                          },
+                          child: Row(
+                            children: <Widget>[
+                              SizedBox(width: 30.0, height: 47.0),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: FadeInImage.assetNetwork(
+                                  width: 47,
+                                  height: 47,
+                                  fit: BoxFit.fill,
+                                  placeholder:
+                                      ('assets/images/seemurIsotipo.png'),
+                                  image: (snapshot.data[index].data['logos']),
                                 ),
-                                SizedBox(
-                                  width: 21.0,
-                                  height: 47.0,
-                                ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.6,
-                                  height: 72.0,
-                                  child: ListTile(
-                                    title: Container(
-                                      child: Text(
-                                        snapshot.data[index].data['taskname'],
-                                        style: TextStyle(
-                                          fontFamily: 'HankenGrotesk',
-                                          color: Color(0xff000000),
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w700,
-                                          fontStyle: FontStyle.normal,
-                                          letterSpacing: -0.5,
-                                        ),
+                              ),
+                              SizedBox(
+                                width: 21.0,
+                                height: 47.0,
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                height: 72.0,
+                                child: ListTile(
+                                  title: Container(
+                                    child: Text(
+                                      snapshot.data[index].data['taskname'],
+                                      style: TextStyle(
+                                        fontFamily: 'HankenGrotesk',
+                                        color: Color(0xff000000),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700,
+                                        fontStyle: FontStyle.normal,
+                                        letterSpacing: -0.5,
                                       ),
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                      );
+                      ));
                     },
                   );
                 }
@@ -141,8 +139,8 @@ class _ListCafesPageState extends State<ListCafesPage> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 465, bottom: 0),
+        Positioned(
+          bottom: 0,
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 70,

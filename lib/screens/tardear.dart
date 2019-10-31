@@ -123,7 +123,7 @@ class _TardearPageState extends State<TardearPage> {
                                               fontStyle: FontStyle.normal,
                                               letterSpacing: -0.5,
                                             )),
-                                        Text('7 lugares',
+                                        Text('',
                                             style: TextStyle(
                                               fontFamily: 'OpenSans',
                                               color: Color(0xff3d3d3d),
@@ -187,7 +187,7 @@ class _TardearPageState extends State<TardearPage> {
                                               fontStyle: FontStyle.normal,
                                               letterSpacing: -0.5,
                                             )),
-                                        Text('5 lugares',
+                                        Text('',
                                             style: TextStyle(
                                               fontFamily: 'OpenSans',
                                               color: Color(0xff3d3d3d),
@@ -251,7 +251,7 @@ class _TardearPageState extends State<TardearPage> {
                                               fontStyle: FontStyle.normal,
                                               letterSpacing: -0.5,
                                             )),
-                                        Text('3 lugares',
+                                        Text('',
                                             style: TextStyle(
                                               fontFamily: 'OpenSans',
                                               color: Color(0xff3d3d3d),
@@ -315,7 +315,7 @@ class _TardearPageState extends State<TardearPage> {
                                               fontStyle: FontStyle.normal,
                                               letterSpacing: -0.5,
                                             )),
-                                        Text('2 lugares',
+                                        Text('',
                                             style: TextStyle(
                                               fontFamily: 'OpenSans',
                                               color: Color(0xff3d3d3d),
@@ -399,14 +399,16 @@ class _TardearPageState extends State<TardearPage> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 61, bottom: 0),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 70,
-              child: NavigatorBar(),
+          Expanded(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height,
             ),
           ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 70,
+            child: NavigatorBar(),
+          )
         ],
       ),
     );

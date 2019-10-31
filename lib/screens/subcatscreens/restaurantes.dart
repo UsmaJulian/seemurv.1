@@ -63,7 +63,7 @@ class _ListRestaurantesState extends State<ListRestaurantes> {
     return Stack(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(bottom: 78.0),
+          padding: const EdgeInsets.only(bottom: 70),
           child: Container(
             child: FutureBuilder(
               future: getClient(),
@@ -140,8 +140,8 @@ class _ListRestaurantesState extends State<ListRestaurantes> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 465, bottom: 0),
+        Positioned(
+          bottom: 0,
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 70,

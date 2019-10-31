@@ -90,19 +90,48 @@ class _RestaurantesParaTiState extends State<RestaurantesParaTi> {
                                         MediaQuery.of(context).size.width * 0.6,
                                     height: 72.0,
                                     child: ListTile(
-                                      title: Container(
-                                        child: Text(
-                                          snapshot.data.documents[idx]
-                                              ['taskname'],
-                                          style: TextStyle(
-                                            fontFamily: 'HankenGrotesk',
-                                            color: Color(0xff000000),
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w700,
-                                            fontStyle: FontStyle.normal,
-                                            letterSpacing: -0.5,
+                                      contentPadding:
+                                          EdgeInsets.fromLTRB(14, 0, 121, 0),
+                                      title: Column(
+                                        children: <Widget>[
+                                          SizedBox(
+                                            height: 16.0,
                                           ),
-                                        ),
+                                          Container(
+                                            child: Text(
+                                              snapshot.data.documents[idx]
+                                                  ['taskname'],
+                                              style: TextStyle(
+                                                fontFamily: 'HankenGrotesk',
+                                                color: Color(0xff000000),
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w700,
+                                                fontStyle: FontStyle.normal,
+                                                letterSpacing: -0.5,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 6.0,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                                snapshot.data.documents[idx]
+                                                    ['tipo de recomendado'],
+                                                style: TextStyle(
+                                                  fontFamily: 'OpenSans',
+                                                  color: Color(0xff3d3d3d),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal,
+                                                  letterSpacing:
+                                                      0.2000000029802322,
+                                                )),
+                                          ),
+                                          SizedBox(
+                                            height: 16.0,
+                                          )
+                                        ],
                                       ),
                                     ),
                                   ),

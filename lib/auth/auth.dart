@@ -49,9 +49,8 @@ class Auth implements BaseAuth {
           'nombre': usuarioModel.nombre, //name
           'telefono': usuarioModel.telefono, //phone
           'email': usuarioModel.email,
-          //'ciudad': usuarioModel.ciudad, //city
-          //'direccion': usuarioModel.direccion,
-          "uid": usuarioModel.uid
+
+          "uid": user.uid,
         })
         .then((value) => print('Usuario registrado en la bd'))
         .catchError(

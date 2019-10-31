@@ -38,6 +38,7 @@ dependencies:
   flutter_launcher_icons: ^0.7.3
   flutter_range_slider: ^1.4.0
   smooth_star_rating: ^1.0.3
+  flutter_share_me: ^0.6.0
 
 
 
