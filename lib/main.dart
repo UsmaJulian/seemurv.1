@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/login_admin/root_page.dart';
-
 import 'package:seemur_v1/screens/splash_screen%20_one_loading.dart';
 
 var routes = <String, WidgetBuilder>{

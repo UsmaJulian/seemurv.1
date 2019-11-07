@@ -1,5 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:seemur_v1/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,7 +50,7 @@ class Auth implements BaseAuth {
           'nombre': usuarioModel.nombre, //name
           'telefono': usuarioModel.telefono, //phone
           'email': usuarioModel.email,
-
+      'imagen': 'gs://seemur-a9726.appspot.com/recursos/Seemur-Isotipo.svg',
           "uid": user.uid,
         })
         .then((value) => print('Usuario registrado en la bd'))

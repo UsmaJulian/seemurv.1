@@ -49,7 +49,7 @@ packages:
       name: cloud_firestore
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.9+5"
+    version: "0.12.9+6"
   collection:
     dependency: transitive
     description:
@@ -84,7 +84,7 @@ packages:
       name: date_format
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.6"
+    version: "1.0.8"
   datetime_picker_formfield:
     dependency: "direct main"
     description:
@@ -145,7 +145,7 @@ packages:
       name: flutter_launcher_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.3"
+    version: "0.7.4"
   flutter_range_slider:
     dependency: "direct main"
     description:
@@ -213,7 +213,7 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.1+8"
+    version: "0.6.1+10"
   intl:
     dependency: "direct main"
     description:
@@ -325,7 +325,7 @@ packages:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.4"
+    version: "0.5.4+3"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -393,7 +393,7 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.2.4"
+    version: "5.2.5"
   url_launcher_platform_interface:
     dependency: transitive
     description:

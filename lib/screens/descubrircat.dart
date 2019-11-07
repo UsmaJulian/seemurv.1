@@ -76,67 +76,79 @@ class _DescCatBodyState extends State<DescCatBody> {
               child: Text('Cargando Datos...'),
             );
           } else {
-            return ListView.builder(
-              itemCount: snapshot.data.length,
-              itemBuilder: (BuildContext context, index) {
-                final datasnp = snapshot.data[index].data;
-                return Container(
-                  child: Card(
-                    color: Color.fromRGBO(246, 247, 250, 5),
-                    elevation: 1,
-                    child: InkWell(
-                      onTap: () {
-                        //print('${snapshot.data[index].data['taskname']}');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ClientBody(
-                                    datos: datasnp,
-                                  )),
-                        );
-                      },
-                      child: Row(
-                        children: <Widget>[
-                          SizedBox(width: 30.0, height: 47.0),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: FadeInImage.assetNetwork(
-                                width: 47,
-                                height: 47,
-                                fit: BoxFit.fill,
-                                placeholder:
+            return Expanded(
+              child: SizedBox(
+                height: 40,
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: 0,
+                  itemBuilder: (BuildContext context, index) {
+                    final datasnp = snapshot.data[index].data;
+                    return Container(
+                      child: Card(
+                        color: Color.fromRGBO(246, 247, 250, 5),
+                        elevation: 1,
+                        child: InkWell(
+                          onTap: () {
+                            //print('${snapshot.data[index].data['taskname']}');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ClientBody(
+                                        datos: datasnp,
+                                      )),
+                            );
+                          },
+                          child: Row(
+                            children: <Widget>[
+                              SizedBox(width: 30.0, height: 47.0),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: FadeInImage.assetNetwork(
+                                    width: 47,
+                                    height: 47,
+                                    fit: BoxFit.fill,
+                                    placeholder:
                                     ('assets/images/seemurIsotipo.png'),
-                                image: (snapshot.data[index].data['logos'])),
-                          ),
-                          SizedBox(
-                            width: 21.0,
-                            height: 47.0,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            height: 72.0,
-                            child: ListTile(
-                              title: Container(
-                                child: Text(
-                                  snapshot.data[index].data['taskname'],
-                                  style: TextStyle(
-                                    fontFamily: 'HankenGrotesk',
-                                    color: Color(0xff000000),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w700,
-                                    fontStyle: FontStyle.normal,
-                                    letterSpacing: -0.5,
+                                    image:
+                                    (snapshot.data[index].data['logos'])),
+                              ),
+                              SizedBox(
+                                width: 21.0,
+                                height: 47.0,
+                              ),
+                              Container(
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width * 0.6,
+                                height: 72.0,
+                                child: ListTile(
+                                  title: Container(
+                                    child: Text(
+                                      snapshot.data[index].data['taskname'],
+                                      style: TextStyle(
+                                        fontFamily: 'HankenGrotesk',
+                                        color: Color(0xff000000),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700,
+                                        fontStyle: FontStyle.normal,
+                                        letterSpacing: -0.5,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                );
-              },
+                    );
+                  },
+                ),
+              ),
             );
           }
         },

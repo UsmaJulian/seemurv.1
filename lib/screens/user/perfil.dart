@@ -1,19 +1,19 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/clients_body.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
-import 'package:path/path.dart';
 import 'package:seemur_v1/login_admin/root_page.dart';
-import 'package:seemur_v1/screens/politicadeprivacidad.dart';
 
 class PerfilPage extends StatefulWidget {
   PerfilPage({this.auth, this.datos});
+
   final BaseAuth auth;
   final datos;
 
@@ -28,7 +28,7 @@ class _PerfilPageState extends State<PerfilPage> {
   AuthStatus authStatus = AuthStatus.notSignIn;
   int _widgetIndex = 0;
   File _image;
-  String imageurl;
+  String imageurl = '';
 
   void signOut() async {
     setState(() {
@@ -53,17 +53,15 @@ class _PerfilPageState extends State<PerfilPage> {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
-      _image = image;
+      image = image;
       print('Image Path $_image');
     });
   }
 
-  Future uploadPic(
-    BuildContext context,
-  ) async {
+  Future uploadPic(BuildContext context,) async {
     String fileName = basename(_image.path);
     StorageReference firebaseStorageRef =
-        FirebaseStorage.instance.ref().child(fileName);
+    FirebaseStorage.instance.ref().child(fileName);
     StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
     StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
     String imagenurl = (await firebaseStorageRef.getDownloadURL()).toString();
@@ -75,7 +73,7 @@ class _PerfilPageState extends State<PerfilPage> {
           SnackBar(content: Text('Imagen de perfil actualizada')));
     });
     setState(() {
-      imagenurl = imagenurl;
+      imageurl = imagenurl;
     });
   }
 
@@ -117,32 +115,55 @@ class _PerfilPageState extends State<PerfilPage> {
                                   height: 10.0,
                                 ),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 60.0),
-                                      child: CircleAvatar(
-                                        radius: 70,
-                                        backgroundColor: Color(0xffd8d8d8),
-                                        child: ClipOval(
-                                          child: new SizedBox(
-                                            width: 180.0,
-                                            height: 180.0,
-                                            child: (_image != null)
-                                                ? FadeInImage.assetNetwork(
-                                                    fit: BoxFit.fill,
-                                                    placeholder:
-                                                        ('assets/images/seemurIsotipo.png'),
-                                                    image: (''),
-                                                  )
-                                                : Image.network(
-                                                    "https://firebasestorage.googleapis.com/v0/b/seemur-a9726.appspot.com/o/recursos%2FseemurIsotipo.png?alt=media&token=6adb8643-8c0b-488d-a965-8f59b7452378",
-                                                    fit: BoxFit.fill,
-                                                  ),
-                                          ),
-                                        ),
-                                      ),
+                                    SizedBox(
+                                      width: 100,
+                                      height: 100,
+                                      child: StreamBuilder(
+                                          stream: Firestore.instance
+                                              .collection('usuarios')
+                                              .snapshots(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot snapshot) {
+                                            if (!snapshot.hasData) {
+                                              return Text('Cargando');
+                                            } else {
+                                              return new ListView.builder(
+                                                  shrinkWrap: true,
+                                                  itemCount: snapshot
+                                                      .data.documents.length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    DocumentSnapshot ds =
+                                                    snapshot.data
+                                                        .documents[index];
+                                                    return Container(
+                                                      width: 100,
+                                                      height: 100,
+                                                      decoration:
+                                                      new BoxDecoration(
+                                                          color: Color(
+                                                              0xffd8d8d8),
+                                                          borderRadius:
+                                                          BorderRadius
+                                                              .circular(
+                                                              6)),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                        new BorderRadius
+                                                            .circular(6.0),
+                                                        child: FadeInImage
+                                                            .assetNetwork(
+                                                          fit: BoxFit.fill,
+                                                          placeholder:
+                                                          ('assets/images/seemurIsotipo.png'),
+                                                          image: ds['imagen'],
+                                                        ),
+                                                      ),
+                                                    );
+                                                  });
+                                            }
+                                          }),
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(top: 60.0),
@@ -167,7 +188,7 @@ class _PerfilPageState extends State<PerfilPage> {
                                       color: Colors.transparent,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              new BorderRadius.circular(22.0)),
+                                          new BorderRadius.circular(22.0)),
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                       },
@@ -211,13 +232,14 @@ class _PerfilPageState extends State<PerfilPage> {
                                       color: Colors.transparent,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              new BorderRadius.circular(22.0)),
-                                      onPressed: () {
+                                          new BorderRadius.circular(22.0)),
+                                      onPressed: () =>
+                                      [
                                         uploadPic(
                                           context,
-                                        );
-                                        subirImagen();
-                                      },
+                                        ),
+                                        subirImagen(imageurl),
+                                      ],
                                       elevation: 0,
                                       child: Container(
                                         height: 32,
@@ -325,16 +347,16 @@ class _PerfilPageState extends State<PerfilPage> {
                                     children: <Widget>[
                                       Padding(
                                         padding:
-                                            const EdgeInsets.only(left: 16.0),
+                                        const EdgeInsets.only(left: 16.0),
                                         child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(8),
+                                          BorderRadius.circular(8),
                                           child: FadeInImage.assetNetwork(
                                             width: 46,
                                             height: 46,
                                             fit: BoxFit.cover,
                                             placeholder:
-                                                ('assets/images/seemurIsotipo.png'),
+                                            ('assets/images/seemurIsotipo.png'),
                                             image: (snapshot
                                                 .data.documents[index]['logos']
                                                 .toString()),
@@ -343,8 +365,8 @@ class _PerfilPageState extends State<PerfilPage> {
                                       ),
                                       Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
-                                                0.6,
+                                        MediaQuery.of(context).size.width *
+                                            0.6,
                                         height: 72.0,
                                         child: ListTile(
                                           dense: true,
@@ -362,7 +384,7 @@ class _PerfilPageState extends State<PerfilPage> {
                                           title: Container(
                                             child: Text(
                                               snapshot.data.documents[index]
-                                                  ['taskname'],
+                                              ['taskname'],
                                               style: TextStyle(
                                                 fontFamily: 'HankenGrotesk',
                                                 color: Color(0xff000000),
@@ -410,16 +432,16 @@ class _PerfilPageState extends State<PerfilPage> {
                                     children: <Widget>[
                                       Padding(
                                         padding:
-                                            const EdgeInsets.only(left: 16.0),
+                                        const EdgeInsets.only(left: 16.0),
                                         child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(8),
+                                          BorderRadius.circular(8),
                                           child: FadeInImage.assetNetwork(
                                             width: 46,
                                             height: 46,
                                             fit: BoxFit.cover,
                                             placeholder:
-                                                ('assets/images/seemurIsotipo.png'),
+                                            ('assets/images/seemurIsotipo.png'),
                                             image: (snapshot
                                                 .data.documents[index]['logos']
                                                 .toString()),
@@ -428,8 +450,8 @@ class _PerfilPageState extends State<PerfilPage> {
                                       ),
                                       Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
-                                                0.6,
+                                        MediaQuery.of(context).size.width *
+                                            0.6,
                                         height: 72.0,
                                         child: ListTile(
                                           dense: true,
@@ -447,7 +469,7 @@ class _PerfilPageState extends State<PerfilPage> {
                                           title: Container(
                                             child: Text(
                                               snapshot.data.documents[index]
-                                                  ['taskname'],
+                                              ['taskname'],
                                               style: TextStyle(
                                                 fontFamily: 'HankenGrotesk',
                                                 color: Color(0xff000000),
@@ -495,16 +517,16 @@ class _PerfilPageState extends State<PerfilPage> {
                                     children: <Widget>[
                                       Padding(
                                         padding:
-                                            const EdgeInsets.only(left: 16.0),
+                                        const EdgeInsets.only(left: 16.0),
                                         child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(8),
+                                          BorderRadius.circular(8),
                                           child: FadeInImage.assetNetwork(
                                             width: 46,
                                             height: 46,
                                             fit: BoxFit.cover,
                                             placeholder:
-                                                ('assets/images/seemurIsotipo.png'),
+                                            ('assets/images/seemurIsotipo.png'),
                                             image: (snapshot
                                                 .data.documents[index]['logos']
                                                 .toString()),
@@ -513,8 +535,8 @@ class _PerfilPageState extends State<PerfilPage> {
                                       ),
                                       Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
-                                                0.6,
+                                        MediaQuery.of(context).size.width *
+                                            0.6,
                                         height: 72.0,
                                         child: ListTile(
                                           dense: true,
@@ -532,7 +554,7 @@ class _PerfilPageState extends State<PerfilPage> {
                                           title: Container(
                                             child: Text(
                                               snapshot.data.documents[index]
-                                                  ['taskname'],
+                                              ['taskname'],
                                               style: TextStyle(
                                                 fontFamily: 'HankenGrotesk',
                                                 color: Color(0xff000000),
@@ -674,12 +696,12 @@ class _PerfilPageState extends State<PerfilPage> {
     );
   }
 
-  subirImagen() {
+  subirImagen(String imageurl) {
     setState(() {
       Firestore.instance
           .collection('usuarios')
           .document(id)
-          .updateData({'imagen de perfil': imageurl});
+          .updateData({'imagen': imageurl.toString()});
     });
   }
 }

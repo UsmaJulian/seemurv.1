@@ -49,7 +49,7 @@ class _RestaurantesParaTiState extends State<RestaurantesParaTi> {
                     height: 25.0,
                   ),
                   SizedBox(
-                    height: 94,
+                    height: 104,
                     child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (ctx, idx) {
@@ -91,11 +91,11 @@ class _RestaurantesParaTiState extends State<RestaurantesParaTi> {
                                     height: 72.0,
                                     child: ListTile(
                                       contentPadding:
-                                          EdgeInsets.fromLTRB(14, 0, 121, 0),
+                                      EdgeInsets.fromLTRB(14, 0, 111, 0),
                                       title: Column(
                                         children: <Widget>[
                                           SizedBox(
-                                            height: 16.0,
+                                            height: 6.0,
                                           ),
                                           Container(
                                             child: Text(
@@ -112,25 +112,29 @@ class _RestaurantesParaTiState extends State<RestaurantesParaTi> {
                                             ),
                                           ),
                                           SizedBox(
-                                            height: 6.0,
+                                            height: 2.0,
                                           ),
-                                          Container(
-                                            child: Text(
-                                                snapshot.data.documents[idx]
-                                                    ['tipo de recomendado'],
-                                                style: TextStyle(
-                                                  fontFamily: 'OpenSans',
-                                                  color: Color(0xff3d3d3d),
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontStyle: FontStyle.normal,
-                                                  letterSpacing:
-                                                      0.2000000029802322,
-                                                )),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 2),
+                                            child: Container(
+                                              child: Text(
+                                                  snapshot.data.documents[idx]
+                                                  ['tipo de recomendado'],
+                                                  style: TextStyle(
+                                                    fontFamily: 'OpenSans',
+                                                    color: Color(0xff3d3d3d),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontStyle: FontStyle.normal,
+                                                    letterSpacing:
+                                                    0.2000000029802322,
+                                                  )),
+                                            ),
                                           ),
-                                          SizedBox(
-                                            height: 16.0,
-                                          )
+                                          // SizedBox(
+                                          //   height: 10.0,
+                                          // )
                                         ],
                                       ),
                                     ),

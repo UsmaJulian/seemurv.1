@@ -4,18 +4,21 @@ import 'package:seemur_v1/components/widgets/evento_body.dart';
 
 class ProximosEventosPage extends StatefulWidget {
   final datos;
+
   ProximosEventosPage({this.datos});
+
   _ProximosEventosPageState createState() => _ProximosEventosPageState();
 }
 
 class _ProximosEventosPageState extends State<ProximosEventosPage> {
-  var idx;
-  // Future getEvent() async {
-  //   var firestore = Firestore.instance;
 
-  //   QuerySnapshot qn = await firestore.collection('evento').getDocuments();
-  //   return qn.documents;
-  // }
+
+  Future getEvent() async {
+    var firestore = Firestore.instance;
+
+    QuerySnapshot qn = await firestore.collection('evento').getDocuments();
+    return qn.documents;
+  }
 
   @override
   Widget build(
@@ -74,10 +77,10 @@ class _ProximosEventosPageState extends State<ProximosEventosPage> {
                                       });
                                       Navigator.push(context,
                                           MaterialPageRoute(builder: (_) {
-                                        var datos =
-                                            snapshot.data.documents[idx];
-                                        return EventoBody();
-                                        //DetailScreen(infoimagen: datos);
+                                            var datoseventos = snapshot.data
+                                                .documents[idx];
+                                            return EventoBody(
+                                                datosevent: datoseventos);
                                       }));
                                     },
                                     child: FadeInImage.assetNetwork(
@@ -129,6 +132,7 @@ class _ProximosEventosPageState extends State<ProximosEventosPage> {
 
 class DetailScreen extends StatefulWidget {
   final infoimagen;
+
   DetailScreen({this.infoimagen});
 
   @override

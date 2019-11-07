@@ -32,7 +32,9 @@ class _BaresyDiscosParaTiState extends State<BaresyDiscosParaTi> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(left: 24.0),
+                    padding: const EdgeInsets.only(
+                      left: 24.0,
+                    ),
                     child: Text(
                       "Bares y discotecas para ti",
                       style: TextStyle(
@@ -91,7 +93,7 @@ class _BaresyDiscosParaTiState extends State<BaresyDiscosParaTi> {
                                     height: 72.0,
                                     child: ListTile(
                                       contentPadding:
-                                          EdgeInsets.fromLTRB(14, 0, 60, 0),
+                                      EdgeInsets.fromLTRB(14, 0, 50, 0),
                                       title: Column(
                                         children: <Widget>[
                                           SizedBox(
@@ -146,7 +148,7 @@ class _BaresyDiscosParaTiState extends State<BaresyDiscosParaTi> {
                         },
                         padding: EdgeInsets.fromLTRB(24.0, 0, 0, 0),
                         itemCount: snapshot.data.documents.length),
-                  )
+                  ),
                 ]);
           }
           return Container();

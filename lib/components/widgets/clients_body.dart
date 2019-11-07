@@ -2,15 +2,12 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/calificar.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/components/widgets/sharebutton.dart';
-import 'package:seemur_v1/screens/admin/show_client.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 class ClientBody extends StatefulWidget {
@@ -25,6 +22,7 @@ class ClientBody extends StatefulWidget {
 
 class _ClientBodyState extends State<ClientBody> {
   StreamController<String> streamController = new StreamController();
+
   String userID;
 
   @override
@@ -245,6 +243,7 @@ class _ClientBodyState extends State<ClientBody> {
 
                                 SizedBox(height: 40),
 
+
                                 getPanelInformacion(),
                                 SizedBox(height: 40),
                                 getPlatosRecomendados(),
@@ -384,7 +383,7 @@ class _ClientBodyState extends State<ClientBody> {
           onPressed: () {},
           color: Color(0xff16202c),
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -430,7 +429,10 @@ class _ClientBodyState extends State<ClientBody> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => CalificarPage(datos: datos)));
+                builder: (context) =>
+                    CalificarPage(
+                      datos: datos,
+                    )));
       },
       backgroundColor: Color(0xff16202c),
       mini: true,
@@ -526,6 +528,7 @@ class _ClientBodyState extends State<ClientBody> {
                       itemCount: widget.datos['taskfeaturedimages'].length),
                 );
               }
+              return Text("loading....");
             },
           )
         ],
@@ -536,7 +539,7 @@ class _ClientBodyState extends State<ClientBody> {
   getPanelInformacion() {
     Widget buildInfoItem(String title, String desc, IconData icon) {
       return Container(
-        height: 80,
+        height: 85,
         decoration: BoxDecoration(
             border: Border(
                 bottom: BorderSide(
@@ -544,7 +547,7 @@ class _ClientBodyState extends State<ClientBody> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: 10),
+            SizedBox(height: 2),
             Padding(
               padding: const EdgeInsets.only(left: 24.0),
               child: Text(
@@ -561,19 +564,19 @@ class _ClientBodyState extends State<ClientBody> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(left: 24.0),
+                  padding: const EdgeInsets.only(left: 24.0, top: 15),
                   child: Icon(icon, color: Colors.black),
                 ),
                 SizedBox(width: 20),
-                Text(
-                  desc,
-                  style: TextStyle(fontSize: 16),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Text(
+                    desc,
+                    style: TextStyle(fontSize: 16),
+                  ),
                 ),
                 Spacer(),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.navigate_next),
-                ),
+
               ],
             )
           ],
@@ -591,15 +594,41 @@ class _ClientBodyState extends State<ClientBody> {
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
-        SizedBox(height: 20),
-        buildInfoItem(
-            "Como llegar", widget.datos['tasklocation'].toString(), Icons.map),
+        SizedBox(height: 40),
+        Padding(
+          padding: const EdgeInsets.only(left: 24.0),
+          child: Text('Cómo llegar', style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.2),),
+        ),
+
+        ListTile(
+
+          leading: Icon(
+            CupertinoIcons.location,
+            color: Colors.black,
+            size: 20.0,
+          ),
+          title: Text(widget
+              .datos['tasklocation']),
+          trailing: Icon(
+            CupertinoIcons.forward,
+            color: Colors.black,
+          ),
+          onTap: () {},
+        ),
+        Divider(
+          color: Colors.black,
+        ),
         buildInfoItem("Precio Mínimo", widget.datos['taskprice'].toString(),
-            Icons.shop_two),
+            Icons.attach_money),
+        SizedBox(height: 20.0,),
         buildInfoItem("Tipo de Vestuario",
-            widget.datos['taskoutfit'].toString(), Icons.accessibility_new),
+            widget.datos['taskoutfit'].toString(), FontAwesomeIcons.tshirt),
+        SizedBox(height: 20.0,),
         buildInfoItem("Domicilio", widget.datos['taskhomeservice'].toString(),
-            Icons.directions_car),
+            FontAwesomeIcons.motorcycle),
       ],
     );
   }

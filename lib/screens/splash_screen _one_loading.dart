@@ -1,8 +1,9 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:loading/loading.dart';
 import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
+import 'package:loading/loading.dart';
 import 'package:seemur_v1/auth/auth.dart';
 
 class SplashScreenOneLoading extends StatefulWidget {
@@ -75,7 +76,7 @@ class _SplashScreenOneLoadingState extends State<SplashScreenOneLoading> {
                           ),
                           child: Text(
                             'Descubre, elige y disfruta',
-                            textAlign: TextAlign.right,
+                            textAlign: TextAlign.left,
                             style: TextStyle(
                               color: Colors.black,
                               fontFamily: 'HankenGrotesk',
@@ -102,7 +103,7 @@ class _SplashScreenOneLoadingState extends State<SplashScreenOneLoading> {
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Text(
-                          "Espera un momento mientras inicio en tu teléfono",
+                          "Espera un momento ",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.black,

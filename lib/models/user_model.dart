@@ -5,8 +5,7 @@ class Usuario {
   String email;
   String password;
   String telefono;
-  //String direccion;
-  // String ciudad;
+
   List calificaciones;
   Usuario(
       {this.uid,

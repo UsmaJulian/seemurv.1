@@ -1,17 +1,32 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:seemur_v1/auth/auth.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class CalificarPage extends StatefulWidget {
   final datos;
+
   CalificarPage({this.datos});
 
   _CalificarPageState createState() => _CalificarPageState();
 }
 
 class _CalificarPageState extends State<CalificarPage> {
+  String userID;
   var rating = 0.0;
+  TextEditingController resenacontroller = TextEditingController();
+
+  @override
+  void initState() {
+    setState(() {
+      Auth().currentUser().then((onValue) {
+        userID = onValue;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,16 +52,16 @@ class _CalificarPageState extends State<CalificarPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 78.0),
                 child:
-                    Text('Calificar a ' + widget.datos['taskname'].toString(),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'HankenGrotesk',
-                          color: Color(0xff000000),
-                          fontSize: 24,
-                          fontWeight: FontWeight.w700,
-                          fontStyle: FontStyle.normal,
-                          letterSpacing: -0.4000000059604645,
-                        )),
+                Text('Calificar a ' + widget.datos['taskname'].toString(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'HankenGrotesk',
+                      color: Color(0xff000000),
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                      fontStyle: FontStyle.normal,
+                      letterSpacing: -0.4000000059604645,
+                    )),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 32.0),
@@ -56,19 +71,19 @@ class _CalificarPageState extends State<CalificarPage> {
                   decoration: new BoxDecoration(color: Color(0xffffffff)),
                   child: Center(
                       child: SmoothStarRating(
-                    borderColor: Color(0xff16202C),
-                    color: Color(0xfff5af00),
-                    allowHalfRating: true,
-                    rating: rating,
-                    size: 45,
-                    starCount: 5,
-                    spacing: 2.0,
-                    onRatingChanged: (value) {
-                      setState(() {
-                        rating = value;
-                      });
-                    },
-                  )),
+                        borderColor: Color(0xff16202C),
+                        color: Color(0xfff5af00),
+                        allowHalfRating: true,
+                        rating: rating,
+                        size: 45,
+                        starCount: 5,
+                        spacing: 2.0,
+                        onRatingChanged: (value) {
+                          setState(() {
+                            rating = value;
+                          });
+                        },
+                      )),
                 ),
               ),
               Padding(
@@ -93,16 +108,18 @@ class _CalificarPageState extends State<CalificarPage> {
                       border: Border.all(color: Color(0xffd9d9d9), width: 1),
                       borderRadius: BorderRadius.circular(8)),
                   child: TextField(
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "¿Qué opinas de este lugar?"),
-                      style: TextStyle(
-                        fontFamily: 'OpenSans',
-                        color: Color(0xffada9a9),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                      )),
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "¿Qué opinas de este lugar?"),
+                    style: TextStyle(
+                      fontFamily: 'OpenSans',
+                      color: Color(0xffada9a9),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                    ),
+                    controller: resenacontroller,
+                  ),
                 ),
               ),
               Padding(
@@ -128,10 +145,15 @@ class _CalificarPageState extends State<CalificarPage> {
                           fontSize: 15.0,
                           fontWeight: FontWeight.w700,
                         )),
-                    onPressed: () {
+                    onPressed: () =>
+                    [
+                      miscalificaciones(),
+                      misresenas(),
+                      resenasdestacadas(),
+                      calificacionesgenerales(),
                       // Navigator.push(context,
                       //     new MaterialPageRoute(builder: (context) => FiltrosPage()));
-                    },
+                    ],
                   ),
                 ),
               ),
@@ -140,5 +162,74 @@ class _CalificarPageState extends State<CalificarPage> {
         ),
       ),
     );
+  }
+
+  void miscalificaciones() {
+    print(rating);
+    setState(() {
+      Firestore.instance
+          .collection('usuarios')
+          .document(userID)
+          .collection('mis calificaciones')
+          .document()
+          .setData({
+        'taskname': widget.datos['taskname'].toString(),
+        'rating': rating.toStringAsFixed(1)
+      });
+    });
+  }
+
+  void misresenas() {
+    print(resenacontroller.text);
+    setState(() {
+      Firestore.instance
+          .collection('usuarios')
+          .document(userID)
+          .collection('mis reseñas')
+          .document()
+          .setData({
+        'logos': widget.datos['logos'].toString(),
+        'taskname': widget.datos['taskname'].toString(),
+        'reseña ': resenacontroller.text.toString(),
+        'rating': rating.toStringAsFixed(1)
+      });
+    });
+  }
+
+  void resenasdestacadas() {
+    var documentReference =
+        Firestore.instance
+            .collection('client')
+            .document()
+            .documentID;
+    setState(() {
+      Firestore.instance
+          .collection('client')
+          .document(documentReference)
+          .collection('reseñas')
+          .document(userID)
+          .setData({
+        'logos': widget.datos['logos'].toString(),
+        'taskname': widget.datos['taskname'].toString(),
+        'reseña ': resenacontroller.text.toString(),
+        'rating': rating.toStringAsFixed(1)
+      });
+    });
+  }
+
+  void calificacionesgenerales() {
+    setState(() {
+      Firestore.instance
+          .collection('client')
+          .document(widget.datos.documentID.toString())
+          .collection('reseñas')
+          .document(userID)
+          .setData({
+        'logos': widget.datos['logos'].toString(),
+        'taskname': widget.datos['taskname'].toString(),
+        'reseña ': resenacontroller.text.toString(),
+        'rating': rating.toStringAsFixed(1)
+      });
+    });
   }
 }
