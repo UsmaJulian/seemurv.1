@@ -44,6 +44,16 @@ class _ClientBodyState extends State<ClientBody> {
 
   @override
   Widget build(BuildContext context) {
+    void gData() {
+      Firestore.instance
+          .collection("client")
+          .getDocuments()
+          .then((QuerySnapshot snapshot) {
+        snapshot.documents.forEach((client) => print('${client.documentID}}'));
+      });
+    }
+
+    gData();
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -243,7 +253,6 @@ class _ClientBodyState extends State<ClientBody> {
 
                                 SizedBox(height: 40),
 
-
                                 getPanelInformacion(),
                                 SizedBox(height: 40),
                                 getPlatosRecomendados(),
@@ -376,14 +385,17 @@ class _ClientBodyState extends State<ClientBody> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         getFav1(Icons.favorite_border, Color(0xffff2f8e)),
-        getFav2(Icons.star_border, Color(0xfff5af00)),
+        getFav2(
+          Icons.star_border,
+          Color(0xfff5af00),
+        ),
         getFav3(Icons.share, Color(0xff4cd964)),
         Spacer(),
         MaterialButton(
           onPressed: () {},
           color: Color(0xff16202c),
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -421,16 +433,19 @@ class _ClientBodyState extends State<ClientBody> {
     );
   }
 
-  getFav2(IconData iconData, Color color) {
+  getFav2(
+    IconData iconData,
+    Color color,
+  ) {
+    var datos = widget.datos;
+
     return FloatingActionButton(
       heroTag: "button2",
       onPressed: () {
-        var datos = widget.datos;
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    CalificarPage(
+                builder: (context) => CalificarPage(
                       datos: datos,
                     )));
       },
@@ -528,6 +543,7 @@ class _ClientBodyState extends State<ClientBody> {
                       itemCount: widget.datos['taskfeaturedimages'].length),
                 );
               }
+
               return Text("loading....");
             },
           )
@@ -576,7 +592,6 @@ class _ClientBodyState extends State<ClientBody> {
                   ),
                 ),
                 Spacer(),
-
               ],
             )
           ],
@@ -597,21 +612,19 @@ class _ClientBodyState extends State<ClientBody> {
         SizedBox(height: 40),
         Padding(
           padding: const EdgeInsets.only(left: 24.0),
-          child: Text('Cómo llegar', style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1.2),),
+          child: Text(
+            'Cómo llegar',
+            style: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
         ),
-
         ListTile(
-
           leading: Icon(
             CupertinoIcons.location,
             color: Colors.black,
-            size: 20.0,
+            size: 22.0,
           ),
-          title: Text(widget
-              .datos['tasklocation']),
+          title: Text(widget.datos['tasklocation']),
           trailing: Icon(
             CupertinoIcons.forward,
             color: Colors.black,
@@ -623,10 +636,14 @@ class _ClientBodyState extends State<ClientBody> {
         ),
         buildInfoItem("Precio Mínimo", widget.datos['taskprice'].toString(),
             Icons.attach_money),
-        SizedBox(height: 20.0,),
+        SizedBox(
+          height: 20.0,
+        ),
         buildInfoItem("Tipo de Vestuario",
             widget.datos['taskoutfit'].toString(), FontAwesomeIcons.tshirt),
-        SizedBox(height: 20.0,),
+        SizedBox(
+          height: 20.0,
+        ),
         buildInfoItem("Domicilio", widget.datos['taskhomeservice'].toString(),
             FontAwesomeIcons.motorcycle),
       ],
@@ -888,8 +905,8 @@ class _DetailScreenState extends State<DetailScreen> {
             tag: 'imageHero2',
             child: FadeInImage.assetNetwork(
               width: MediaQuery.of(context).size.width,
-              height: 294,
-              fit: BoxFit.cover,
+              height: 340,
+              fit: BoxFit.fill,
               placeholder: ('assets/images/seemurIsotipo.png'),
               image: (widget.infoimagen),
             ),

@@ -1,5 +1,5 @@
 class Client {
-  String uid;
+  String clientuid;
   String taskdescription;
   String tasklocation;
   String taskname;
@@ -23,7 +23,7 @@ class Client {
   String totalrating;
   String logos;
   Client({
-    this.uid,
+    this.clientuid,
     this.taskdescription,
     this.taskname,
     this.tasklocation,
@@ -49,7 +49,7 @@ class Client {
   });
   factory Client.fromJson(Map<String, dynamic> parsedJson) {
     return Client(
-      uid: parsedJson['uid'],
+      clientuid: parsedJson['uid'],
       logos: parsedJson['logos'],
       rating: parsedJson['rating'],
       ratingcount: parsedJson['ratingcount'],

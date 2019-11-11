@@ -105,7 +105,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   @override
-  Widget build(BuildContext context,) {
+  Widget build(
+    BuildContext context,
+  ) {
     return Scaffold(
       body: SafeArea(
         child: GestureDetector(
@@ -121,21 +123,18 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       child: Column(
                         children: <Widget>[
                           Container(
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width,
+                            width: MediaQuery.of(context).size.width,
                             height: 1180.0,
                             decoration:
-                            new BoxDecoration(color: Color(0xff16202c)),
+                                new BoxDecoration(color: Color(0xff16202c)),
                             child: Column(
                               children: <Widget>[
                                 Padding(
                                   padding:
-                                  const EdgeInsets.only(left: 0, top: 36.0),
+                                      const EdgeInsets.only(left: 0, top: 36.0),
                                   child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                        MainAxisAlignment.spaceAround,
                                     children: <Widget>[
                                       Text(
                                         "¿Cuál es tu plan?",
@@ -170,24 +169,27 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                     itemBuilder:
                                                         (context, index) {
                                                       DocumentSnapshot ds =
-                                                      snapshot.data
-                                                          .documents[index];
+                                                          snapshot.data
+                                                              .documents[index];
                                                       return Container(
                                                         width: 32,
                                                         height: 32,
                                                         decoration:
-                                                        new BoxDecoration(
-                                                            color: Color(
-                                                                0xffd8d8d8),
-                                                            borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                6)),
+                                                            new BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color:
+                                                              Color(0xffd8d8d8),
+                                                          // borderRadius:
+                                                          //     BorderRadius
+                                                          //         .circular(
+                                                          //             6)
+                                                        ),
                                                         child: FadeInImage
                                                             .assetNetwork(
                                                           fit: BoxFit.fill,
                                                           placeholder:
-                                                          ('assets/images/seemurIsotipo.png'),
+                                                              ('assets/images/seemurIsotipo.png'),
                                                           image: ds['imagen'],
                                                         ),
                                                       );
@@ -211,8 +213,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                         decoration: InputDecoration(
                                             border: InputBorder.none,
                                             isDense: true),
-                                        validator: (value) =>
-                                        value == '0'
+                                        validator: (value) => value == '0'
                                             ? 'Debe seleccionar una ciudad'
                                             : null,
                                         value: _itemCiudad,
@@ -249,10 +250,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       child: Column(
                         children: <Widget>[
                           Container(
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width,
+                            width: MediaQuery.of(context).size.width,
                             // height: 1872,
                             decoration: new BoxDecoration(
                               color: Color(0xfff6f7fa),
@@ -277,12 +275,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                   padding: const EdgeInsets.only(left: 1),
                                   child: Column(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                     children: <Widget>[
                                       Container(
                                         decoration: BoxDecoration(
                                             borderRadius:
-                                            BorderRadius.circular(26)),
+                                                BorderRadius.circular(26)),
                                         margin: EdgeInsets.symmetric(
                                             vertical: 30.0),
                                         height: 125,
@@ -295,7 +293,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                             Container(
                                               child: Column(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                                    MainAxisAlignment.start,
                                                 children: <Widget>[
                                                   Container(
                                                     width: 105,
@@ -303,30 +301,28 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                     child: Container(
                                                       decoration: BoxDecoration(
                                                         borderRadius:
-                                                        new BorderRadius
-                                                            .circular(6),
+                                                            new BorderRadius
+                                                                .circular(6),
                                                         color:
-                                                        Color(0xff16202c),
+                                                            Color(0xff16202c),
                                                       ),
                                                       child: Center(
                                                         child: Wrap(
                                                           children: <Widget>[
                                                             FlatButton(
                                                               child:
-                                                              Image.asset(
+                                                                  Image.asset(
                                                                 'assets/images/eatOutIcon@3x.png',
                                                                 width: 38,
                                                                 height: 38,
                                                               ),
                                                               onPressed: () {
                                                                 Navigator.of(
-                                                                    context)
-                                                                    .push(
-                                                                    MaterialPageRoute(
+                                                                        context)
+                                                                    .push(MaterialPageRoute(
                                                                         builder:
-                                                                            (
-                                                                            context) =>
-                                                                            ComerPage()));
+                                                                            (context) =>
+                                                                                ComerPage()));
                                                               },
                                                             ),
                                                           ],
@@ -337,28 +333,28 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                   Text('Comer',
                                                       style: TextStyle(
                                                         fontFamily:
-                                                        'HankenGrotesk',
+                                                            'HankenGrotesk',
                                                         color:
-                                                        Color(0xff000000),
+                                                            Color(0xff000000),
                                                         fontSize: 15,
                                                         fontWeight:
-                                                        FontWeight.w700,
+                                                            FontWeight.w700,
                                                         fontStyle:
-                                                        FontStyle.normal,
+                                                            FontStyle.normal,
                                                         letterSpacing: -0.5,
                                                       )),
                                                   Text('',
                                                       style: TextStyle(
                                                         fontFamily: 'OpenSans',
                                                         color:
-                                                        Color(0xff3d3d3d),
+                                                            Color(0xff3d3d3d),
                                                         fontSize: 11,
                                                         fontWeight:
-                                                        FontWeight.w400,
+                                                            FontWeight.w400,
                                                         fontStyle:
-                                                        FontStyle.normal,
+                                                            FontStyle.normal,
                                                         letterSpacing:
-                                                        0.2000000029802322,
+                                                            0.2000000029802322,
                                                       ))
                                                 ],
                                               ),
@@ -369,8 +365,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                             Container(
                                               child: Column(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceAround,
+                                                    MainAxisAlignment
+                                                        .spaceAround,
                                                 children: <Widget>[
                                                   Container(
                                                     width: 105,
@@ -378,10 +374,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                     child: Container(
                                                       decoration: BoxDecoration(
                                                         borderRadius:
-                                                        new BorderRadius
-                                                            .circular(6),
+                                                            new BorderRadius
+                                                                .circular(6),
                                                         color:
-                                                        Color(0xff16202c),
+                                                            Color(0xff16202c),
                                                       ),
                                                       child: Center(
                                                         child: Wrap(
@@ -398,13 +394,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                                   ),
                                                                   onPressed:
                                                                       () {
-                                                                    Navigator
-                                                                        .of(
-                                                                        context)
-                                                                        .push(
-                                                                        MaterialPageRoute(
-                                                                            builder: (
-                                                                                context) =>
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .push(MaterialPageRoute(
+                                                                            builder: (context) =>
                                                                                 FestejarPage()));
                                                                   }),
                                                             )
@@ -416,28 +409,28 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                   Text('Festejar',
                                                       style: TextStyle(
                                                         fontFamily:
-                                                        'HankenGrotesk',
+                                                            'HankenGrotesk',
                                                         color:
-                                                        Color(0xff000000),
+                                                            Color(0xff000000),
                                                         fontSize: 15,
                                                         fontWeight:
-                                                        FontWeight.w700,
+                                                            FontWeight.w700,
                                                         fontStyle:
-                                                        FontStyle.normal,
+                                                            FontStyle.normal,
                                                         letterSpacing: -0.5,
                                                       )),
                                                   Text('',
                                                       style: TextStyle(
                                                         fontFamily: 'OpenSans',
                                                         color:
-                                                        Color(0xff3d3d3d),
+                                                            Color(0xff3d3d3d),
                                                         fontSize: 11,
                                                         fontWeight:
-                                                        FontWeight.w400,
+                                                            FontWeight.w400,
                                                         fontStyle:
-                                                        FontStyle.normal,
+                                                            FontStyle.normal,
                                                         letterSpacing:
-                                                        0.2000000029802322,
+                                                            0.2000000029802322,
                                                       ))
                                                 ],
                                               ),
@@ -448,8 +441,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                             Container(
                                               child: Column(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceAround,
+                                                    MainAxisAlignment
+                                                        .spaceAround,
                                                 children: <Widget>[
                                                   Container(
                                                     width: 105,
@@ -457,10 +450,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                     child: Container(
                                                       decoration: BoxDecoration(
                                                         borderRadius:
-                                                        new BorderRadius
-                                                            .circular(6),
+                                                            new BorderRadius
+                                                                .circular(6),
                                                         color:
-                                                        Color(0xff16202c),
+                                                            Color(0xff16202c),
                                                       ),
                                                       child: Center(
                                                         child: Wrap(
@@ -477,13 +470,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                                   ),
                                                                   onPressed:
                                                                       () {
-                                                                    Navigator
-                                                                        .of(
-                                                                        context)
-                                                                        .push(
-                                                                        MaterialPageRoute(
-                                                                            builder: (
-                                                                                context) =>
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .push(MaterialPageRoute(
+                                                                            builder: (context) =>
                                                                                 TardearPage()));
                                                                   }),
                                                             )
@@ -495,28 +485,28 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                   Text('Tardear',
                                                       style: TextStyle(
                                                         fontFamily:
-                                                        'HankenGrotesk',
+                                                            'HankenGrotesk',
                                                         color:
-                                                        Color(0xff000000),
+                                                            Color(0xff000000),
                                                         fontSize: 15,
                                                         fontWeight:
-                                                        FontWeight.w700,
+                                                            FontWeight.w700,
                                                         fontStyle:
-                                                        FontStyle.normal,
+                                                            FontStyle.normal,
                                                         letterSpacing: -0.5,
                                                       )),
                                                   Text('',
                                                       style: TextStyle(
                                                         fontFamily: 'OpenSans',
                                                         color:
-                                                        Color(0xff3d3d3d),
+                                                            Color(0xff3d3d3d),
                                                         fontSize: 11,
                                                         fontWeight:
-                                                        FontWeight.w400,
+                                                            FontWeight.w400,
                                                         fontStyle:
-                                                        FontStyle.normal,
+                                                            FontStyle.normal,
                                                         letterSpacing:
-                                                        0.2000000029802322,
+                                                            0.2000000029802322,
                                                       ))
                                                 ],
                                               ),
@@ -527,8 +517,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                             Container(
                                               child: Column(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceAround,
+                                                    MainAxisAlignment
+                                                        .spaceAround,
                                                 children: <Widget>[
                                                   Container(
                                                     width: 105,
@@ -536,10 +526,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                     child: Container(
                                                       decoration: BoxDecoration(
                                                         borderRadius:
-                                                        new BorderRadius
-                                                            .circular(6),
+                                                            new BorderRadius
+                                                                .circular(6),
                                                         color:
-                                                        Color(0xff16202c),
+                                                            Color(0xff16202c),
                                                       ),
                                                       child: Center(
                                                         child: Wrap(
@@ -556,13 +546,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                                   ),
                                                                   onPressed:
                                                                       () {
-                                                                    Navigator
-                                                                        .of(
-                                                                        context)
-                                                                        .push(
-                                                                        MaterialPageRoute(
-                                                                            builder: (
-                                                                                context) =>
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .push(MaterialPageRoute(
+                                                                            builder: (context) =>
                                                                                 DescansarPage()));
                                                                   }),
                                                             )
@@ -574,28 +561,28 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                   Text('Descansar',
                                                       style: TextStyle(
                                                         fontFamily:
-                                                        'HankenGrotesk',
+                                                            'HankenGrotesk',
                                                         color:
-                                                        Color(0xff000000),
+                                                            Color(0xff000000),
                                                         fontSize: 15,
                                                         fontWeight:
-                                                        FontWeight.w700,
+                                                            FontWeight.w700,
                                                         fontStyle:
-                                                        FontStyle.normal,
+                                                            FontStyle.normal,
                                                         letterSpacing: -0.5,
                                                       )),
                                                   Text('',
                                                       style: TextStyle(
                                                         fontFamily: 'OpenSans',
                                                         color:
-                                                        Color(0xff3d3d3d),
+                                                            Color(0xff3d3d3d),
                                                         fontSize: 11,
                                                         fontWeight:
-                                                        FontWeight.w400,
+                                                            FontWeight.w400,
                                                         fontStyle:
-                                                        FontStyle.normal,
+                                                            FontStyle.normal,
                                                         letterSpacing:
-                                                        0.2000000029802322,
+                                                            0.2000000029802322,
                                                       ))
                                                 ],
                                               ),
@@ -633,10 +620,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 left: 0,
                 right: 0,
                 child: Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   height: 70,
                   child: NavigatorBar(),
                 ),
