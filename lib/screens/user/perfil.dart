@@ -158,7 +158,7 @@ class _PerfilPageState extends State<PerfilPage> {
                                                             .assetNetwork(
                                                           fit: BoxFit.fill,
                                                           placeholder:
-                                                              ('assets/images/seemurIsotipo.png'),
+                                                              ('assets/images/Contenedor de imagenes (375 x249).jpg'),
                                                           image: ds['imagen'],
                                                         ),
                                                       ),
@@ -357,7 +357,7 @@ class _PerfilPageState extends State<PerfilPage> {
                                             height: 46,
                                             fit: BoxFit.cover,
                                             placeholder:
-                                                ('assets/images/seemurIsotipo.png'),
+                                                ('assets/images/Contenedor de imagenes (375 x249).jpg'),
                                             image: (snapshot
                                                 .data.documents[index]['logos']
                                                 .toString()),
@@ -442,7 +442,7 @@ class _PerfilPageState extends State<PerfilPage> {
                                             height: 46,
                                             fit: BoxFit.cover,
                                             placeholder:
-                                                ('assets/images/seemurIsotipo.png'),
+                                                ('assets/images/Contenedor de imagenes (375 x249).jpg'),
                                             image: (snapshot
                                                 .data.documents[index]['logos']
                                                 .toString()),
@@ -527,7 +527,7 @@ class _PerfilPageState extends State<PerfilPage> {
                                             height: 46,
                                             fit: BoxFit.cover,
                                             placeholder:
-                                                ('assets/images/seemurIsotipo.png'),
+                                                ('assets/images/Contenedor de imagenes (375 x249).jpg'),
                                             image: (snapshot
                                                 .data.documents[index]['logos']
                                                 .toString()),

@@ -44,16 +44,6 @@ class _ClientBodyState extends State<ClientBody> {
 
   @override
   Widget build(BuildContext context) {
-    void gData() {
-      Firestore.instance
-          .collection("client")
-          .getDocuments()
-          .then((QuerySnapshot snapshot) {
-        snapshot.documents.forEach((client) => print('${client.documentID}}'));
-      });
-    }
-
-    gData();
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -90,7 +80,7 @@ class _ClientBodyState extends State<ClientBody> {
                                               child: FadeInImage.assetNetwork(
                                                 fit: BoxFit.fill,
                                                 placeholder:
-                                                    ('assets/images/seemurIsotipo.png'),
+                                                    ('assets/images/Contenedor de imagenes (375 x249).jpg'),
                                                 image: (widget
                                                     .datos['taskclientimage']),
                                               ),
@@ -445,9 +435,11 @@ class _ClientBodyState extends State<ClientBody> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => CalificarPage(
-                      datos: datos,
-                    )));
+              builder: (context) => CalificarPage(
+                datos: datos,
+                auth: Auth(),
+              ),
+            ));
       },
       backgroundColor: Color(0xff16202c),
       mini: true,
@@ -530,7 +522,7 @@ class _ClientBodyState extends State<ClientBody> {
                                 height: 47,
                                 fit: BoxFit.cover,
                                 placeholder:
-                                    ('assets/images/seemurIsotipo.png'),
+                                    ('assets/images/Contenedor de imagenes (375 x249).jpg'),
                                 image: (widget.datos['taskfeaturedimages'][idx]
                                     .toString())),
                           ),
@@ -907,7 +899,8 @@ class _DetailScreenState extends State<DetailScreen> {
               width: MediaQuery.of(context).size.width,
               height: 340,
               fit: BoxFit.fill,
-              placeholder: ('assets/images/seemurIsotipo.png'),
+              placeholder:
+                  ('assets/images/Contenedor de imagenes (375 x249).jpg'),
               image: (widget.infoimagen),
             ),
           ),

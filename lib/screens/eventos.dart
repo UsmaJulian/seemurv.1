@@ -11,8 +11,6 @@ class ProximosEventosPage extends StatefulWidget {
 }
 
 class _ProximosEventosPageState extends State<ProximosEventosPage> {
-
-
   Future getEvent() async {
     var firestore = Firestore.instance;
 
@@ -77,10 +75,10 @@ class _ProximosEventosPageState extends State<ProximosEventosPage> {
                                       });
                                       Navigator.push(context,
                                           MaterialPageRoute(builder: (_) {
-                                            var datoseventos = snapshot.data
-                                                .documents[idx];
-                                            return EventoBody(
-                                                datosevent: datoseventos);
+                                        var datoseventos =
+                                            snapshot.data.documents[idx];
+                                        return EventoBody(
+                                            datosevent: datoseventos);
                                       }));
                                     },
                                     child: FadeInImage.assetNetwork(
@@ -88,7 +86,7 @@ class _ProximosEventosPageState extends State<ProximosEventosPage> {
                                       height: 94,
                                       fit: BoxFit.cover,
                                       placeholder:
-                                          ('assets/images/seemurIsotipo.png'),
+                                          ('assets/images/Contenedor de imagenes (375 x249).jpg'),
                                       image: (snapshot.data.documents[idx]
                                           ['imagen']),
                                     ),
@@ -151,7 +149,8 @@ class _DetailScreenState extends State<DetailScreen> {
               width: MediaQuery.of(context).size.width,
               height: 294,
               fit: BoxFit.cover,
-              placeholder: ('assets/images/seemurIsotipo.png'),
+              placeholder:
+                  ('assets/images/Contenedor de imagenes (375 x249).jpg'),
               image: (widget.infoimagen['imagen'].toString()),
             ),
           ),

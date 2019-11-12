@@ -132,22 +132,20 @@ class _LoginPageState extends State<LoginPage> {
           },
         ),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: SizedBox(
-              child: Container(
-                  padding: EdgeInsets.all(8.0),
-                  child: Center(
-                      child: Form(
-                    key: formKey,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment
-                            .stretch, //ajusta los widgets a lso extremos
-                        children: buildInputs() + buildSubmitButtons()),
-                  ))),
-            )),
-      ),
+      body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: SizedBox(
+            child: Container(
+                padding: EdgeInsets.all(8.0),
+                child: Center(
+                    child: Form(
+                  key: formKey,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment
+                          .stretch, //ajusta los widgets a lso extremos
+                      children: buildInputs() + buildSubmitButtons()),
+                ))),
+          )),
     );
   }
 

@@ -81,7 +81,7 @@ class _BaresyDiscosParaTiState extends State<BaresyDiscosParaTi> {
                                         height: 46,
                                         fit: BoxFit.cover,
                                         placeholder:
-                                            ('assets/images/seemurIsotipo.png'),
+                                            ('assets/images/Contenedor de imagenes (375 x249).jpg'),
                                         image: (snapshot.data.documents[idx]
                                             ['logos']),
                                       ),
@@ -93,7 +93,7 @@ class _BaresyDiscosParaTiState extends State<BaresyDiscosParaTi> {
                                     height: 72.0,
                                     child: ListTile(
                                       contentPadding:
-                                      EdgeInsets.fromLTRB(14, 0, 50, 0),
+                                          EdgeInsets.fromLTRB(14, 0, 50, 0),
                                       title: Column(
                                         children: <Widget>[
                                           SizedBox(

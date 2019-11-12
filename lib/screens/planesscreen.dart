@@ -68,34 +68,32 @@ class _PlanesSelectionScreenState extends State<PlanesSelectionScreen>
         Theme.of(context).textTheme.button.copyWith(color: Colors.white);
 
     return Scaffold(
-      body: SafeArea(
-        child: AnimatedBuilder(
-          animation: _controller,
-          builder: (context, child) {
-            return Column(
-              children: <Widget>[
-                Container(
-                  height: 50.0,
-                  child: _getSelectedPlan(),
-                ),
-                Expanded(
-                  child: Container(
-                    height: 20,
-                    padding: const EdgeInsets.only(bottom: 30.0),
-                    color: Color(0xfff6f7fa),
-                    child: Center(
-                      child: Wrap(
-                        alignment: WrapAlignment.center,
-                        spacing: 5.0,
-                        children: _getUnselectedPlan(),
-                      ),
+      body: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return Column(
+            children: <Widget>[
+              Container(
+                height: 50.0,
+                child: _getSelectedPlan(),
+              ),
+              Expanded(
+                child: Container(
+                  height: 20,
+                  padding: const EdgeInsets.only(bottom: 30.0),
+                  color: Color(0xfff6f7fa),
+                  child: Center(
+                    child: Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 5.0,
+                      children: _getUnselectedPlan(),
                     ),
                   ),
                 ),
-              ],
-            );
-          },
-        ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

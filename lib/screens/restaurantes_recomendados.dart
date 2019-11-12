@@ -79,7 +79,7 @@ class _RestaurantesParaTiState extends State<RestaurantesParaTi> {
                                         height: 46,
                                         fit: BoxFit.cover,
                                         placeholder:
-                                            ('assets/images/seemurIsotipo.png'),
+                                            ('assets/images/Contenedor de imagenes (375 x249).jpg'),
                                         image: (snapshot.data.documents[idx]
                                             ['logos']),
                                       ),
@@ -91,7 +91,7 @@ class _RestaurantesParaTiState extends State<RestaurantesParaTi> {
                                     height: 72.0,
                                     child: ListTile(
                                       contentPadding:
-                                      EdgeInsets.fromLTRB(14, 0, 111, 0),
+                                          EdgeInsets.fromLTRB(14, 0, 111, 0),
                                       title: Column(
                                         children: <Widget>[
                                           SizedBox(
@@ -120,7 +120,7 @@ class _RestaurantesParaTiState extends State<RestaurantesParaTi> {
                                             child: Container(
                                               child: Text(
                                                   snapshot.data.documents[idx]
-                                                  ['tipo de recomendado'],
+                                                      ['tipo de recomendado'],
                                                   style: TextStyle(
                                                     fontFamily: 'OpenSans',
                                                     color: Color(0xff3d3d3d),
@@ -128,7 +128,7 @@ class _RestaurantesParaTiState extends State<RestaurantesParaTi> {
                                                     fontWeight: FontWeight.w400,
                                                     fontStyle: FontStyle.normal,
                                                     letterSpacing:
-                                                    0.2000000029802322,
+                                                        0.2000000029802322,
                                                   )),
                                             ),
                                           ),

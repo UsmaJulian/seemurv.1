@@ -75,7 +75,8 @@ class _ResenasPageState extends State<ResenasPage> {
                           width: 46,
                           height: 46,
                           fit: BoxFit.cover,
-                          placeholder: ('assets/images/seemurIsotipo.png'),
+                          placeholder:
+                              ('assets/images/Contenedor de imagenes (375 x249).jpg'),
                           image: (snapshot.data.documents[index]['logos']
                               .toString()),
                         ),

@@ -39,84 +39,82 @@ class _SplashScreenOneLoadingState extends State<SplashScreenOneLoading> {
       width: MediaQuery.of(context).size.width * 0.568,
     );
     return Scaffold(
-      body: SafeArea(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [new Color(0xFFF5AF00), new Color(0xFFFFE231)],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [new Color(0xFFF5AF00), new Color(0xFFFFE231)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
-            child: Container(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          top: 73.33, left: 74.5, right: 75.0),
-                      child: imageiso,
-                    ),
-                  ),
-                  Container(
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 26.5, left: 81.0, right: 81.0, bottom: 3.0),
-                          child: imagelogo,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 41.0,
-                            right: 31.0,
-                          ),
-                          child: Text(
-                            'Descubre, elige y disfruta',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'HankenGrotesk',
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 86, right: 86.5, top: 227),
-                      child: Loading(
-                          indicator: BallSpinFadeLoaderIndicator(), size: 15.0),
-                    ),
-                  ),
-                  Padding(
+          ),
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  child: Padding(
                     padding: const EdgeInsets.only(
-                        top: 7.0, left: 41.5, right: 40.0, bottom: 57.0),
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
+                        top: 73.33, left: 74.5, right: 75.0),
+                    child: imageiso,
+                  ),
+                ),
+                Container(
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 26.5, left: 81.0, right: 81.0, bottom: 3.0),
+                        child: imagelogo,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 41.0,
+                          right: 31.0,
+                        ),
                         child: Text(
-                          "Espera un momento ",
-                          textAlign: TextAlign.center,
+                          'Descubre, elige y disfruta',
+                          textAlign: TextAlign.left,
                           style: TextStyle(
                             color: Colors.black,
                             fontFamily: 'HankenGrotesk',
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500,
                           ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 86, right: 86.5, top: 227),
+                    child: Loading(
+                        indicator: BallSpinFadeLoaderIndicator(), size: 15.0),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 7.0, left: 41.5, right: 40.0, bottom: 57.0),
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text(
+                        "Espera un momento ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'HankenGrotesk',
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

@@ -89,7 +89,7 @@ class _ClientTopState extends State<ClientTop> {
                                             width: 65,
                                             height: 65,
                                             placeholder: AssetImage(
-                                                'assets/images/azucar.gif'),
+                                                'assets/images/Contenedor de imagenes (375 x249).jpg'),
                                             image: NetworkImage(
                                                 document["taskclientimage"]),
                                           ),

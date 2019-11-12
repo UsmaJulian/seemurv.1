@@ -103,7 +103,7 @@ class _ListHospedajesState extends State<ListHospedajes> {
                                   height: 47,
                                   fit: BoxFit.fill,
                                   placeholder:
-                                      ('assets/images/seemurIsotipo.png'),
+                                      ('assets/images/Contenedor de imagenes (375 x249).jpg'),
                                   image: (snapshot.data[index].data['logos']),
                                 ),
                               ),

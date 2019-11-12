@@ -39,27 +39,22 @@ class _EventoBodyState extends State<EventoBody> {
             Stack(
               children: <Widget>[
                 Container(
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height,
+                  height: MediaQuery.of(context).size.height,
                   alignment: Alignment.center,
                   color: Color.fromRGBO(246, 247, 250, 1),
                   child: StreamBuilder(
                       stream:
-                      Firestore.instance.collection('evento').snapshots(),
+                          Firestore.instance.collection('evento').snapshots(),
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (!snapshot.hasData) {
                           return Text("loading....");
                         } else {
-                          if (snapshot.data.documents.length == 0) {} else {
+                          if (snapshot.data.documents.length == 0) {
+                          } else {
                             return SingleChildScrollView(
                               child: Container(
-                                width: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width,
+                                width: MediaQuery.of(context).size.width,
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
@@ -70,16 +65,15 @@ class _EventoBodyState extends State<EventoBody> {
                                             Stack(
                                               children: <Widget>[
                                                 Container(
-                                                  width: MediaQuery
-                                                      .of(context)
+                                                  width: MediaQuery.of(context)
                                                       .size
                                                       .width,
                                                   height: 226.0,
                                                   child:
-                                                  FadeInImage.assetNetwork(
+                                                      FadeInImage.assetNetwork(
                                                     fit: BoxFit.fill,
                                                     placeholder:
-                                                    ('assets/images/seemurIsotipo.png'),
+                                                        ('assets/images/Contenedor de imagenes (375 x249).jpg'),
                                                     image: (widget
                                                         .datosevent['imagen']),
                                                   ),
@@ -111,8 +105,8 @@ class _EventoBodyState extends State<EventoBody> {
                                               decoration: BoxDecoration(
                                                   color: Colors.white,
                                                   borderRadius:
-                                                  BorderRadius.circular(
-                                                      8.0),
+                                                      BorderRadius.circular(
+                                                          8.0),
                                                   boxShadow: [
                                                     BoxShadow(
                                                         color: Colors.black26,
@@ -122,7 +116,7 @@ class _EventoBodyState extends State<EventoBody> {
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.min,
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   Text(
                                                       widget
@@ -130,30 +124,30 @@ class _EventoBodyState extends State<EventoBody> {
                                                           .toString(),
                                                       style: TextStyle(
                                                         fontFamily:
-                                                        'HankenGrotesk',
+                                                            'HankenGrotesk',
                                                         color:
-                                                        Color(0xff000000),
+                                                            Color(0xff000000),
                                                         fontSize: 24,
                                                         fontWeight:
-                                                        FontWeight.w700,
+                                                            FontWeight.w700,
                                                         fontStyle:
-                                                        FontStyle.normal,
+                                                            FontStyle.normal,
                                                         letterSpacing:
-                                                        -0.4000000059604645,
+                                                            -0.4000000059604645,
                                                       )),
                                                   SizedBox(height: 20),
                                                   Text(
                                                     widget.datosevent[
-                                                    'descripcion']
+                                                            'descripcion']
                                                         .toString(),
                                                     style: TextStyle(
                                                       fontFamily: 'OpenSans',
                                                       color: Color(0xff3d3d3d),
                                                       fontSize: 14,
                                                       fontWeight:
-                                                      FontWeight.w400,
+                                                          FontWeight.w400,
                                                       fontStyle:
-                                                      FontStyle.normal,
+                                                          FontStyle.normal,
                                                     ),
                                                   ),
                                                   SizedBox(height: 20),
@@ -164,53 +158,53 @@ class _EventoBodyState extends State<EventoBody> {
                                                           .toString(),
                                                       style: TextStyle(
                                                         fontFamily:
-                                                        'HankenGrotesk',
+                                                            'HankenGrotesk',
                                                         color:
-                                                        Color(0xff000000),
+                                                            Color(0xff000000),
                                                         fontSize: 14,
                                                         fontWeight:
-                                                        FontWeight.w700,
+                                                            FontWeight.w700,
                                                         fontStyle:
-                                                        FontStyle.normal,
+                                                            FontStyle.normal,
                                                         letterSpacing:
-                                                        -0.4000000059604645,
+                                                            -0.4000000059604645,
                                                       )),
                                                   SizedBox(height: 48.0),
                                                   Row(
                                                     mainAxisSize:
-                                                    MainAxisSize.max,
+                                                        MainAxisSize.max,
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment.start,
+                                                        MainAxisAlignment.start,
                                                     children: <Widget>[
                                                       FloatingActionButton(
                                                         onPressed: () {},
                                                         backgroundColor:
-                                                        Color(0xff16202c),
+                                                            Color(0xff16202c),
                                                         mini: true,
                                                         child: Icon(
                                                           Icons.share,
                                                           color:
-                                                          Color(0xff4cd964),
+                                                              Color(0xff4cd964),
                                                         ),
                                                       ),
                                                       Spacer(),
                                                       MaterialButton(
                                                         onPressed: () {},
                                                         color:
-                                                        Color(0xff16202c),
+                                                            Color(0xff16202c),
                                                         shape: RoundedRectangleBorder(
                                                             borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                20)),
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20)),
                                                         child: Row(
                                                           mainAxisSize:
-                                                          MainAxisSize.min,
+                                                              MainAxisSize.min,
                                                           children: <Widget>[
                                                             Icon(
                                                               Icons.phone,
                                                               color:
-                                                              Colors.white,
+                                                                  Colors.white,
                                                             ),
                                                             FlatButton(
                                                               onPressed: () =>
@@ -222,8 +216,8 @@ class _EventoBodyState extends State<EventoBody> {
                                                                     color: Colors
                                                                         .white,
                                                                     fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
+                                                                        FontWeight
+                                                                            .bold),
                                                               ),
                                                             )
                                                           ],
@@ -263,7 +257,7 @@ class _EventoBodyState extends State<EventoBody> {
                                                     style: TextStyle(
                                                         fontSize: 15,
                                                         fontWeight:
-                                                        FontWeight.bold)),
+                                                            FontWeight.bold)),
                                               ),
                                               ListTile(
                                                 leading: Icon(
@@ -292,7 +286,7 @@ class _EventoBodyState extends State<EventoBody> {
                                                     style: TextStyle(
                                                         fontSize: 15,
                                                         fontWeight:
-                                                        FontWeight.bold)),
+                                                            FontWeight.bold)),
                                               ),
                                               ListTile(
                                                 leading: Icon(
@@ -317,7 +311,7 @@ class _EventoBodyState extends State<EventoBody> {
                                                     style: TextStyle(
                                                         fontSize: 15,
                                                         fontWeight:
-                                                        FontWeight.bold)),
+                                                            FontWeight.bold)),
                                               ),
                                               ListTile(
                                                 leading: Icon(
@@ -341,7 +335,7 @@ class _EventoBodyState extends State<EventoBody> {
                                                     style: TextStyle(
                                                         fontSize: 15,
                                                         fontWeight:
-                                                        FontWeight.bold)),
+                                                            FontWeight.bold)),
                                               ),
                                               ListTile(
                                                 leading: Icon(
@@ -350,7 +344,7 @@ class _EventoBodyState extends State<EventoBody> {
                                                   size: 15.0,
                                                 ),
                                                 title: Text(widget.datosevent[
-                                                'tipodevestuario']),
+                                                    'tipodevestuario']),
                                               ),
                                               Divider(),
                                               SizedBox(height: 90),
@@ -371,10 +365,7 @@ class _EventoBodyState extends State<EventoBody> {
                 Positioned(
                     bottom: 0,
                     child: Container(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width,
+                      width: MediaQuery.of(context).size.width,
                       height: 70,
                       child: NavigatorBar(),
                     ))

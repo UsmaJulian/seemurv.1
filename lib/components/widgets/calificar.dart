@@ -2,20 +2,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
+import 'package:seemur_v1/screens/user/cierre_calificar_page.dart';
 
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class CalificarPage extends StatefulWidget {
   final datos;
+  final BaseAuth auth;
 
-  CalificarPage({
-    this.datos,
-  });
+  CalificarPage({this.datos, this.auth});
 
   _CalificarPageState createState() => _CalificarPageState();
 }
 
 class _CalificarPageState extends State<CalificarPage> {
+  String usuario = 'Usuario';
   String userID;
   var rating = 0.0;
   TextEditingController resenacontroller = TextEditingController();
@@ -42,14 +43,20 @@ class _CalificarPageState extends State<CalificarPage> {
   String ratingcount;
   String totalrating;
   String logos;
+  String usuarioEmail = 'Email'; //userEmail
+  String id;
   @override
   void initState() {
-    setState(() {
-      Auth().currentUser().then((onValue) {
-        userID = onValue;
+    super.initState();
+    widget.auth.infoUser().then((onValue) {
+      setState(() {
+        usuario = onValue.displayName;
+        usuarioEmail = onValue.email;
+        id = onValue.uid;
+        print('ID $id');
+        print('usuario');
       });
     });
-    super.initState();
   }
 
   Stream<QuerySnapshot> getData() async* {
@@ -77,6 +84,7 @@ class _CalificarPageState extends State<CalificarPage> {
         child: StreamBuilder(
             stream: getData(),
             builder: (context, snapshot) {
+              var datos=widget.datos;
               return Container(
                 decoration: new BoxDecoration(color: Color(0xfff6f7fa)),
                 child: Column(
@@ -187,8 +195,8 @@ class _CalificarPageState extends State<CalificarPage> {
                             misresenas(),
                             resenasdestacadas(),
                             calificacionesgenerales(),
-                            // Navigator.push(context,
-                            //     new MaterialPageRoute(builder: (context) => FiltrosPage()));
+                             Navigator.push(context,
+                                 new MaterialPageRoute(builder: (context) => CierrePage(datos:datos))),
                           ],
                         ),
                       ),
@@ -206,7 +214,7 @@ class _CalificarPageState extends State<CalificarPage> {
     setState(() {
       Firestore.instance
           .collection('usuarios')
-          .document(userID)
+          .document(id)
           .collection('mis calificaciones')
           .document()
           .setData({
@@ -221,46 +229,38 @@ class _CalificarPageState extends State<CalificarPage> {
     setState(() {
       Firestore.instance
           .collection('usuarios')
-          .document(userID)
+          .document(id)
           .collection('mis reseñas')
           .document()
           .setData({
         'logos': widget.datos['logos'].toString(),
         'taskname': widget.datos['taskname'].toString(),
         'reseña ': resenacontroller.text.toString(),
-        'rating': rating.toStringAsFixed(1)
+        'rating': rating.toStringAsFixed(1),
       });
     });
   }
 
   void resenasdestacadas() {
     setState(() {
-      Firestore.instance
-          .collection('client')
-          .document()
-          .collection('reseñas')
-          .document()
-          .setData({
+      Firestore.instance.collection('reseñas').document().setData({
         'logos': widget.datos['logos'].toString(),
         'taskname': widget.datos['taskname'].toString(),
         'reseña ': resenacontroller.text.toString(),
-        'rating': rating.toStringAsFixed(1)
+        'rating': rating.toStringAsFixed(1),
+        'nombre del usuario': usuario
       });
     });
   }
 
   void calificacionesgenerales() {
     setState(() {
-      Firestore.instance
-          .collection('client')
-          .document()
-          .collection('calificaciones')
-          .document()
-          .setData({
+      Firestore.instance.collection('calificaciones').document().setData({
         'logos': widget.datos['logos'].toString(),
         'taskname': widget.datos['taskname'].toString(),
         'reseña ': resenacontroller.text.toString(),
-        'rating': rating.toStringAsFixed(1)
+        'rating': rating.toStringAsFixed(1),
+        'nombre del usuario': usuario
       });
     });
   }

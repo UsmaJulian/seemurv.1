@@ -102,7 +102,7 @@ class _ListRestaurantesState extends State<ListRestaurantes> {
                                   height: 47,
                                   fit: BoxFit.fill,
                                   placeholder:
-                                      ('assets/images/seemurIsotipo.png'),
+                                      ('assets/images/Contenedor de imagenes (375 x249).jpg'),
                                   image: (snapshot.data[index].data['logos']),
                                 ),
                               ),
