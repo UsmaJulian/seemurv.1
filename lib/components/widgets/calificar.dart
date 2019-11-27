@@ -84,7 +84,7 @@ class _CalificarPageState extends State<CalificarPage> {
         child: StreamBuilder(
             stream: getData(),
             builder: (context, snapshot) {
-              var datos=widget.datos;
+              var datos = widget.datos;
               return Container(
                 decoration: new BoxDecoration(color: Color(0xfff6f7fa)),
                 child: Column(
@@ -192,11 +192,14 @@ class _CalificarPageState extends State<CalificarPage> {
                               )),
                           onPressed: () => [
                             miscalificaciones(),
-                            misresenas(),
+                            //misresenas(),
                             resenasdestacadas(),
                             calificacionesgenerales(),
-                             Navigator.push(context,
-                                 new MaterialPageRoute(builder: (context) => CierrePage(datos:datos))),
+                            Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (context) =>
+                                        CierrePage(datos: datos))),
                           ],
                         ),
                       ),
@@ -224,23 +227,6 @@ class _CalificarPageState extends State<CalificarPage> {
     });
   }
 
-  void misresenas() {
-    print(resenacontroller.text);
-    setState(() {
-      Firestore.instance
-          .collection('usuarios')
-          .document(id)
-          .collection('mis reseñas')
-          .document()
-          .setData({
-        'logos': widget.datos['logos'].toString(),
-        'taskname': widget.datos['taskname'].toString(),
-        'reseña ': resenacontroller.text.toString(),
-        'rating': rating.toStringAsFixed(1),
-      });
-    });
-  }
-
   void resenasdestacadas() {
     setState(() {
       Firestore.instance.collection('reseñas').document().setData({
@@ -248,7 +234,8 @@ class _CalificarPageState extends State<CalificarPage> {
         'taskname': widget.datos['taskname'].toString(),
         'reseña ': resenacontroller.text.toString(),
         'rating': rating.toStringAsFixed(1),
-        'nombre del usuario': usuario
+        'nombre del usuario': usuario,
+        'uid': id,
       });
     });
   }

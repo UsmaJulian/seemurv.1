@@ -183,13 +183,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                         //         .circular(
                                                         //             6)
                                                       ),
-                                                      child: FadeInImage
-                                                          .assetNetwork(
-                                                        fit: BoxFit.fill,
-                                                        placeholder:
-                                                            ('assets/images/Contenedor de imagenes (375 x249).jpg'),
-                                                        image: ds['imagen'],
-                                                      ),
+                                                      // child: FadeInImage
+                                                      //     .assetNetwork(
+                                                      //   fit: BoxFit.fill,
+                                                      //   // placeholder:
+                                                      //   //     ('assets/images/Contenedor de imagenes (375 x249).jpg'),
+                                                      //   image: ds['imagen'],
+                                                      // ),
                                                     );
                                                   });
                                             }

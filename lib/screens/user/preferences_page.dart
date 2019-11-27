@@ -24,6 +24,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
   String id;
   @override
   void initState() {
+    super.initState();
     widget.auth.infoUser().then((onValue) {
       setState(() {
         usuario = onValue.displayName;
@@ -31,7 +32,6 @@ class _PreferencesPageState extends State<PreferencesPage> {
         id = onValue.uid;
         print('ID $id');
       });
-      super.initState();
     });
   }
 
@@ -49,316 +49,339 @@ class _PreferencesPageState extends State<PreferencesPage> {
     }
 
     return MaterialApp(
-      home:  Scaffold(
-          appBar: AppBar(
-            backgroundColor: Color.fromRGBO(22, 32, 44, 1),
-            title: Center(
-                child: Text('Ajustes',
-                    style: TextStyle(
-                      fontFamily: 'HankenGrotesk',
-                      color: Color(0xffffffff),
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      fontStyle: FontStyle.normal,
-                      letterSpacing: -0.5,
-                    ))),
-          ),
-          body: Column(
-            children: <Widget>[
-              Stack(
-                children: <Widget>[
-                  SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        Card(
-                          child: Container(
-                            height: 80.0,
-                            width: MediaQuery.of(context).size.width,
-                            child: Row(
-                              children: <Widget>[
-                                SizedBox(
-                                  width: 24.0,
-                                  height: 80.0,
-                                ),
-                                Container(
-                                    width: 20,
-                                    height: 24,
-                                    decoration:
-                                        new BoxDecoration(color: Colors.red)),
-                                SizedBox(
-                                  width: 24.0,
-                                  height: 80.0,
-                                ),
-                                Text('$usuario',
-                                    style: TextStyle(
-                                      fontFamily: 'HankenGrotesk',
-                                      color: Color(0xff000000),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                      fontStyle: FontStyle.normal,
-                                      letterSpacing: -0.1000000014901161,
-                                    )),
-                              ],
-                            ),
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromRGBO(22, 32, 44, 1),
+          title: Center(
+              child: Text('Ajustes',
+                  style: TextStyle(
+                    fontFamily: 'HankenGrotesk',
+                    color: Color(0xffffffff),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    fontStyle: FontStyle.normal,
+                    letterSpacing: -0.5,
+                  ))),
+        ),
+        body: Column(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Card(
+                        child: Container(
+                          height: 80.0,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
+                          child: Row(
+                            children: <Widget>[
+                              SizedBox(
+                                width: 24.0,
+                                height: 80.0,
+                              ),
+                              Container(
+                                  width: 20,
+                                  height: 24,
+                                  decoration:
+                                  new BoxDecoration(color: Colors.red)),
+                              SizedBox(
+                                width: 24.0,
+                                height: 80.0,
+                              ),
+                              Text('$usuario',
+                                  style: TextStyle(
+                                    fontFamily: 'HankenGrotesk',
+                                    color: Color(0xff000000),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700,
+                                    fontStyle: FontStyle.normal,
+                                    letterSpacing: -0.1000000014901161,
+                                  )),
+                            ],
                           ),
                         ),
-                        Card(
-                          child: Container(
-                            height: 66.0,
-                            width: MediaQuery.of(context).size.width,
-                            child: new FlatButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => CuentaPage(
-                                              auth: Auth(),
-                                            )),
-                                  );
-                                },
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      IconData(59558,
-                                          fontFamily: 'MaterialIcons'),
-                                      size: 20.0,
-                                      color: Color.fromRGBO(245, 175, 0, 1),
-                                    ),
-                                    SizedBox(
-                                      width: 12.0,
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 216),
-                                      child: new Text('Cuenta',
-                                          style: new TextStyle(
-                                              fontSize: 14.0,
-                                              color: Colors.black)),
-                                    ),
-                                    Icon(
-                                      IconData(
-                                        0xF3D3,
-                                        fontFamily: 'CupertinoIcons',
-                                      ),
-                                      size: 16,
-                                      color: Colors.black,
-                                    ),
-                                  ],
-                                )),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            height: 66.0,
-                            width: MediaQuery.of(context).size.width,
-                            child: new FlatButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => InfoDestacadaPage(
-                                              auth: Auth(),
-                                            )),
-                                  );
-                                },
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      IconData(0xF4B2,
-                                          fontFamily: 'CupertinoIcons'),
-                                      size: 20.0,
-                                      color: Color.fromRGBO(245, 175, 0, 1),
-                                    ),
-                                    SizedBox(
-                                      width: 12.0,
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 116),
-                                      child: new Text('Información destacada',
-                                          style: new TextStyle(
-                                              fontSize: 14.0,
-                                              color: Colors.black)),
-                                    ),
-                                    Icon(
-                                      IconData(
-                                        0xF3D3,
-                                        fontFamily: 'CupertinoIcons',
-                                      ),
-                                      size: 16,
-                                    ),
-                                  ],
-                                )),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            height: 60.0,
-                            width: MediaQuery.of(context).size.width,
-                            child: new FlatButton(
-                                onPressed: () {},
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      IconData(0xF442,
-                                          fontFamily: 'CupertinoIcons'),
-                                      size: 20.0,
-                                      color: Color.fromRGBO(245, 175, 0, 1),
-                                    ),
-                                    SizedBox(
-                                      width: 12.0,
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 146),
-                                      child: new Text('Invitar a un amigo ',
-                                          style: new TextStyle(
-                                              fontSize: 14.0,
-                                              color: Colors.black)),
-                                    ),
-                                    Icon(
-                                      IconData(
-                                        0xF3D3,
-                                        fontFamily: 'CupertinoIcons',
-                                      ),
-                                      size: 16,
-                                    ),
-                                  ],
-                                )),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            height: 60.0,
-                            width: MediaQuery.of(context).size.width,
-                            child: new FlatButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => EmpresasPage(
-                                              auth: Auth(),
-                                            )),
-                                  );
-                                },
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      FontAwesomeIcons.building,
-                                      size: 20.0,
-                                      color: Color.fromRGBO(245, 175, 0, 1),
-                                    ),
-                                    SizedBox(
-                                      width: 12.0,
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 196),
-                                      child: new Text('Empresas',
-                                          style: new TextStyle(
-                                              fontSize: 14.0,
-                                              color: Colors.black)),
-                                    ),
-                                    Icon(
-                                      IconData(
-                                        0xF3D3,
-                                        fontFamily: 'CupertinoIcons',
-                                      ),
-                                      size: 16,
-                                    ),
-                                  ],
-                                )),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            height: 60.0,
-                            width: MediaQuery.of(context).size.width,
-                            child: new FlatButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => AyudaPage(
-                                              auth: Auth(),
-                                            )),
-                                  );
-                                },
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      IconData(0xF445,
-                                          fontFamily: 'CupertinoIcons'),
-                                      size: 20.0,
-                                      color: Color.fromRGBO(245, 175, 0, 1),
-                                    ),
-                                    SizedBox(
-                                      width: 10.0,
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 218),
-                                      child: new Text('ayuda',
-                                          style: new TextStyle(
-                                              fontSize: 14.0,
-                                              color: Colors.black)),
-                                    ),
-                                    Icon(
-                                      IconData(
-                                        0xF3D3,
-                                        fontFamily: 'CupertinoIcons',
-                                      ),
-                                      size: 16,
-                                    ),
-                                  ],
-                                )),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            height: 66.0,
-                            width: MediaQuery.of(context).size.width,
-                            child: new FlatButton(
-                                onPressed: _signOut,
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      IconData(59558,
-                                          fontFamily: 'MaterialIcons'),
-                                      size: 20.0,
-                                      color: Color.fromRGBO(245, 175, 0, 1),
-                                    ),
-                                    SizedBox(
-                                      width: 12.0,
-                                    ),
-                                    new Text('Cerrar Sesión',
+                      ),
+                      Card(
+                        child: Container(
+                          height: 66.0,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
+                          child: new FlatButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CuentaPage(
+                                            auth: Auth(),
+                                          )),
+                                );
+                              },
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    IconData(59558,
+                                        fontFamily: 'MaterialIcons'),
+                                    size: 20.0,
+                                    color: Color.fromRGBO(245, 175, 0, 1),
+                                  ),
+                                  SizedBox(
+                                    width: 12.0,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 216),
+                                    child: new Text('Cuenta',
                                         style: new TextStyle(
                                             fontSize: 14.0,
                                             color: Colors.black)),
-                                  ],
-                                )),
-                          ),
+                                  ),
+                                  Icon(
+                                    IconData(
+                                      0xF3D3,
+                                      fontFamily: 'CupertinoIcons',
+                                    ),
+                                    size: 16,
+                                    color: Colors.black,
+                                  ),
+                                ],
+                              )),
                         ),
-
-                      ],
-                    ),
+                      ),
+                      Card(
+                        child: Container(
+                          height: 66.0,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
+                          child: new FlatButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          InfoDestacadaPage(
+                                            auth: Auth(),
+                                          )),
+                                );
+                              },
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    IconData(0xF4B2,
+                                        fontFamily: 'CupertinoIcons'),
+                                    size: 20.0,
+                                    color: Color.fromRGBO(245, 175, 0, 1),
+                                  ),
+                                  SizedBox(
+                                    width: 12.0,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 116),
+                                    child: new Text('Información destacada',
+                                        style: new TextStyle(
+                                            fontSize: 14.0,
+                                            color: Colors.black)),
+                                  ),
+                                  Icon(
+                                    IconData(
+                                      0xF3D3,
+                                      fontFamily: 'CupertinoIcons',
+                                    ),
+                                    size: 16,
+                                  ),
+                                ],
+                              )),
+                        ),
+                      ),
+                      Card(
+                        child: Container(
+                          height: 60.0,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
+                          child: new FlatButton(
+                              onPressed: () {},
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    IconData(0xF442,
+                                        fontFamily: 'CupertinoIcons'),
+                                    size: 20.0,
+                                    color: Color.fromRGBO(245, 175, 0, 1),
+                                  ),
+                                  SizedBox(
+                                    width: 12.0,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 146),
+                                    child: new Text('Invitar a un amigo ',
+                                        style: new TextStyle(
+                                            fontSize: 14.0,
+                                            color: Colors.black)),
+                                  ),
+                                  Icon(
+                                    IconData(
+                                      0xF3D3,
+                                      fontFamily: 'CupertinoIcons',
+                                    ),
+                                    size: 16,
+                                  ),
+                                ],
+                              )),
+                        ),
+                      ),
+                      Card(
+                        child: Container(
+                          height: 60.0,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
+                          child: new FlatButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          EmpresasPage(
+                                            auth: Auth(),
+                                          )),
+                                );
+                              },
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    FontAwesomeIcons.building,
+                                    size: 20.0,
+                                    color: Color.fromRGBO(245, 175, 0, 1),
+                                  ),
+                                  SizedBox(
+                                    width: 12.0,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 196),
+                                    child: new Text('Empresas',
+                                        style: new TextStyle(
+                                            fontSize: 14.0,
+                                            color: Colors.black)),
+                                  ),
+                                  Icon(
+                                    IconData(
+                                      0xF3D3,
+                                      fontFamily: 'CupertinoIcons',
+                                    ),
+                                    size: 16,
+                                  ),
+                                ],
+                              )),
+                        ),
+                      ),
+                      Card(
+                        child: Container(
+                          height: 60.0,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
+                          child: new FlatButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AyudaPage(
+                                            auth: Auth(),
+                                          )),
+                                );
+                              },
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    IconData(0xF445,
+                                        fontFamily: 'CupertinoIcons'),
+                                    size: 20.0,
+                                    color: Color.fromRGBO(245, 175, 0, 1),
+                                  ),
+                                  SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 218),
+                                    child: new Text('ayuda',
+                                        style: new TextStyle(
+                                            fontSize: 14.0,
+                                            color: Colors.black)),
+                                  ),
+                                  Icon(
+                                    IconData(
+                                      0xF3D3,
+                                      fontFamily: 'CupertinoIcons',
+                                    ),
+                                    size: 16,
+                                  ),
+                                ],
+                              )),
+                        ),
+                      ),
+                      Card(
+                        child: Container(
+                          height: 66.0,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
+                          child: new FlatButton(
+                              onPressed: _signOut,
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    IconData(59558,
+                                        fontFamily: 'MaterialIcons'),
+                                    size: 20.0,
+                                    color: Color.fromRGBO(245, 175, 0, 1),
+                                  ),
+                                  SizedBox(
+                                    width: 12.0,
+                                  ),
+                                  new Text('Cerrar Sesión',
+                                      style: new TextStyle(
+                                          fontSize: 14.0, color: Colors.black)),
+                                ],
+                              )),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Expanded(
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height,
                 ),
+              ],
+            ),
+            Expanded(
+              child: SizedBox(
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 70,
-                child: NavigatorBar(),
-              ),
-            ],
-          ),
+            ),
+            Container(
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              height: 70,
+              child: NavigatorBar(),
+            ),
+          ],
         ),
-
+      ),
     );
   }
 }

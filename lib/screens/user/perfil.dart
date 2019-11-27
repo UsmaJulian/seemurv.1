@@ -154,13 +154,13 @@ class _PerfilPageState extends State<PerfilPage> {
                                                         borderRadius:
                                                             new BorderRadius
                                                                 .circular(6.0),
-                                                        child: FadeInImage
-                                                            .assetNetwork(
-                                                          fit: BoxFit.fill,
-                                                          placeholder:
-                                                              ('assets/images/Contenedor de imagenes (375 x249).jpg'),
-                                                          image: ds['imagen'],
-                                                        ),
+                                                        // child: FadeInImage
+                                                        //     .assetNetwork(
+                                                        //   fit: BoxFit.fill,
+                                                        //  // placeholder:
+                                                        //      // ('assets/images/Contenedor de imagenes (375 x249).jpg'),
+                                                        //  // image: ds['imagen'].toString(),
+                                                        // ),
                                                       ),
                                                     );
                                                   });

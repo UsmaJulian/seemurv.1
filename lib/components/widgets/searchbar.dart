@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:seemur_v1/screens/filtros.dart';
 import 'package:seemur_v1/screens/searchresult.dart';
 import 'package:seemur_v1/services/searchservice.dart';
 
@@ -59,7 +60,6 @@ class _SearchBarState extends State<SearchBar> {
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: new BorderRadius.circular(23),
-
                 border: Border.all(
                   color: Colors.transparent,
                 )),
@@ -86,43 +86,49 @@ class _SearchBarState extends State<SearchBar> {
                         builder: (context) => SearchResult(valor: valor)));
               },
               textInputAction: TextInputAction.done,
-
             ),
           ),
-
-          // Positioned(
-          //   top: 6,
-          //   right: 6,
-          //   bottom: 6,
-          //   left: 220.0,
-          //   child: Container(
-          //     height: MediaQuery.of(context).size.height * 0.055,
-          //     width: MediaQuery.of(context).size.width * 0.25,
-          //     decoration: BoxDecoration(
-          //       border: Border.all(width: 0, style: BorderStyle.none),
-          //       borderRadius: BorderRadius.horizontal(
-          //           left: Radius.circular(22), right: Radius.circular(22)),
-          //       gradient: LinearGradient(
-          //         colors: [new Color(0xFFFFE231), new Color(0xFFF5AF00)],
-          //         begin: Alignment.topCenter,
-          //         end: Alignment.bottomCenter,
-          //       ),
-          //     ),
-          //     child: FlatButton(
-          //       child: Text('Filtros',
-          //           style: new TextStyle(
-          //             color: Colors.black,
-          //             fontFamily: 'HankenGrotesk',
-          //             fontSize: 15.0,
-          //             fontWeight: FontWeight.w700,
-          //           )),
-          //       onPressed: () {
-          //         Navigator.push(context,
-          //             new MaterialPageRoute(builder: (context) => FiltrosPage()));
-          //       },
-          //     ),
-          //   ),
-          // ),
+          Positioned(
+            top: 6,
+            right: 6,
+            bottom: 6,
+            left: 220.0,
+            child: Container(
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.055,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width * 0.25,
+              decoration: BoxDecoration(
+                border: Border.all(width: 0, style: BorderStyle.none),
+                borderRadius: BorderRadius.horizontal(
+                    left: Radius.circular(22), right: Radius.circular(22)),
+                gradient: LinearGradient(
+                  colors: [new Color(0xFFFFE231), new Color(0xFFF5AF00)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              child: FlatButton(
+                child: Text('Filtros',
+                    style: new TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'HankenGrotesk',
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w700,
+                    )),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => FiltrosPage()));
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );

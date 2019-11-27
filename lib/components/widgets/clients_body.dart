@@ -8,6 +8,7 @@ import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/calificar.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/components/widgets/sharebutton.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ClientBody extends StatefulWidget {
@@ -247,7 +248,170 @@ class _ClientBodyState extends State<ClientBody> {
                                 SizedBox(height: 40),
                                 getPlatosRecomendados(),
                                 SizedBox(height: 40),
-                                getReviews(),
+                                //reseñas
+                                Container(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Text("Reseñas destacadas",
+                                          style: TextStyle(
+                                            fontFamily: 'HankenGrotesk',
+                                            color: Color(0xff000000),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w700,
+                                            fontStyle: FontStyle.normal,
+                                            letterSpacing: -0.1000000014901161,
+                                          )),
+                                      Container(
+                                        height: 200,
+                                        child: StreamBuilder(
+                                          stream: Firestore.instance
+                                              .collection('reseñas')
+                                              .where("taskname",
+                                              isEqualTo:
+                                              widget.datos['taskname'])
+                                              .snapshots(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<QuerySnapshot>
+                                              snapshot) {
+                                            if (!snapshot.hasData) {
+                                              Text('Loading');
+                                            } else {
+                                              return ListView.separated(
+                                                  separatorBuilder:
+                                                      (context, index) =>
+                                                      Divider(
+                                                        color: Colors.black,
+                                                      ),
+                                                  itemCount: snapshot
+                                                      .data.documents.length,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                      idx) {
+                                                    return Column(
+                                                      children: <Widget>[
+                                                        Row(
+                                                          children: <Widget>[
+                                                            SmoothStarRating(
+                                                              borderColor: Color(
+                                                                  0xff16202C),
+                                                              color: Color(
+                                                                  0xfff5af00),
+                                                              allowHalfRating:
+                                                              true,
+                                                              rating: double
+                                                                  .parse(
+                                                                  snapshot
+                                                                      .data
+                                                                      .documents[idx]
+                                                                  [
+                                                                  'rating']),
+                                                              size: 18.0,
+                                                              starCount: 5,
+                                                              spacing: 2.0,
+                                                            ),
+                                                            SizedBox(
+                                                              width: 16.0,
+                                                            ),
+                                                            Text(
+                                                                snapshot
+                                                                    .data
+                                                                    .documents[
+                                                                idx]
+                                                                [
+                                                                'rating']
+                                                                    .toString(),
+                                                                style:
+                                                                TextStyle(
+                                                                  fontFamily:
+                                                                  'HankenGrotesk',
+                                                                  color: Color(
+                                                                      0xff000000),
+                                                                  fontSize: 24,
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
+                                                                  fontStyle:
+                                                                  FontStyle
+                                                                      .normal,
+                                                                  letterSpacing:
+                                                                  -0.4000000059604645,
+                                                                )),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: <Widget>[
+                                                            Container(
+                                                                width: MediaQuery
+                                                                    .of(
+                                                                    context)
+                                                                    .size
+                                                                    .width *
+                                                                    0.6,
+                                                                height: 226.0,
+                                                                child: ListTile(
+                                                                  title:
+                                                                  Container(
+                                                                    child: Text(
+                                                                        snapshot
+                                                                            .data
+                                                                            .documents[idx]['nombre del usuario'],
+                                                                        style: TextStyle(
+                                                                          fontFamily:
+                                                                          'HankenGrotesk',
+                                                                          color:
+                                                                          Color(
+                                                                              0xff000000),
+                                                                          fontSize:
+                                                                          15,
+                                                                          fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                          fontStyle:
+                                                                          FontStyle
+                                                                              .normal,
+                                                                          letterSpacing:
+                                                                          -0.5,
+                                                                        )),
+                                                                  ),
+                                                                  subtitle:
+                                                                  Container(
+                                                                    child: Text(
+                                                                        snapshot
+                                                                            .data
+                                                                            .documents[idx]['reseña'],
+                                                                        style: TextStyle(
+                                                                          fontFamily:
+                                                                          'HankenGrotesk',
+                                                                          color:
+                                                                          Color(
+                                                                              0xff000000),
+                                                                          fontSize:
+                                                                          15,
+                                                                          fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                          fontStyle:
+                                                                          FontStyle
+                                                                              .normal,
+                                                                          letterSpacing:
+                                                                          -0.5,
+                                                                        )),
+                                                                  ),
+                                                                ))
+                                                          ],
+                                                        )
+                                                      ],
+                                                    );
+                                                  });
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+                                SizedBox(height: 85),
                                 // como llegar.
                               ],
                             )),
@@ -313,7 +477,45 @@ class _ClientBodyState extends State<ClientBody> {
               ),
             ),
             SizedBox(height: 20),
-            getStarRating(4),
+            Container(
+              height: 13.0,
+              child: StreamBuilder(
+                stream: Firestore.instance
+                    .collection('reseñas')
+                    .where("taskname", isEqualTo: widget.datos['taskname'])
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    Text('Loading');
+                  } else {
+                    return ListView.builder(
+                        itemCount: snapshot.data.documents.length,
+                        itemBuilder: (BuildContext context, idx) {
+                          return Row(
+                            children: <Widget>[
+                              SmoothStarRating(
+                                borderColor: Color(0xff16202C),
+                                color: Color(0xfff5af00),
+                                allowHalfRating: true,
+                                rating: double.parse(
+                                    snapshot.data.documents[idx]['rating']),
+                                size: 14.0,
+                                starCount: 5,
+                                spacing: 2.0,
+                              ),
+                              SizedBox(
+                                width: 16.0,
+                              ),
+                              Text(snapshot.data.documents[idx]['rating']
+                                  .toString())
+                            ],
+                          );
+                        });
+                  }
+                },
+              ),
+            ),
             SizedBox(height: 10),
             getHoursDistance(),
             SizedBox(height: 30),
@@ -322,23 +524,6 @@ class _ClientBodyState extends State<ClientBody> {
         ),
       ),
     );
-  }
-
-  getStarRating(int num) {
-    String str = List.generate(
-          5,
-          (idx) => idx < num ? "★" : "☆",
-        ).join('') +
-        "  ${num.toStringAsFixed(1)}";
-    return Text(str,
-        style: TextStyle(
-          fontFamily: 'HankenGrotesk',
-          color: Color(0xff000000),
-          fontSize: 15,
-          fontWeight: FontWeight.w700,
-          fontStyle: FontStyle.normal,
-          letterSpacing: -0.5,
-        ));
   }
 
   getHoursDistance() {
@@ -712,137 +897,6 @@ class _ClientBodyState extends State<ClientBody> {
               ],
             ))
       ].toList(),
-    );
-  }
-
-  final String loremipsum =
-      "Vivamus sit amet justo dapibus, ultrices metus vel, viverra mi. Morbi malesuada mauris quam, ut consequat turpis posuere vel. Morbi dictum erat a arcu bibendum condimentum. Integer volutpat eleifend eros, ut porttitor lacus imperdie . Integer volutpat eleifend eros, ut porttitor lacus imperdie ";
-
-  getReviews() {
-    Widget buildReviewItem(
-        String name, int stars, int mins, int votes, String text) {
-      return Container(
-        height: 250,
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                // logo
-                Padding(
-                  padding: const EdgeInsets.only(left: 24.0),
-                  child: Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.limeAccent,
-                        border: Border.all(color: Colors.grey.withOpacity(.4))),
-                  ),
-                ),
-                SizedBox(width: 20),
-                // contenido.
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      Text(
-                        "$votes votos",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 14,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      Text(
-                        "$text",
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 3,
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      FlatButton(
-                        onPressed: () {},
-                        child: Text(
-                          "Ver mas",
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 20),
-                Text("$mins mins"),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 60.0),
-              child: Divider(color: Colors.grey),
-            ),
-          ],
-        ),
-      );
-    }
-
-    List buildReviewList() {
-      return [
-        buildReviewItem(
-            "Mike Hernandez", 4, 22, 23, loremipsum.substring(0, 220)),
-        buildReviewItem(
-            "Mike Nichols", 3, 20, 23, loremipsum.substring(0, 150)),
-        buildReviewItem(
-            "Claudia Hopkins", 5, 12, 23, loremipsum.substring(20, 120)),
-      ];
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(left: 24.0),
-          child: Text(
-            "Reseñas destacadas",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-        ),
-        SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 24.0),
-              child: Icon(Icons.star, color: Color(0xfff5af00)),
-            ),
-            SizedBox(width: 5),
-            Text(
-              "4.0",
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800),
-            ),
-            SizedBox(width: 20),
-            Text(
-              "+2K opiniones",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w200),
-            ),
-          ],
-        ),
-        SizedBox(height: 4),
-        Divider(height: 1, color: Colors.grey),
-        SizedBox(height: 20),
-        ...buildReviewList(),
-      ],
     );
   }
 
