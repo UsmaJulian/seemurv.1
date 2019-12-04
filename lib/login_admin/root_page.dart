@@ -5,7 +5,9 @@ import 'package:seemur_v1/login_admin/sliders_page.dart';
 
 class RootPage extends StatefulWidget {
   RootPage({this.auth});
+
   final BaseAuth auth;
+
   _RootPageState createState() => _RootPageState();
 }
 

@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/screens/user/cierre_calificar_page.dart';
-
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class CalificarPage extends StatefulWidget {
@@ -194,7 +193,7 @@ class _CalificarPageState extends State<CalificarPage> {
                             miscalificaciones(),
                             //misresenas(),
                             resenasdestacadas(),
-                            calificacionesgenerales(),
+
                             Navigator.push(
                                 context,
                                 new MaterialPageRoute(
@@ -229,25 +228,13 @@ class _CalificarPageState extends State<CalificarPage> {
 
   void resenasdestacadas() {
     setState(() {
-      Firestore.instance.collection('reseñas').document().setData({
+      Firestore.instance.collection('calificar').document().setData({
         'logos': widget.datos['logos'].toString(),
         'taskname': widget.datos['taskname'].toString(),
-        'reseña ': resenacontroller.text.toString(),
+        'opinion': resenacontroller.text.toString(),
         'rating': rating.toStringAsFixed(1),
         'nombre del usuario': usuario,
         'uid': id,
-      });
-    });
-  }
-
-  void calificacionesgenerales() {
-    setState(() {
-      Firestore.instance.collection('calificaciones').document().setData({
-        'logos': widget.datos['logos'].toString(),
-        'taskname': widget.datos['taskname'].toString(),
-        'reseña ': resenacontroller.text.toString(),
-        'rating': rating.toStringAsFixed(1),
-        'nombre del usuario': usuario
       });
     });
   }

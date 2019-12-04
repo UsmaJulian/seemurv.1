@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:seemur_v1/screens/ingresar.dart';
 import 'package:seemur_v1/screens/registrarse.dart';
-import 'dart:async';
 
 class ImagesCarousel extends StatelessWidget {
   @override
@@ -46,26 +44,28 @@ class _LoginFacebookPageState extends State<LoginFacebookPage> {
 
   FirebaseUser myUser;
 
-  Future<FirebaseUser> _loginWithFacebook() async {
-    var facebookLogin = new FacebookLogin();
-    var result = await facebookLogin
-        .logInWithReadPermissions(['email', 'public_profile']);
-    FacebookAccessToken myToken = result.accessToken;
-    final AuthCredential credential =
-        FacebookAuthProvider.getCredential(accessToken: myToken.token);
+//
+//  Future<FirebaseUser> _loginWithFacebook() async {
+//    var facebookLogin = new FacebookLogin();
+//    var result = await facebookLogin
+//        .logInWithReadPermissions(['email', 'public_profile']);
+//    FacebookAccessToken myToken = result.accessToken;
+//    final AuthCredential credential =
+//        FacebookAuthProvider.getCredential(accessToken: myToken.token);
+//
+//    debugPrint(result.status.toString());
+//
+//    if (result.status == FacebookLoginStatus.loggedIn) {
+//      FirebaseUser user =
+//          await _auth.signInWithCredential(credential).then((onValue) {
+//        isLogged = true;
+//      });
+//      return user;
+//    }
+//    return null;
+//  }
 
-    debugPrint(result.status.toString());
-
-    if (result.status == FacebookLoginStatus.loggedIn) {
-      FirebaseUser user =
-          await _auth.signInWithCredential(credential).then((onValue) {
-        isLogged = true;
-      });
-      return user;
-    }
-    return null;
-  }
-
+/*
   void _logIn() {
     _loginWithFacebook().then((response) {
       if (response != null) {
@@ -75,6 +75,7 @@ class _LoginFacebookPageState extends State<LoginFacebookPage> {
       }
     });
   }
+*/
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +91,8 @@ class _LoginFacebookPageState extends State<LoginFacebookPage> {
             child: isLogged
                 ? null
                 : FacebookSignInButton(
-                    onPressed: _logIn,
-                  ),
+              //onPressed: _logIn,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),

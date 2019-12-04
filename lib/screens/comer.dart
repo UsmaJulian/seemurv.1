@@ -7,31 +7,23 @@ import 'package:seemur_v1/screens/subcatscreens/bares.dart';
 import 'package:seemur_v1/screens/subcatscreens/gastropubs.dart';
 import 'package:seemur_v1/screens/subcatscreens/hoteles.dart';
 import 'package:seemur_v1/screens/subcatscreens/restaurantes.dart';
-
-class CommonThings {
-  static Size size; //size screen
-}
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ComerPage extends StatefulWidget {
-  //ComerPage({Key key}) : super(key: key);
-
   _ComerPageState createState() => _ComerPageState();
 }
 
 class _ComerPageState extends State<ComerPage> {
-  Future getClient() async {
-    var firestore = Firestore.instance;
+  ScrollController _controller;
 
-    QuerySnapshot qn = await firestore
-        .collection('client')
-        .where('tasktags', arrayContains: 'Comer')
-        .getDocuments();
-    return qn.documents;
+  @override
+  void initState() {
+    _controller = ScrollController();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    CommonThings.size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(107.0),
@@ -57,14 +49,22 @@ class _ComerPageState extends State<ComerPage> {
           ),
         ),
       ),
-      body: Column(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Stack(
-                children: <Widget>[
-                  Positioned(
-                    child: Column(
+      bottomNavigationBar: Container(
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
+        height: 70,
+        child: NavigatorBar(),
+      ),
+      body: SingleChildScrollView(
+        child: Stack(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Column(
                       children: <Widget>[
                         Padding(
                           padding:
@@ -357,166 +357,165 @@ class _ComerPageState extends State<ComerPage> {
                         ),
                       ],
                     ),
-                  ),
-                  Positioned(
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: 300.0,
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: new BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            child: FutureBuilder(
-                              future: getClient(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Center(
-                                    child: Text('Cargando Datos...'),
-                                  );
-                                } else {
-                                  return ListView.builder(
-                                    itemCount: snapshot.data.length,
-                                    itemBuilder: (BuildContext context, index) {
-                                      final datasnp = snapshot.data[index].data;
-                                      return Container(
-                                          child: Card(
-                                        color: Color.fromRGBO(246, 247, 250, 5),
-                                        elevation: 1,
-                                        child: InkWell(
-                                          onTap: () {
-                                            //print('${snapshot.data[index].data['taskname']}');
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ClientBody(
-                                                        datos: datasnp,
-                                                      )),
-                                            );
-                                          },
-                                          child: Row(
-                                            children: <Widget>[
-                                              SizedBox(
-                                                  width: 30.0, height: 47.0),
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                child: FadeInImage.assetNetwork(
-                                                  width: 47,
-                                                  height: 47,
-                                                  fit: BoxFit.fill,
-                                                  placeholder:
-                                                      ('assets/images/Contenedor de imagenes (375 x249).jpg'),
-                                                  image: (snapshot.data[index]
-                                                      .data['logos']),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 21.0,
-                                                height: 47.0,
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.6,
-                                                height: 72.0,
-                                                child: ListTile(
-                                                  title: Container(
-                                                    child: Text(
-                                                      snapshot.data[index]
-                                                          .data['taskname'],
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'HankenGrotesk',
-                                                        color:
-                                                            Color(0xff000000),
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        letterSpacing: -0.5,
-                                                      ),
-                                                    ),
+                  ],
+                ),
+                Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
+                  height: 50.0,
+                  color: Colors.white,
+                  child: Text('Lugares',
+                      style: TextStyle(
+                        fontFamily: 'HankenGrotesk',
+                        color: Color(0xff000000),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        fontStyle: FontStyle.normal,
+                        letterSpacing: -0.5,
+                      )),
+                  padding: EdgeInsets.only(top: 16.0, left: 24.0),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 24.0),
+                  child: Container(
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
+                    child: StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('client')
+                          .where("tasktags", arrayContains: 'Comer')
+                          .snapshots(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (!snapshot.hasData) {
+                          return Text("loading....");
+                        } else {
+                          return ListView.separated(
+                              controller: _controller,
+                              shrinkWrap: true,
+                              separatorBuilder: (context, index) =>
+                                  Divider(
+                                    color: Colors.grey,
+                                  ),
+                              itemCount: snapshot.data.documents.length,
+                              itemBuilder: (BuildContext context, index) {
+                                return ListTile(
+                                  enabled: true,
+                                  onTap: () {
+                                    final datasnp =
+                                        snapshot.data.documents[index].data;
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ClientBody(
+                                                datos: datasnp,
+                                              )),
+                                    );
+                                  },
+                                  leading: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: FadeInImage.assetNetwork(
+                                      width: 46,
+                                      height: 46,
+                                      fit: BoxFit.cover,
+                                      placeholder:
+                                      ('assets/images/Contenedor de imagenes (375 x249).jpg'),
+                                      image: snapshot.data.documents[index]
+                                      ['logos'],
+                                    ),
+                                  ),
+                                  title: Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Container(
+                                      child: Text(
+                                        snapshot.data.documents[index]
+                                        ['taskname'],
+                                        style: TextStyle(
+                                          fontFamily: 'HankenGrotesk',
+                                          color: Color(0xff000000),
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w700,
+                                          fontStyle: FontStyle.normal,
+                                          letterSpacing: -0.5,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    snapshot.data.documents[0]['taskfoods']
+                                        .toString()
+                                        .replaceAll(
+                                      new RegExp(r'[^\w\s\á-ú]+'),
+                                      '',
+                                    ),
+                                    style: TextStyle(
+                                      fontFamily: 'HankenGrotesk',
+                                      color: Color(0xff3D3D3D),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                      fontStyle: FontStyle.normal,
+                                      letterSpacing: -0.5,
+                                    ),
+                                  ),
+                                  trailing: Container(
+                                    width: 34.0,
+                                    height: 13.18,
+                                    child: StreamBuilder(
+                                        stream: Firestore.instance
+                                            .collection('calificar')
+                                            .snapshots(),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot snapshot) {
+                                          if (!snapshot.hasData) {
+                                            return Text("loading....");
+                                          } else {
+                                            return Row(
+                                              children: <Widget>[
+                                                Container(
+                                                  child: SmoothStarRating(
+                                                    borderColor:
+                                                    Color(0xff16202C),
+                                                    color: Color(0xfff5af00),
+                                                    allowHalfRating: true,
+                                                    rating: double.parse(
+                                                        snapshot.data.documents[
+                                                        index]['rating']),
+                                                    size: 13.0,
+                                                    starCount: 1,
+                                                    spacing: 2.0,
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ));
-                                    },
-                                  );
-                                }
-                              },
-                            ),
-                          ),
-                          //Text('Lugares',
-                          //     style: TextStyle(
-                          //       fontFamily: 'HankenGrotesk',
-                          //       color: Colors.black,
-                          //       fontSize: 15,
-                          //       fontWeight: FontWeight.bold,
-                          //       fontStyle: FontStyle.normal,
-                          //       letterSpacing: -0.5,
-                          //     )),
-                        ],
-                      ),
+                                                Text(snapshot
+                                                    .data
+                                                    .documents[index]
+                                                ['rating']
+                                                    .toString() ??
+                                                    '')
+                                              ],
+                                            );
+                                          }
+                                        }),
+                                  ),
+                                );
+                              });
+                        }
+                      },
                     ),
                   ),
-                  // Positioned(
-                  //   child: Padding(
-                  //     padding: EdgeInsets.only(
-                  //       top: 372.0,
-                  //     ),
-                  //     child: Column(
-                  //       children: <Widget>[
-                  //         Container(
-                  //           width: MediaQuery.of(context).size.width,
-                  //           height: 50.0,
-                  //           decoration: new BoxDecoration(
-                  //             color: Colors.white,
-                  //           ),
-                  //           child: Padding(
-                  //             padding:
-                  //                 const EdgeInsets.only(top: 15.0, left: 24),
-                  //             child: Text('Lugares Cerrados',
-                  //                 style: TextStyle(
-                  //                   fontFamily: 'HankenGrotesk',
-                  //                   color: Colors.black,
-                  //                   fontSize: 15,
-                  //                   fontWeight: FontWeight.bold,
-                  //                   fontStyle: FontStyle.normal,
-                  //                   letterSpacing: -0.5,
-                  //                 )),
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              ),
-            ],
-          ),
-          Expanded(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height,
+                ),
+              ],
             ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 70,
-            child: NavigatorBar(),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

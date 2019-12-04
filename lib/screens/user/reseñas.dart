@@ -55,7 +55,7 @@ class _ResenasPageState extends State<ResenasPage> {
         future: Firestore.instance
             .collection('usuarios')
             .document(id)
-            .collection('reseñas')
+            .collection('calificar')
             .getDocuments(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (!snapshot.hasData) {

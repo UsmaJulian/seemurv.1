@@ -10,6 +10,7 @@ import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/clients_body.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/login_admin/root_page.dart';
+import 'package:seemur_v1/screens/notificaciones_page.dart';
 
 class PerfilPage extends StatefulWidget {
   PerfilPage({this.auth, this.datos});
@@ -92,7 +93,12 @@ class _PerfilPageState extends State<PerfilPage> {
               color: Colors.black,
               size: 30,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => NotificacionesPage()));
+            },
           )
         ],
       ),
@@ -503,7 +509,7 @@ class _PerfilPageState extends State<PerfilPage> {
                           future: Firestore.instance
                               .collection('usuarios')
                               .document(id)
-                              .collection('reseñas')
+                              .collection('calificar')
                               .getDocuments(),
                           builder:
                               (BuildContext context, AsyncSnapshot snapshot) {

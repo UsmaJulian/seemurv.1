@@ -248,7 +248,7 @@ class _ClientBodyState extends State<ClientBody> {
                                 SizedBox(height: 40),
                                 getPlatosRecomendados(),
                                 SizedBox(height: 40),
-                                //reseñas
+
                                 Container(
                                   child: Column(
                                     children: <Widget>[
@@ -265,7 +265,7 @@ class _ClientBodyState extends State<ClientBody> {
                                         height: 200,
                                         child: StreamBuilder(
                                           stream: Firestore.instance
-                                              .collection('reseñas')
+                                              .collection('calificar')
                                               .where("taskname",
                                               isEqualTo:
                                               widget.datos['taskname'])
@@ -286,7 +286,7 @@ class _ClientBodyState extends State<ClientBody> {
                                                       .data.documents.length,
                                                   itemBuilder:
                                                       (BuildContext context,
-                                                      idx) {
+                                                      index) {
                                                     return Column(
                                                       children: <Widget>[
                                                         Row(
@@ -302,7 +302,7 @@ class _ClientBodyState extends State<ClientBody> {
                                                                   .parse(
                                                                   snapshot
                                                                       .data
-                                                                      .documents[idx]
+                                                                      .documents[index]
                                                                   [
                                                                   'rating']),
                                                               size: 18.0,
@@ -316,7 +316,7 @@ class _ClientBodyState extends State<ClientBody> {
                                                                 snapshot
                                                                     .data
                                                                     .documents[
-                                                                idx]
+                                                                index]
                                                                 [
                                                                 'rating']
                                                                     .toString(),
@@ -354,7 +354,7 @@ class _ClientBodyState extends State<ClientBody> {
                                                                     child: Text(
                                                                         snapshot
                                                                             .data
-                                                                            .documents[idx]['nombre del usuario'],
+                                                                            .documents[index]['nombre del usuario'],
                                                                         style: TextStyle(
                                                                           fontFamily:
                                                                           'HankenGrotesk',
@@ -378,8 +378,10 @@ class _ClientBodyState extends State<ClientBody> {
                                                                     child: Text(
                                                                         snapshot
                                                                             .data
-                                                                            .documents[idx]['reseña'],
-                                                                        style: TextStyle(
+                                                                            .documents[0]['opinion'] ??
+                                                                            'pendiente',
+                                                                        style:
+                                                                        TextStyle(
                                                                           fontFamily:
                                                                           'HankenGrotesk',
                                                                           color:
@@ -404,6 +406,7 @@ class _ClientBodyState extends State<ClientBody> {
                                                     );
                                                   });
                                             }
+                                            return Container();
                                           },
                                         ),
                                       ),
@@ -481,7 +484,7 @@ class _ClientBodyState extends State<ClientBody> {
               height: 13.0,
               child: StreamBuilder(
                 stream: Firestore.instance
-                    .collection('reseñas')
+                    .collection('calificar')
                     .where("taskname", isEqualTo: widget.datos['taskname'])
                     .snapshots(),
                 builder: (BuildContext context,
@@ -513,6 +516,7 @@ class _ClientBodyState extends State<ClientBody> {
                           );
                         });
                   }
+                  return Container();
                 },
               ),
             ),
