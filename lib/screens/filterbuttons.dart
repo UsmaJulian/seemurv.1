@@ -1,8 +1,41 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:seemur_v1/auth/auth.dart';
+import 'package:seemur_v1/screens/abierto.dart';
+import 'package:seemur_v1/screens/ambientescreen.dart';
+import 'package:seemur_v1/screens/bardiscocervscreen.dart';
+import 'package:seemur_v1/screens/caracteristicasscreen.dart';
 import 'package:seemur_v1/screens/filtros.dart';
+import 'package:seemur_v1/screens/formasdepago.dart';
+import 'package:seemur_v1/screens/planesscreen.dart';
+import 'package:seemur_v1/screens/rangoprecios.dart';
+import 'package:seemur_v1/screens/restaurantesscreen.dart';
 
 class FiltrosBotones extends StatefulWidget {
-  const FiltrosBotones({Key key, filtros}) : super(key: key);
+  final BaseAuth auth;
+
+  FiltrosBotones(
+      PlanesSelectionScreen planesSelectionScreen,
+      AmbienteSelectionScreen ambienteSelectionScreen,
+      RestauranteSelectionScreen restauranteSelectionScreen,
+      BarDiscoCervSelectionScreen barDiscoCervSelectionScreen,
+      CaracteristicaSelectionScreen caracteristicaSelectionScreen,
+      RadioListBuilder radioListBuilder,
+      RangoPreciosPage rangoPreciosPage,
+      CheckListBuilder checkListBuilder,
+      {Key key,
+      filtros,
+      this.auth})
+      : super(key: key);
+  PlanesSelectionScreen planesSelectionScreen;
+  AmbienteSelectionScreen ambienteSelectionScreen;
+  RestauranteSelectionScreen restauranteSelectionScreen;
+  BarDiscoCervSelectionScreen barDiscoCervSelectionScreen;
+  CaracteristicaSelectionScreen caracteristicaSelectionScreen;
+  RadioListBuilder radioListBuilder;
+  RangoPreciosPage rangoPreciosPage;
+  CheckListBuilder checkListBuilder;
 
   @override
   _FiltrosBotonesState createState() => _FiltrosBotonesState();
@@ -40,7 +73,49 @@ class _FiltrosBotonesState extends State<FiltrosBotones> {
               ],
             ),
             child: FlatButton(
-              onPressed: () {},
+              onPressed: () async {
+                widget.planesSelectionScreen = new PlanesSelectionScreen();
+                widget.ambienteSelectionScreen = new AmbienteSelectionScreen();
+                widget.restauranteSelectionScreen =
+                    new RestauranteSelectionScreen();
+                widget.barDiscoCervSelectionScreen =
+                    new BarDiscoCervSelectionScreen();
+                widget.caracteristicaSelectionScreen =
+                    new CaracteristicaSelectionScreen();
+                widget.radioListBuilder = new RadioListBuilder();
+                widget.rangoPreciosPage = new RangoPreciosPage();
+                widget.checkListBuilder = new CheckListBuilder();
+
+                List<String> miPlans = widget.planesSelectionScreen
+                    .createState()
+                    .getSelectedPlanes();
+                List<String> misAmbients = widget.ambienteSelectionScreen
+                    .createState()
+                    .getSelectedAmbientes();
+
+                var newList = new List.from(miPlans)
+                  ..addAll(misAmbients)
+                  ..addAll(miPlans);
+
+                FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+                FirebaseUser user = await _firebaseAuth.currentUser();
+                print(miPlans);
+                await Firestore.instance
+                    .collection("filtros")
+                    .document(user.uid)
+                    .delete();
+                await Firestore.instance
+                    .collection("filtros")
+                    .document(user.uid)
+                    .setData({
+                  "filtros": newList,
+                }).catchError((e) {
+                  print(e);
+                });
+
+                print("Mis Planes a filtrar: " + miPlans.toString());
+              },
               child: Text('Filtrar',
                   style: new TextStyle(
                     color: Colors.black,

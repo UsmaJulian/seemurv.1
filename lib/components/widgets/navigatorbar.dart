@@ -21,6 +21,9 @@ class NavigatorBar extends StatefulWidget {
 class _NavigatorBarState extends State<NavigatorBar> {
   @override
   Widget build(BuildContext context) {
+    Color _colorInicio = Colors.black;
+    var changecolorInicio = _colorInicio;
+
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -43,14 +46,15 @@ class _NavigatorBarState extends State<NavigatorBar> {
             Column(
               children: <Widget>[
                 IconButton(
-                  focusColor: Colors.red,
                   tooltip: 'Inicio',
                   icon: Icon(
-                    IconData(0xF447, fontFamily: 'CupertinoIcons'),
-                    color: Colors.black,
+                    IconData(
+                      0xF447,
+                      fontFamily: 'CupertinoIcons',
+                    ),
+                    color: changecolorInicio,
                   ),
                   iconSize: 24,
-                  color: Color(0xff17202c),
                   onPressed: () {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (BuildContext context) {
@@ -58,6 +62,9 @@ class _NavigatorBarState extends State<NavigatorBar> {
                         auth: Auth(),
                       );
                     }));
+                    setState(() {
+                      changecolorInicio = Colors.yellow;
+                    });
                   },
                 ),
                 Text("Inicio",
@@ -127,11 +134,13 @@ class _NavigatorBarState extends State<NavigatorBar> {
               children: <Widget>[
                 IconButton(
                   icon: Icon(
-                    IconData(0xF43C, fontFamily: 'CupertinoIcons'),
+                    IconData(
+                      0xF43C,
+                      fontFamily: 'CupertinoIcons',
+                    ),
                     color: Colors.black,
                   ),
                   iconSize: 24,
-                  color: Colors.black,
                   onPressed: () {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (BuildContext context) {

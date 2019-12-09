@@ -7,8 +7,7 @@ import 'package:seemur_v1/components/widgets/ambienteseleccionableboton.dart';
 import 'package:seemur_v1/services/filtros/ambiente_services.dart';
 
 class AmbienteSelectionScreen extends StatefulWidget {
-  _AmbienteSelectionScreenState createState() =>
-      _AmbienteSelectionScreenState();
+  _AmbienteSelectionScreenState createState() => _AmbienteSelectionScreenState();
 }
 
 class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
@@ -31,6 +30,23 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
   int noClippedSelectedAmbiente = 0;
 
   var firstAmbienteKey = RectGetter.createGlobalKey();
+
+  @override
+  List<String> getSelectedAmbientes() {
+
+    List<String> listAmbientes = [];
+    if(service.selectedAmbiente.length==0){
+      listAmbientes=[];
+    }else{
+
+      service.selectedAmbiente.forEach((data){
+        listAmbientes.add(data.name);
+      });
+
+    }
+
+    return listAmbientes;
+  }
 
   @override
   void initState() {
@@ -65,6 +81,9 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
 
   @override
   Widget build(BuildContext context) {
+
+    getSelectedAmbientes();
+
     TextStyle whiteTextTheme =
         Theme.of(context).textTheme.button.copyWith(color: Colors.white);
 

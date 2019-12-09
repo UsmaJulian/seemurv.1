@@ -170,7 +170,14 @@ class FiltrosPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 24.0),
             ),
-            Container(child: FiltrosBotones()),
+            Container(
+                child: FiltrosBotones(
+                    PlanesSelectionScreen(),
+                    AmbienteSelectionScreen(),
+                    RestauranteSelectionScreen(),
+                    BarDiscoCervSelectionScreen(),
+                    CaracteristicaSelectionScreen(),RadioListBuilder(),
+                    RangoPreciosPage(),CheckListBuilder())),
             SizedBox(
               width: 300,
               height: 50,

@@ -35,6 +35,20 @@ class _BarDiscoCervSelectionScreenState
   var firstBarDiscoCervKey = RectGetter.createGlobalKey();
 
   @override
+  List<String> getSelectedBarDiscoCerv() {
+    List<String> listBarDiscoCerv = [];
+    if (service.selectedBarDiscoCerv.length == 0) {
+      listBarDiscoCerv = [];
+    } else {
+      service.selectedBarDiscoCerv.forEach((data) {
+        listBarDiscoCerv.add(data.name);
+      });
+    }
+
+    return listBarDiscoCerv;
+  }
+
+  @override
   void initState() {
     super.initState();
     allBarDiscoCerv = service.allBarDiscoCerv;
@@ -69,7 +83,7 @@ class _BarDiscoCervSelectionScreenState
   Widget build(BuildContext context) {
     TextStyle whiteTextTheme =
         Theme.of(context).textTheme.button.copyWith(color: Colors.white);
-
+    getSelectedBarDiscoCerv();
     return Scaffold(
       body: AnimatedBuilder(
         animation: _controller,
@@ -283,7 +297,7 @@ class _BarDiscoCervSelectionScreenState
     return 1.0;
   }
 
-  _getSelectedPlanColor(int id) {
+  getSelectedPlanColor(int id) {
     if (id == selectedBarDiscoCerv.last.id &&
         noClippedSelectedBarDiscoCerv > 0) {
       return _clippedBarDiscoCervColorAnim.value;

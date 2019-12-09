@@ -1,14 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:seemur_v1/components/widgets/clients_body.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/screens/subcatscreens/chalets.dart';
 import 'package:seemur_v1/screens/subcatscreens/hospedajes.dart';
 import 'package:seemur_v1/screens/subcatscreens/hostales.dart';
 import 'package:seemur_v1/screens/subcatscreens/hoteles.dart';
-
-class CommonThings {
-  static Size size; //size screen
-}
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class DescansarPage extends StatefulWidget {
   //ComerPage({Key key}) : super(key: key);
@@ -17,9 +16,16 @@ class DescansarPage extends StatefulWidget {
 }
 
 class _DescansarPageState extends State<DescansarPage> {
+  ScrollController _controller;
+
+  @override
+  void initState() {
+    _controller = ScrollController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    CommonThings.size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(107.0),
@@ -45,122 +51,67 @@ class _DescansarPageState extends State<DescansarPage> {
           ),
         ),
       ),
-      body: Column(
-        children: <Widget>[
-          SingleChildScrollView(
-            child: Stack(
+      bottomNavigationBar: Container(
+        width: MediaQuery.of(context).size.width,
+        height: 70,
+        child: NavigatorBar(),
+      ),
+      body: SingleChildScrollView(
+        child: Stack(
+          children: <Widget>[
+            Column(
               children: <Widget>[
-                Positioned(
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding:
-                            EdgeInsets.only(top: 48.0, left: 0, right: 125.0),
-                        child: Text('Sugerencias para ti',
-                            style: TextStyle(
-                              fontFamily: 'HankenGrotesk',
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal,
-                              letterSpacing: -0.1,
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 24.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(26)),
-                              margin: EdgeInsets.symmetric(vertical: 30.0),
-                              height: 125,
-                              child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                children: <Widget>[
-                                  Container(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: <Widget>[
-                                        Container(
-                                          width: 105,
-                                          height: 92,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  new BorderRadius.circular(6),
-                                              color: Color(0xff16202c),
-                                            ),
-                                            child: Center(
-                                              child: Wrap(
-                                                children: <Widget>[
-                                                  FlatButton(
-                                                    child: Image.asset(
-                                                      'assets/images/hotelIcon@3x.png',
-                                                      width: 38,
-                                                      height: 38,
-                                                    ),
-                                                    onPressed: () {
-                                                      Navigator.of(context).push(
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  HotelesPage()));
-                                                    },
-                                                  ),
-                                                ],
+                Column(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Padding(
+                          padding:
+                              EdgeInsets.only(top: 48.0, left: 0, right: 125.0),
+                          child: Text('Sugerencias para ti',
+                              style: TextStyle(
+                                fontFamily: 'HankenGrotesk',
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.normal,
+                                letterSpacing: -0.1,
+                              )),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 24.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(26)),
+                                margin: EdgeInsets.symmetric(vertical: 30.0),
+                                height: 125,
+                                child: ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  children: <Widget>[
+                                    Container(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Container(
+                                            width: 105,
+                                            height: 92,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        6),
+                                                color: Color(0xff16202c),
                                               ),
-                                            ),
-                                          ),
-                                        ),
-                                        Text('Hoteles',
-                                            style: TextStyle(
-                                              fontFamily: 'HankenGrotesk',
-                                              color: Color(0xff000000),
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w700,
-                                              fontStyle: FontStyle.normal,
-                                              letterSpacing: -0.5,
-                                            )),
-                                        Text('',
-                                            style: TextStyle(
-                                              fontFamily: 'OpenSans',
-                                              color: Color(0xff3d3d3d),
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.w400,
-                                              fontStyle: FontStyle.normal,
-                                              letterSpacing: 0.2000000029802322,
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 12.0,
-                                  ),
-                                  Container(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: <Widget>[
-                                        Container(
-                                          width: 105,
-                                          height: 92,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  new BorderRadius.circular(6),
-                                              color: Color(0xff16202c),
-                                            ),
-                                            child: Center(
-                                              child: Wrap(
-                                                children: <Widget>[
-                                                  SizedBox(
-                                                    height: 92,
-                                                    width: 105,
-                                                    child: FlatButton(
+                                              child: Center(
+                                                child: Wrap(
+                                                  children: <Widget>[
+                                                    FlatButton(
                                                       child: Image.asset(
-                                                        'assets/images/hostelIcon@3x.png',
+                                                        'assets/images/hotelIcon@3x.png',
                                                         width: 38,
                                                         height: 38,
                                                       ),
@@ -169,247 +120,390 @@ class _DescansarPageState extends State<DescansarPage> {
                                                             MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                        HostalesPage()));
+                                                                        HotelesPage()));
                                                       },
                                                     ),
-                                                  )
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Text('Hostales',
-                                            style: TextStyle(
-                                              fontFamily: 'HankenGrotesk',
-                                              color: Color(0xff000000),
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w700,
-                                              fontStyle: FontStyle.normal,
-                                              letterSpacing: -0.5,
-                                            )),
-                                        Text('',
-                                            style: TextStyle(
-                                              fontFamily: 'OpenSans',
-                                              color: Color(0xff3d3d3d),
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.w400,
-                                              fontStyle: FontStyle.normal,
-                                              letterSpacing: 0.2000000029802322,
-                                            ))
-                                      ],
+                                          Text('Hoteles',
+                                              style: TextStyle(
+                                                fontFamily: 'HankenGrotesk',
+                                                color: Color(0xff000000),
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w700,
+                                                fontStyle: FontStyle.normal,
+                                                letterSpacing: -0.5,
+                                              )),
+                                          Text('',
+                                              style: TextStyle(
+                                                fontFamily: 'OpenSans',
+                                                color: Color(0xff3d3d3d),
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w400,
+                                                fontStyle: FontStyle.normal,
+                                                letterSpacing:
+                                                    0.2000000029802322,
+                                              ))
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 12.0,
-                                  ),
-                                  Container(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: <Widget>[
-                                        Container(
-                                          width: 105,
-                                          height: 92,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  new BorderRadius.circular(6),
-                                              color: Color(0xff16202c),
-                                            ),
-                                            child: Center(
-                                              child: Wrap(
-                                                children: <Widget>[
-                                                  SizedBox(
-                                                    height: 92,
-                                                    width: 105,
-                                                    child: FlatButton(
-                                                      child: Image.asset(
-                                                        'assets/images/innIcon@3x.png',
-                                                        width: 38,
-                                                        height: 38,
+                                    SizedBox(
+                                      width: 12.0,
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Container(
+                                            width: 105,
+                                            height: 92,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        6),
+                                                color: Color(0xff16202c),
+                                              ),
+                                              child: Center(
+                                                child: Wrap(
+                                                  children: <Widget>[
+                                                    SizedBox(
+                                                      height: 92,
+                                                      width: 105,
+                                                      child: FlatButton(
+                                                        child: Image.asset(
+                                                          'assets/images/hostelIcon@3x.png',
+                                                          width: 38,
+                                                          height: 38,
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.of(context).push(
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          HostalesPage()));
+                                                        },
                                                       ),
-                                                      onPressed: () {
-                                                        Navigator.of(context).push(
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        HospedajesPage()));
-                                                      },
-                                                    ),
-                                                  )
-                                                ],
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Text('Hospedajes',
-                                            style: TextStyle(
-                                              fontFamily: 'HankenGrotesk',
-                                              color: Color(0xff000000),
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w700,
-                                              fontStyle: FontStyle.normal,
-                                              letterSpacing: -0.5,
-                                            )),
-                                        Text('',
-                                            style: TextStyle(
-                                              fontFamily: 'OpenSans',
-                                              color: Color(0xff3d3d3d),
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.w400,
-                                              fontStyle: FontStyle.normal,
-                                              letterSpacing: 0.2000000029802322,
-                                            ))
-                                      ],
+                                          Text('Hostales',
+                                              style: TextStyle(
+                                                fontFamily: 'HankenGrotesk',
+                                                color: Color(0xff000000),
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w700,
+                                                fontStyle: FontStyle.normal,
+                                                letterSpacing: -0.5,
+                                              )),
+                                          Text('',
+                                              style: TextStyle(
+                                                fontFamily: 'OpenSans',
+                                                color: Color(0xff3d3d3d),
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w400,
+                                                fontStyle: FontStyle.normal,
+                                                letterSpacing:
+                                                    0.2000000029802322,
+                                              ))
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 12.0,
-                                  ),
-                                  Container(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: <Widget>[
-                                        Container(
-                                          width: 105,
-                                          height: 92,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  new BorderRadius.circular(6),
-                                              color: Color(0xff16202c),
-                                            ),
-                                            child: Center(
-                                              child: Wrap(
-                                                children: <Widget>[
-                                                  SizedBox(
-                                                    height: 92,
-                                                    width: 105,
-                                                    child: FlatButton(
-                                                      child: Image.asset(
-                                                        'assets/images/chaletIcon@3x.png',
-                                                        width: 38,
-                                                        height: 38,
+                                    SizedBox(
+                                      width: 12.0,
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Container(
+                                            width: 105,
+                                            height: 92,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        6),
+                                                color: Color(0xff16202c),
+                                              ),
+                                              child: Center(
+                                                child: Wrap(
+                                                  children: <Widget>[
+                                                    SizedBox(
+                                                      height: 92,
+                                                      width: 105,
+                                                      child: FlatButton(
+                                                        child: Image.asset(
+                                                          'assets/images/innIcon@3x.png',
+                                                          width: 38,
+                                                          height: 38,
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.of(context).push(
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          HospedajesPage()));
+                                                        },
                                                       ),
-                                                      onPressed: () {
-                                                        Navigator.of(context).push(
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        ChaletsPage()));
-                                                      },
-                                                    ),
-                                                  )
-                                                ],
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Text('Chalets',
-                                            style: TextStyle(
-                                              fontFamily: 'HankenGrotesk',
-                                              color: Color(0xff000000),
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w700,
-                                              fontStyle: FontStyle.normal,
-                                              letterSpacing: -0.5,
-                                            )),
-                                        Text('',
-                                            style: TextStyle(
-                                              fontFamily: 'OpenSans',
-                                              color: Color(0xff3d3d3d),
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.w400,
-                                              fontStyle: FontStyle.normal,
-                                              letterSpacing: 0.2000000029802322,
-                                            ))
-                                      ],
+                                          Text('Hospedajes',
+                                              style: TextStyle(
+                                                fontFamily: 'HankenGrotesk',
+                                                color: Color(0xff000000),
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w700,
+                                                fontStyle: FontStyle.normal,
+                                                letterSpacing: -0.5,
+                                              )),
+                                          Text('',
+                                              style: TextStyle(
+                                                fontFamily: 'OpenSans',
+                                                color: Color(0xff3d3d3d),
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w400,
+                                                fontStyle: FontStyle.normal,
+                                                letterSpacing:
+                                                    0.2000000029802322,
+                                              ))
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    SizedBox(
+                                      width: 12.0,
+                                    ),
+                                    Container(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Container(
+                                            width: 105,
+                                            height: 92,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        6),
+                                                color: Color(0xff16202c),
+                                              ),
+                                              child: Center(
+                                                child: Wrap(
+                                                  children: <Widget>[
+                                                    SizedBox(
+                                                      height: 92,
+                                                      width: 105,
+                                                      child: FlatButton(
+                                                        child: Image.asset(
+                                                          'assets/images/chaletIcon@3x.png',
+                                                          width: 38,
+                                                          height: 38,
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.of(context).push(
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          ChaletsPage()));
+                                                        },
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Text('Chalets',
+                                              style: TextStyle(
+                                                fontFamily: 'HankenGrotesk',
+                                                color: Color(0xff000000),
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w700,
+                                                fontStyle: FontStyle.normal,
+                                                letterSpacing: -0.5,
+                                              )),
+                                          Text('',
+                                              style: TextStyle(
+                                                fontFamily: 'OpenSans',
+                                                color: Color(0xff3d3d3d),
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w400,
+                                                fontStyle: FontStyle.normal,
+                                                letterSpacing:
+                                                    0.2000000029802322,
+                                              ))
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Positioned(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: 288.0,
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 50.0,
-                          decoration: new BoxDecoration(
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 15.0, left: 24),
-                            child: Text('Lugares',
-                                style: TextStyle(
-                                  fontFamily: 'HankenGrotesk',
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.normal,
-                                  letterSpacing: -0.5,
-                                )),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: 352.0,
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 50.0,
-                          decoration: new BoxDecoration(
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 15.0, left: 24),
-                            child: Text('Lugares Cerrados',
-                                style: TextStyle(
-                                  fontFamily: 'HankenGrotesk',
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.normal,
-                                  letterSpacing: -0.5,
-                                )),
+                            ],
                           ),
                         ),
                       ],
+                    ),
+                  ],
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 50.0,
+                  color: Colors.white,
+                  child: Text('Lugares',
+                      style: TextStyle(
+                        fontFamily: 'HankenGrotesk',
+                        color: Color(0xff000000),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        fontStyle: FontStyle.normal,
+                        letterSpacing: -0.5,
+                      )),
+                  padding: EdgeInsets.only(top: 16.0, left: 24.0),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 24.0),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: StreamBuilder(
+                      stream: Firestore.instance
+                          .collection('client')
+                          .where("tasktags", arrayContains: 'Descansar')
+                          .snapshots(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (!snapshot.hasData) {
+                          return Text("loading....");
+                        } else {
+                          return ListView.separated(
+                              controller: _controller,
+                              shrinkWrap: true,
+                              separatorBuilder: (context, index) => Divider(
+                                    color: Colors.grey,
+                                  ),
+                              itemCount: snapshot.data.documents.length,
+                              itemBuilder: (BuildContext context, index) {
+                                return ListTile(
+                                  enabled: true,
+                                  onTap: () {
+                                    final datasnp =
+                                        snapshot.data.documents[index].data;
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ClientBody(
+                                                datos: datasnp,
+                                              )),
+                                    );
+                                  },
+                                  leading: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: FadeInImage.assetNetwork(
+                                      width: 46,
+                                      height: 46,
+                                      fit: BoxFit.cover,
+                                      placeholder:
+                                          ('assets/images/Contenedor de imagenes (375 x249).jpg'),
+                                      image: snapshot.data.documents[index]
+                                          ['logos'],
+                                    ),
+                                  ),
+                                  title: Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Container(
+                                      child: Text(
+                                        snapshot.data.documents[index]
+                                            ['taskname'],
+                                        style: TextStyle(
+                                          fontFamily: 'HankenGrotesk',
+                                          color: Color(0xff000000),
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w700,
+                                          fontStyle: FontStyle.normal,
+                                          letterSpacing: -0.5,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    snapshot.data.documents[0]['taskfoods']
+                                        .toString()
+                                        .replaceAll(
+                                          new RegExp(r'[^\w\s\á-ú]+'),
+                                          '',
+                                        ),
+                                    style: TextStyle(
+                                      fontFamily: 'HankenGrotesk',
+                                      color: Color(0xff3D3D3D),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                      fontStyle: FontStyle.normal,
+                                      letterSpacing: -0.5,
+                                    ),
+                                  ),
+                                  trailing: Container(
+                                    width: 34.0,
+                                    height: 13.18,
+                                    child: StreamBuilder(
+                                        stream: Firestore.instance
+                                            .collection('calificar')
+                                            .snapshots(),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot snapshot) {
+                                          if (!snapshot.hasData) {
+                                            return Text("loading....");
+                                          } else {
+                                            return Row(
+                                              children: <Widget>[
+                                                Container(
+                                                  child: SmoothStarRating(
+                                                    borderColor:
+                                                        Color(0xff16202C),
+                                                    color: Color(0xfff5af00),
+                                                    allowHalfRating: true,
+                                                    rating: double.parse(
+                                                        snapshot.data.documents[
+                                                            index]['rating']),
+                                                    size: 13.0,
+                                                    starCount: 1,
+                                                    spacing: 2.0,
+                                                  ),
+                                                ),
+                                                Text(snapshot
+                                                        .data
+                                                        .documents[index]
+                                                            ['rating']
+                                                        .toString() ??
+                                                    '')
+                                              ],
+                                            );
+                                          }
+                                        }),
+                                  ),
+                                );
+                              });
+                        }
+                      },
                     ),
                   ),
                 ),
               ],
             ),
-          ),
-          Expanded(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 70,
-            child: NavigatorBar(),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

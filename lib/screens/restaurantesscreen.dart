@@ -33,6 +33,20 @@ class _RestauranteSelectionScreenState extends State<RestauranteSelectionScreen>
   var firstRestauranteKey = RectGetter.createGlobalKey();
 
   @override
+  List<String> getSelectedRestaurantes() {
+    List<String> listRestaurantes = [];
+    if (service.selectedRestaurante.length == 0) {
+      listRestaurantes = [];
+    } else {
+      service.selectedRestaurante.forEach((data) {
+        listRestaurantes.add(data.name);
+      });
+    }
+
+    return listRestaurantes;
+  }
+
+  @override
   void initState() {
     super.initState();
     allRestaurante = service.allRestaurante;
@@ -67,7 +81,7 @@ class _RestauranteSelectionScreenState extends State<RestauranteSelectionScreen>
   Widget build(BuildContext context) {
     TextStyle whiteTextTheme =
         Theme.of(context).textTheme.button.copyWith(color: Colors.white);
-
+getSelectedRestaurantes();
     return Scaffold(
       body: AnimatedBuilder(
         animation: _controller,

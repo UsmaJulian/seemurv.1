@@ -35,6 +35,20 @@ class _CaracteristicaSelectionScreenState
   var firstCaracteristicaKey = RectGetter.createGlobalKey();
 
   @override
+  List<String> getSelectedCaracteristica() {
+    List<String> listCaracteristica = [];
+    if (service.selectedCaracteristica.length == 0) {
+      listCaracteristica = [];
+    } else {
+      service.selectedCaracteristica.forEach((data) {
+        listCaracteristica.add(data.name);
+      });
+    }
+
+    return listCaracteristica;
+  }
+
+  @override
   void initState() {
     super.initState();
     allCaracteristica = service.allCaracteristica;
@@ -70,7 +84,7 @@ class _CaracteristicaSelectionScreenState
   Widget build(BuildContext context) {
     TextStyle whiteTextTheme =
         Theme.of(context).textTheme.button.copyWith(color: Colors.white);
-
+    getSelectedCaracteristica();
     return Scaffold(
       body: AnimatedBuilder(
         animation: _controller,

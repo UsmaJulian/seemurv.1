@@ -49,43 +49,40 @@ class _SearchBarState extends State<SearchBar> {
       child: Stack(
         children: <Widget>[
           Container(
-            width: MediaQuery
-                .of(context)
-                .size
-                .width * 0.87,
-            height: MediaQuery
-                .of(context)
-                .size
-                .width * 0.12,
+            width: MediaQuery.of(context).size.width * 0.87,
+            height: MediaQuery.of(context).size.width * 0.12,
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: new BorderRadius.circular(23),
                 border: Border.all(
                   color: Colors.transparent,
                 )),
-            child: new TextField(
-              controller: controller,
-              decoration: new InputDecoration(
-                border: InputBorder.none,
-                hintText: 'Buscar planes o lugares',
-                prefixIcon: Icon(
-                  Icons.search,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 38.0),
+              child: new TextField(
+                controller: controller,
+                decoration: new InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Buscar planes o lugares',
+                  prefixIcon: Icon(
+                    Icons.search,
+                  ),
                 ),
+                onChanged: (value) {
+                  initiateSearch(value);
+                },
+                onEditingComplete: () {
+                  controller.text = controller.text[0].toUpperCase() +
+                      controller.text.substring(1);
+                  print(controller.text);
+                  var valor = controller.text;
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => SearchResult(valor: valor)));
+                },
+                textInputAction: TextInputAction.done,
               ),
-              onChanged: (value) {
-                initiateSearch(value);
-              },
-              onEditingComplete: () {
-                controller.text = controller.text[0].toUpperCase() +
-                    controller.text.substring(1);
-                print(controller.text);
-                var valor = controller.text;
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => SearchResult(valor: valor)));
-              },
-              textInputAction: TextInputAction.done,
             ),
           ),
           Positioned(
@@ -94,14 +91,8 @@ class _SearchBarState extends State<SearchBar> {
             bottom: 6,
             left: 220.0,
             child: Container(
-              height: MediaQuery
-                  .of(context)
-                  .size
-                  .height * 0.055,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width * 0.25,
+              height: MediaQuery.of(context).size.height * 0.055,
+              width: MediaQuery.of(context).size.width * 0.25,
               decoration: BoxDecoration(
                 border: Border.all(width: 0, style: BorderStyle.none),
                 borderRadius: BorderRadius.horizontal(

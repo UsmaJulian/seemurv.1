@@ -34,7 +34,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final GlobalKey<NavigatorState> navigatorKey =
-  new GlobalKey<NavigatorState>();
+      new GlobalKey<NavigatorState>();
 
   @override
   void initState() {
@@ -56,8 +56,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute: 'splash',
       routes: {
         'splash': (BuildContext context) => SplashScreenOneLoading(),
-        '/spalshthird': (BuildContext context) =>
-            RootPage(
+        '/spalshthird': (BuildContext context) => RootPage(
               auth: Auth(),
             ),
         'notificaciones': (BuildContext context) => NotificacionesPage()

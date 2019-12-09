@@ -32,6 +32,23 @@ class _PlanesSelectionScreenState extends State<PlanesSelectionScreen>
   var firstPlanKey = RectGetter.createGlobalKey();
 
   @override
+  List<String> getSelectedPlanes() {
+
+    List<String> miSelectedPlan=[];
+    if(service.selectedPlan.length==0){
+      miSelectedPlan=[];
+    }else{
+      List<String> listPlanes = [];
+      service.selectedPlan.forEach((data){
+        listPlanes.add(data.name);
+      });
+      miSelectedPlan = listPlanes;
+    }
+
+    return miSelectedPlan;
+  }
+
+  @override
   void initState() {
     super.initState();
     allPlanes = service.allPlanes;
@@ -62,10 +79,13 @@ class _PlanesSelectionScreenState extends State<PlanesSelectionScreen>
                 curve: Interval(0.0, 0.3, curve: Curves.elasticInOut)));
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     TextStyle whiteTextTheme =
         Theme.of(context).textTheme.button.copyWith(color: Colors.white);
+    getSelectedPlanes();
 
     return Scaffold(
       body: AnimatedBuilder(
