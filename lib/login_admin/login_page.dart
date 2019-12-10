@@ -1,8 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:seemur_v1/auth/auth.dart';
-import 'package:seemur_v1/login_admin/menu_page.dart';
 import 'package:seemur_v1/models/user_model.dart';
 import 'package:seemur_v1/screens/cambiar_contraseña.dart';
 import 'package:seemur_v1/screens/terminos_condiciones.dart';
@@ -29,9 +26,33 @@ class _LoginPageState extends State<LoginPage> {
   String _telefono;
   String _urlFoto = '';
   String usuario;
+  bool isLoggedIn = false;
 
   bool _obscureText = true;
   FormType _formType = FormType.login;
+
+  // void initiateFacebookLogin() async {
+  //   final facebookLogin = FacebookLogin();
+  //   final result = await facebookLogin.logIn(['email']);
+
+  //   switch (result.status) {
+  //     case FacebookLoginStatus.loggedIn:
+  //       onLoginStatusChange(true);
+  //       break;
+  //     case FacebookLoginStatus.cancelledByUser:
+  //       print('Cancelado por el usuario');
+  //       break;
+  //     case FacebookLoginStatus.error:
+  //       print('Surgio un error');
+  //       break;
+  //   }
+  // }
+
+  // void onLoginStatusChange(bool isLoggedIn) {
+  //   setState(() {
+  //     this.isLoggedIn = isLoggedIn;
+  //   });
+  // }
 
   bool _isChecked = false;
   void onChanged(value) {
@@ -39,6 +60,8 @@ class _LoginPageState extends State<LoginPage> {
       _isChecked = value;
     });
   }
+
+  //Facebooklogin
 
   bool _validarGuardar() {
     final form = formKey.currentState;

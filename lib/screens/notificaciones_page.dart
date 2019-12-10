@@ -30,11 +30,15 @@ class NotificacionesPage extends StatelessWidget {
           ),
         ),
       ),
-      body: ListTile(
-        leading: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.asset('assets/icon/icon.png')),
-        title: Text(argumentonotifi) ?? 'Sin notificaciones',
+      body: ListView.builder(
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            leading: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset('assets/icon/icon.png')),
+            // title: Text(argumentonotifi) ?? 'Sin notificaciones',
+          );
+        },
       ),
     );
   }
