@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
@@ -76,7 +75,7 @@ class _LugaresFavoritosPageState extends State<LugaresFavoritosPage> {
                           height: 46,
                           fit: BoxFit.cover,
                           placeholder:
-                              ('assets/images/Contenedor de imagenes (375 x249).jpg'),
+                          ('assets/images/Contenedordeimagenes.jpg'),
                           image: (snapshot.data.documents[index]['logos']
                               .toString()),
                         ),

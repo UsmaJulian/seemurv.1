@@ -86,7 +86,7 @@ class _ProximosEventosPageState extends State<ProximosEventosPage> {
                                       height: 94,
                                       fit: BoxFit.cover,
                                       placeholder:
-                                          ('assets/images/Contenedor de imagenes (375 x249).jpg'),
+                                      ('assets/images/Contenedordeimagenes.jpg'),
                                       image: (snapshot.data.documents[idx]
                                           ['imagen']),
                                     ),
@@ -150,7 +150,7 @@ class _DetailScreenState extends State<DetailScreen> {
               height: 294,
               fit: BoxFit.cover,
               placeholder:
-                  ('assets/images/Contenedor de imagenes (375 x249).jpg'),
+              ('assets/images/Contenedordeimagenes.jpg'),
               image: (widget.infoimagen['imagen'].toString()),
             ),
           ),

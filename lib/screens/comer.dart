@@ -428,7 +428,7 @@ class _ComerPageState extends State<ComerPage> {
                                       height: 46,
                                       fit: BoxFit.cover,
                                       placeholder:
-                                      ('assets/images/Contenedor de imagenes (375 x249).jpg'),
+                                      ('assets/images/Contenedordeimagenes.jpg'),
                                       image: snapshot.data.documents[index]
                                       ['logos'],
                                     ),

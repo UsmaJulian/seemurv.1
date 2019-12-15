@@ -76,7 +76,7 @@ class _LugaresVistadosPageState extends State<LugaresVistadosPage> {
                           height: 46,
                           fit: BoxFit.cover,
                           placeholder:
-                              ('assets/images/Contenedor de imagenes (375 x249).jpg'),
+                          ('assets/images/Contenedordeimagenes.jpg'),
                           image: (snapshot.data.documents[index]['logos']
                               .toString()),
                         ),

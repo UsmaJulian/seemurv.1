@@ -34,7 +34,7 @@ class _IntroScreenState extends State<IntroScreen> {
     //pages slide
     slides.add(
       new Slide(
-        backgroundImage: 'assets/images/seemur app.gif',
+	      backgroundImage: 'assets/images/seemurapp.gif',
         backgroundOpacity: 0,
         onCenterItemPress: () {},
       ),
@@ -43,14 +43,14 @@ class _IntroScreenState extends State<IntroScreen> {
     slides.add(
       new Slide(
         backgroundOpacity: 0,
-        backgroundImage: "assets/images/seemur app 2.gif",
+	      backgroundImage: "assets/images/seemurapp2.gif",
       ),
     );
     //three page
     slides.add(
       new Slide(
         backgroundOpacity: 0,
-        backgroundImage: "assets/images/seemur app 3.gif",
+	      backgroundImage: "assets/images/seemurapp3.gif",
       ),
     );
   }

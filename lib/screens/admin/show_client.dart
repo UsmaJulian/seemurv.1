@@ -116,7 +116,7 @@ class _ShowClientPageState extends State<ShowClientPage> {
                               width: 100,
                               height: 100,
                               placeholder: AssetImage(
-                                  'assets/images/Contenedor de imagenes (375 x249).jpg'),
+		                              'assets/images/Contenedordeimagenes.jpg'),
                               image: NetworkImage(document["taskclientimage"]),
                             ),
                           ),

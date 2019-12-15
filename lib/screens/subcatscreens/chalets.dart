@@ -103,7 +103,7 @@ class _ListChaletsPageState extends State<ListChaletsPage> {
                                   height: 47,
                                   fit: BoxFit.fill,
                                   placeholder:
-                                      ('assets/images/Contenedor de imagenes (375 x249).jpg'),
+                                  ('assets/images/Contenedordeimagenes.jpg'),
                                   image: (snapshot.data[index].data['logos']),
                                 ),
                               ),
