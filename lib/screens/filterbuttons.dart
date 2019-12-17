@@ -93,9 +93,32 @@ class _FiltrosBotonesState extends State<FiltrosBotones> {
                     .createState()
                     .getSelectedAmbientes();
 
+                List<String> misrestaurantes = widget.restauranteSelectionScreen
+                    .createState()
+                    .getSelectedRestaurantes();
+
+                List<String> misBares = widget.barDiscoCervSelectionScreen
+                    .createState()
+                    .getSelectedBarDiscoCerv();
+
+                List<String> misCaracteristicas = widget
+                    .caracteristicaSelectionScreen
+                    .createState()
+                    .getSelectedCaracteristica();
+
+                Future<List<double>> misRangoPrecios = widget.rangoPreciosPage
+                    .createState()
+                    .getSelectedRangoPrecios();
+
+                Future<String> mishoras =
+                widget.radioListBuilder.createState().getAbierto();
+
                 var newList = new List.from(miPlans)
-                  ..addAll(misAmbients)
-                  ..addAll(miPlans);
+                  ..addAll(misAmbients)..addAll(miPlans)..addAll(
+                      misrestaurantes)..addAll(misBares)..addAll(
+                      misCaracteristicas)
+                  ..add(await mishoras)
+                  ..addAll(await misRangoPrecios);
 
                 FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 

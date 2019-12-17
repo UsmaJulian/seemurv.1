@@ -39,7 +39,7 @@ dependencies:
   smooth_star_rating: ^1.0.3
   flutter_share_me: ^0.8.0
   provider: ^3.2.0
-  firebase_messaging: ^6.0.8
+  firebase_messaging: ^6.0.9
   #flutter_facebook_login: ^3.0.0
 
 

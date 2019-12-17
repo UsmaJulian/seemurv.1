@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_range_slider/flutter_range_slider.dart' as frs;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RangoPreciosPage extends StatefulWidget {
   @override
@@ -23,7 +24,7 @@ class _RangoPreciosPageState extends State<RangoPreciosPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+	  return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 5.0, left: 10.0, right: 10.0),
         child: Column(children: <Widget>[]..addAll(_buildRangeSliders())),
@@ -31,15 +32,22 @@ class _RangoPreciosPageState extends State<RangoPreciosPage> {
     );
   }
 
+  double miLower;
+  double miUpper;
+  
   List<Widget> _buildRangeSliders() {
-    List<Widget> children = <Widget>[];
+	  List<Widget> children = <Widget>[];
     for (int index = 0; index < rangeSliders.length; index++) {
       children
           .add(rangeSliders[index].build(context, (double lower, double upper) {
         // adapt the RangeSlider lowerValue and upperValue
-        setState(() {
+	      setState(() {
+         
           rangeSliders[index].lowerValue = lower;
           rangeSliders[index].upperValue = upper;
+          setValuesSlider(lower, upper);
+          
+          
         });
       }));
     }
@@ -52,6 +60,31 @@ class _RangoPreciosPageState extends State<RangoPreciosPage> {
       RangeSliderData(
           min: 0.0, max: 240.0, lowerValue: 10.0, upperValue: 240.0),
     ];
+  }
+
+
+  Future<List<double>> getSelectedRangoPrecios() async {
+	  SharedPreferences prefs = await SharedPreferences.getInstance();
+	  List<double> listRangoPrecio = [];
+	
+	  miUpper = await prefs.getDouble('max');
+	  miLower = await prefs.getDouble('min');
+	
+	  listRangoPrecio.add(miLower);
+	  listRangoPrecio.add(miUpper);
+	
+	  print('menor: ' + miLower.toString());
+	  print('mayor: ' + miUpper.toString());
+	  print(listRangoPrecio.toString());
+	
+	
+	  return listRangoPrecio;
+  }
+
+  void setValuesSlider(double lower, double upper) async {
+	  SharedPreferences prefs = await SharedPreferences.getInstance();
+	  await prefs.setDouble('max', upper);
+	  await prefs.setDouble('min', lower);
   }
 }
 
