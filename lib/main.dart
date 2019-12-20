@@ -3,7 +3,6 @@ import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/login_admin/root_page.dart';
 import 'package:seemur_v1/screens/notificaciones_page.dart';
 import 'package:seemur_v1/screens/splash_screen%20_one_loading.dart';
-import 'package:seemur_v1/src/providers/push_notifications_provider.dart';
 
 // var routes = <String, WidgetBuilder>{
 //   '/spalshthird': (BuildContext context) => RootPage(
@@ -35,18 +34,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final GlobalKey<NavigatorState> navigatorKey =
       new GlobalKey<NavigatorState>();
-
-  @override
-  void initState() {
-    super.initState();
-
-    final pushPovider = new PushNotificationProvider();
-    pushPovider.initNotificatios();
-    pushPovider.mensajes.listen((data) {
-      // Navigator.pushNamed(context, routeName);
-      navigatorKey.currentState.pushNamed('notificaciones', arguments: data);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
