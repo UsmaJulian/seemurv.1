@@ -60,59 +60,64 @@ class _LugaresFavoritosPageState extends State<LugaresFavoritosPage> {
           if (!snapshot.hasData) {
             Text('Loading');
           } else {
-            return ListView.builder(
-              addAutomaticKeepAlives: true,
-              itemCount: snapshot.data.documents.length,
-              itemBuilder: (BuildContext context, index) {
-                return Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: FadeInImage.assetNetwork(
-                          width: 46,
-                          height: 46,
-                          fit: BoxFit.cover,
-                          placeholder:
-                          ('assets/images/Contenedordeimagenes.jpg'),
-                          image: (snapshot.data.documents[index]['logos']
-                              .toString()),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      height: 72.0,
-                      child: ListTile(
-                        dense: true,
-                        onTap: () {
-                          var datasnp = snapshot.data.documents[index].data;
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ClientBody(datos: datasnp)),
-                          );
-                        },
-                        title: Container(
-                          child: Text(
-                            snapshot.data.documents[index]['taskname'],
-                            style: TextStyle(
-                              fontFamily: 'HankenGrotesk',
-                              color: Color(0xff000000),
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700,
-                              fontStyle: FontStyle.normal,
-                              letterSpacing: -0.5,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
+	          return Flexible(
+		          child: ListView.builder(
+			          addAutomaticKeepAlives: true,
+			          itemCount: snapshot.data.documents.length,
+			          itemBuilder: (BuildContext context, index) {
+				          return Row(
+					          children: <Widget>[
+						          Padding(
+							          padding: const EdgeInsets.only(left: 16.0),
+							          child: ClipRRect(
+								          borderRadius: BorderRadius.circular(8),
+								          child: FadeInImage.assetNetwork(
+									          width: 46,
+									          height: 46,
+									          fit: BoxFit.cover,
+									          placeholder:
+									          ('assets/images/Contenedordeimagenes.jpg'),
+									          image: (snapshot.data.documents[index]['logos']
+											          .toString()),
+								          ),
+							          ),
+						          ),
+						          Container(
+							          width: MediaQuery
+									          .of(context)
+									          .size
+									          .width * 0.6,
+							          height: 72.0,
+							          child: ListTile(
+								          dense: true,
+								          onTap: () {
+									          var datasnp = snapshot.data.documents[index].data;
+									          Navigator.push(
+										          context,
+										          MaterialPageRoute(
+												          builder: (context) =>
+														          ClientBody(datos: datasnp)),
+									          );
+								          },
+								          title: Container(
+									          child: Text(
+										          snapshot.data.documents[index]['taskname'],
+										          style: TextStyle(
+											          fontFamily: 'HankenGrotesk',
+											          color: Color(0xff000000),
+											          fontSize: 15,
+											          fontWeight: FontWeight.w700,
+											          fontStyle: FontStyle.normal,
+											          letterSpacing: -0.5,
+										          ),
+									          ),
+								          ),
+							          ),
+						          ),
+					          ],
+				          );
+			          },
+		          ),
             );
           }
           return Container();

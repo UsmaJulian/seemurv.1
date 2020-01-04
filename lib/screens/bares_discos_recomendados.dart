@@ -90,7 +90,7 @@ class _BaresyDiscosParaTiState extends State<BaresyDiscosParaTi> {
                                   Container(
                                     width:
                                         MediaQuery.of(context).size.width * 0.6,
-                                    height: 72.0,
+	                                  height: 80.0,
                                     child: ListTile(
                                       contentPadding:
                                           EdgeInsets.fromLTRB(14, 0, 50, 0),

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
+import 'package:seemur_v1/models/user_model.dart';
 import 'package:seemur_v1/screens/admin/add_client.dart';
 import 'package:seemur_v1/screens/user/perfil.dart';
 
@@ -17,7 +18,7 @@ class CheckRoles extends StatefulWidget {
 
 class _CheckRolesState extends State<CheckRoles> {
   StreamController<String> streamController = new StreamController();
-  String usuario = 'Usuario'; //user
+  String _usuario = 'Usuario'; //user
   String usuarioEmail = 'Email'; //userEmail
   String id;
   @override
@@ -25,7 +26,7 @@ class _CheckRolesState extends State<CheckRoles> {
     super.initState();
     widget.auth.infoUser().then((onValue) {
       setState(() {
-        usuario = onValue.displayName;
+	      _usuario = onValue.displayName;
         usuarioEmail = onValue.email;
         id = onValue.uid;
         print('ID $id');
@@ -69,9 +70,11 @@ class _CheckRolesState extends State<CheckRoles> {
         auth: Auth(),
       );
     } else {
-      return PerfilPage(
-        auth: Auth(),
-      );
+	    Usuario usuario = Usuario.fromDoc(snapshot);
+	    return PerfilPage(
+		    auth: Auth(),
+		    usuario: usuario,
+	    );
     }
   }
 }

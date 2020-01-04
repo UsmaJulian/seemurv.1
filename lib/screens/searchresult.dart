@@ -111,7 +111,10 @@ class _SearchResultState extends State<SearchResult> {
             } else {
               return Center(child: new CircularProgressIndicator());
             }
-          }),
+            return Container(
+            );
+          },
+      ),
     );
   }
 }

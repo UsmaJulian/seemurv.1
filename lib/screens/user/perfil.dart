@@ -4,32 +4,79 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/clients_body.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/login_admin/root_page.dart';
 import 'package:seemur_v1/models/user_model.dart';
 import 'package:seemur_v1/screens/notificaciones_page.dart';
-import 'package:seemur_v1/utilidades/constantes.dart';
+import 'package:seemur_v1/services/databaseService.dart';
+import 'package:seemur_v1/services/storageService.dart';
 
 class PerfilPage extends StatefulWidget {
-  PerfilPage({this.auth, this.datos});
+	PerfilPage({this.auth, this.datos, this.usuario});
 
   final BaseAuth auth;
   final datos;
-
+	final Usuario usuario;
   @override
   _PerfilPageState createState() => _PerfilPageState();
 }
 
 class _PerfilPageState extends State<PerfilPage> {
-  String usuario = 'Usuario'; //user
+	String usuarioName = 'Usuario'; //user
   String usuarioEmail = 'Email'; //userEmail
   String id;
   AuthStatus authStatus = AuthStatus.notSignIn;
   int _widgetIndex = 0;
-
-  File foto;
+	
+	File _foto;
+	
+	_displayProfileImage() {
+		// No new profile image
+		if (_foto == null) {
+			// No existing profile image
+			if (widget.usuario.foto.isEmpty) {
+				// Display placeholder
+				return AssetImage('assets/images/Contenedordeimagenes.jpg');
+			} else {
+				// User profile image exists
+				return CachedNetworkImageProvider(widget.usuario.foto);
+			}
+		} else {
+			// New profile image
+			return FileImage(_foto);
+		}
+	}
+	
+	_submit() async {
+		//update User in database
+		String _imagen = '';
+		if (_foto == null) {
+			_imagen = widget.usuario.foto;
+		} else {
+			_imagen = await StorageService.uploadUserProfileImage(
+					widget.usuario.foto, _foto);
+		}
+	}
+	
+	_handleImageFromGallery() async {
+		File imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+		
+		if (imageFile != null) {
+			setState(() {
+				_foto = imageFile;
+			});
+			Usuario usuario = Usuario(
+				uid: widget.usuario.uid,
+				nombre: usuarioName,
+				foto: widget.usuario.foto,
+			);
+			// Database update
+			DatabaseService.updateUser(usuario);
+		}
+	}
 
   void signOut() async {
     setState(() {
@@ -42,9 +89,10 @@ class _PerfilPageState extends State<PerfilPage> {
     super.initState();
     widget.auth.infoUser().then((onValue) {
       setState(() {
-        usuario = onValue.displayName;
+	      usuarioName = onValue.displayName;
         usuarioEmail = onValue.email;
         id = onValue.uid;
+
         print('ID $id');
       });
     });
@@ -78,27 +126,24 @@ class _PerfilPageState extends State<PerfilPage> {
             child: Center(
               child: Column(
                 children: <Widget>[
-	                FutureBuilder(
-		                future: usersRef.document(id).get(),
-		                builder: (BuildContext context, AsyncSnapshot snapshot) {
-			                if (!snapshot.hasData) {
-				                return Center(
-					                child: CircularProgressIndicator(),
-				                );
-			                }
-			                Usuario usuario = Usuario.fromDoc(snapshot.data);
-			                return CircleAvatar(
-					                radius: 60.0,
-					                backgroundColor: Colors.grey,
-					                backgroundImage: usuario.foto.isEmpty
-							                ? AssetImage(
-							                'assets/images/Contenedordeimagenes.jpg')
-							                : CachedNetworkImageProvider(usuario.foto));
+	                InkWell(
+		                onTap: () {
+			                _handleImageFromGallery();
 		                },
-                  ),
+		                child: CircleAvatar(
+			                radius: 60.0,
+			                backgroundColor: Colors.grey,
+			                backgroundImage: _displayProfileImage(),
+		                ),
+	                ),
+	                RaisedButton(
+			                onPressed: () {
+				                _submit();
+			                },
+			                child: Text('subir')),
                   Padding(
                     padding: const EdgeInsets.only(top: 24.0),
-                    child: Text('Hola,' + '$usuario',
+	                  child: Text('Hola,' + '$usuarioName',
                         style: TextStyle(
                           fontFamily: 'HankenGrotesk',
                           color: Color(0xff000000),
@@ -510,14 +555,5 @@ class _PerfilPageState extends State<PerfilPage> {
         },
       ),
     );
-  }
-
-  subirImagen(String imageurl) {
-    setState(() {
-      Firestore.instance
-          .collection('usuarios')
-          .document(id)
-          .updateData({'imagen': imageurl.toString()});
-    });
   }
 }

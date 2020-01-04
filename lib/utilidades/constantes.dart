@@ -8,4 +8,4 @@ final clientsRef = _firestore.collection('client');
 final calificarRef = _firestore.collection('calificar');
 final ciudadesRef = _firestore.collection('ciudades');
 final eventoRef = _firestore.collection('evento');
-final filtroRef = _firestore.collection('filtros');
+final filtroRef = _firestore.collection('filtros').getDocuments();

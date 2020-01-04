@@ -255,7 +255,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 																					BorderRadius.circular(26)),
 																			margin:
 																			EdgeInsets.symmetric(vertical: 30.0),
-																			height: 125,
+																			height: 130,
 																			child: ListView(
 																				scrollDirection: Axis.horizontal,
 																				children: <Widget>[

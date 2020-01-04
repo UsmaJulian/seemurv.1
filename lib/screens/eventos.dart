@@ -50,7 +50,7 @@ class _ProximosEventosPageState extends State<ProximosEventosPage> {
                     height: 25.0,
                   ),
                   SizedBox(
-                    height: 130,
+	                  height: 135,
                     child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (ctx, idx) {

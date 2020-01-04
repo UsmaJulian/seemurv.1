@@ -176,8 +176,10 @@ class FiltrosPage extends StatelessWidget {
                     AmbienteSelectionScreen(),
                     RestauranteSelectionScreen(),
                     BarDiscoCervSelectionScreen(),
-                    CaracteristicaSelectionScreen(),RadioListBuilder(),
-                    RangoPreciosPage(),CheckListBuilder())),
+		                CaracteristicaSelectionScreen(),
+		                RadioListBuilder(),
+		                RangoPreciosPage(),
+		                CheckListBuilder())),
             SizedBox(
               width: 300,
               height: 50,
