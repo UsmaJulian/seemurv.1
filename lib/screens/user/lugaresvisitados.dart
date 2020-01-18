@@ -6,6 +6,7 @@ import 'package:seemur_v1/components/widgets/clients_body.dart';
 
 class LugaresVistadosPage extends StatefulWidget {
   final BaseAuth auth;
+
   LugaresVistadosPage({this.auth});
 
   _LugaresVistadosPageState createState() => _LugaresVistadosPageState();
@@ -62,9 +63,12 @@ class _LugaresVistadosPageState extends State<LugaresVistadosPage> {
             Text('Loading');
           } else {
             return ListView.builder(
-              addAutomaticKeepAlives: true,
               itemCount: snapshot.data.documents.length,
               itemBuilder: (BuildContext context, index) {
+                Set<String> listaVisitados = Set<String>();
+                listaVisitados.add(snapshot.data.documents[index]['taskname']);
+  
+                print(listaVisitados);
                 return Row(
                   children: <Widget>[
                     Padding(

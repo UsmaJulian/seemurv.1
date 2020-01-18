@@ -60,9 +60,8 @@ class _LugaresFavoritosPageState extends State<LugaresFavoritosPage> {
           if (!snapshot.hasData) {
             Text('Loading');
           } else {
-	          return Flexible(
-		          child: ListView.builder(
-			          addAutomaticKeepAlives: true,
+	          return ListView.builder(
+			         
 			          itemCount: snapshot.data.documents.length,
 			          itemBuilder: (BuildContext context, index) {
 				          return Row(
@@ -117,8 +116,7 @@ class _LugaresFavoritosPageState extends State<LugaresFavoritosPage> {
 					          ],
 				          );
 			          },
-		          ),
-            );
+	          );
           }
           return Container();
         },

@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CheckListBuilder extends StatefulWidget {
   final int num;
 
-  const CheckListBuilder({Key key, this.num}) : super(key: key);
+  const CheckListBuilder({Key key, this.num});
 
   @override
   CheckListBuilderState createState() {
@@ -21,7 +21,9 @@ class CheckListBuilderState extends State<CheckListBuilder> {
   @override
   Future<String> getPagos() async {
 	  SharedPreferences prefs = await SharedPreferences.getInstance();
-	  String pagos = await prefs.getString("formas de pago");
+	
+	  String pagos = await prefs.getString('hola');
+	
 	
 	  return pagos;
   }

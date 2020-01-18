@@ -8,12 +8,22 @@ import 'package:seemur_v1/utilidades/constantes.dart';
 
 class Filtrosresult extends StatefulWidget {
   final BaseAuth auth;
-  final newList;
+  final miplans;
+  final misAmbients;
+  final misrestaurantes;
+  final misBares;
+  final misCaracteristicas;
+  final mishoras;
+  final misRangoPrecios;
 
-  Filtrosresult({
-    this.auth,
-    this.newList,
-  });
+  Filtrosresult({this.auth,
+	  this.miplans,
+	  this.misAmbients,
+	  this.misrestaurantes,
+	  this.misBares,
+	  this.misCaracteristicas,
+	  this.mishoras,
+	  this.misRangoPrecios});
 
   @override
   _FiltrosresultState createState() => _FiltrosresultState();
@@ -91,11 +101,6 @@ class _FiltrosresultState extends State<Filtrosresult>
 
   @override
   Widget build(BuildContext context) {
-    var lista = widget.newList;
-
-    for (var i = 0; i < lista.length; i++) {
-      lista[i] = "'${lista[i]}'";
-    }
     return Scaffold(
       body: Container(
         child: Column(
@@ -136,10 +141,11 @@ class _FiltrosresultState extends State<Filtrosresult>
                             return CircleAvatar(
                                 radius: 40.0,
                                 backgroundColor: Colors.grey,
-                                backgroundImage: usuario.foto.isEmpty
+		                            backgroundImage: usuario.profileImageUrl.isEmpty
                                     ? AssetImage(
                                         'assets/images/Contenedordeimagenes.jpg')
-                                    : CachedNetworkImageProvider(usuario.foto));
+				                            : CachedNetworkImageProvider(
+				                            usuario.profileImageUrl));
                           },
                         ),
                       ],
@@ -196,20 +202,20 @@ class _FiltrosresultState extends State<Filtrosresult>
             StreamBuilder(
                 stream: Firestore.instance
                     .collection('client')
-                    .where('taskplans', arrayContainsAny: lista)
-                    //             .where('taskenvironments', arrayContainsAny: (lista))
-                    //                .where('taskservices', isGreaterThanOrEqualTo:[(widget.newList.toString().replaceAll("[", "").replaceAll("]", ""))])
-//                  .where('tasktags',isGreaterThanOrEqualTo:[(widget.newList.toString().replaceAll("[", "").replaceAll("]", ""))])
-                    //               .where('taskfeatures',
-//                 isGreaterThanOrEqualTo:[(widget.newList.toString().replaceAll("[", "").replaceAll("]", ""))])
-//                  .where('tasktime',  isGreaterThanOrEqualTo:[(widget.newList.toString().replaceAll("[", "").replaceAll("]", ""))])
-//                  .where('taskprice', isGreaterThanOrEqualTo:[(widget.newList.toString().replaceAll("[", "").replaceAll("]", ""))])
+                //.where('taskenvironments',
+                //  arrayContainsAny: widget.misAmbients)
+//                    .where('taskservices',
+//                        isGreaterThanOrEqualTo: widget.misrestaurantes)
+                //.where('tasktags', isEqualTo: widget.misBares)
+//                  .where('taskfeatures',
+//                        isLessThan: widget.misCaracteristicas)
+//                    .where('tasktime', isEqualTo: widget.mishoras)
+                //.where('taskprice', isEqualTo: widget.misRangoPrecios)
 //                 .where('taskpayment', isGreaterThanOrEqualTo:[(widget.newList.toString().replaceAll("[", "").replaceAll("]", ""))])
                     .snapshots(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data != null) {
-                      print('hola' + lista);
                       return Flexible(
                         child: ListView.builder(
                           itemCount: snapshot.data.documents.length,
@@ -218,6 +224,15 @@ class _FiltrosresultState extends State<Filtrosresult>
                               children: <Widget>[
                                 Text(snapshot.data.documents[index]['taskname']
                                     .toString()),
+	                              Text(snapshot.data.documents[index]['taskplans']
+			                              .toString()),
+	                              Text(snapshot
+			                              .data.documents[index]['taskenvironments']
+			                              .toString()),
+	                              Text(snapshot
+			                              .data.documents[index]['taskservices']
+			                              .toString()),
+	                              Divider()
                               ],
                             );
                           },

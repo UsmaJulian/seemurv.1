@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
           email: _email,
           password: _password,
           telefono: _telefono,
-          foto: _urlFoto,
+	        profileImageUrl: _urlFoto,
         );
         String userId = await widget.auth.signUpEmailPassword(usuario);
         print('Usuario logueado : $userId'); //ok

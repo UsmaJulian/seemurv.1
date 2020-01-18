@@ -101,11 +101,12 @@ class _PreferencesPageState extends State<PreferencesPage> {
 																	return CircleAvatar(
 																			radius: 20.0,
 																			backgroundColor: Colors.grey,
-																			backgroundImage: usuario.foto.isEmpty
+																			backgroundImage: usuario.profileImageUrl
+																					.isEmpty
 																					? AssetImage(
 																					'assets/images/Contenedordeimagenes.jpg')
 																					: CachedNetworkImageProvider(
-																					usuario.foto));
+																					usuario.profileImageUrl));
 																},
 															),
 															SizedBox(

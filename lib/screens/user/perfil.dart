@@ -15,68 +15,74 @@ import 'package:seemur_v1/services/databaseService.dart';
 import 'package:seemur_v1/services/storageService.dart';
 
 class PerfilPage extends StatefulWidget {
-	PerfilPage({this.auth, this.datos, this.usuario});
+  PerfilPage({this.auth, this.datos, this.usuario});
 
   final BaseAuth auth;
   final datos;
-	final Usuario usuario;
+  final Usuario usuario;
+
   @override
   _PerfilPageState createState() => _PerfilPageState();
 }
 
 class _PerfilPageState extends State<PerfilPage> {
-	String usuarioName = 'Usuario'; //user
+  String usuarioName = 'Usuario'; //user
   String usuarioEmail = 'Email'; //userEmail
   String id;
   AuthStatus authStatus = AuthStatus.notSignIn;
   int _widgetIndex = 0;
-	
-	File _foto;
-	
-	_displayProfileImage() {
-		// No new profile image
-		if (_foto == null) {
-			// No existing profile image
-			if (widget.usuario.foto.isEmpty) {
-				// Display placeholder
-				return AssetImage('assets/images/Contenedordeimagenes.jpg');
-			} else {
-				// User profile image exists
-				return CachedNetworkImageProvider(widget.usuario.foto);
-			}
-		} else {
-			// New profile image
-			return FileImage(_foto);
-		}
-	}
-	
-	_submit() async {
-		//update User in database
-		String _imagen = '';
-		if (_foto == null) {
-			_imagen = widget.usuario.foto;
-		} else {
-			_imagen = await StorageService.uploadUserProfileImage(
-					widget.usuario.foto, _foto);
-		}
-	}
-	
-	_handleImageFromGallery() async {
-		File imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
-		
-		if (imageFile != null) {
-			setState(() {
-				_foto = imageFile;
-			});
-			Usuario usuario = Usuario(
-				uid: widget.usuario.uid,
-				nombre: usuarioName,
-				foto: widget.usuario.foto,
-			);
-			// Database update
-			DatabaseService.updateUser(usuario);
-		}
-	}
+  
+  File _profileImage;
+  
+  _handleImageFromGallery() async {
+    File imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+    
+    if (imageFile != null) {
+      setState(() {
+        _profileImage = imageFile;
+      });
+    }
+  }
+  
+  _displayProfileImage() {
+    // No new profile image
+    if (_profileImage == null) {
+      // No existing profile image
+      if (widget.usuario.profileImageUrl.isEmpty) {
+        // Display placeholder
+        return AssetImage('assets/images/Contenedordeimagenes.jpg');
+      } else {
+        // User profile image exists
+        return CachedNetworkImageProvider(widget.usuario.profileImageUrl);
+      }
+    } else {
+      // New profile image
+      return FileImage(_profileImage);
+    }
+  }
+  
+  _submit() async {
+    // Update user in database
+    String _profileImageUrl = '';
+    
+    if (_profileImage == null) {
+      _profileImageUrl = widget.usuario.profileImageUrl;
+    } else {
+      _profileImageUrl = await StorageService.uploadUserProfileImage(
+        widget.usuario.profileImageUrl,
+        _profileImage,
+      );
+    }
+    
+    Usuario usuario = Usuario(
+      uid: widget.usuario.uid,
+      profileImageUrl: _profileImageUrl,
+    );
+    // Database update
+    DatabaseService.updateUsuario(usuario);
+    
+    Navigator.pop(context);
+  }
 
   void signOut() async {
     setState(() {
@@ -89,7 +95,7 @@ class _PerfilPageState extends State<PerfilPage> {
     super.initState();
     widget.auth.infoUser().then((onValue) {
       setState(() {
-	      usuarioName = onValue.displayName;
+        usuarioName = onValue.displayName;
         usuarioEmail = onValue.email;
         id = onValue.uid;
 
@@ -126,24 +132,24 @@ class _PerfilPageState extends State<PerfilPage> {
             child: Center(
               child: Column(
                 children: <Widget>[
-	                InkWell(
-		                onTap: () {
-			                _handleImageFromGallery();
-		                },
-		                child: CircleAvatar(
-			                radius: 60.0,
-			                backgroundColor: Colors.grey,
-			                backgroundImage: _displayProfileImage(),
-		                ),
-	                ),
-	                RaisedButton(
-			                onPressed: () {
-				                _submit();
-			                },
-			                child: Text('subir')),
+                  InkWell(
+                    onTap: () {
+                      _handleImageFromGallery();
+                    },
+                    child: CircleAvatar(
+                      radius: 60.0,
+                      backgroundColor: Colors.grey,
+                      backgroundImage: _displayProfileImage(),
+                    ),
+                  ),
+                  RaisedButton(
+                      onPressed: () {
+                        _submit();
+                      },
+                      child: Text('subir')),
                   Padding(
                     padding: const EdgeInsets.only(top: 24.0),
-	                  child: Text('Hola,' + '$usuarioName',
+                    child: Text('Hola,' + '$usuarioName',
                         style: TextStyle(
                           fontFamily: 'HankenGrotesk',
                           color: Color(0xff000000),
@@ -361,9 +367,8 @@ class _PerfilPageState extends State<PerfilPage> {
                             borderRadius: BorderRadius.circular(8)),
                         child: FutureBuilder(
                           future: Firestore.instance
-                              .collection('usuarios')
-                              .document(id)
                               .collection('calificar')
+                              .where('uid', isEqualTo: id)
                               .getDocuments(),
                           builder:
                               (BuildContext context, AsyncSnapshot snapshot) {
@@ -457,8 +462,8 @@ class _PerfilPageState extends State<PerfilPage> {
       ),
     );
   }
-
-  botonresenas() {
+  
+  Widget botonresenas() {
     return Container(
       height: 32,
       width: 88,
@@ -490,8 +495,8 @@ class _PerfilPageState extends State<PerfilPage> {
       ),
     );
   }
-
-  botonfavoritos(BuildContext context) {
+  
+  Widget botonfavoritos(BuildContext context) {
     return Container(
       height: 32,
       width: 88,
@@ -523,8 +528,8 @@ class _PerfilPageState extends State<PerfilPage> {
       ),
     );
   }
-
-  botonvisitados() {
+  
+  Widget botonvisitados() {
     return Container(
       height: 32,
       width: 88,

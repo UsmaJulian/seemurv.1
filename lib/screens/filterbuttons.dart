@@ -43,8 +43,6 @@ class FiltrosBotones extends StatefulWidget {
 }
 
 class _FiltrosBotonesState extends State<FiltrosBotones> {
-  var sinamb = ['Solo'];
-  
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -88,47 +86,47 @@ class _FiltrosBotonesState extends State<FiltrosBotones> {
                 widget.radioListBuilder = new RadioListBuilder();
                 widget.rangoPreciosPage = new RangoPreciosPage();
                 widget.checkListBuilder = new CheckListBuilder();
-                
+
                 List<String> miPlans = widget.planesSelectionScreen
                     .createState()
                     .getSelectedPlanes();
                 List<String> misAmbients = widget.ambienteSelectionScreen
                     .createState()
                     .getSelectedAmbientes();
-                
+
                 List<String> misrestaurantes = widget.restauranteSelectionScreen
                     .createState()
                     .getSelectedRestaurantes();
-                
+
                 List<String> misBares = widget.barDiscoCervSelectionScreen
                     .createState()
                     .getSelectedBarDiscoCerv();
-                
+
                 List<String> misCaracteristicas = widget
                     .caracteristicaSelectionScreen
                     .createState()
                     .getSelectedCaracteristica();
-                
+
                 Future<List<double>> misRangoPrecios = widget.rangoPreciosPage
                     .createState()
                     .getSelectedRangoPrecios();
-                
+
                 Future<String> mishoras =
                 widget.radioListBuilder.createState().getAbierto();
-                
+
                 Future<String> misPagos =
                 widget.checkListBuilder.createState().getPagos();
-                
+
                 var newList = new List.from(miPlans)
-                  ..addAll(misAmbients)..addAll(misrestaurantes)..addAll(
-                      misBares)..addAll(misCaracteristicas)
+	                ..addAll(misAmbients)..addAll(misrestaurantes)..addAll(
+			                misBares)..addAll(misCaracteristicas)
                   ..add(await mishoras)
                   ..addAll(await misRangoPrecios)
                 //..add(await misPagos)
-                    ;
-                
+		                ;
+
                 FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-                
+
                 FirebaseUser user = await _firebaseAuth.currentUser();
                 print(miPlans);
                 await Firestore.instance
@@ -143,16 +141,21 @@ class _FiltrosBotonesState extends State<FiltrosBotones> {
                 }).catchError((e) {
                   print(e);
                 });
-                
+
                 print("Mis Planes a filtrar: " + newList.toString());
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            Filtrosresult(
-                              auth: Auth(),
-                              newList: newList,
-                            )));
+		                    builder: (context) =>
+				                    Filtrosresult(
+						                    auth: Auth(),
+						                    miplans: miPlans,
+						                    misAmbients: misAmbients,
+						                    misrestaurantes: misrestaurantes,
+						                    misBares: misBares,
+						                    misCaracteristicas: misCaracteristicas,
+						                    mishoras: mishoras,
+						                    misRangoPrecios: misRangoPrecios)));
               },
               child: Text('Filtrar',
                   style: new TextStyle(

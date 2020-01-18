@@ -162,11 +162,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 																						radius: 40.0,
 																						backgroundColor: Colors.grey,
 																						backgroundImage: usuario
-																								.foto.isEmpty
+																								.profileImageUrl.isEmpty
 																								? AssetImage(
 																								'assets/images/Contenedordeimagenes.jpg')
 																								: CachedNetworkImageProvider(
-																								usuario.foto));
+																								usuario.profileImageUrl));
 																			},
 																		),
 																	],
