@@ -10,7 +10,7 @@ class RestauranteService {
 
   List<Restaurante> allRestaurante = [
     Restaurante(11, 'Desayuno'),
-    Restaurante(12, 'Brunch'),
+	  //Restaurante(12, 'Brunch'),
     Restaurante(13, 'Almuerzos'),
     Restaurante(14, 'Onces'),
     Restaurante(15, 'Cena'),

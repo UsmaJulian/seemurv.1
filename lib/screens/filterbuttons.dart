@@ -16,8 +16,7 @@ import 'package:seemur_v1/screens/restaurantesscreen.dart';
 class FiltrosBotones extends StatefulWidget {
   final BaseAuth auth;
 
-  FiltrosBotones(
-      PlanesSelectionScreen planesSelectionScreen,
+  FiltrosBotones(//PlanesSelectionScreen planesSelectionScreen,
       AmbienteSelectionScreen ambienteSelectionScreen,
       RestauranteSelectionScreen restauranteSelectionScreen,
       BarDiscoCervSelectionScreen barDiscoCervSelectionScreen,

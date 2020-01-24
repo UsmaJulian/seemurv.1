@@ -9,7 +9,7 @@ class CaracteristicaService {
   CaracteristicaService._internal();
 
   List<Caracteristica> allCaracteristica = [
-    Caracteristica(25, 'Pet Friendly'),
+	  Caracteristica(25, 'Aceptan Mascotas'),
     Caracteristica(26, 'Acceso silla de ruedas'),
     Caracteristica(27, 'Estacionamiento'),
     Caracteristica(28, 'Wi-fi'),

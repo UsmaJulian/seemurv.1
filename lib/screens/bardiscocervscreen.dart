@@ -145,7 +145,7 @@ class _BarDiscoCervSelectionScreenState
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: SelectedBarDiscoCervChip(
                         bardiscocerv: bardiscocerv,
-                        color: getSelectableBarDiscoCervColor(bardiscocerv.id),
+	                      color: _getSelectableBarDiscoCervColor(bardiscocerv.id),
                       )),
                 ),
               );
@@ -297,7 +297,7 @@ class _BarDiscoCervSelectionScreenState
     return 1.0;
   }
 
-  getSelectedPlanColor(int id) {
+  _getSelectableBarDiscoCervColor(int id) {
     if (id == selectedBarDiscoCerv.last.id &&
         noClippedSelectedBarDiscoCerv > 0) {
       return _clippedBarDiscoCervColorAnim.value;

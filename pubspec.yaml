@@ -43,6 +43,7 @@ dependencies:
   cached_network_image: ^2.0.0-rc.1
   flutter_image_compress: ^0.6.3
   uuid: ^2.0.4
+  flutter_swiper: ^1.1.6
 
 
 
@@ -65,9 +66,6 @@ flutter_icons:
 
 flutter:
   fonts:
-     - family: CupertinoIcons
-       fonts:
-         - asset: assets/CupertinoIcons.ttf
      - family: HankenGrotesk
        fonts:
          - asset: fonts/HankenGrotesk-Regular.ttf
@@ -94,6 +92,7 @@ flutter:
          - asset: fonts/OpenSans-SemiBoldItalic.ttf
   uses-material-design: true
   assets:
+    - assets/
         - assets/images/
         - assets/seemurIsotipo.png
         - assets/logoSombrero.png

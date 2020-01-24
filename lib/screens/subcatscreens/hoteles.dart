@@ -146,7 +146,7 @@ class _ListHotelesState extends State<ListHoteles> {
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 70,
-            child: NavigatorBar(),
+	          child: NavigatorBar(navCallback: (i) => print("Navigating to $i")),
           ),
         ),
       ],

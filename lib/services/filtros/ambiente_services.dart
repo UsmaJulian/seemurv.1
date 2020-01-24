@@ -8,7 +8,7 @@ class AmbienteService {
   AmbienteService._internal();
 
   List<Ambiente> allAmbiente = [
-    Ambiente(6, 'Bohemio'),
+	  //Ambiente(6, 'Bohemio'),
     Ambiente(7, 'Tranquilo'),
     Ambiente(8, 'Familiar'),
     Ambiente(9, 'Concurrido'),

@@ -65,11 +65,7 @@ class _LugaresVistadosPageState extends State<LugaresVistadosPage> {
             return ListView.builder(
               itemCount: snapshot.data.documents.length,
               itemBuilder: (BuildContext context, index) {
-                Set<String> listaVisitados = Set<String>();
-                listaVisitados.add(snapshot.data.documents[index]['taskname']);
-  
-                print(listaVisitados);
-                return Row(
+	              return Row(
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 16.0),

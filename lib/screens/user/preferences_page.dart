@@ -398,7 +398,8 @@ class _PreferencesPageState extends State<PreferencesPage> {
 									.size
 									.width,
 							height: 70,
-							child: NavigatorBar(),
+							child: NavigatorBar(
+									navCallback: (i) => print("Navigating to $i")),
 						),
 					],
 				),

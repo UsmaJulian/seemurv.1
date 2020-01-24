@@ -44,6 +44,7 @@ class _CalificarPageState extends State<CalificarPage> {
   String logos;
   String usuarioEmail = 'Email'; //userEmail
   String id;
+
   @override
   void initState() {
     super.initState();
@@ -218,7 +219,7 @@ class _CalificarPageState extends State<CalificarPage> {
           .collection('usuarios')
           .document(id)
           .collection('mis calificaciones')
-          .document()
+          .document(widget.datos['taskname'].toString())
           .setData({
         'taskname': widget.datos['taskname'].toString(),
         'rating': rating.toStringAsFixed(1)

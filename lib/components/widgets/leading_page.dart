@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
-import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/screens/home.dart';
 
 class CommonThings {
@@ -43,7 +42,7 @@ class _LeadingPageState extends State<LeadingPage> {
         //   child: Container(
         //     width: MediaQuery.of(context).size.width,
         //     height: 70,
-        //     //child: NavigatorBar(),
+	      //     //child: NavigatorBar(navCallback: (i) => print("Navigating to $i")),
         //   ),
         //),
       ]),

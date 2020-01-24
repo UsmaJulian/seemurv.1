@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -680,7 +681,8 @@ class _ClientAddPageState extends State<ClientAddPage> {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 70,
-                child: NavigatorBar(),
+	              child: NavigatorBar(
+			              navCallback: (i) => print("Navigating to $i")),
               ),
             ),
           ],

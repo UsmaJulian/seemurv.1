@@ -143,7 +143,7 @@ getSelectedRestaurantes();
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: SelectedRestauranteChip(
                         restaurante: restaurante,
-                        color: getSelectableRestauranteColor(restaurante.id),
+	                      color: _getSelectedRestauranteColor(restaurante.id),
                       )),
                 ),
               );
@@ -293,7 +293,7 @@ getSelectedRestaurantes();
     return 1.0;
   }
 
-  _getSelectedPlanColor(int id) {
+  _getSelectedRestauranteColor(int id) {
     if (id == selectedRestaurante.last.id && noClippedSelectedRestaurante > 0) {
       return _clippedRestauranteColorAnim.value;
     }

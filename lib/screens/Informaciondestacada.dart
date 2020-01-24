@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/screens/user/lugaresfavoritos.dart';
@@ -174,7 +173,8 @@ class _InfoDestacadaPageState extends State<InfoDestacadaPage> {
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: 70,
-              child: NavigatorBar(),
+	            child: NavigatorBar(
+			            navCallback: (i) => print("Navigating to $i")),
             ),
           ),
         ],

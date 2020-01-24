@@ -5,11 +5,23 @@ import 'package:seemur_v1/screens/bardiscocervscreen.dart';
 import 'package:seemur_v1/screens/caracteristicasscreen.dart';
 import 'package:seemur_v1/screens/filterbuttons.dart';
 import 'package:seemur_v1/screens/formasdepago.dart';
-import 'package:seemur_v1/screens/planesscreen.dart';
 import 'package:seemur_v1/screens/rangoprecios.dart';
 import 'package:seemur_v1/screens/restaurantesscreen.dart';
 
-class FiltrosPage extends StatelessWidget {
+class FiltrosPage extends StatefulWidget {
+	
+	@override
+	_FiltrosPageState createState() => _FiltrosPageState();
+}
+
+class _FiltrosPageState extends State<FiltrosPage> {
+	@override
+	void initState() {
+		setState(() {
+		
+		});
+		super.initState();
+	}
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -46,21 +58,21 @@ class FiltrosPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 32.0, right: 250.0),
-              child: Text(
-                'Planes',
-                style: TextStyle(
-                  fontFamily: 'HankenGrotesk',
-                  color: Color(0xff000000),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: -0.1000000014901161,
-                ),
-              ),
-            ),
-            Container(height: 250, child: PlanesSelectionScreen()),
+	          // Padding(
+	          //   padding: const EdgeInsets.only(top: 32.0, right: 250.0),
+	          //   child: Text(
+	          //     'Planes',
+	          //     style: TextStyle(
+	          //       fontFamily: 'HankenGrotesk',
+	          //       color: Color(0xff000000),
+	          //       fontSize: 20,
+	          //       fontWeight: FontWeight.w700,
+	          //       fontStyle: FontStyle.normal,
+	          //       letterSpacing: -0.1000000014901161,
+	          //     ),
+	          //   ),
+	          // ),
+	          //Container(height: 250, child: PlanesSelectionScreen()),
             Padding(
               padding: const EdgeInsets.only(right: 210.0),
               child: Text(
@@ -172,7 +184,7 @@ class FiltrosPage extends StatelessWidget {
             ),
             Container(
                 child: FiltrosBotones(
-                    PlanesSelectionScreen(),
+	                //PlanesSelectionScreen(),
                     AmbienteSelectionScreen(),
                     RestauranteSelectionScreen(),
                     BarDiscoCervSelectionScreen(),

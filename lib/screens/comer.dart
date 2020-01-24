@@ -55,7 +55,7 @@ class _ComerPageState extends State<ComerPage> {
             .size
             .width,
         height: 70,
-        child: NavigatorBar(),
+	      child: NavigatorBar(navCallback: (i) => print("Navigating to $i")),
       ),
       body: SingleChildScrollView(
         child: Stack(

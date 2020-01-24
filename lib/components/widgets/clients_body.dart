@@ -8,6 +8,8 @@ import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/calificar.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/components/widgets/sharebutton.dart';
+import 'package:seemur_v1/screens/plato_seleccionado_screen.dart';
+import 'package:seemur_v1/utilidades/constantes.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -15,6 +17,7 @@ class ClientBody extends StatefulWidget {
   ClientBody({
     this.datos,
   });
+
   final datos;
 
   @override
@@ -152,7 +155,10 @@ class _ClientBodyState extends State<ClientBody> {
                                                             .document(userID)
                                                             .collection(
                                                                 'visitados')
-                                                            .document()
+                                                            .document(widget
+                                                            .datos[
+                                                        'taskname']
+                                                            .toString())
                                                             .setData({
                                                           'taskname': widget
                                                               .datos['taskname']
@@ -316,8 +322,7 @@ class _ClientBodyState extends State<ClientBody> {
                                                                 snapshot
                                                                     .data
                                                                     .documents[
-                                                                index]
-                                                                [
+                                                                index][
                                                                 'rating']
                                                                     .toString(),
                                                                 style:
@@ -429,7 +434,8 @@ class _ClientBodyState extends State<ClientBody> {
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: 70,
-              child: NavigatorBar(),
+              child:
+              NavigatorBar(navCallback: (i) => print("Navigating to $i")),
             ),
           ),
         ],
@@ -832,7 +838,7 @@ class _ClientBodyState extends State<ClientBody> {
   }
 
   getPlatosRecomendados() {
-    Widget buildRow(String title, int likes) {
+    Widget buildRow(String title, int likes, index) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
@@ -842,7 +848,22 @@ class _ClientBodyState extends State<ClientBody> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Spacer(),
-            Icon(Icons.thumb_up, color: Colors.teal),
+            InkWell(
+              child: Icon(Icons.thumb_up, color: Colors.teal),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            PlatoSeleccionadoPage(
+                                nombrePlato: widget
+                                    .datos['taskrecommendeddishes']
+                                [index],
+                                nombrerestaurante: widget.datos['taskname']
+                                    .toString()
+                                    .replaceAll(new RegExp(r'[^\w\s]+'), ''))));
+              },
+            ),
             SizedBox(width: 10),
             SizedBox(
                 width: 50,
@@ -885,17 +906,20 @@ class _ClientBodyState extends State<ClientBody> {
                     widget.datos['taskrecommendeddishes'][0]
                         .toString()
                         .replaceAll(new RegExp(r'[^\w\s]+'), ''),
-                    1022),
+                    1022,
+                    0),
                 buildRow(
                     widget.datos['taskrecommendeddishes'][1]
                         .toString()
                         .replaceAll(new RegExp(r'[^\w\s]+'), ''),
-                    1022),
+                    1022,
+                    1),
                 buildRow(
                     widget.datos['taskrecommendeddishes'][2]
                         .toString()
                         .replaceAll(new RegExp(r'[^\w\s]+'), ''),
-                    1022),
+                    1022,
+                    2),
 
                 // buildRow("Tempura", 126),
               ],
@@ -910,7 +934,7 @@ class _ClientBodyState extends State<ClientBody> {
           .collection('usuarios')
           .document(userID)
           .collection('favoritos')
-          .document()
+          .document(widget.datos['taskname'].toString())
           .setData({
         'taskname': widget.datos['taskname'].toString(),
         'logos': widget.datos['logos'].toString(),
@@ -938,6 +962,7 @@ class _ClientBodyState extends State<ClientBody> {
 
 class DetailScreen extends StatefulWidget {
   final infoimagen;
+
   DetailScreen({this.infoimagen});
 
   @override
@@ -957,8 +982,7 @@ class _DetailScreenState extends State<DetailScreen> {
               width: MediaQuery.of(context).size.width,
               height: 340,
               fit: BoxFit.fill,
-              placeholder:
-              ('assets/images/Contenedordeimagenes.jpg'),
+              placeholder: ('assets/images/Contenedordeimagenes.jpg'),
               image: (widget.infoimagen),
             ),
           ),

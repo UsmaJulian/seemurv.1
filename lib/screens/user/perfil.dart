@@ -295,7 +295,7 @@ class _PerfilPageState extends State<PerfilPage> {
                                 addAutomaticKeepAlives: true,
                                 itemCount: snapshot.data.documents.length,
                                 itemBuilder: (BuildContext context, index) {
-                                  return Row(
+	                                return Row(
                                     children: <Widget>[
                                       Padding(
                                         padding:
@@ -310,7 +310,7 @@ class _PerfilPageState extends State<PerfilPage> {
                                             placeholder:
                                             ('assets/images/Contenedordeimagenes.jpg'),
                                             image: (snapshot
-                                                .data.documents[index]['logos']
+		                                            .data.documents[index]['logos']
                                                 .toString()),
                                           ),
                                         ),
@@ -375,11 +375,11 @@ class _PerfilPageState extends State<PerfilPage> {
                             if (!snapshot.hasData) {
                               Text('Loading');
                             } else {
-                              return ListView.builder(
+	                            return ListView.builder(
                                 addAutomaticKeepAlives: true,
                                 itemCount: snapshot.data.documents.length,
                                 itemBuilder: (BuildContext context, index) {
-                                  return Row(
+	                                return Row(
                                     children: <Widget>[
                                       Padding(
                                         padding:
@@ -455,7 +455,8 @@ class _PerfilPageState extends State<PerfilPage> {
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: 70,
-              child: NavigatorBar(),
+	            child: NavigatorBar(
+			            navCallback: (i) => print("Navigating to $i")),
             ),
           ),
         ],
@@ -497,7 +498,7 @@ class _PerfilPageState extends State<PerfilPage> {
   }
   
   Widget botonfavoritos(BuildContext context) {
-    return Container(
+	  return Container(
       height: 32,
       width: 88,
       decoration: BoxDecoration(
@@ -519,7 +520,7 @@ class _PerfilPageState extends State<PerfilPage> {
               fontWeight: FontWeight.w700,
             )),
         onPressed: () {
-          _widgetIndex == 1 ? null : setState(() => _widgetIndex = 1);
+	        _widgetIndex == 1 ? null : setState(() => _widgetIndex = 1);
           // Navigator.push(
           //     context,
           //     new MaterialPageRoute(
