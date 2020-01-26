@@ -102,153 +102,254 @@ class _FiltrosresultState extends State<Filtrosresult>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: new BoxDecoration(color: Color(0xff16202c)),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 0, top: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text(
-                          "¿Cuál es tu plan?",
-                          style: TextStyle(
-                            fontFamily: 'HankenGrotesk',
-                            color: Color(0xffffffff),
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
-                            fontStyle: FontStyle.normal,
-                            letterSpacing: -0.4000000059604645,
-                          ),
-                        ),
-                        FutureBuilder(
-                          future: usersRef.document(id).get(),
-                          builder:
-                              (BuildContext context, AsyncSnapshot snapshot) {
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-
-                            Usuario usuario = Usuario.fromDoc(snapshot.data);
-
-                            return CircleAvatar(
-                                radius: 40.0,
-                                backgroundColor: Colors.grey,
-		                            backgroundImage: usuario.profileImageUrl.isEmpty
-                                    ? AssetImage(
-                                        'assets/images/Contenedordeimagenes.jpg')
-				                            : CachedNetworkImageProvider(
-				                            usuario.profileImageUrl));
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 0, left: 0.0, right: 201.0),
-                    child: SizedBox(
-                      width: 100,
-                      child: Theme(
-                        data: Theme.of(context).copyWith(
-                          canvasColor: Color(0xff16202c),
-                        ),
-                        child: DropdownButtonFormField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none, isDense: true),
-
-                          validator: (value) => value == '0'
-                              ? 'Debe seleccionar una ciudad'
-                              : null,
-
-                          value: _itemCiudad,
-
-                          items: _ciudadItems,
-
-                          onChanged: (value) {
-                            setState(() {
-                              _itemCiudad = value;
-                            });
-                          },
-
-                          //seleccionarCiudadItem,
-
-                          onSaved: (value) => _itemCiudad = value,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Column(
-                      children: <Widget>[
-                        SearchBar(),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 12.0,
-                  ),
-                ],
-              ),
-            ),
-            StreamBuilder(
-                stream: Firestore.instance
-                    .collection('client')
-                //.where('taskenvironments',
-                //  arrayContainsAny: widget.misAmbients)
-//                    .where('taskservices',
-//                        isGreaterThanOrEqualTo: widget.misrestaurantes)
-                //.where('tasktags', isEqualTo: widget.misBares)
-//                  .where('taskfeatures',
-//                        isLessThan: widget.misCaracteristicas)
-//                    .where('tasktime', isEqualTo: widget.mishoras)
-                //.where('taskprice', isEqualTo: widget.misRangoPrecios)
-//                 .where('taskpayment', isGreaterThanOrEqualTo:[(widget.newList.toString().replaceAll("[", "").replaceAll("]", ""))])
-                    .snapshots(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data != null) {
-                      return Flexible(
-                        child: ListView.builder(
-                          itemCount: snapshot.data.documents.length,
-                          itemBuilder: (BuildContext context, index) {
-                            return Column(
-                              children: <Widget>[
-                                Text(snapshot.data.documents[index]['taskname']
-                                    .toString()),
-	                              Text(snapshot.data.documents[index]['taskplans']
-			                              .toString()),
-	                              Text(snapshot
-			                              .data.documents[index]['taskenvironments']
-			                              .toString()),
-	                              Text(snapshot
-			                              .data.documents[index]['taskservices']
-			                              .toString()),
-	                              Divider()
-                              ],
-                            );
-                          },
-                        ),
-                      );
-                    } else {
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 28),
-                        child: Center(child: new CircularProgressIndicator()),
-                      );
-                    }
-                  }
-                  return Text('');
-                }),
-          ],
-        ),
+	    body: Stack(
+		    children: <Widget>[
+			    Container(
+				    child: Column(
+					    children: <Widget>[
+						    Container(
+							    width: MediaQuery
+									    .of(context)
+									    .size
+									    .width,
+							    decoration: new BoxDecoration(color: Color(0xff16202c)),
+							    child: Column(
+								    children: <Widget>[
+									    Padding(
+										    padding: const EdgeInsets.only(left: 0, top: 16.0),
+										    child: Row(
+											    mainAxisAlignment: MainAxisAlignment.spaceAround,
+											    children: <Widget>[
+												    Text(
+													    "¿Cuál es tu plan?",
+													    style: TextStyle(
+														    fontFamily: 'HankenGrotesk',
+														    color: Color(0xffffffff),
+														    fontSize: 24,
+														    fontWeight: FontWeight.w700,
+														    fontStyle: FontStyle.normal,
+														    letterSpacing: -0.4000000059604645,
+													    ),
+												    ),
+												    FutureBuilder(
+													    future: usersRef.document(id).get(),
+													    builder: (BuildContext context,
+															    AsyncSnapshot snapshot) {
+														    if (!snapshot.hasData) {
+															    return Center(
+																    child: CircularProgressIndicator(),
+															    );
+														    }
+														
+														    Usuario usuario =
+														    Usuario.fromDoc(snapshot.data);
+														
+														    return CircleAvatar(
+																    radius: 40.0,
+																    backgroundColor: Colors.grey,
+																    backgroundImage: usuario
+																		    .profileImageUrl.isEmpty
+																		    ? AssetImage(
+																		    'assets/images/Contenedordeimagenes.jpg')
+																		    : CachedNetworkImageProvider(
+																		    usuario.profileImageUrl));
+													    },
+												    ),
+											    ],
+										    ),
+									    ),
+									    Padding(
+										    padding: const EdgeInsets.only(
+												    top: 0, left: 0.0, right: 201.0),
+										    child: SizedBox(
+											    width: 100,
+											    child: Theme(
+												    data: Theme.of(context).copyWith(
+													    canvasColor: Color(0xff16202c),
+												    ),
+												    child: DropdownButtonFormField(
+													    decoration: InputDecoration(
+															    border: InputBorder.none, isDense: true),
+													
+													    validator: (value) =>
+													    value == '0'
+															    ? 'Debe seleccionar una ciudad'
+															    : null,
+													
+													    value: _itemCiudad,
+													
+													    items: _ciudadItems,
+													
+													    onChanged: (value) {
+														    setState(() {
+															    _itemCiudad = value;
+														    });
+													    },
+													
+													    //seleccionarCiudadItem,
+													
+													    onSaved: (value) => _itemCiudad = value,
+												    ),
+											    ),
+										    ),
+									    ),
+									    Padding(
+										    padding: const EdgeInsets.only(top: 8.0),
+										    child: Column(
+											    children: <Widget>[
+												    SearchBar(),
+											    ],
+										    ),
+									    ),
+									    SizedBox(
+										    height: 12.0,
+									    ),
+								    ],
+							    ),
+						    ),
+						    StreamBuilder(
+								    initialData: [],
+								    stream: Firestore.instance
+										    .collection('client')
+										    .where('taskenvironments',
+										    arrayContainsAny: widget.misAmbients)
+								
+								    //                    .where('taskservices',
+								
+								    //                        isGreaterThanOrEqualTo: widget.misrestaurantes)
+								
+								    //.where('tasktags', isEqualTo: widget.misBares)
+								
+								    //                  .where('taskfeatures',
+								
+								    //                        isLessThan: widget.misCaracteristicas)
+								
+								    //                    .where('tasktime', isEqualTo: widget.mishoras)
+								
+								    //.where('taskprice', isEqualTo: widget.misRangoPrecios)
+								
+								    //                 .where('taskpayment', isGreaterThanOrEqualTo:[(widget.newList.toString().replaceAll("[", "").replaceAll("]", ""))])
+										
+										    .snapshots(),
+								    builder: (BuildContext context, AsyncSnapshot snapshot) {
+									    if (snapshot.hasData) {
+										    if (snapshot.data != null) {
+											    return Flexible(
+												    child: ListView.builder(
+													    itemCount: snapshot.data.documents.length,
+													    itemBuilder: (BuildContext context, index) {
+														    return ListTile(
+															    leading: ClipRRect(
+																    borderRadius: BorderRadius.circular(8),
+																    child: FadeInImage.assetNetwork(
+																	    width: 46,
+																	    height: 46,
+																	    fit: BoxFit.cover,
+																	    placeholder:
+																	    ('assets/images/Contenedordeimagenes.jpg'),
+																	    image: snapshot
+																			    .data.documents[index]['logos']
+																			    .toString(),
+																    ),
+															    ),
+															    title: Padding(
+																    padding: const EdgeInsets.only(top: 10),
+																    child: Container(
+																	    child: Text(
+																		    snapshot.data.documents[index]
+																		    ['taskname'],
+																		    style: TextStyle(
+																			    fontFamily: 'HankenGrotesk',
+																			    color: Color(0xff000000),
+																			    fontSize: 15,
+																			    fontWeight: FontWeight.w700,
+																			    fontStyle: FontStyle.normal,
+																			    letterSpacing: -0.5,
+																		    ),
+																	    ),
+																    ),
+															    ),
+															    subtitle: Container(
+																    width: MediaQuery
+																		    .of(context)
+																		    .size
+																		    .width,
+																    child: Column(
+																	    children: <Widget>[
+																		    Padding(
+																			    padding:
+																			    const EdgeInsets.only(top: 12.0),
+																			
+																			    // child: Align(
+																			
+																			    //   alignment: Alignment.centerLeft,
+																			
+																			    //   child:
+																			
+																			    //   //  SmoothStarRating(
+																			
+																			    //   //   borderColor: Color(0xff16202C),
+																			
+																			    //   //   color: Color(0xfff5af00),
+																			
+																			    //   //   allowHalfRating: true,
+																			
+																			    //   //   rating: double.parse(snapshot
+																			
+																			    //   //       .data.documents[index]['rating']),
+																			
+																			    //   //   size: 13.0,
+																			
+																			    //   //   starCount: 5,
+																			
+																			    //   //   spacing: 2.0,
+																			
+																			    //   // ),
+																			
+																			    // ),
+																		    ),
+																		    Padding(
+																			    padding:
+																			    const EdgeInsets.only(top: 16.0),
+																			    child: Align(
+																				    alignment: Alignment.centerLeft,
+																				    child: Text(
+																					    snapshot.data
+																							    .documents[index]["opinion"]
+																							    .toString(),
+																					    style: TextStyle(
+																						    fontFamily: 'HankenGrotesk',
+																						    color: Color(0xff000000),
+																						    fontSize: 15,
+																						    fontWeight: FontWeight.w700,
+																						    fontStyle: FontStyle.normal,
+																						    letterSpacing: -0.5,
+																					    ),
+																				    ),
+																			    ),
+																		    ),
+																	    ],
+																    ),
+															    ),
+														    );
+													    },
+												    ),
+											    );
+										    } else {
+											    return Padding(
+												    padding: const EdgeInsets.only(top: 28),
+												    child:
+												    Center(child: new CircularProgressIndicator()),
+											    );
+										    }
+									    }
+									
+									    return Text('');
+								    }),
+					    ],
+				    ),
+			    ),
+		    ],
       ),
     );
   }

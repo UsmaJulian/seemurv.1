@@ -86,9 +86,9 @@ class _FiltrosBotonesState extends State<FiltrosBotones> {
                 widget.rangoPreciosPage = new RangoPreciosPage();
                 widget.checkListBuilder = new CheckListBuilder();
 
-                List<String> miPlans = widget.planesSelectionScreen
-                    .createState()
-                    .getSelectedPlanes();
+                // List<String> miPlans = widget.planesSelectionScreen
+                //     .createState()
+                //     .getSelectedPlanes();
                 List<String> misAmbients = widget.ambienteSelectionScreen
                     .createState()
                     .getSelectedAmbientes();
@@ -116,18 +116,21 @@ class _FiltrosBotonesState extends State<FiltrosBotones> {
                 Future<String> misPagos =
                 widget.checkListBuilder.createState().getPagos();
 
-                var newList = new List.from(miPlans)
-	                ..addAll(misAmbients)..addAll(misrestaurantes)..addAll(
-			                misBares)..addAll(misCaracteristicas)
-                  ..add(await mishoras)
-                  ..addAll(await misRangoPrecios)
+                var newList = new List.from
+                // (miPlans)
+                //   ..addAll
+	                (misAmbients)
+	                ..addAll(misrestaurantes)..addAll(misBares)..addAll(
+			                misCaracteristicas)
+	                ..add(await mishoras)
+	                ..addAll(await misRangoPrecios)
                 //..add(await misPagos)
 		                ;
 
                 FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
                 FirebaseUser user = await _firebaseAuth.currentUser();
-                print(miPlans);
+                //print(miPlans);
                 await Firestore.instance
                     .collection("filtros")
                     .document(user.uid)
@@ -148,7 +151,7 @@ class _FiltrosBotonesState extends State<FiltrosBotones> {
 		                    builder: (context) =>
 				                    Filtrosresult(
 						                    auth: Auth(),
-						                    miplans: miPlans,
+						                    // miplans: miPlans,
 						                    misAmbients: misAmbients,
 						                    misrestaurantes: misrestaurantes,
 						                    misBares: misBares,

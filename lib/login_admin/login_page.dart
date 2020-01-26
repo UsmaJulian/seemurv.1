@@ -1,4 +1,11 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:http/http.dart' as http;
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/models/user_model.dart';
 import 'package:seemur_v1/screens/cambiar_contraseña.dart';
@@ -6,10 +13,10 @@ import 'package:seemur_v1/screens/terminos_condiciones.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({this.auth, this.onSignIn});
-
+  
   final BaseAuth auth;
   final VoidCallback onSignIn;
-
+  
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -18,7 +25,9 @@ enum FormType { login, registro }
 enum SelectSource { camara, galeria }
 
 class _LoginPageState extends State<LoginPage> {
+  FirebaseUser currentUser;
   final formKey = GlobalKey<FormState>();
+  
   //Declaramos las variables
   String _email;
   String _password;
@@ -27,42 +36,76 @@ class _LoginPageState extends State<LoginPage> {
   String _urlFoto = '';
   String usuario;
   bool isLoggedIn = false;
-
+  
   bool _obscureText = true;
   FormType _formType = FormType.login;
-
-  // void initiateFacebookLogin() async {
-  //   final facebookLogin = FacebookLogin();
-  //   final result = await facebookLogin.logIn(['email']);
-
-  //   switch (result.status) {
-  //     case FacebookLoginStatus.loggedIn:
-  //       onLoginStatusChange(true);
-  //       break;
-  //     case FacebookLoginStatus.cancelledByUser:
-  //       print('Cancelado por el usuario');
-  //       break;
-  //     case FacebookLoginStatus.error:
-  //       print('Surgio un error');
-  //       break;
-  //   }
-  // }
-
-  // void onLoginStatusChange(bool isLoggedIn) {
-  //   setState(() {
-  //     this.isLoggedIn = isLoggedIn;
-  //   });
-  // }
-
+  
+  Future<FirebaseUser> facebookLogin() async {
+    // fbLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
+    // if you remove above comment then facebook login will take username and pasword for login in Webview
+    try {
+      final FacebookLoginResult facebookLoginResult =
+      await FacebookLogin().logIn(['email']);
+      if (facebookLoginResult.status == FacebookLoginStatus.loggedIn) {
+        FacebookAccessToken facebookAccessToken =
+            facebookLoginResult.accessToken;
+        AuthCredential credential = FacebookAuthProvider.getCredential(
+            accessToken: facebookAccessToken.token);
+        FirebaseUser user =
+            (await FirebaseAuth.instance.signInWithCredential(credential)).user;
+        print("signed in" + user.displayName);
+        getUserInfo(facebookLoginResult);
+        return user;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return currentUser;
+  }
+  
+  getUserInfo(facebookLoginResult) async {
+    final token = facebookLoginResult.accessToken.token;
+    final graphResponse = await http.get(
+        'https://graph.facebook.com/v2.12/me?fields=name,picture.width(800).height(800),first_name,last_name,email&access_token=${token}');
+    final profile = json.decode(graphResponse.body);
+    Firestore.instance
+        .collection('usuarios')
+        .document('${currentUser.uid}')
+        .setData({
+      'nombre': profile['name'], //name
+      
+      'email': profile['email'].toString(),
+      'imagen': profile['picture']['data']['url'],
+      "uid": currentUser.uid,
+    });
+    
+    widget.onSignIn();
+    
+    Navigator.of(context).pop();
+    return usuario;
+  }
+  
+  void _logIn() {
+    facebookLogin().then((response) {
+      if (response != null) {
+        currentUser = response;
+        isLoggedIn = true;
+        
+        setState(() {});
+      }
+    });
+  }
+  
   bool _isChecked = false;
+  
   void onChanged(value) {
     setState(() {
       _isChecked = value;
     });
   }
-
+  
   //Facebooklogin
-
+  
   bool _validarGuardar() {
     final form = formKey.currentState;
     if (form.validate()) {
@@ -71,16 +114,16 @@ class _LoginPageState extends State<LoginPage> {
     }
     return false;
   }
-
+  
   //we create a method validate and send
   void _validarEnviar() async {
     if (_validarGuardar()) {
       try {
         String userId =
-            await widget.auth.signInEmailPassword(_email, _password);
+        await widget.auth.signInEmailPassword(_email, _password);
         print('Usuario logueado : $userId '); //ok
         widget.onSignIn();
-
+        
         Navigator.of(context).pop();
       } catch (e) {
         print('Error .... $e');
@@ -93,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
   }
-
+  
   //Now create a method validate and register
   void _validarRegistrar() async {
     if (_validarGuardar()) {
@@ -103,12 +146,12 @@ class _LoginPageState extends State<LoginPage> {
           email: _email,
           password: _password,
           telefono: _telefono,
-	        profileImageUrl: _urlFoto,
+          profileImageUrl: _urlFoto,
         );
         String userId = await widget.auth.signUpEmailPassword(usuario);
         print('Usuario logueado : $userId'); //ok
         widget.onSignIn();
-
+        
         Navigator.of(context).pop();
       } catch (e) {
         print('Error .... $e');
@@ -121,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
   }
-
+  
   //method go register
   void _irRegistro() {
     setState(() {
@@ -129,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
       _formType = FormType.registro;
     });
   }
-
+  
   //method go Login
   void _irLogin() {
     setState(() {
@@ -137,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
       _formType = FormType.login;
     });
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,16 +205,16 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                     child: Form(
-                  key: formKey,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment
-                          .stretch, //ajusta los widgets a lso extremos
-                      children: buildInputs() + buildSubmitButtons()),
-                ))),
+                      key: formKey,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment
+                              .stretch, //ajusta los widgets a lso extremos
+                          children: buildInputs() + buildSubmitButtons()),
+                    ))),
           )),
     );
   }
-
+  
   List<Widget> buildInputs() {
     if (_formType == FormType.login) {
       return [
@@ -232,7 +275,7 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: 'Email',
                 ),
                 validator: (value) =>
-                    value.isEmpty ? 'El campo Email está vacio' : null,
+                value.isEmpty ? 'El campo Email está vacio' : null,
                 onSaved: (value) => _email = value.trim(),
               ),
             ),
@@ -253,7 +296,7 @@ class _LoginPageState extends State<LoginPage> {
                 )),
           ),
         ),
-
+        
         Padding(
           padding: const EdgeInsets.only(
             top: 12.0,
@@ -297,7 +340,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-
+        
         Padding(
           padding: const EdgeInsets.only(top: 16.0, left: 134.0, right: 0),
           child: Container(
@@ -378,7 +421,7 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: 'Nombre y apellidos',
                 ),
                 validator: (value) =>
-                    value.isEmpty ? 'El campo Nombre esta vacio' : null,
+                value.isEmpty ? 'El campo Nombre esta vacio' : null,
                 onSaved: (value) => _nombre = value.trim(),
               ),
             ),
@@ -423,13 +466,13 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: '(+57)',
                 ),
                 validator: (value) =>
-                    value.isEmpty ? 'El campo Telefono esta vacio' : null,
+                value.isEmpty ? 'El campo Telefono esta vacio' : null,
                 onSaved: (value) => _telefono = value.trim(),
               ),
             ),
           ),
         ),
-
+        
         // Container(
         //   child: DropdownButtonFormField(
         //     validator: (value) =>
@@ -522,7 +565,7 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: 'Email',
                 ),
                 validator: (value) =>
-                    value.isEmpty ? 'El campo Email esta vacio' : null,
+                value.isEmpty ? 'El campo Email esta vacio' : null,
                 onSaved: (value) => _email = value.trim(),
               ),
             ),
@@ -627,7 +670,7 @@ class _LoginPageState extends State<LoginPage> {
                         context,
                         new MaterialPageRoute(
                             builder: (context) =>
-                                new TerminosCondicionesPage()));
+                            new TerminosCondicionesPage()));
                   },
                 ),
               ),
@@ -638,7 +681,7 @@ class _LoginPageState extends State<LoginPage> {
       ];
     }
   }
-
+  
   List<Widget> buildSubmitButtons() {
     if (_formType == FormType.login) {
       return [
@@ -672,14 +715,14 @@ class _LoginPageState extends State<LoginPage> {
         ),
         Padding(
           padding: const EdgeInsets.only(
-            top: 104.5,
-            bottom: 37.5,
-            left: 25.0,
+            top: 44.5,
+            bottom: 17.5,
+            left: 45.0,
           ),
           child: Row(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(bottom: 37.5),
+                padding: const EdgeInsets.only(bottom: 17.5),
                 child: Container(
                     child: Text('¿Aún no tienes cuenta?',
                         style: new TextStyle(
@@ -691,7 +734,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.only(left: 0, right: 10.0, bottom: 37.5),
+                const EdgeInsets.only(left: 0, right: 10.0, bottom: 17.5),
                 child: Container(
                   child: FlatButton(
                     onPressed: _irRegistro,
@@ -707,6 +750,30 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ],
           ),
+        ),
+        Padding(
+          padding:
+          const EdgeInsets.only(top: 0, bottom: 0, left: 15.0, right: 15.0),
+          child: Container(
+              width: 295.0,
+              height: 44.0,
+              decoration: BoxDecoration(
+                border: Border.all(width: 0, style: BorderStyle.none),
+                borderRadius: BorderRadius.horizontal(
+                    left: Radius.circular(22), right: Radius.circular(22)),
+                gradient: LinearGradient(
+                  colors: [new Color(0xFFFFE231), new Color(0xFFF5AF00)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              child: isLoggedIn
+                  ? null
+                  : FacebookSignInButton(
+                borderRadius: 22.0,
+                text: 'Continuar con Facebook',
+                onPressed: _logIn,
+              )),
         ),
       ];
     } else {
