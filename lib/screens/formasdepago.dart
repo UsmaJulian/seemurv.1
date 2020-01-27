@@ -24,7 +24,6 @@ class CheckListBuilderState extends State<CheckListBuilder> {
 	
 	  String pagos = await prefs.getString('hola');
 	
-	
 	  return pagos;
   }
 
@@ -73,11 +72,11 @@ class CheckListBuilderState extends State<CheckListBuilder> {
 							  checkColor: Colors.yellowAccent,
 							  // color of tick Mark
 							  activeColor: Colors.white,
-							  title: Text("T.Crédito"),
+							  title: Text("Tarjetas"),
 							  value: _isSelectedCardCredit,
 							  onChanged: (bool value,) {
 								  setState(() {
-									  _currText = "T.Crédito";
+									  _currText = "Tarjetas";
 									  setPagos(_currText);
 									  _isSelectedCardCredit = value;
 									  if (_isSelectedCardCredit) {
@@ -92,11 +91,11 @@ class CheckListBuilderState extends State<CheckListBuilder> {
 							  checkColor: Colors.yellowAccent,
 							  // color of tick Mark
 							  activeColor: Colors.white,
-							  title: Text("T.Débito"),
+							  title: Text("Bitcoins"),
 							  value: _isSelectedCardDebit,
 							  onChanged: (bool value,) {
 								  setState(() {
-									  _currText = "T.Débito";
+									  _currText = "Bitcoins";
 									  setPagos(_currText);
 									  _isSelectedCardDebit = value;
 									  if (_isSelectedCardDebit) {

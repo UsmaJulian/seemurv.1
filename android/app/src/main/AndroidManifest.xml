@@ -6,6 +6,8 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -16,7 +18,9 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="Seemur"
         android:icon="@mipmap/launcher_icon">
-
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCi5DH7D5JcuDi5eZTny17tOfKeuYJTEzY" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

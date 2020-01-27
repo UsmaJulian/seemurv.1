@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,22 +18,16 @@ class PlatoSeleccionadoPage extends StatefulWidget {
 
 class _PlatoSeleccionadoPageState extends State<PlatoSeleccionadoPage> {
   PageController pageController;
-  StreamController<String> streamController = new StreamController();
 
   @override
   void initState() {
     super.initState();
-    pageController = PageController(initialPage: 1, viewportFraction: 0.8);
-  }
-
-  @override
-  void dispose() {
-    streamController.close();
-    super.dispose();
+    pageController = PageController(initialPage: 3, viewportFraction: 0.8);
   }
 
   @override
   Widget build(BuildContext context) {
+    setState(() {});
     return Scaffold(
       body: StreamBuilder(
         stream: Firestore.instance

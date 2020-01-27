@@ -7,9 +7,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/calificar.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
-import 'package:seemur_v1/components/widgets/sharebutton.dart';
+import 'package:seemur_v1/screens/mapsPage.dart';
 import 'package:seemur_v1/screens/plato_seleccionado_screen.dart';
-import 'package:seemur_v1/utilidades/constantes.dart';
+import 'package:share/share.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,7 +28,8 @@ class _ClientBodyState extends State<ClientBody> {
   StreamController<String> streamController = new StreamController();
 
   String userID;
-
+  String text = '';
+  String subject = '';
   @override
   void initState() {
     super.initState();
@@ -156,9 +157,9 @@ class _ClientBodyState extends State<ClientBody> {
                                                             .collection(
                                                                 'visitados')
                                                             .document(widget
-                                                            .datos[
+		                                                        .datos[
                                                         'taskname']
-                                                            .toString())
+		                                                        .toString())
                                                             .setData({
                                                           'taskname': widget
                                                               .datos['taskname']
@@ -273,8 +274,8 @@ class _ClientBodyState extends State<ClientBody> {
                                           stream: Firestore.instance
                                               .collection('calificar')
                                               .where("taskname",
-                                              isEqualTo:
-                                              widget.datos['taskname'])
+		                                          isEqualTo:
+		                                          widget.datos['taskname'])
                                               .snapshots(),
                                           builder: (BuildContext context,
                                               AsyncSnapshot<QuerySnapshot>
@@ -285,14 +286,14 @@ class _ClientBodyState extends State<ClientBody> {
                                               return ListView.separated(
                                                   separatorBuilder:
                                                       (context, index) =>
-                                                      Divider(
-                                                        color: Colors.black,
-                                                      ),
+		                                                  Divider(
+			                                                  color: Colors.black,
+		                                                  ),
                                                   itemCount: snapshot
                                                       .data.documents.length,
                                                   itemBuilder:
                                                       (BuildContext context,
-                                                      index) {
+		                                                  index) {
                                                     return Column(
                                                       children: <Widget>[
                                                         Row(
@@ -305,12 +306,12 @@ class _ClientBodyState extends State<ClientBody> {
                                                               allowHalfRating:
                                                               true,
                                                               rating: double
-                                                                  .parse(
-                                                                  snapshot
-                                                                      .data
-                                                                      .documents[index]
-                                                                  [
-                                                                  'rating']),
+		                                                              .parse(
+		                                                              snapshot
+				                                                              .data
+				                                                              .documents[index]
+		                                                              [
+		                                                              'rating']),
                                                               size: 18.0,
                                                               starCount: 5,
                                                               spacing: 2.0,
@@ -334,10 +335,10 @@ class _ClientBodyState extends State<ClientBody> {
                                                                   fontSize: 24,
                                                                   fontWeight:
                                                                   FontWeight
-                                                                      .w700,
+		                                                                  .w700,
                                                                   fontStyle:
                                                                   FontStyle
-                                                                      .normal,
+		                                                                  .normal,
                                                                   letterSpacing:
                                                                   -0.4000000059604645,
                                                                 )),
@@ -346,11 +347,11 @@ class _ClientBodyState extends State<ClientBody> {
                                                         Row(
                                                           children: <Widget>[
                                                             Container(
-                                                                width: MediaQuery
-                                                                    .of(
-                                                                    context)
-                                                                    .size
-                                                                    .width *
+		                                                            width: MediaQuery
+				                                                            .of(
+				                                                            context)
+				                                                            .size
+				                                                            .width *
                                                                     0.6,
                                                                 height: 226.0,
                                                                 child: ListTile(
@@ -365,15 +366,15 @@ class _ClientBodyState extends State<ClientBody> {
                                                                           'HankenGrotesk',
                                                                           color:
                                                                           Color(
-                                                                              0xff000000),
+		                                                                          0xff000000),
                                                                           fontSize:
                                                                           15,
                                                                           fontWeight:
                                                                           FontWeight
-                                                                              .w700,
+		                                                                          .w700,
                                                                           fontStyle:
                                                                           FontStyle
-                                                                              .normal,
+		                                                                          .normal,
                                                                           letterSpacing:
                                                                           -0.5,
                                                                         )),
@@ -381,9 +382,9 @@ class _ClientBodyState extends State<ClientBody> {
                                                                   subtitle:
                                                                   Container(
                                                                     child: Text(
-                                                                        snapshot
-                                                                            .data
-                                                                            .documents[0]['opinion'] ??
+		                                                                    snapshot
+				                                                                    .data
+				                                                                    .documents[0]['opinion'] ??
                                                                             'pendiente',
                                                                         style:
                                                                         TextStyle(
@@ -391,15 +392,15 @@ class _ClientBodyState extends State<ClientBody> {
                                                                           'HankenGrotesk',
                                                                           color:
                                                                           Color(
-                                                                              0xff000000),
+		                                                                          0xff000000),
                                                                           fontSize:
                                                                           15,
                                                                           fontWeight:
                                                                           FontWeight
-                                                                              .w700,
+		                                                                          .w700,
                                                                           fontStyle:
                                                                           FontStyle
-                                                                              .normal,
+		                                                                          .normal,
                                                                           letterSpacing:
                                                                           -0.5,
                                                                         )),
@@ -565,6 +566,7 @@ class _ClientBodyState extends State<ClientBody> {
 
   getCardButtons() {
     var numero = widget.datos['taskphone'];
+
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -574,7 +576,12 @@ class _ClientBodyState extends State<ClientBody> {
           Icons.star_border,
           Color(0xfff5af00),
         ),
-        getFav3(Icons.share, Color(0xff4cd964)),
+	      getFav3(
+		      Icons.share,
+		      Color(0xff4cd964),
+		      widget.datos['taskname'],
+		      widget.datos['taskdescription'],
+	      ),
         Spacer(),
         MaterialButton(
           onPressed: () {},
@@ -645,13 +652,16 @@ class _ClientBodyState extends State<ClientBody> {
     );
   }
 
-  getFav3(IconData iconData, Color color) {
+  getFav3(IconData iconData,
+		  Color color,
+		  String nombre,
+		  String descripcion,) {
+	  String nombre = widget.datos['taskname'];
+	  String descripcion = widget.datos['taskdescription'];
     return FloatingActionButton(
       heroTag: "button3",
-      onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ShareButtonPage()));
-      },
+	    onPressed: () =>
+			    share(context, nombre = nombre, descripcion = descripcion),
       backgroundColor: Color(0xff16202c),
       mini: true,
       child: Icon(
@@ -805,18 +815,29 @@ class _ClientBodyState extends State<ClientBody> {
                 fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 1.2),
           ),
         ),
-        ListTile(
-          leading: Icon(
-            CupertinoIcons.location,
-            color: Colors.black,
-            size: 22.0,
-          ),
-          title: Text(widget.datos['tasklocation']),
-          trailing: Icon(
-            CupertinoIcons.forward,
-            color: Colors.black,
-          ),
-          onTap: () {},
+	      InkWell(
+		      onTap: () {
+			      Navigator.push(
+					      context,
+					      MaterialPageRoute(
+							      builder: (context) =>
+									      MapsPage(
+										      lugar: widget.datos['taskname'].toString(),
+									      )));
+		      },
+		      child: ListTile(
+			      dense: true,
+			      leading: Icon(
+				      CupertinoIcons.location,
+				      color: Colors.black,
+				      size: 22.0,
+			      ),
+			      title: Text(widget.datos['tasklocation']),
+			      trailing: Icon(
+				      CupertinoIcons.forward,
+				      color: Colors.black,
+			      ),
+		      ),
         ),
         Divider(
           color: Colors.black,
@@ -854,14 +875,14 @@ class _ClientBodyState extends State<ClientBody> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            PlatoSeleccionadoPage(
-                                nombrePlato: widget
-                                    .datos['taskrecommendeddishes']
+		                    builder: (context) =>
+				                    PlatoSeleccionadoPage(
+						                    nombrePlato: widget
+								                    .datos['taskrecommendeddishes']
                                 [index],
-                                nombrerestaurante: widget.datos['taskname']
-                                    .toString()
-                                    .replaceAll(new RegExp(r'[^\w\s]+'), ''))));
+						                    nombrerestaurante: widget.datos['taskname']
+								                    .toString()
+								                    .replaceAll(new RegExp(r'[^\w\s]+'), ''))));
               },
             ),
             SizedBox(width: 10),
@@ -957,6 +978,14 @@ class _ClientBodyState extends State<ClientBody> {
         'tasktime': widget.datos['tasktime'].toString(),
       });
     });
+  }
+
+  share(BuildContext context, nombre, descripcion) {
+	  String text = nombre;
+	  final RenderBox box = context.findRenderObject();
+	  Share.share(text,
+			  subject: descripcion,
+			  sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 }
 

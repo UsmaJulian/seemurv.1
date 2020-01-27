@@ -13,10 +13,10 @@ import 'package:seemur_v1/screens/terminos_condiciones.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({this.auth, this.onSignIn});
-  
+
   final BaseAuth auth;
   final VoidCallback onSignIn;
-  
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -27,7 +27,7 @@ enum SelectSource { camara, galeria }
 class _LoginPageState extends State<LoginPage> {
   FirebaseUser currentUser;
   final formKey = GlobalKey<FormState>();
-  
+
   //Declaramos las variables
   String _email;
   String _password;
@@ -36,10 +36,10 @@ class _LoginPageState extends State<LoginPage> {
   String _urlFoto = '';
   String usuario;
   bool isLoggedIn = false;
-  
+
   bool _obscureText = true;
   FormType _formType = FormType.login;
-  
+
   Future<FirebaseUser> facebookLogin() async {
     // fbLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
     // if you remove above comment then facebook login will take username and pasword for login in Webview
@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
     }
     return currentUser;
   }
-  
+
   getUserInfo(facebookLoginResult) async {
     final token = facebookLoginResult.accessToken.token;
     final graphResponse = await http.get(
@@ -73,39 +73,39 @@ class _LoginPageState extends State<LoginPage> {
         .document('${currentUser.uid}')
         .setData({
       'nombre': profile['name'], //name
-      
+
       'email': profile['email'].toString(),
       'imagen': profile['picture']['data']['url'],
       "uid": currentUser.uid,
     });
-    
+
     widget.onSignIn();
-    
+
     Navigator.of(context).pop();
     return usuario;
   }
-  
+
   void _logIn() {
     facebookLogin().then((response) {
       if (response != null) {
         currentUser = response;
         isLoggedIn = true;
-        
+
         setState(() {});
       }
     });
   }
-  
+
   bool _isChecked = false;
-  
+
   void onChanged(value) {
     setState(() {
       _isChecked = value;
     });
   }
-  
+
   //Facebooklogin
-  
+
   bool _validarGuardar() {
     final form = formKey.currentState;
     if (form.validate()) {
@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
     }
     return false;
   }
-  
+
   //we create a method validate and send
   void _validarEnviar() async {
     if (_validarGuardar()) {
@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
         await widget.auth.signInEmailPassword(_email, _password);
         print('Usuario logueado : $userId '); //ok
         widget.onSignIn();
-        
+
         Navigator.of(context).pop();
       } catch (e) {
         print('Error .... $e');
@@ -136,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
   }
-  
+
   //Now create a method validate and register
   void _validarRegistrar() async {
     if (_validarGuardar()) {
@@ -151,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
         String userId = await widget.auth.signUpEmailPassword(usuario);
         print('Usuario logueado : $userId'); //ok
         widget.onSignIn();
-        
+
         Navigator.of(context).pop();
       } catch (e) {
         print('Error .... $e');
@@ -164,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
   }
-  
+
   //method go register
   void _irRegistro() {
     setState(() {
@@ -172,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
       _formType = FormType.registro;
     });
   }
-  
+
   //method go Login
   void _irLogin() {
     setState(() {
@@ -180,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
       _formType = FormType.login;
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -205,16 +205,16 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                     child: Form(
-                      key: formKey,
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment
-                              .stretch, //ajusta los widgets a lso extremos
-                          children: buildInputs() + buildSubmitButtons()),
+	                    key: formKey,
+	                    child: Column(
+			                    crossAxisAlignment: CrossAxisAlignment
+					                    .stretch, //ajusta los widgets a lso extremos
+			                    children: buildInputs() + buildSubmitButtons()),
                     ))),
           )),
     );
   }
-  
+
   List<Widget> buildInputs() {
     if (_formType == FormType.login) {
       return [
@@ -296,8 +296,8 @@ class _LoginPageState extends State<LoginPage> {
                 )),
           ),
         ),
-        
-        Padding(
+	
+	      Padding(
           padding: const EdgeInsets.only(
             top: 12.0,
             left: 7.5,
@@ -340,8 +340,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-        
-        Padding(
+	
+	      Padding(
           padding: const EdgeInsets.only(top: 16.0, left: 134.0, right: 0),
           child: Container(
             width: 147.5,
@@ -472,8 +472,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-        
-        // Container(
+	
+	      // Container(
         //   child: DropdownButtonFormField(
         //     validator: (value) =>
         //         value == '0' ? 'Debe seleccionar una ciudad' : null,
@@ -681,7 +681,7 @@ class _LoginPageState extends State<LoginPage> {
       ];
     }
   }
-  
+
   List<Widget> buildSubmitButtons() {
     if (_formType == FormType.login) {
       return [
@@ -770,9 +770,9 @@ class _LoginPageState extends State<LoginPage> {
               child: isLoggedIn
                   ? null
                   : FacebookSignInButton(
-                borderRadius: 22.0,
-                text: 'Continuar con Facebook',
-                onPressed: _logIn,
+	              borderRadius: 22.0,
+	              text: 'Continuar con Facebook',
+	              onPressed: _logIn,
               )),
         ),
       ];

@@ -46,6 +46,9 @@ dependencies:
   flutter_swiper: ^1.1.6
   flutter_facebook_login: ^3.0.0
   http: ^0.12.0+4
+  google_maps_flutter: ^0.5.21+15
+  geolocator: ^5.1.5
+  share: ^0.6.3+5
 
 
 
@@ -93,16 +96,18 @@ flutter:
          - asset: fonts/OpenSans-SemiBold.ttf
          - asset: fonts/OpenSans-SemiBoldItalic.ttf
   uses-material-design: true
+  # assets:
+  #  - images/a_dot_burr.jpeg
   assets:
     - assets/
-        - assets/images/
-        - assets/seemurIsotipo.png
-        - assets/logoSombrero.png
-        - assets/logoblanco.png
-        - assets/icon/icon.png
-        - assets/images/seemurapp.gif
-        - assets/images/seemurapp2.gif
-        - assets/images/seemurapp3.gif
+    - assets/images/
+    - assets/seemurIsotipo.png
+    - assets/logoSombrero.png
+    - assets/logoblanco.png
+    - assets/icon/icon.png
+    - assets/images/seemurapp.gif
+    - assets/images/seemurapp2.gif
+    - assets/images/seemurapp3.gif
         
 
       

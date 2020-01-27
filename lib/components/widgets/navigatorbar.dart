@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:meta/meta.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/login_admin/checkroles.dart';
 import 'package:seemur_v1/models/user_model.dart';
@@ -12,11 +11,8 @@ import 'package:seemur_v1/screens/user/preferences_page.dart';
 
 //final LocalStorage storage = new LocalStorage('userdata');
 class NavigatorBar extends StatefulWidget {
-  const NavigatorBar({Key key,
-    this.user,
-    this.auth,
-    this.initialIndex: 0,
-    @required this.navCallback})
+	const NavigatorBar(
+			{Key key, this.user, this.auth, this.initialIndex: 0, this.navCallback})
       : super(key: key);
   final usuario = Usuario;
   final FirebaseUser user;
@@ -29,14 +25,14 @@ class NavigatorBar extends StatefulWidget {
 
 class _NavigatorBarState extends State<NavigatorBar> {
   int _selected;
-  
+
   @override
   void initState() {
     super.initState();
     _selected = widget.initialIndex;
     notifyCallback();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,31 +67,25 @@ class _NavigatorBarState extends State<NavigatorBar> {
                     onButtonTap(index);
                   });
                 },
-                child: _buildButton(
-                    0,
-                    CupertinoIcons.home, 'Inicio'
-                )),
+		            child: _buildButton(0, CupertinoIcons.home, 'Inicio')),
             FlatButton(
                 onPressed: () {
                   setState(() {
                     int index = 1;
                     onButtonTap(index);
                   });
-                  
+
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (BuildContext context) {
                     return Descubrir();
                   }));
                 },
-                child: _buildButton(
-                    1,
-                    FontAwesomeIcons.compass, 'Descubrir'
-                )),
+		            child: _buildButton(1, FontAwesomeIcons.compass, 'Descubrir')),
             FlatButton(
               onPressed: () {
                 setState(() {
                   int index = 2;
-                  
+
                   onButtonTap(index);
                 });
                 Navigator.of(context)
@@ -103,20 +93,18 @@ class _NavigatorBarState extends State<NavigatorBar> {
                   return CheckRoles(
                     auth: Auth(),
                   );
-                  
-                  //return ClientAddPage ();
+	
+	                //return ClientAddPage ();
                 }));
               },
               child: _buildButton(
-                  2,
-                  IconData(59558, fontFamily: 'MaterialIcons'), 'Perfil'
-              ),
+		              2, IconData(59558, fontFamily: 'MaterialIcons'), 'Perfil'),
             ),
             FlatButton(
               onPressed: () {
                 setState(() {
                   int index = 3;
-                  
+
                   onButtonTap(index);
                 });
                 Navigator.of(context)
@@ -127,61 +115,55 @@ class _NavigatorBarState extends State<NavigatorBar> {
                   //return ClientAddPage ();
                 }));
               },
-              child: _buildButton(
-                  3,
-                  CupertinoIcons.gear, 'Ajustes'
-              ),
+	            child: _buildButton(3, CupertinoIcons.gear, 'Ajustes'),
             ),
           ],
         ),
       ),
     );
   }
-  
-  Widget _buildButton(int index,
-      IconData data,
-      String titulo) {
+
+  Widget _buildButton(int index, IconData data, String titulo) {
     return
-      // new FlatButton(
-      //   //onPressed: () => onButtonTap(index),
-      
-      
-      //   child:
-      Padding(
-        padding: const EdgeInsets.only(top: 15,),
-        child: Column(
-          
-          children: <Widget>[
-            new Center(
-              child: new Icon(
-                data,
-                color: _selected == index
-                    ? Color.fromRGBO(245, 175, 0, 1)
-                    : Colors.black87,
-              ),
-            ),
-            Text(titulo,
-                style: TextStyle(
-                  fontFamily: 'HankenGrotesk',
-                  color: Color(0xff3d3d3d),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  fontStyle: FontStyle.normal,
-                ))
-          ],
-          //),
-        ),
-      )
-    ;
+	    // new FlatButton(
+	    //   //onPressed: () => onButtonTap(index),
+	
+	    //   child:
+	    Padding(
+		    padding: const EdgeInsets.only(
+			    top: 15,
+		    ),
+		    child: Column(
+			    children: <Widget>[
+				    new Center(
+					    child: new Icon(
+						    data,
+						    color: _selected == index
+								    ? Color.fromRGBO(245, 175, 0, 1)
+								    : Colors.black87,
+					    ),
+				    ),
+				    Text(titulo,
+						    style: TextStyle(
+							    fontFamily: 'HankenGrotesk',
+							    color: Color(0xff3d3d3d),
+							    fontSize: 12,
+							    fontWeight: FontWeight.w500,
+							    fontStyle: FontStyle.normal,
+						    ))
+			    ],
+			    //),
+		    ),
+	    );
   }
-  
+
   onButtonTap(int index) {
     setState(() {
       _selected = index;
     });
     notifyCallback();
   }
-  
+
   notifyCallback() {
     widget.navCallback(_selected);
   }

@@ -123,7 +123,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 										child: Column(
 											children: <Widget>[
 												Container(
-													width: MediaQuery.of(context).size.width,
+													width: MediaQuery
+															.of(context)
+															.size
+															.width,
 													height: 1180.0,
 													decoration:
 													new BoxDecoration(color: Color(0xff16202c)),
@@ -132,44 +135,52 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 															Padding(
 																padding:
 																const EdgeInsets.only(left: 0, top: 16.0),
-																child: Row(
-																	mainAxisAlignment:
-																	MainAxisAlignment.spaceAround,
-																	children: <Widget>[
-																		Text(
-																			"¿Cuál es tu plan?",
-																			style: TextStyle(
-																				fontFamily: 'HankenGrotesk',
-																				color: Color(0xffffffff),
-																				fontSize: 24,
-																				fontWeight: FontWeight.w700,
-																				fontStyle: FontStyle.normal,
-																				letterSpacing: -0.4000000059604645,
+																child: SingleChildScrollView(
+																	scrollDirection: Axis.horizontal,
+																	child: Row(
+																		mainAxisAlignment:
+																		MainAxisAlignment.spaceAround,
+																		children: <Widget>[
+																			Text(
+																				"¿Cuál es tu plan?",
+																				style: TextStyle(
+																					fontFamily: 'HankenGrotesk',
+																					color: Color(0xffffffff),
+																					fontSize: 24,
+																					fontWeight: FontWeight.w700,
+																					fontStyle: FontStyle.normal,
+																					letterSpacing: -0.4000000059604645,
+																				),
 																			),
-																		),
-																		FutureBuilder(
-																			future: usersRef.document(id).get(),
-																			builder: (BuildContext context,
-																					AsyncSnapshot snapshot) {
-																				if (!snapshot.hasData) {
-																					return Center(
-																						child: CircularProgressIndicator(),
-																					);
-																				}
-																				Usuario usuario =
-																				Usuario.fromDoc(snapshot.data);
-																				return CircleAvatar(
-																						radius: 40.0,
-																						backgroundColor: Colors.grey,
-																						backgroundImage: usuario
-																								.profileImageUrl.isEmpty
-																								? AssetImage(
-																								'assets/images/Contenedordeimagenes.jpg')
-																								: CachedNetworkImageProvider(
-																								usuario.profileImageUrl));
-																			},
-																		),
-																	],
+																			SizedBox(
+																				width: 60,
+																			),
+																			FutureBuilder(
+																				initialData: [],
+																				future: usersRef.document(id).get(),
+																				builder: (BuildContext context,
+																						AsyncSnapshot snapshot) {
+																					if (!snapshot.hasData) {
+																						return Center(
+																							child:
+																							CircularProgressIndicator(),
+																						);
+																					}
+																					Usuario usuario =
+																					Usuario.fromDoc(snapshot.data);
+																					return CircleAvatar(
+																							radius: 40.0,
+																							backgroundColor: Colors.grey,
+																							backgroundImage: usuario
+																									.profileImageUrl.isEmpty
+																									? AssetImage(
+																									'assets/images/Contenedordeimagenes.jpg')
+																									: CachedNetworkImageProvider(
+																									usuario.profileImageUrl));
+																				},
+																			),
+																		],
+																	),
 																),
 															),
 															Padding(
@@ -185,7 +196,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 																			decoration: InputDecoration(
 																					border: InputBorder.none,
 																					isDense: true),
-																			validator: (value) => value == '0'
+																			validator: (value) =>
+																			value == '0'
 																					? 'Debe seleccionar una ciudad'
 																					: null,
 																			value: _itemCiudad,
@@ -222,7 +234,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 										child: Column(
 											children: <Widget>[
 												Container(
-													width: MediaQuery.of(context).size.width,
+													width: MediaQuery
+															.of(context)
+															.size
+															.width,
 													// height: 1872,
 													decoration: new BoxDecoration(
 														color: Color(0xfff6f7fa),
@@ -289,10 +304,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 																														onPressed: () {
 																															Navigator.of(
 																																	context)
-																																	.push(MaterialPageRoute(
-																																	builder:
-																																			(context) =>
-																																			ComerPage()));
+																																	.push(
+																																	MaterialPageRoute(
+																																			builder:
+																																					(
+																																					context) =>
+																																					ComerPage()));
 																														},
 																													),
 																												],
@@ -361,9 +378,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 																																onPressed: () {
 																																	Navigator.of(
 																																			context)
-																																			.push(MaterialPageRoute(
-																																			builder: (context) =>
-																																					FestejarPage()));
+																																			.push(
+																																			MaterialPageRoute(
+																																					builder: (
+																																							context) =>
+																																							FestejarPage()));
 																																}),
 																													)
 																												],
@@ -432,9 +451,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 																																onPressed: () {
 																																	Navigator.of(
 																																			context)
-																																			.push(MaterialPageRoute(
-																																			builder: (context) =>
-																																					TardearPage()));
+																																			.push(
+																																			MaterialPageRoute(
+																																					builder: (
+																																							context) =>
+																																							TardearPage()));
 																																}),
 																													)
 																												],
@@ -503,9 +524,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 																																onPressed: () {
 																																	Navigator.of(
 																																			context)
-																																			.push(MaterialPageRoute(
-																																			builder: (context) =>
-																																					DescansarPage()));
+																																			.push(
+																																			MaterialPageRoute(
+																																					builder: (
+																																							context) =>
+																																							DescansarPage()));
 																																}),
 																													)
 																												],
@@ -573,10 +596,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 							left: 0,
 							right: 0,
 							child: Container(
-								width: MediaQuery.of(context).size.width,
+								width: MediaQuery
+										.of(context)
+										.size
+										.width,
 								height: 70,
-								child: NavigatorBar(
-										navCallback: (i) => print("Navigating to $i")),
+								child:
+								NavigatorBar(navCallback: (i) => print("Navigating to $i")),
 							),
 						),
 					],
