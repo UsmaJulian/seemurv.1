@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 
 class PlatoSeleccionadoPage extends StatefulWidget {
