@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/components/widgets/clients_body.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
+import 'package:seemur_v1/src/share_prefs/preferencias%20_usuario.dart';
 
 class CafesPage extends StatefulWidget {
   _CafesPageState createState() => _CafesPageState();
@@ -47,14 +48,19 @@ class ListCafesPage extends StatefulWidget {
 
 class _ListCafesPageState extends State<ListCafesPage> {
   Future getClient() async {
-    print('hola');
-    var firestore = Firestore.instance;
-
-    QuerySnapshot qn = await firestore
-        .collection('client')
-        .where('tasktags', arrayContains: 'Cafés')
-        .getDocuments();
-    return qn.documents;
+	  final prefsus = new PreferenciasUsuario();
+	  print('hola');
+	  var firestore = Firestore.instance;
+	
+	  QuerySnapshot qn = await firestore
+			  .collection('client')
+			  .where('tasktags', arrayContains: 'Cafés')
+			  .where(
+		  'ciudad',
+		  isEqualTo: prefsus.ciudad,
+	  )
+			  .getDocuments();
+	  return qn.documents;
   }
 
   @override

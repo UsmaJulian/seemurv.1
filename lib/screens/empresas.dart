@@ -78,11 +78,9 @@ class _EmpresasPageState extends State<EmpresasPage> {
                                     fontSize: 14.0, color: Colors.black)),
                           ),
                           Icon(
-                            IconData(
-                              0xF3D3,
-                              fontFamily: 'CupertinoIcons',
-                            ),
+	                          CupertinoIcons.forward,
                             size: 16,
+	                          color: Colors.black,
                           ),
                         ],
                       )),

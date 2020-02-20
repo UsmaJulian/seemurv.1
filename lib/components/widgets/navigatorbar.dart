@@ -31,6 +31,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
     super.initState();
     _selected = widget.initialIndex;
     notifyCallback();
+    setState(() {});
   }
 
   @override
@@ -41,7 +42,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
         height: 173,
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
-            color: Colors.black,
+	          color: Colors.white,
             blurRadius: 2.0, // has the effect of softening the shadow
             spreadRadius: 3.5, // has the effect of extending the shadow
             offset: Offset(
@@ -51,10 +52,10 @@ class _NavigatorBarState extends State<NavigatorBar> {
           )
         ], color: Color(0xffffffff)),
         child: Row(
-          //mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+	        mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            FlatButton(
+	          Expanded(
+		          child: FlatButton(
                 onPressed: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (BuildContext context) {
@@ -67,55 +68,69 @@ class _NavigatorBarState extends State<NavigatorBar> {
                     onButtonTap(index);
                   });
                 },
-		            child: _buildButton(0, CupertinoIcons.home, 'Inicio')),
-            FlatButton(
-                onPressed: () {
-                  setState(() {
-                    int index = 1;
-                    onButtonTap(index);
-                  });
-
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (BuildContext context) {
-                    return Descubrir();
-                  }));
-                },
-		            child: _buildButton(1, FontAwesomeIcons.compass, 'Descubrir')),
-            FlatButton(
-              onPressed: () {
-                setState(() {
-                  int index = 2;
-
-                  onButtonTap(index);
-                });
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (BuildContext context) {
-                  return CheckRoles(
-                    auth: Auth(),
-                  );
-	
-	                //return ClientAddPage ();
-                }));
-              },
-              child: _buildButton(
-		              2, IconData(59558, fontFamily: 'MaterialIcons'), 'Perfil'),
-            ),
-            FlatButton(
-              onPressed: () {
-                setState(() {
-                  int index = 3;
-
-                  onButtonTap(index);
-                });
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (BuildContext context) {
-                  return PreferencesPage(
-                    auth: Auth(),
-                  );
-                  //return ClientAddPage ();
-                }));
-              },
-	            child: _buildButton(3, CupertinoIcons.gear, 'Ajustes'),
+			          child: _buildButton(0, CupertinoIcons.home, 'Inicio'),
+		          ),
+	          ),
+	          Expanded(
+		          child: FlatButton(
+				          onPressed: () {
+					          setState(() {
+						          int index = 1;
+						          onButtonTap(index);
+					          });
+					
+					          Navigator.of(context).push(
+							          MaterialPageRoute(builder: (BuildContext context) {
+								          return Descubrir();
+							          }));
+				          },
+				          child:
+				          _buildButton(1, FontAwesomeIcons.compass, 'Descubrir')),
+	          ),
+	          Expanded(
+		          child: FlatButton(
+			          onPressed: () {
+				          setState(() {
+					          int index = 2;
+					
+					          onButtonTap(index);
+				          });
+				          Navigator.of(context)
+						          .push(MaterialPageRoute(builder: (BuildContext context) {
+					          return CheckRoles(
+						          auth: Auth(),
+					          );
+					
+					          //return ClientAddPage ();
+				          }));
+			          },
+			          child: _buildButton(
+					          2,
+					          IconData(
+						          59558,
+						          fontFamily: 'MaterialIcons',
+					          ),
+					          'Perfil'),
+		          ),
+	          ),
+	          Expanded(
+		          child: FlatButton(
+			          onPressed: () {
+				          setState(() {
+					          int index = 3;
+					
+					          onButtonTap(index);
+				          });
+				          Navigator.of(context)
+						          .push(MaterialPageRoute(builder: (BuildContext context) {
+					          return PreferencesPage(
+						          auth: Auth(),
+					          );
+					          //return ClientAddPage ();
+				          }));
+			          },
+			          child: _buildButton(3, CupertinoIcons.gear, 'Ajustes'),
+		          ),
             ),
           ],
         ),
@@ -131,7 +146,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
 	    //   child:
 	    Padding(
 		    padding: const EdgeInsets.only(
-			    top: 15,
+			    top: 10,
 		    ),
 		    child: Column(
 			    children: <Widget>[
@@ -147,8 +162,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
 						    style: TextStyle(
 							    fontFamily: 'HankenGrotesk',
 							    color: Color(0xff3d3d3d),
-							    fontSize: 12,
-							    fontWeight: FontWeight.w500,
+							    fontSize: 8,
 							    fontStyle: FontStyle.normal,
 						    ))
 			    ],

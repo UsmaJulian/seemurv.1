@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:seemur_v1/auth/auth.dart';
+import 'package:seemur_v1/components/alert_widget_visitados.dart';
+import 'package:seemur_v1/components/widgets/alert_widget_favoritos.dart';
 import 'package:seemur_v1/components/widgets/calificar.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/screens/mapsPage.dart';
@@ -149,85 +151,89 @@ class _ClientBodyState extends State<ClientBody> {
                                                       ],
                                                     ),
                                                     onPressed: () {
-                                                      setState(() {
-                                                        Firestore.instance
-                                                            .collection(
-                                                                'usuarios')
-                                                            .document(userID)
-                                                            .collection(
-                                                                'visitados')
-                                                            .document(widget
-		                                                        .datos[
-                                                        'taskname']
-		                                                        .toString())
-                                                            .setData({
-                                                          'taskname': widget
-                                                              .datos['taskname']
-                                                              .toString(),
-                                                          'logos': widget
-                                                              .datos['logos']
-                                                              .toString(),
-                                                          'taskclientimage': widget
-                                                              .datos[
-                                                                  'taskclientimage']
-                                                              .toString(),
-                                                          'taskdescription': widget
-                                                              .datos[
-                                                                  'taskdescription']
-                                                              .toString(),
-                                                          'taskenvironments':
-                                                              widget.datos[
-                                                                  'taskenvironments'],
-                                                          'taskfeaturedimages':
-                                                              widget.datos[
-                                                                  'taskfeaturedimages'],
-                                                          'taskfeatures': widget
-                                                                  .datos[
-                                                              'taskfeatures'],
-                                                          'taskfoods':
-                                                              widget.datos[
-                                                                  'taskcfoods'],
-                                                          'taskhomeservice': widget
-                                                              .datos[
-                                                                  'taskhomeservice']
-                                                              .toString(),
-                                                          'tasklocation': widget
-                                                              .datos[
-                                                                  'tasklocation']
-                                                              .toString(),
-                                                          'taskoutfit': widget
-                                                              .datos[
-                                                                  'taskoutfit']
-                                                              .toString(),
-                                                          'taskpayment': widget
-                                                              .datos[
-                                                                  'taskpayment']
-                                                              .toString(),
-                                                          'taskphone': widget
-                                                              .datos[
-                                                                  'taskphone']
-                                                              .toString(),
-                                                          'taskplans':
-                                                              widget.datos[
-                                                                  'taskplans'],
-                                                          'taskprice': widget
-                                                              .datos[
-                                                                  'taskprice']
-                                                              .toString(),
-                                                          'taskrecommendeddishes':
-                                                              widget.datos[
-                                                                  'taskrecommendeddishes'],
-                                                          'taskservices': widget
-                                                                  .datos[
-                                                              'taskservices'],
-                                                          'tasktags':
-                                                              widget.datos[
-                                                                  'tasktags'],
-                                                          'tasktime': widget
-                                                              .datos['tasktime']
-                                                              .toString(),
-                                                        });
-                                                      });
+	                                                    String cliente = widget
+			                                                    .datos['taskname'];
+	                                                    setState(() {
+		                                                    Firestore.instance
+				                                                    .collection(
+				                                                    'usuarios')
+				                                                    .document(userID)
+				                                                    .collection(
+				                                                    'visitados')
+				                                                    .document(widget
+				                                                    .datos[
+		                                                    'taskname']
+				                                                    .toString())
+				                                                    .setData({
+			                                                    'taskname': widget
+					                                                    .datos['taskname']
+					                                                    .toString(),
+			                                                    'logos': widget
+					                                                    .datos['logos']
+					                                                    .toString(),
+			                                                    'taskclientimage': widget
+					                                                    .datos[
+			                                                    'taskclientimage']
+					                                                    .toString(),
+			                                                    'taskdescription': widget
+					                                                    .datos[
+			                                                    'taskdescription']
+					                                                    .toString(),
+			                                                    'taskenvironments':
+			                                                    widget.datos[
+			                                                    'taskenvironments'],
+			                                                    'taskfeaturedimages':
+			                                                    widget.datos[
+			                                                    'taskfeaturedimages'],
+			                                                    'taskfeatures': widget
+					                                                    .datos[
+			                                                    'taskfeatures'],
+			                                                    'taskfoods':
+			                                                    widget.datos[
+			                                                    'taskcfoods'],
+			                                                    'taskhomeservice': widget
+					                                                    .datos[
+			                                                    'taskhomeservice']
+					                                                    .toString(),
+			                                                    'tasklocation': widget
+					                                                    .datos[
+			                                                    'tasklocation']
+					                                                    .toString(),
+			                                                    'taskoutfit': widget
+					                                                    .datos[
+			                                                    'taskoutfit']
+					                                                    .toString(),
+			                                                    'taskpayment': widget
+					                                                    .datos[
+			                                                    'taskpayment']
+					                                                    .toString(),
+			                                                    'taskphone': widget
+					                                                    .datos[
+			                                                    'taskphone']
+					                                                    .toString(),
+			                                                    'taskplans':
+			                                                    widget.datos[
+			                                                    'taskplans'],
+			                                                    'taskprice': widget
+					                                                    .datos[
+			                                                    'taskprice']
+					                                                    .toString(),
+			                                                    'taskrecommendeddishes':
+			                                                    widget.datos[
+			                                                    'taskrecommendeddishes'],
+			                                                    'taskservices': widget
+					                                                    .datos[
+			                                                    'taskservices'],
+			                                                    'tasktags':
+			                                                    widget.datos[
+			                                                    'tasktags'],
+			                                                    'tasktime': widget
+					                                                    .datos['tasktime']
+					                                                    .toString(),
+		                                                    });
+		                                                    showdialogVisitados(
+				                                                    context, cliente);
+	                                                    });
                                                     },
                                                   )),
                                             ),
@@ -611,18 +617,20 @@ class _ClientBodyState extends State<ClientBody> {
   }
 
   getFav1(IconData iconData, Color color) {
-    return FloatingActionButton(
-      heroTag: "button1",
-      onPressed: () {
-        favoritos();
-      },
-      backgroundColor: Color(0xff16202c),
-      mini: true,
-      child: Icon(
-        iconData,
-        color: color,
-      ),
-    );
+	  String cliente = widget.datos['taskname'];
+	  return FloatingActionButton(
+		  heroTag: "button1",
+		  onPressed: () {
+			  favoritos();
+			  ShowdialogFavoritos(context, cliente);
+		  },
+		  backgroundColor: Color(0xff16202c),
+		  mini: true,
+		  child: Icon(
+			  iconData,
+			  color: color,
+		  ),
+	  );
   }
 
   getFav2(

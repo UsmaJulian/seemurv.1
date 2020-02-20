@@ -31,19 +31,43 @@ class _PerfilPageState extends State<PerfilPage> {
   String id;
   AuthStatus authStatus = AuthStatus.notSignIn;
   int _widgetIndex = 0;
-  
+
   File _profileImage;
-  
+
+  _submit() async {
+	  // Update user in database
+	  String _profileImageUrl = '';
+	
+	  if (_profileImage == null) {
+		  _profileImageUrl = widget.usuario.profileImageUrl;
+	  } else {
+		  _profileImageUrl = await StorageService.uploadUserProfileImage(
+			  widget.usuario.profileImageUrl,
+			  _profileImage,
+		  );
+	  }
+	
+	  Usuario usuario = Usuario(
+		  uid: widget.usuario.uid,
+		  profileImageUrl: _profileImageUrl,
+	  );
+	  // Database update
+	  DatabaseService.updateUsuario(usuario);
+	
+	  Navigator.pop(context);
+  }
+
   _handleImageFromGallery() async {
     File imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
-    
+
     if (imageFile != null) {
       setState(() {
         _profileImage = imageFile;
       });
+      _submit();
     }
   }
-  
+
   _displayProfileImage() {
     // No new profile image
     if (_profileImage == null) {
@@ -59,29 +83,6 @@ class _PerfilPageState extends State<PerfilPage> {
       // New profile image
       return FileImage(_profileImage);
     }
-  }
-  
-  _submit() async {
-    // Update user in database
-    String _profileImageUrl = '';
-    
-    if (_profileImage == null) {
-      _profileImageUrl = widget.usuario.profileImageUrl;
-    } else {
-      _profileImageUrl = await StorageService.uploadUserProfileImage(
-        widget.usuario.profileImageUrl,
-        _profileImage,
-      );
-    }
-    
-    Usuario usuario = Usuario(
-      uid: widget.usuario.uid,
-      profileImageUrl: _profileImageUrl,
-    );
-    // Database update
-    DatabaseService.updateUsuario(usuario);
-    
-    Navigator.pop(context);
   }
 
   void signOut() async {
@@ -113,7 +114,7 @@ class _PerfilPageState extends State<PerfilPage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(
-              IconData(0xF3E1, fontFamily: 'CupertinoIcons'),
+	            CupertinoIcons.bell,
               color: Colors.black,
               size: 30,
             ),
@@ -142,13 +143,13 @@ class _PerfilPageState extends State<PerfilPage> {
                       backgroundImage: _displayProfileImage(),
                     ),
                   ),
-                  RaisedButton(
-                      onPressed: () {
-                        _submit();
-                      },
-                      child: Text('subir')),
+	                // RaisedButton(
+	                //     onPressed: () {
+	                //       _submit();
+	                //     },
+	                //     child: Text('subir')),
                   Padding(
-                    padding: const EdgeInsets.only(top: 24.0),
+	                  padding: const EdgeInsets.only(top: 34.0),
                     child: Text('Hola,' + '$usuarioName',
                         style: TextStyle(
                           fontFamily: 'HankenGrotesk',
@@ -160,7 +161,7 @@ class _PerfilPageState extends State<PerfilPage> {
                         )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
+	                  padding: const EdgeInsets.only(top: 14.0),
                     child: Text("¿Qué tal tu día?",
                         style: TextStyle(
                           fontFamily: 'OpenSans',
@@ -191,7 +192,7 @@ class _PerfilPageState extends State<PerfilPage> {
                       Container(
                         //visitados
                         width: 375,
-                        height: 446,
+	                      height: 496,
                         decoration: new BoxDecoration(
                             color: Color(0xfff6f7fa),
                             borderRadius: BorderRadius.circular(8)),
@@ -455,15 +456,15 @@ class _PerfilPageState extends State<PerfilPage> {
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: 70,
-	            child: NavigatorBar(
-			            navCallback: (i) => print("Navigating to $i")),
+	            child:
+	            NavigatorBar(navCallback: (i) => print("Navigating to $i")),
             ),
           ),
         ],
       ),
     );
   }
-  
+
   Widget botonresenas() {
     return Container(
       height: 32,
@@ -496,7 +497,7 @@ class _PerfilPageState extends State<PerfilPage> {
       ),
     );
   }
-  
+
   Widget botonfavoritos(BuildContext context) {
 	  return Container(
       height: 32,
@@ -529,7 +530,7 @@ class _PerfilPageState extends State<PerfilPage> {
       ),
     );
   }
-  
+
   Widget botonvisitados() {
     return Container(
       height: 32,

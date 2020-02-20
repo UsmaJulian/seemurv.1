@@ -49,7 +49,7 @@ class _FiltrosBotonesState extends State<FiltrosBotones> {
       child: Row(
         children: <Widget>[
           Container(
-            width: 159.0,
+	          width: 140.0,
             height: 44.0,
             decoration: BoxDecoration(
               border: Border.all(width: 0, style: BorderStyle.none),
@@ -170,7 +170,7 @@ class _FiltrosBotonesState extends State<FiltrosBotones> {
           ),
           SizedBox(width: 8.0),
           Container(
-            width: 159.0,
+		          width: 140.0,
             height: 44.0,
             decoration: BoxDecoration(
               border: Border.all(width: 0, style: BorderStyle.none),
@@ -191,23 +191,23 @@ class _FiltrosBotonesState extends State<FiltrosBotones> {
             ),
             child: FlatButton(
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  new MaterialPageRoute(
-                    builder: (BuildContext context) => FiltrosPage(),
-                  ),
-                  ModalRoute.withName('/'),
-                );
-              },
-              child: Text('Borrar filtros',
-                  style: new TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'HankenGrotesk',
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
-                  )),
-            ),
-          ),
+	              Navigator.push(
+			              context,
+			              new MaterialPageRoute(
+					              builder: (context) => new FiltrosPage())).then((value) {
+		              setState(() {
+			
+		              });
+	              });
+              }, child: Text('Borrar filtros',
+		            style: new TextStyle(
+			            color: Colors.black,
+			            fontFamily: 'HankenGrotesk',
+			            fontSize: 14.0,
+			            fontWeight: FontWeight.w700,
+		            )),
+
+            ))
         ],
       ),
     );

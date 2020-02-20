@@ -30,7 +30,7 @@ class _RestauranteSelectionScreenState extends State<RestauranteSelectionScreen>
   bool showCounter = false;
   int noClippedSelectedRestaurante = 0;
 
-  var firstRestauranteKey = RectGetter.createGlobalKey();
+  final _firstRestauranteKey = RectGetter.createGlobalKey();
 
   @override
   List<String> getSelectedRestaurantes() {
@@ -81,7 +81,7 @@ class _RestauranteSelectionScreenState extends State<RestauranteSelectionScreen>
   Widget build(BuildContext context) {
     TextStyle whiteTextTheme =
         Theme.of(context).textTheme.button.copyWith(color: Colors.white);
-getSelectedRestaurantes();
+    getSelectedRestaurantes();
     return Scaffold(
       body: AnimatedBuilder(
         animation: _controller,
@@ -116,7 +116,7 @@ getSelectedRestaurantes();
   _getSelectedRestaurante() {
     if (selectedRestaurante.length == 0) {
       return RectGetter(
-        key: firstRestauranteKey,
+	      key: _firstRestauranteKey,
         child: Center(
             child: Text(
           "Restaurantes seleccionados ",
@@ -208,7 +208,7 @@ getSelectedRestaurantes();
       restauranteEndRect =
           RectGetter.getRectFromKey(firstSelectedRestaurante.key);
     } else {
-      restauranteEndRect = RectGetter.getRectFromKey(firstRestauranteKey);
+	    restauranteEndRect = RectGetter.getRectFromKey(_firstRestauranteKey);
     }
 
     setState(() {

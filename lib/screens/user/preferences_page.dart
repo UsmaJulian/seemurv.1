@@ -1,15 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
-import 'package:seemur_v1/models/user_model.dart';
 import 'package:seemur_v1/screens/Informaciondestacada.dart';
 import 'package:seemur_v1/screens/ayuda.dart';
 import 'package:seemur_v1/screens/cuenta.dart';
 import 'package:seemur_v1/screens/empresas.dart';
 import 'package:seemur_v1/screens/splash_screen%20_one_loading.dart';
-import 'package:seemur_v1/utilidades/constantes.dart';
+import 'package:share/share.dart';
 
 class PreferencesPage extends StatefulWidget {
 	PreferencesPage({this.auth, this.onSignOut});
@@ -52,31 +53,42 @@ class _PreferencesPageState extends State<PreferencesPage> {
 			}
 		}
 		
-		return MaterialApp(
-			home: Scaffold(
-				appBar: AppBar(
-					backgroundColor: Color.fromRGBO(22, 32, 44, 1),
-					title: Center(
-							child: Text('Ajustes',
-									style: TextStyle(
-										fontFamily: 'HankenGrotesk',
-										color: Color(0xffffffff),
-										fontSize: 15,
-										fontWeight: FontWeight.w700,
-										fontStyle: FontStyle.normal,
-										letterSpacing: -0.5,
-									))),
-				),
-				body: Column(
-					children: <Widget>[
-						Stack(
+		return Scaffold(
+			appBar: AppBar(
+				backgroundColor: Color.fromRGBO(22, 32, 44, 1),
+				title: Center(
+						child: Text('Ajustes',
+								style: TextStyle(
+									fontFamily: 'HankenGrotesk',
+									color: Color(0xffffffff),
+									fontSize: 15,
+									fontWeight: FontWeight.w700,
+									fontStyle: FontStyle.normal,
+									letterSpacing: -0.5,
+								))),
+			),
+			
+			body:
+			// Column(
+			//   children: <Widget>[
+			//     Stack(
+			//       children: <Widget>[
+			SingleChildScrollView(
+				child: ConstrainedBox(
+					constraints:
+					BoxConstraints(minHeight: MediaQuery
+							.of(context)
+							.size
+							.height),
+					child: IntrinsicHeight(
+						child: Stack(
 							children: <Widget>[
-								SingleChildScrollView(
-									child: Column(
-										children: <Widget>[
-											Card(
+								Column(
+									children: <Widget>[
+										Expanded(
+											child: Card(
 												child: Container(
-													height: 80.0,
+													height: 60.0,
 													width: MediaQuery
 															.of(context)
 															.size
@@ -84,34 +96,45 @@ class _PreferencesPageState extends State<PreferencesPage> {
 													child: Row(
 														children: <Widget>[
 															SizedBox(
-																width: 24.0,
-																height: 80.0,
+																width: 14.0,
+																height: 60.0,
 															),
-															FutureBuilder(
-																future: usersRef.document(id).get(),
+															StreamBuilder(
+																stream: Firestore.instance
+																		.collection('usuarios')
+																		.document(id)
+																		.snapshots(),
 																builder: (BuildContext context,
 																		AsyncSnapshot snapshot) {
-																	if (!snapshot.hasData) {
-																		return Center(
-																			child: CircularProgressIndicator(),
-																		);
+																	switch (snapshot.connectionState) {
+																		case ConnectionState.none:
+																		
+																		case ConnectionState.waiting:
+																			return new Text('loading...');
+																		
+																		default:
+																			if (snapshot.hasError)
+																				return new Text(
+																						'Error: ${snapshot.error}');
+																			else if (snapshot.hasData) {
+																				return CircleAvatar(
+																						radius: 20.0,
+																						backgroundColor: Colors.black,
+																						backgroundImage: snapshot
+																								.data['imagen'].isEmpty
+																								? AssetImage(
+																								'assets/images/Contenedordeimagenes.jpg')
+																								: CachedNetworkImageProvider(
+																								snapshot.data['imagen']));
+																			}
 																	}
-																	Usuario usuario =
-																	Usuario.fromDoc(snapshot.data);
-																	return CircleAvatar(
-																			radius: 20.0,
-																			backgroundColor: Colors.grey,
-																			backgroundImage: usuario.profileImageUrl
-																					.isEmpty
-																					? AssetImage(
-																					'assets/images/Contenedordeimagenes.jpg')
-																					: CachedNetworkImageProvider(
-																					usuario.profileImageUrl));
+																	
+																	return null;
 																},
 															),
 															SizedBox(
 																width: 24.0,
-																height: 80.0,
+																height: 60.0,
 															),
 															Text('$usuario',
 																	style: TextStyle(
@@ -126,9 +149,11 @@ class _PreferencesPageState extends State<PreferencesPage> {
 													),
 												),
 											),
-											Card(
+										),
+										Expanded(
+											child: Card(
 												child: Container(
-													height: 66.0,
+													height: 60.0,
 													width: MediaQuery
 															.of(context)
 															.size
@@ -149,24 +174,21 @@ class _PreferencesPageState extends State<PreferencesPage> {
 																	Icon(
 																		IconData(59558,
 																				fontFamily: 'MaterialIcons'),
-																		size: 20.0,
+																		size: 15.0,
 																		color: Color.fromRGBO(245, 175, 0, 1),
 																	),
 																	SizedBox(
 																		width: 12.0,
 																	),
 																	Padding(
-																		padding: const EdgeInsets.only(right: 216),
+																		padding: const EdgeInsets.only(right: 190),
 																		child: new Text('Cuenta',
 																				style: new TextStyle(
 																						fontSize: 14.0,
 																						color: Colors.black)),
 																	),
 																	Icon(
-																		IconData(
-																			0xF3D3,
-																			fontFamily: 'CupertinoIcons',
-																		),
+																		CupertinoIcons.forward,
 																		size: 16,
 																		color: Colors.black,
 																	),
@@ -174,9 +196,11 @@ class _PreferencesPageState extends State<PreferencesPage> {
 															)),
 												),
 											),
-											Card(
+										),
+										Expanded(
+											child: Card(
 												child: Container(
-													height: 66.0,
+													height: 60.0,
 													width: MediaQuery
 															.of(context)
 															.size
@@ -195,8 +219,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
 															child: Row(
 																children: <Widget>[
 																	Icon(
-																		IconData(0xF4B2,
-																				fontFamily: 'CupertinoIcons'),
+																		Icons.star_border,
 																		size: 20.0,
 																		color: Color.fromRGBO(245, 175, 0, 1),
 																	),
@@ -204,24 +227,24 @@ class _PreferencesPageState extends State<PreferencesPage> {
 																		width: 12.0,
 																	),
 																	Padding(
-																		padding: const EdgeInsets.only(right: 116),
+																		padding: const EdgeInsets.only(right: 87),
 																		child: new Text('Información destacada',
 																				style: new TextStyle(
 																						fontSize: 14.0,
 																						color: Colors.black)),
 																	),
 																	Icon(
-																		IconData(
-																			0xF3D3,
-																			fontFamily: 'CupertinoIcons',
-																		),
+																		CupertinoIcons.forward,
 																		size: 16,
+																		color: Colors.black,
 																	),
 																],
 															)),
 												),
 											),
-											Card(
+										),
+										Expanded(
+											child: Card(
 												child: Container(
 													height: 60.0,
 													width: MediaQuery
@@ -230,11 +253,14 @@ class _PreferencesPageState extends State<PreferencesPage> {
 															.width,
 													child: new FlatButton(
 															onPressed: () {},
+															// share(
+															//     context,
+															//     Text('texto a enviar en la invitacion'),
+															//     Text('url')),
 															child: Row(
 																children: <Widget>[
 																	Icon(
-																		IconData(0xF442,
-																				fontFamily: 'CupertinoIcons'),
+																		CupertinoIcons.heart,
 																		size: 20.0,
 																		color: Color.fromRGBO(245, 175, 0, 1),
 																	),
@@ -242,24 +268,24 @@ class _PreferencesPageState extends State<PreferencesPage> {
 																		width: 12.0,
 																	),
 																	Padding(
-																		padding: const EdgeInsets.only(right: 146),
+																		padding: const EdgeInsets.only(right: 116),
 																		child: new Text('Invitar a un amigo ',
 																				style: new TextStyle(
 																						fontSize: 14.0,
 																						color: Colors.black)),
 																	),
 																	Icon(
-																		IconData(
-																			0xF3D3,
-																			fontFamily: 'CupertinoIcons',
-																		),
+																		CupertinoIcons.forward,
 																		size: 16,
+																		color: Colors.black,
 																	),
 																],
 															)),
 												),
 											),
-											Card(
+										),
+										Expanded(
+											child: Card(
 												child: Container(
 													height: 60.0,
 													width: MediaQuery
@@ -288,24 +314,24 @@ class _PreferencesPageState extends State<PreferencesPage> {
 																		width: 12.0,
 																	),
 																	Padding(
-																		padding: const EdgeInsets.only(right: 196),
+																		padding: const EdgeInsets.only(right: 169),
 																		child: new Text('Empresas',
 																				style: new TextStyle(
 																						fontSize: 14.0,
 																						color: Colors.black)),
 																	),
 																	Icon(
-																		IconData(
-																			0xF3D3,
-																			fontFamily: 'CupertinoIcons',
-																		),
+																		CupertinoIcons.forward,
 																		size: 16,
+																		color: Colors.black,
 																	),
 																],
 															)),
 												),
 											),
-											Card(
+										),
+										Expanded(
+											child: Card(
 												child: Container(
 													height: 60.0,
 													width: MediaQuery
@@ -326,8 +352,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
 															child: Row(
 																children: <Widget>[
 																	Icon(
-																		IconData(0xF445,
-																				fontFamily: 'CupertinoIcons'),
+																		Icons.help_outline,
 																		size: 20.0,
 																		color: Color.fromRGBO(245, 175, 0, 1),
 																	),
@@ -335,26 +360,26 @@ class _PreferencesPageState extends State<PreferencesPage> {
 																		width: 10.0,
 																	),
 																	Padding(
-																		padding: const EdgeInsets.only(right: 218),
+																		padding: const EdgeInsets.only(right: 196),
 																		child: new Text('ayuda',
 																				style: new TextStyle(
 																						fontSize: 14.0,
 																						color: Colors.black)),
 																	),
 																	Icon(
-																		IconData(
-																			0xF3D3,
-																			fontFamily: 'CupertinoIcons',
-																		),
+																		CupertinoIcons.forward,
 																		size: 16,
+																		color: Colors.black,
 																	),
 																],
 															)),
 												),
 											),
-											Card(
+										),
+										Expanded(
+											child: Card(
 												child: Container(
-													height: 66.0,
+													height: 60.0,
 													width: MediaQuery
 															.of(context)
 															.size
@@ -364,8 +389,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
 															child: Row(
 																children: <Widget>[
 																	Icon(
-																		IconData(59558,
-																				fontFamily: 'MaterialIcons'),
+																		Icons.exit_to_app,
 																		size: 20.0,
 																		color: Color.fromRGBO(245, 175, 0, 1),
 																	),
@@ -379,31 +403,47 @@ class _PreferencesPageState extends State<PreferencesPage> {
 															)),
 												),
 											),
-										],
+										),
+									],
+								),
+								// Expanded(
+								Positioned(
+									bottom: 0,
+									child: Container(
+										width: MediaQuery
+												.of(context)
+												.size
+												.width,
+										height: 60,
+										child: NavigatorBar(
+												navCallback: (i) => print("Navigating to $i")),
 									),
 								),
 							],
 						),
-						Expanded(
-							child: SizedBox(
-								height: MediaQuery
-										.of(context)
-										.size
-										.height,
-							),
-						),
-						Container(
-							width: MediaQuery
-									.of(context)
-									.size
-									.width,
-							height: 70,
-							child: NavigatorBar(
-									navCallback: (i) => print("Navigating to $i")),
-						),
-					],
+					),
 				),
 			),
+			// ],
+			//),
+			// Expanded(
+			//   child: Container(
+			//     width: MediaQuery.of(context).size.width,
+			//     height: 60,
+			//     child:
+			//         NavigatorBar(navCallback: (i) => print("Navigating to $i")),
+			// ),
+			//  ),
+			//  ],
+			// ),
 		);
+	}
+	
+	share(BuildContext context, texto, enlace) {
+		String text = texto;
+		final RenderBox box = context.findRenderObject();
+		Share.share(text,
+				subject: enlace,
+				sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
 	}
 }

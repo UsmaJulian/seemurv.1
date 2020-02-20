@@ -7,7 +7,8 @@ import 'package:seemur_v1/components/widgets/ambienteseleccionableboton.dart';
 import 'package:seemur_v1/services/filtros/ambiente_services.dart';
 
 class AmbienteSelectionScreen extends StatefulWidget {
-  _AmbienteSelectionScreenState createState() => _AmbienteSelectionScreenState();
+	_AmbienteSelectionScreenState createState() =>
+			_AmbienteSelectionScreenState();
 }
 
 class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
@@ -29,20 +30,17 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
   bool showCounter = false;
   int noClippedSelectedAmbiente = 0;
 
-  var firstAmbienteKey = RectGetter.createGlobalKey();
+  var _firstAmbienteKey = RectGetter.createGlobalKey();
 
   @override
   List<String> getSelectedAmbientes() {
-
     List<String> listAmbientes = [];
-    if(service.selectedAmbiente.length==0){
-      listAmbientes=[];
-    }else{
-
-      service.selectedAmbiente.forEach((data){
+    if (service.selectedAmbiente.length == 0) {
+	    listAmbientes = [];
+    } else {
+	    service.selectedAmbiente.forEach((data) {
         listAmbientes.add(data.name);
       });
-
     }
 
     return listAmbientes;
@@ -81,7 +79,6 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
 
   @override
   Widget build(BuildContext context) {
-
     getSelectedAmbientes();
 
     TextStyle whiteTextTheme =
@@ -121,7 +118,7 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
   _getSelectedAmbiente() {
     if (selectedAmbiente.length == 0) {
       return RectGetter(
-        key: firstAmbienteKey,
+	      key: _firstAmbienteKey,
         child: Center(
             child: Text(
           "Ambientes seleccionados ",
@@ -210,7 +207,7 @@ class _AmbienteSelectionScreenState extends State<AmbienteSelectionScreen>
       var firstSelectedAmbiente = selectedAmbiente[0];
       ambienteEndRect = RectGetter.getRectFromKey(firstSelectedAmbiente.key);
     } else {
-      ambienteEndRect = RectGetter.getRectFromKey(firstAmbienteKey);
+	    ambienteEndRect = RectGetter.getRectFromKey(_firstAmbienteKey);
     }
 
     setState(() {

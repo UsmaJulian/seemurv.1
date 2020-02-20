@@ -7,6 +7,7 @@ import 'package:seemur_v1/screens/subcatscreens/bares.dart';
 import 'package:seemur_v1/screens/subcatscreens/cervecerias.dart';
 import 'package:seemur_v1/screens/subcatscreens/discotecas.dart';
 import 'package:seemur_v1/screens/subcatscreens/gastropubs.dart';
+import 'package:seemur_v1/src/share_prefs/preferencias%20_usuario.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class FestejarPage extends StatefulWidget {
@@ -17,6 +18,7 @@ class FestejarPage extends StatefulWidget {
 
 class _FestejarPageState extends State<FestejarPage> {
   ScrollController _controller;
+  final prefsus = new PreferenciasUsuario();
 
   @override
   void initState() {
@@ -371,6 +373,10 @@ class _FestejarPageState extends State<FestejarPage> {
                       stream: Firestore.instance
                           .collection('client')
                           .where("tasktags", arrayContains: 'Festejar')
+		                      .where(
+	                      'ciudad',
+	                      isEqualTo: prefsus.ciudad,
+                      )
                           .snapshots(),
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {

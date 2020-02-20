@@ -56,7 +56,7 @@ class _SplashScreenOneLoadingState extends State<SplashScreenOneLoading> {
                 Container(
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        top: 73.33, left: 74.5, right: 75.0),
+		                    top: 63.33, left: 74.5, right: 75.0),
                     child: imageiso,
                   ),
                 ),

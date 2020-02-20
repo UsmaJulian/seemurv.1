@@ -85,11 +85,9 @@ class _CuentaPageState extends State<CuentaPage> {
                                     fontSize: 14.0, color: Colors.black)),
                           ),
                           Icon(
-                            IconData(
-                              0xF3D3,
-                              fontFamily: 'CupertinoIcons',
-                            ),
+	                          CupertinoIcons.forward,
                             size: 16,
+	                          color: Colors.black,
                           ),
                         ],
                       )),
@@ -119,11 +117,9 @@ class _CuentaPageState extends State<CuentaPage> {
                                     fontSize: 14.0, color: Colors.black)),
                           ),
                           Icon(
-                            IconData(
-                              0xF3D3,
-                              fontFamily: 'CupertinoIcons',
-                            ),
+	                          CupertinoIcons.forward,
                             size: 16,
+	                          color: Colors.black,
                           ),
                         ],
                       )),
@@ -147,11 +143,9 @@ class _CuentaPageState extends State<CuentaPage> {
                                     fontSize: 14.0, color: Colors.black)),
                           ),
                           Icon(
-                            IconData(
-                              0xF3D3,
-                              fontFamily: 'CupertinoIcons',
-                            ),
+	                          CupertinoIcons.forward,
                             size: 16,
+	                          color: Colors.black,
                           ),
                         ],
                       )),

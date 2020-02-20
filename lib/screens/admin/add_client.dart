@@ -681,8 +681,8 @@ class _ClientAddPageState extends State<ClientAddPage> {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 70,
-	              child: NavigatorBar(
-			              navCallback: (i) => print("Navigating to $i")),
+	              child:
+	              NavigatorBar(navCallback: (i) => print("Navigating to $i")),
               ),
             ),
           ],

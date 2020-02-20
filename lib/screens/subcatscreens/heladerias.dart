@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/components/widgets/clients_body.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
+import 'package:seemur_v1/src/share_prefs/preferencias%20_usuario.dart';
 
 class HeladeriaPage extends StatefulWidget {
   _HeladeriaPageState createState() => _HeladeriaPageState();
@@ -49,14 +50,19 @@ class ListHeladerias extends StatefulWidget {
 
 class _ListHeladeriasState extends State<ListHeladerias> {
   Future getClient() async {
-    print('hola');
-    var firestore = Firestore.instance;
-
-    QuerySnapshot qn = await firestore
-        .collection('client')
-        .where('tasktags', arrayContains: 'Heladerías')
-        .getDocuments();
-    return qn.documents;
+	  final prefsus = new PreferenciasUsuario();
+	  print('hola');
+	  var firestore = Firestore.instance;
+	
+	  QuerySnapshot qn = await firestore
+			  .collection('client')
+			  .where('tasktags', arrayContains: 'Heladerías')
+			  .where(
+		  'ciudad',
+		  isEqualTo: prefsus.ciudad,
+	  )
+			  .getDocuments();
+	  return qn.documents;
   }
 
   @override

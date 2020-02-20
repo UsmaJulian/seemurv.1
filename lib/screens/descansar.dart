@@ -7,6 +7,7 @@ import 'package:seemur_v1/screens/subcatscreens/chalets.dart';
 import 'package:seemur_v1/screens/subcatscreens/hospedajes.dart';
 import 'package:seemur_v1/screens/subcatscreens/hostales.dart';
 import 'package:seemur_v1/screens/subcatscreens/hoteles.dart';
+import 'package:seemur_v1/src/share_prefs/preferencias%20_usuario.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class DescansarPage extends StatefulWidget {
@@ -17,6 +18,7 @@ class DescansarPage extends StatefulWidget {
 
 class _DescansarPageState extends State<DescansarPage> {
   ScrollController _controller;
+  final prefsus = new PreferenciasUsuario();
 
   @override
   void initState() {
@@ -382,6 +384,10 @@ class _DescansarPageState extends State<DescansarPage> {
                       stream: Firestore.instance
                           .collection('client')
                           .where("tasktags", arrayContains: 'Descansar')
+		                      .where(
+	                      'ciudad',
+	                      isEqualTo: prefsus.ciudad,
+                      )
                           .snapshots(),
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {

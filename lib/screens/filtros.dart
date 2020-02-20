@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/screens/abierto.dart';
 import 'package:seemur_v1/screens/ambientescreen.dart';
 import 'package:seemur_v1/screens/bardiscocervscreen.dart';
 import 'package:seemur_v1/screens/caracteristicasscreen.dart';
 import 'package:seemur_v1/screens/filterbuttons.dart';
 import 'package:seemur_v1/screens/formasdepago.dart';
+import 'package:seemur_v1/screens/home.dart';
 import 'package:seemur_v1/screens/rangoprecios.dart';
 import 'package:seemur_v1/screens/restaurantesscreen.dart';
 
@@ -15,12 +17,13 @@ class FiltrosPage extends StatefulWidget {
 }
 
 class _FiltrosPageState extends State<FiltrosPage> {
+	
 	@override
 	void initState() {
+		super.initState();
 		setState(() {
 		
 		});
-		super.initState();
 	}
   @override
   Widget build(BuildContext context) {
@@ -50,7 +53,11 @@ class _FiltrosPageState extends State<FiltrosPage> {
                   letterSpacing: 0,
                 )),
             onPressed: () {
-              Navigator.of(context).pop();
+	            Navigator.of(context).push(
+			            new MaterialPageRoute(builder: (BuildContext context) =>
+					            HomePage(
+							            auth: Auth())));
+              
             },
           )
         ],

@@ -83,7 +83,9 @@ class ConfigurarPage extends StatelessWidget {
                     child: Switch(
                       activeColor: Color(0xfff5af00),
                       value: false,
-                      onChanged: (value) {},
+	                    onChanged: (value) {
+		
+	                    },
                     ),
                   )
                 ],

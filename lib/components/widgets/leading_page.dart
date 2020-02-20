@@ -28,11 +28,14 @@ class _LeadingPageState extends State<LeadingPage> {
 
   @override
   Widget build(BuildContext context) {
-    CommonThings.size = MediaQuery.of(context).size;
+	  CommonThings.size = MediaQuery
+			  .of(context)
+			  .size;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(children: <Widget>[
-        HomePage(
+	
+	      HomePage(
           auth: Auth(),
         ),
         // Positioned(

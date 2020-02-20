@@ -32,7 +32,7 @@ class _CaracteristicaSelectionScreenState
   bool showCounter = false;
   int noClippedSelectedCaracteristica = 0;
 
-  var firstCaracteristicaKey = RectGetter.createGlobalKey();
+  var _firstCaracteristicaKey = RectGetter.createGlobalKey();
 
   @override
   List<String> getSelectedCaracteristica() {
@@ -119,7 +119,7 @@ class _CaracteristicaSelectionScreenState
   _getSelectedCaracteristica() {
     if (selectedCaracteristica.length == 0) {
       return RectGetter(
-        key: firstCaracteristicaKey,
+	      key: _firstCaracteristicaKey,
         child: Center(
             child: Text(
           "Comodidades seleccionadas ",
@@ -213,7 +213,8 @@ class _CaracteristicaSelectionScreenState
       caracteristicaEndRect =
           RectGetter.getRectFromKey(firstSelectedCaracteristica.key);
     } else {
-      caracteristicaEndRect = RectGetter.getRectFromKey(firstCaracteristicaKey);
+	    caracteristicaEndRect =
+			    RectGetter.getRectFromKey(_firstCaracteristicaKey);
     }
 
     setState(() {

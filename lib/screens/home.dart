@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/navigatorbar.dart';
 import 'package:seemur_v1/components/widgets/searchbar.dart';
-import 'package:seemur_v1/models/user_model.dart';
 import 'package:seemur_v1/screens/bares_discos_recomendados.dart';
 import 'package:seemur_v1/screens/comer.dart';
 import 'package:seemur_v1/screens/descansar.dart';
@@ -13,12 +13,15 @@ import 'package:seemur_v1/screens/eventos.dart';
 import 'package:seemur_v1/screens/festejar.dart';
 import 'package:seemur_v1/screens/restaurantes_recomendados.dart';
 import 'package:seemur_v1/screens/tardear.dart';
-import 'package:seemur_v1/utilidades/constantes.dart';
+import 'package:seemur_v1/src/share_prefs/preferencias%20_usuario.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:seemur_v1/components/widgets/searchbar.dart';
 
 //final LocalStorage storage = new LocalStorage('userdata');
 class HomePage extends StatefulWidget {
+	static final String routeName = 'home';
+	
 	HomePage({this.auth});
 	
 	final BaseAuth auth;
@@ -27,7 +30,7 @@ class HomePage extends StatefulWidget {
 	_HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
+class _HomePageState extends State<HomePage> {
 	final databaseReference = Firestore.instance;
 	String usuario = 'Usuario'; //user
 	String usuarioEmail = 'Email'; //userEmail
@@ -35,77 +38,38 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 	final formKey = GlobalKey<FormState>();
 	String _itemCiudad;
 	List<DropdownMenuItem<String>> _ciudadItems;
+	var ciudaditemsel;
 	
 	@override
 	void initState() {
-		WidgetsBinding.instance.addObserver(this);
 		super.initState();
+		cargarCiudadSeleccionada();
 		widget.auth.infoUser().then((onValue) {
 			setState(() {
 				usuario = onValue.displayName;
 				usuarioEmail = onValue.email;
 				id = onValue.uid;
 				print('ID $id');
-				
-				_ciudadItems = getCiudadItems();
-				_itemCiudad = _ciudadItems[0].value;
 			});
 		});
 	}
 	
-	@override
-	void dispose() {
-		WidgetsBinding.instance.removeObserver(this);
-		super.dispose();
-	}
-	
-	@override
-	void didChangeAppLifecycleState(AppLifecycleState state) {
-		print('state = $state');
-	}
-	
-	getData() async {
-		return await Firestore.instance.collection('ciudades').getDocuments();
-	}
-	
-	//Dropdownlist from firestore
-	List<DropdownMenuItem<String>> getCiudadItems() {
-		List<DropdownMenuItem<String>> items = List();
-		QuerySnapshot dataCiudades;
-		getData().then((data) {
-			dataCiudades = data;
-			dataCiudades.documents.forEach((obj) {
-				print('${obj.documentID} ${obj['nombre']}');
-				items.add(DropdownMenuItem(
-					value: obj.documentID,
-					child: Text(obj['nombre'],
-							style: TextStyle(
-								fontFamily: 'OpenSans',
-								color: Color(0xffffffff),
-								fontSize: 14,
-								fontWeight: FontWeight.w400,
-								fontStyle: FontStyle.normal,
-								letterSpacing: 0,
-							)),
-				));
-			});
-		}).catchError((error) => print('hay un error.....' + error));
+	cargarCiudadSeleccionada() async {
+		SharedPreferences prefs = await SharedPreferences.getInstance();
 		
-		items.add(DropdownMenuItem(
-			value: '0',
-			child: Text('Ciudad ',
-					style: TextStyle(
-						fontFamily: 'OpenSans',
-						color: Color(0xffffffff),
-						fontSize: 14,
-						fontWeight: FontWeight.w400,
-						fontStyle: FontStyle.normal,
-						letterSpacing: 0,
-					)),
-		));
-		
-		return items;
+		ciudaditemsel = prefs.getString('ciudad');
+		setState(() {});
 	}
+	
+	_setCiudadSeleccionada(ciudadSeleccionada) async {
+		SharedPreferences prefs = await SharedPreferences.getInstance();
+		prefs.setString('ciudad', ciudadSeleccionada);
+		setState(() {
+			ciudaditemsel = ciudadSeleccionada;
+		});
+	}
+	
+	final prefs = new PreferenciasUsuario();
 	
 	@override
 	Widget build(BuildContext context,) {
@@ -155,66 +119,102 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 																			SizedBox(
 																				width: 60,
 																			),
-																			FutureBuilder(
-																				initialData: [],
-																				future: usersRef.document(id).get(),
+																			StreamBuilder(
+																				stream: Firestore.instance
+																						.collection('usuarios')
+																						.document(id)
+																						.snapshots(),
 																				builder: (BuildContext context,
 																						AsyncSnapshot snapshot) {
-																					if (!snapshot.hasData) {
-																						return Center(
-																							child:
-																							CircularProgressIndicator(),
-																						);
+																					switch (snapshot.connectionState) {
+																						case ConnectionState.none:
+																						case ConnectionState.waiting:
+																							return new Text('loading...');
+																						default:
+																							if (snapshot.hasError)
+																								return new Text(
+																										'Error: ${snapshot.error}');
+																							else if (snapshot.hasData) {
+																								return CircleAvatar(
+																										radius: 30.0,
+																										backgroundColor:
+																										Colors.black,
+																										backgroundImage: snapshot
+																												.data['imagen']
+																												.isEmpty
+																												? AssetImage(
+																												'assets/images/Contenedordeimagenes.jpg')
+																												: CachedNetworkImageProvider(
+																												snapshot.data[
+																												'imagen']));
+																							}
 																					}
-																					Usuario usuario =
-																					Usuario.fromDoc(snapshot.data);
-																					return CircleAvatar(
-																							radius: 40.0,
-																							backgroundColor: Colors.grey,
-																							backgroundImage: usuario
-																									.profileImageUrl.isEmpty
-																									? AssetImage(
-																									'assets/images/Contenedordeimagenes.jpg')
-																									: CachedNetworkImageProvider(
-																									usuario.profileImageUrl));
 																				},
 																			),
 																		],
 																	),
 																),
 															),
+//AGREGAR DROPDOWN
+															
+															StreamBuilder<QuerySnapshot>(
+																	stream: Firestore.instance
+																			.collection("ciudades")
+																			.snapshots(),
+																	builder: (context, snapshot) {
+																		if (!snapshot.hasData)
+																			const Text("Loading.....");
+																		else {
+																			List<DropdownMenuItem> ciudadItems = [];
+																			for (int i = 0;
+																			i < snapshot.data.documents.length;
+																			i++) {
+																				DocumentSnapshot snap =
+																				snapshot.data.documents[i];
+																				ciudadItems.add(
+																					DropdownMenuItem(
+																						child: Text(
+																							snap.documentID,
+																							style: TextStyle(
+																									color: Colors.white),
+																						),
+																						value: "${snap.documentID}",
+																					),
+																				);
+																			}
+																			return Row(
+																				mainAxisAlignment:
+																				MainAxisAlignment.start,
+																				children: <Widget>[
+																					SizedBox(
+																						width: 25.0,
+																					),
+																					SizedBox(
+																							child: Theme(
+																								data: Theme.of(context)
+																										.copyWith(
+																									canvasColor: Color(
+																											0xff16202c),
+																								),
+																								child: DropdownButton(
+																									items: ciudadItems,
+																									onChanged: _setCiudadSeleccionada,
+																									value: ciudaditemsel,
+																									isExpanded: false,
+																									hint: new Text(
+																										"Selecciona una ciudad",
+																										style: TextStyle(
+																												color: Colors.white),
+																									),
+																								),
+																							)),
+																				],
+																			);
+																		}
+																		return Text('cargando');
+																	}),
 															Padding(
-																padding: const EdgeInsets.only(
-																		top: 0, left: 0.0, right: 201.0),
-																child: SizedBox(
-																	width: 100,
-																	child: Theme(
-																		data: Theme.of(context).copyWith(
-																			canvasColor: Color(0xff16202c),
-																		),
-																		child: DropdownButtonFormField(
-																			decoration: InputDecoration(
-																					border: InputBorder.none,
-																					isDense: true),
-																			validator: (value) =>
-																			value == '0'
-																					? 'Debe seleccionar una ciudad'
-																					: null,
-																			value: _itemCiudad,
-																			items: _ciudadItems,
-																			onChanged: (value) {
-																				setState(() {
-																					_itemCiudad = value;
-																				});
-																			},
-																			//seleccionarCiudadItem,
-																			onSaved: (value) => _itemCiudad = value,
-																		),
-																	),
-																),
-															),
-															Padding(
-																padding: const EdgeInsets.only(top: 8.0),
+																padding: const EdgeInsets.only(top: 20.0),
 																child: Column(
 																	children: <Widget>[
 																		SearchBar(),
@@ -247,8 +247,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 														children: <Widget>[
 															Padding(
 																padding: const EdgeInsets.only(
-																		left: 24.0, top: 47.0, right: 250.0),
-																child: Text("Explorar",
+																		left: 24.0, top: 47.0, right: 210.0),
+																child: AutoSizeText("Explorar",
 																		style: TextStyle(
 																			fontFamily: 'HankenGrotesk',
 																			color: Color(0xff000000),
