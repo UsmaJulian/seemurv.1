@@ -64,32 +64,37 @@ class _SearchBarState extends State<SearchBar> {
 								color: Colors.transparent,
 							)),
 					child: Padding(
-						padding: const EdgeInsets.only(right: 8.0),
-						child: new TextField(
-							controller: controller,
-							decoration: new InputDecoration(
-								contentPadding: const EdgeInsets.symmetric(vertical: 2.0),
-								border: InputBorder.none,
-								hintText: 'Buscar ',
-								prefixIcon: Icon(
-									Icons.search,
-									size: 12,
+						padding: const EdgeInsets.only(
+							right: 8.0,
+							top: 8.0,
+						),
+						child: Center(
+							child: new TextField(
+								controller: controller,
+								decoration: new InputDecoration(
+									contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
+									border: InputBorder.none,
+									hintText: 'Buscar ',
+									prefixIcon: Icon(
+										Icons.search,
+										size: 25,
+									),
 								),
+								onChanged: (value) {
+									initiateSearch(value);
+								},
+								onEditingComplete: () {
+									controller.text = controller.text[0].toUpperCase() +
+											controller.text.substring(1);
+									print(controller.text);
+									var valor = controller.text;
+									Navigator.push(
+											context,
+											new MaterialPageRoute(
+													builder: (context) => SearchResult(valor: valor)));
+								},
+								textInputAction: TextInputAction.done,
 							),
-							onChanged: (value) {
-								initiateSearch(value);
-							},
-							onEditingComplete: () {
-								controller.text = controller.text[0].toUpperCase() +
-										controller.text.substring(1);
-								print(controller.text);
-								var valor = controller.text;
-								Navigator.push(
-										context,
-										new MaterialPageRoute(
-												builder: (context) => SearchResult(valor: valor)));
-							},
-							textInputAction: TextInputAction.done,
 						),
 					),
 				),

@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CheckListBuilder extends StatefulWidget {
+class FormasPagoCheckListBuilder extends StatefulWidget {
   final int num;
 
-  const CheckListBuilder({Key key, this.num});
+  const FormasPagoCheckListBuilder({Key key, this.num});
 
   @override
-  CheckListBuilderState createState() {
-    return CheckListBuilderState();
+  FormasPagoCheckListBuilderState createState() {
+	  return FormasPagoCheckListBuilderState();
   }
 }
 
-class CheckListBuilderState extends State<CheckListBuilder> {
+class FormasPagoCheckListBuilderState
+		extends State<FormasPagoCheckListBuilder> {
   String _currText = '';
   bool _isSelectedCash = false;
   bool _isSelectedCardCredit = false;

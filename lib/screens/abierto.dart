@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class RadioListBuilder extends StatefulWidget {
+class AbiertoRadioListBuilder extends StatefulWidget {
   final int num;
 
-
-  const RadioListBuilder({Key key, this.num}) : super(key: key);
-
-
+  const AbiertoRadioListBuilder({Key key, this.num}) : super(key: key);
 
   @override
-  RadioListBuilderState createState() {
-    return RadioListBuilderState();
+  AbiertoRadioListBuilderState createState() {
+	  return AbiertoRadioListBuilderState();
   }
 }
 
-class RadioListBuilderState extends State<RadioListBuilder> {
+class AbiertoRadioListBuilderState extends State<AbiertoRadioListBuilder> {
   int _currValue = 0;
   String _currText = '';
 
@@ -38,7 +35,6 @@ class RadioListBuilderState extends State<RadioListBuilder> {
   Future<String> getAbierto() async {
 	  SharedPreferences prefs = await SharedPreferences.getInstance();
 	  String abierto = await prefs.getString("horario");
-	
 	
 	  return abierto;
   }
