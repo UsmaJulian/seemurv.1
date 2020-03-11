@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -468,7 +469,7 @@ class _PerfilPageState extends State<PerfilPage> {
   Widget botonresenas() {
     return Container(
       height: 32,
-      width: 88,
+      width: 92,
       decoration: BoxDecoration(
         border: Border.all(width: 0, style: BorderStyle.none),
         borderRadius: BorderRadius.horizontal(
@@ -480,11 +481,11 @@ class _PerfilPageState extends State<PerfilPage> {
         ),
       ),
       child: FlatButton(
-        child: Text('Reseñas',
+        child: AutoSizeText('Reseñas',
             style: new TextStyle(
               color: Colors.black,
               fontFamily: 'HankenGrotesk',
-              fontSize: 12.0,
+              fontSize: 10.0,
               fontWeight: FontWeight.w700,
             )),
         onPressed: () {
@@ -501,7 +502,7 @@ class _PerfilPageState extends State<PerfilPage> {
   Widget botonfavoritos(BuildContext context) {
 	  return Container(
       height: 32,
-      width: 88,
+      width: 92,
       decoration: BoxDecoration(
         border: Border.all(width: 0, style: BorderStyle.none),
         borderRadius: BorderRadius.horizontal(
@@ -513,11 +514,11 @@ class _PerfilPageState extends State<PerfilPage> {
         ),
       ),
       child: FlatButton(
-        child: Text('Favoritos',
+        child: AutoSizeText('Favoritos',
             style: new TextStyle(
               color: Colors.black,
               fontFamily: 'HankenGrotesk',
-              fontSize: 12.0,
+              fontSize: 10.0,
               fontWeight: FontWeight.w700,
             )),
         onPressed: () {
@@ -534,7 +535,7 @@ class _PerfilPageState extends State<PerfilPage> {
   Widget botonvisitados() {
     return Container(
       height: 32,
-      width: 88,
+      width: 92,
       decoration: BoxDecoration(
         border: Border.all(width: 0, style: BorderStyle.none),
         borderRadius: BorderRadius.horizontal(
@@ -546,13 +547,15 @@ class _PerfilPageState extends State<PerfilPage> {
         ),
       ),
       child: FlatButton(
-        child: Text('Visitados',
-            style: new TextStyle(
-              color: Colors.black,
-              fontFamily: 'HankenGrotesk',
-              fontSize: 12.0,
-              fontWeight: FontWeight.w700,
-            )),
+        child: AutoSizeText(
+          'Visitados',
+          style: new TextStyle(
+            color: Colors.black,
+            fontFamily: 'HankenGrotesk',
+            fontSize: 10.0,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         onPressed: () {
           _widgetIndex == 0 ? null : setState(() => _widgetIndex = 0);
           // Navigator.push(

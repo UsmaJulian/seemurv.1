@@ -26,8 +26,7 @@ class _RestaurantesParaTiState extends State<RestaurantesParaTi> {
     BuildContext context,
   ) {
 	  final prefsus = new PreferenciasUsuario();
-	  print('ciudad----');
-	  print('${prefsus.ciudad}');
+	
 	  return StreamBuilder(
 			  stream: Firestore.instance
 					  .collection('client')
@@ -108,7 +107,7 @@ class _RestaurantesParaTiState extends State<RestaurantesParaTi> {
 																	  MediaQuery
 																			  .of(context)
 																			  .size
-																			  .width * 0.6,
+																			  .width * 0.7,
 																	  height: 78.0,
 																	  child: ListTile(
 																		  contentPadding:

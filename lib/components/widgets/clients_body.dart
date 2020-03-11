@@ -318,9 +318,9 @@ class _ClientBodyState extends State<ClientBody> {
 				                                                              .documents[index]
 		                                                              [
 		                                                              'rating']),
-                                                              size: 18.0,
+	                                                            size: 12.0,
                                                               starCount: 5,
-                                                              spacing: 2.0,
+	                                                            spacing: 1.0,
                                                             ),
                                                             SizedBox(
                                                               width: 16.0,
@@ -338,7 +338,7 @@ class _ClientBodyState extends State<ClientBody> {
                                                                   'HankenGrotesk',
                                                                   color: Color(
                                                                       0xff000000),
-                                                                  fontSize: 24,
+	                                                                fontSize: 10,
                                                                   fontWeight:
                                                                   FontWeight
 		                                                                  .w700,
@@ -516,15 +516,15 @@ class _ClientBodyState extends State<ClientBody> {
                                 allowHalfRating: true,
                                 rating: double.parse(
                                     snapshot.data.documents[idx]['rating']),
-                                size: 14.0,
+	                              size: 10.0,
                                 starCount: 5,
-                                spacing: 2.0,
+	                              spacing: 1.0,
                               ),
                               SizedBox(
                                 width: 16.0,
                               ),
                               Text(snapshot.data.documents[idx]['rating']
-                                  .toString())
+		                              .toString(), style: TextStyle(fontSize: 10),)
                             ],
                           );
                         });

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
 import 'package:seemur_v1/components/widgets/searchbar.dart';
 import 'package:seemur_v1/models/user_model.dart';
+import 'package:seemur_v1/src/share_prefs/preferencias%20_usuario.dart';
 import 'package:seemur_v1/utilidades/constantes.dart';
 
 class Filtrosresult extends StatefulWidget {
@@ -26,6 +27,7 @@ class _FiltrosresultState extends State<Filtrosresult>
   final formKey = GlobalKey<FormState>();
   String _itemCiudad;
   List<DropdownMenuItem<String>> _ciudadItems;
+  final prefs = new PreferenciasUsuario();
 
   @override
   void initState() {
@@ -192,7 +194,6 @@ class _FiltrosresultState extends State<Filtrosresult>
                   ),
                 ),
                 StreamBuilder(
-                    initialData: [],
                     stream: Firestore.instance
                         .collection('client')
 //												.where('taskenvironments',
@@ -201,8 +202,8 @@ class _FiltrosresultState extends State<Filtrosresult>
                         //                    .where('taskservices',
 
                         //                        isGreaterThanOrEqualTo: widget.misrestaurantes)
-
-                        //.where('tasktags', isEqualTo: widget.misBares)
+		
+		                    .where('tasktags', arrayContainsAny: prefs.filtros)
 
                         //                  .where('taskfeatures',
 

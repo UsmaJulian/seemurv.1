@@ -55,9 +55,13 @@ class _PreferencesPageState extends State<PreferencesPage> {
 		
 		return Scaffold(
 			appBar: AppBar(
+				automaticallyImplyLeading: false,
+				leading: IconButton(icon: Icon(CupertinoIcons.back), onPressed: () {
+					Navigator.pop(context);
+				}),
 				backgroundColor: Color.fromRGBO(22, 32, 44, 1),
 				title: Center(
-						child: Text('Ajustes',
+						child: Text('Ajustes', textAlign: TextAlign.center,
 								style: TextStyle(
 									fontFamily: 'HankenGrotesk',
 									color: Color(0xffffffff),
@@ -65,6 +69,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
 									fontWeight: FontWeight.w700,
 									fontStyle: FontStyle.normal,
 									letterSpacing: -0.5,
+								
 								))),
 			),
 			
@@ -404,6 +409,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
 												),
 											),
 										),
+										SizedBox(height: 70,)
 									],
 								),
 								// Expanded(

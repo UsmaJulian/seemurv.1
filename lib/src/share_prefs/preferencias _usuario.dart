@@ -23,4 +23,12 @@ class PreferenciasUsuario {
   set ciudad(ciudadSeleccionada) {
     _prefs.setString('ciudad', ciudadSeleccionada);
   }
+
+  get filtros {
+	  return _prefs.getStringList('filtro') ?? '';
+  }
+
+  set filtros(filtroSeleccionado) {
+	  _prefs.setStringList('filtro', filtroSeleccionado);
+  }
 }

@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 
 class AmbientesWidget extends StatefulWidget {
@@ -10,11 +8,7 @@ class AmbientesWidget extends StatefulWidget {
 class _AmbientesWidgetState extends State<AmbientesWidget> {
   List<Ambientes> _ambientes;
   List<String> _filters;
-  List<String> ambientessel = new List<String>();
 
-//  HashMap filtrosPadre = new HashMap<String,  HashMap<int, String>>();
-//  HashMap filtrosHijo = new HashMap<int, String>();
-  HashMap ambientesfiltro = new HashMap<int, String>();
 
   @override
   void initState() {
@@ -30,13 +24,7 @@ class _AmbientesWidgetState extends State<AmbientesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    ambientessel.addAll(_filters);
-    for (var i = 0; i < ambientessel.length; i++) {
-      ambientessel[i] = "'${ambientessel[i]}'";
-    }
-    print("ambientessel");
-    print(ambientessel);
-    return Column(
+	  return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Align(
@@ -92,11 +80,6 @@ class _AmbientesWidgetState extends State<AmbientesWidget> {
             setState(() {
               if (selected) {
                 _filters.add(ambiente.name);
-//                Map ambientmap={0:"Tranquilo",1: "Familiar",2: "Concurrido",3:"Acogedor"};
-//                filtrosPadre.putIfAbsent("Ambientes", filtrosHijo.putIfAbsent(0, 'Familiar' as dynamic) );
-                ambientesfiltro.update(0, (a) => ambiente.name);
-                print("ambfil______");
-                print(ambientesfiltro);
               } else {
                 _filters.removeWhere((String name) {
                   return name == ambiente.name;

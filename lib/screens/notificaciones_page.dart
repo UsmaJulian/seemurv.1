@@ -35,7 +35,8 @@ class NotificacionesPage extends StatelessWidget {
           return ListTile(
             leading: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.asset('assets/icon/icon.png')),
+	            // child: Image.asset('assets/icon/icon.png')
+            ),
             // title: Text(argumentonotifi) ?? 'Sin notificaciones',
           );
         },

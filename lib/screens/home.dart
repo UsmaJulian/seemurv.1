@@ -110,14 +110,14 @@ class _HomePageState extends State<HomePage> {
 																				style: TextStyle(
 																					fontFamily: 'HankenGrotesk',
 																					color: Color(0xffffffff),
-																					fontSize: 24,
+																					fontSize: 22,
 																					fontWeight: FontWeight.w700,
 																					fontStyle: FontStyle.normal,
 																					letterSpacing: -0.4000000059604645,
 																				),
 																			),
 																			SizedBox(
-																				width: 60,
+																				width: 20,
 																			),
 																			StreamBuilder(
 																				stream: Firestore.instance
@@ -149,6 +149,9 @@ class _HomePageState extends State<HomePage> {
 																												'imagen']));
 																							}
 																					}
+																					return Container(
+																					
+																					);
 																				},
 																			),
 																		],
@@ -244,19 +247,24 @@ class _HomePageState extends State<HomePage> {
 														borderRadius: BorderRadius.circular(10),
 													),
 													child: Column(
+														mainAxisAlignment: MainAxisAlignment.start,
 														children: <Widget>[
 															Padding(
 																padding: const EdgeInsets.only(
-																		left: 24.0, top: 47.0, right: 210.0),
-																child: AutoSizeText("Explorar",
-																		style: TextStyle(
-																			fontFamily: 'HankenGrotesk',
-																			color: Color(0xff000000),
-																			fontSize: 20,
-																			fontWeight: FontWeight.w700,
-																			fontStyle: FontStyle.normal,
-																			letterSpacing: -0.1000000014901161,
-																		)),
+																	left: 24.0, top: 47.0,),
+																child: Align(
+																	alignment: AlignmentDirectional.centerStart
+																	,
+																	child: AutoSizeText("Explorar",
+																			style: TextStyle(
+																				fontFamily: 'HankenGrotesk',
+																				color: Color(0xff000000),
+																				fontSize: 20,
+																				fontWeight: FontWeight.w700,
+																				fontStyle: FontStyle.normal,
+																				letterSpacing: -0.1000000014901161,
+																			)),
+																),
 															),
 															Padding(
 																padding: const EdgeInsets.only(left: 1),

@@ -72,7 +72,7 @@ class _SearchBarState extends State<SearchBar> {
 							child: new TextField(
 								controller: controller,
 								decoration: new InputDecoration(
-									contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
+									
 									border: InputBorder.none,
 									hintText: 'Buscar ',
 									prefixIcon: Icon(
@@ -99,46 +99,40 @@ class _SearchBarState extends State<SearchBar> {
 					),
 				),
 				Positioned(
-					top: 3,
-					right: 3,
-					bottom: 6,
-					left: 180.0,
-					child: Padding(
-						padding: const EdgeInsets.fromLTRB(8.0, 0, 12.0, 0),
-						child: Container(
-							height: MediaQuery
-									.of(context)
-									.size
-									.height * 0.055,
-							width: MediaQuery
-									.of(context)
-									.size
-									.width * 0.15,
-							decoration: BoxDecoration(
-								border: Border.all(width: 0, style: BorderStyle.none),
-								borderRadius: BorderRadius.horizontal(
-										left: Radius.circular(22), right: Radius.circular(22)),
-								gradient: LinearGradient(
-									colors: [new Color(0xFFFFE231), new Color(0xFFF5AF00)],
-									begin: Alignment.topCenter,
-									end: Alignment.bottomCenter,
-								),
+					top: 4,
+					right: 4,
+					bottom: 4,
+					child: Container(
+						height: MediaQuery
+								.of(context)
+								.size
+								.height * 0.055,
+						width: MediaQuery
+								.of(context)
+								.size
+								.width * 0.5,
+						decoration: BoxDecoration(
+							border: Border.all(width: 0, style: BorderStyle.none),
+							borderRadius: BorderRadius.horizontal(
+									left: Radius.circular(22), right: Radius.circular(22)),
+							gradient: LinearGradient(
+								colors: [new Color(0xFFFFE231), new Color(0xFFF5AF00)],
+								begin: Alignment.topCenter,
+								end: Alignment.bottomCenter,
 							),
-							child: FlatButton(
-								child: AutoSizeText('Filtros',
-										style: new TextStyle(
-											color: Colors.black,
-											fontFamily: 'HankenGrotesk',
-											fontSize: 12.0,
-											fontWeight: FontWeight.w700,
-										)),
-								onPressed: () {
-									Navigator.push(
-											context,
-											new MaterialPageRoute(
-													builder: (context) => FiltrosPage()));
-								},
-							),
+						),
+						child: FlatButton(
+							child: AutoSizeText('Filtros',
+									style: new TextStyle(
+										color: Colors.black,
+										fontFamily: 'HankenGrotesk',
+										fontSize: 12.0,
+										fontWeight: FontWeight.w700,
+									)),
+							onPressed: () {
+								Navigator.push(context,
+										new MaterialPageRoute(builder: (context) => FiltrosPage()));
+							},
 						),
 					),
 				),

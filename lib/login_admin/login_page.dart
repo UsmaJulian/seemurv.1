@@ -41,6 +41,17 @@ class _LoginPageState extends State<LoginPage> {
   bool _obscureText = true;
   FormType _formType = FormType.login;
 
+  _logIn() {
+    facebookLogin().then((response) {
+      if (response != null) {
+        setState(() {
+          currentUser = response;
+          isLoggedIn = true;
+        });
+      }
+    });
+  }
+
   Future<FirebaseUser> facebookLogin() async {
     // fbLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
     // if you remove above comment then facebook login will take username and pasword for login in Webview
@@ -84,17 +95,6 @@ class _LoginPageState extends State<LoginPage> {
 
     Navigator.of(context).pop();
     return usuario;
-  }
-
-  void _logIn() {
-    facebookLogin().then((response) {
-      if (response != null) {
-        currentUser = response;
-        isLoggedIn = true;
-
-        setState(() {});
-      }
-    });
   }
 
   bool _isChecked = false;
@@ -206,11 +206,11 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                     child: Form(
-	                    key: formKey,
-	                    child: Column(
-			                    crossAxisAlignment: CrossAxisAlignment
-					                    .stretch, //ajusta los widgets a los extremos
-			                    children: buildInputs() + buildSubmitButtons()),
+                      key: formKey,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment
+                              .stretch, //ajusta los widgets a los extremos
+                          children: buildInputs() + buildSubmitButtons()),
                     ))),
           )),
     );
@@ -223,11 +223,11 @@ class _LoginPageState extends State<LoginPage> {
         Column(
           children: <Widget>[
             Padding(
-	            padding: const EdgeInsets.only(top: 34.0, right: 90.0, left: 5.0),
+              padding: const EdgeInsets.only(top: 34.0, right: 90.0, left: 5.0),
               child: Container(
                   width: 245.0,
                   height: 28.0,
-		              child: AutoSizeText('Inicia sesión',
+                  child: AutoSizeText('Inicia sesión',
                       style: new TextStyle(
                         color: Colors.black,
                         fontFamily: 'HankenGrotesk',
@@ -244,7 +244,7 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 width: 147.0,
                 height: 28.0,
-	              child: AutoSizeText('Correo electrónico',
+                child: AutoSizeText('Correo electrónico',
                     style: new TextStyle(
                       color: Colors.black,
                       fontFamily: 'HankenGrotesk',
@@ -288,7 +288,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Container(
             width: 294.0,
             height: 14.0,
-	          child: AutoSizeText('Contraseña (Mínimo 8 caractéres)',
+            child: AutoSizeText('Contraseña (Mínimo 8 caractéres)',
                 style: new TextStyle(
                   color: Colors.black,
                   fontFamily: 'HankenGrotesk',
@@ -297,8 +297,8 @@ class _LoginPageState extends State<LoginPage> {
                 )),
           ),
         ),
-	
-	      Padding(
+  
+        Padding(
           padding: const EdgeInsets.only(
             top: 12.0,
             left: 7.5,
@@ -341,14 +341,14 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-	
-	      Padding(
-		      padding: const EdgeInsets.only(top: 16.0, left: 114.0, right: 0),
+  
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0, left: 114.0, right: 0),
           child: Container(
             width: 147.5,
             height: 20,
             child: FlatButton(
-	            child: AutoSizeText('¿Olvidaste tu contraseña?',
+              child: AutoSizeText('¿Olvidaste tu contraseña?',
                   textAlign: TextAlign.right,
                   style: new TextStyle(
                     color: Colors.black,
@@ -372,11 +372,11 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: <Widget>[
               Padding(
-	              padding: const EdgeInsets.only(top: 0, right: 70, left: 0),
+                padding: const EdgeInsets.only(top: 0, right: 70, left: 0),
                 child: Container(
                     width: 245.0,
                     height: 30.0,
-		                child: AutoSizeText('Crea una cuenta',
+                    child: AutoSizeText('Crea una cuenta',
                         style: new TextStyle(
                           color: Colors.black,
                           fontFamily: 'HankenGrotesk',
@@ -394,7 +394,7 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 width: 294.0,
                 height: 14.0,
-	              child: AutoSizeText('Nombre y apellidos',
+                child: AutoSizeText('Nombre y apellidos',
                     style: new TextStyle(
                       color: Colors.black,
                       fontFamily: 'HankenGrotesk',
@@ -435,7 +435,7 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 width: 294.0,
                 height: 14.0,
-	              child: AutoSizeText('Teléfono',
+                child: AutoSizeText('Teléfono',
                     style: new TextStyle(
                       color: Colors.black,
                       fontFamily: 'HankenGrotesk',
@@ -473,8 +473,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-	
-	      // Container(
+  
+        // Container(
         //   child: DropdownButtonFormField(
         //     validator: (value) =>
         //         value == '0' ? 'Debe seleccionar una ciudad' : null,
@@ -538,7 +538,7 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 width: 294.0,
                 height: 14.0,
-	              child: AutoSizeText('Correo electrónico',
+                child: AutoSizeText('Correo electrónico',
                     style: new TextStyle(
                       color: Colors.black,
                       fontFamily: 'HankenGrotesk',
@@ -577,7 +577,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Container(
             width: 294.0,
             height: 20.0,
-	          child: AutoSizeText('Contraseña (Mínimo 8 caractéres)',
+            child: AutoSizeText('Contraseña (Mínimo 8 caractéres)',
                 style: new TextStyle(
                   color: Colors.black,
                   fontFamily: 'HankenGrotesk',
@@ -630,7 +630,7 @@ class _LoginPageState extends State<LoginPage> {
         Padding(
           padding: const EdgeInsets.only(
             top: 8.0,
-	          left: 2.0,
+            left: 2.0,
           ),
           child: Row(
             children: <Widget>[
@@ -642,26 +642,26 @@ class _LoginPageState extends State<LoginPage> {
                 activeColor: Color.fromRGBO(245, 175, 0, 100),
               ),
               Container(
-	              width: 250.0,
+                width: 250.0,
                 height: 20.0,
                 child: FlatButton(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-	                    AutoSizeText('Acepto ',
+                      AutoSizeText('Acepto ',
                           textAlign: TextAlign.left,
                           style: new TextStyle(
                             color: Colors.black,
                             fontFamily: 'HankenGrotesk',
-	                          fontSize: 12.0,
+                            fontSize: 12.0,
                             fontWeight: FontWeight.w700,
                           )),
-	                    AutoSizeText('términos y condiciones',
+                      AutoSizeText('términos y condiciones',
                           textAlign: TextAlign.left,
                           style: new TextStyle(
                             color: Color.fromRGBO(225, 161, 0, 100),
                             fontFamily: 'HankenGrotesk',
-	                          fontSize: 12.0,
+                            fontSize: 12.0,
                             fontWeight: FontWeight.w700,
                           )),
                     ],
@@ -704,7 +704,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             child: FlatButton(
               onPressed: _validarEnviar,
-	            child: AutoSizeText('Continuar',
+              child: AutoSizeText('Continuar',
                   style: new TextStyle(
                     color: Colors.black,
                     fontFamily: 'HankenGrotesk',
@@ -718,31 +718,31 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.only(
             top: 44.5,
             bottom: 17.5,
-	          left: 8.0,
+            left: 43.0,
           ),
           child: Row(
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(bottom: 17.5),
                 child: Container(
-		                child: AutoSizeText('¿Aún no tienes cuenta?',
+                    child: AutoSizeText('¿Aún no tienes cuenta?',
                         style: new TextStyle(
                           color: Colors.black,
                           fontFamily: 'HankenGrotesk',
-	                        fontSize: 12.0,
+                          fontSize: 10.0,
                           fontWeight: FontWeight.w700,
                         ))),
               ),
               Padding(
-	              padding: const EdgeInsets.only(left: 0, right: 0, bottom: 17.5),
+                padding: const EdgeInsets.only(right: 0, bottom: 17.5),
                 child: Container(
                   child: FlatButton(
                     onPressed: _irRegistro,
-	                  child: AutoSizeText('Crea una ahora',
+                    child: AutoSizeText('Crea una ahora',
                         style: new TextStyle(
                           color: Color(0xfff5af00),
                           fontFamily: 'HankenGrotesk',
-	                        fontSize: 12.0,
+                          fontSize: 10.0,
                           fontWeight: FontWeight.w700,
                         )),
                   ),
@@ -755,14 +755,12 @@ class _LoginPageState extends State<LoginPage> {
           padding:
           const EdgeInsets.only(top: 0, bottom: 0, left: 15.0, right: 15.0),
           child: Container(
-              width: 295.0,
+              width: 290.0,
               height: 44.0,
-              child: isLoggedIn
-                  ? null
-                  : FacebookSignInButton(
-	              borderRadius: 22.0,
-	              text: 'Continuar con Facebook',
-	              onPressed: _logIn,
+              child: FacebookSignInButton(
+                borderRadius: 22.0,
+                text: 'Continuar con Facebook',
+                onPressed: _logIn,
               )),
         ),
       ];
@@ -786,7 +784,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             child: FlatButton(
               onPressed: _validarRegistrar,
-	            child: AutoSizeText('Crear cuenta',
+              child: AutoSizeText('Crear cuenta',
                   style: new TextStyle(
                     color: Colors.black,
                     fontFamily: 'HankenGrotesk',
@@ -805,7 +803,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Row(
             children: <Widget>[
               Container(
-		              child: AutoSizeText('¿Ya tienes cuenta?',
+                  child: AutoSizeText('¿Ya tienes cuenta?',
                       style: new TextStyle(
                         color: Colors.black,
                         fontFamily: 'HankenGrotesk',
@@ -813,11 +811,11 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.w700,
                       ))),
               Padding(
-	              padding: const EdgeInsets.only(right: 22.5),
+                padding: const EdgeInsets.only(right: 22.5),
                 child: Container(
                   child: FlatButton(
                     onPressed: _irLogin,
-	                  child: AutoSizeText('Inicia Sesión',
+                    child: AutoSizeText('Inicia Sesión',
                         style: new TextStyle(
                           color: Color(0xffe1a100),
                           fontFamily: 'HankenGrotesk',
