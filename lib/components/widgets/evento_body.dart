@@ -178,14 +178,15 @@ class _EventoBodyState extends State<EventoBody> {
                                                         MainAxisAlignment.start,
                                                     children: <Widget>[
                                                       FloatingActionButton(
-	                                                      onPressed: share(
+                                                        onPressed: () =>
+                                                            share(
 			                                                      context,
 			                                                      widget.datosevent[
 			                                                      'nombre']
-					                                                      .toString(),
+                                                                ,
 			                                                      widget.datosevent[
 			                                                      'descripcion']
-					                                                      .toString()),
+                                                            ),
                                                         backgroundColor:
                                                             Color(0xff16202c),
                                                         mini: true,

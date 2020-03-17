@@ -523,8 +523,11 @@ class _ClientBodyState extends State<ClientBody> {
                               SizedBox(
                                 width: 16.0,
                               ),
-                              Text(snapshot.data.documents[idx]['rating']
-		                              .toString(), style: TextStyle(fontSize: 10),)
+	                            Text(
+		                            snapshot.data.documents[idx]['rating']
+				                            .toString(),
+		                            style: TextStyle(fontSize: 10),
+	                            )
                             ],
                           );
                         });
@@ -885,12 +888,12 @@ class _ClientBodyState extends State<ClientBody> {
                     MaterialPageRoute(
 		                    builder: (context) =>
 				                    PlatoSeleccionadoPage(
-						                    nombrePlato: widget
-								                    .datos['taskrecommendeddishes']
-                                [index],
-						                    nombrerestaurante: widget.datos['taskname']
-								                    .toString()
-								                    .replaceAll(new RegExp(r'[^\w\s]+'), ''))));
+					                    nombrePlato: widget.datos['taskrecommendeddishes']
+					                    [index],
+					                    nombrerestaurante: widget.datos['taskname']
+							                    .toString()
+							                    .replaceAll(new RegExp(r'[^\w\s]+'), ''),
+				                    )));
               },
             ),
             SizedBox(width: 10),

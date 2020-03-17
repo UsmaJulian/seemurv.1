@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:seemur_v1/src/share_prefs/preferencias%20_usuario.dart';
 
 class ConfigurarPage extends StatelessWidget {
+  final prefs = new PreferenciasUsuario();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,17 +19,17 @@ class ConfigurarPage extends StatelessWidget {
         backgroundColor: Color.fromRGBO(22, 32, 44, 1),
         title: Center(
             child: Padding(
-          padding: const EdgeInsets.only(right: 50.0),
-          child: Text('Permitir acceso a',
-              style: TextStyle(
-                fontFamily: 'HankenGrotesk',
-                color: Color(0xffffffff),
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-                fontStyle: FontStyle.normal,
-                letterSpacing: -0.5,
-              )),
-        )),
+              padding: const EdgeInsets.only(right: 50.0),
+              child: Text('Permitir acceso a',
+                  style: TextStyle(
+                    fontFamily: 'HankenGrotesk',
+                    color: Color(0xffffffff),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    fontStyle: FontStyle.normal,
+                    letterSpacing: -0.5,
+                  )),
+            )),
       ),
       body: Column(
         children: <Widget>[
@@ -53,7 +56,9 @@ class ConfigurarPage extends StatelessWidget {
                     child: Switch(
                       activeColor: Color(0xfff5af00),
                       value: false,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        prefs.ubicacion = value;
+                      },
                     ),
                   )
                 ],
@@ -83,9 +88,9 @@ class ConfigurarPage extends StatelessWidget {
                     child: Switch(
                       activeColor: Color(0xfff5af00),
                       value: false,
-	                    onChanged: (value) {
-		
-	                    },
+                      onChanged: (value) {
+                        prefs.notificaciones = value;
+                      },
                     ),
                   )
                 ],
@@ -115,7 +120,9 @@ class ConfigurarPage extends StatelessWidget {
                     child: Switch(
                       activeColor: Color(0xfff5af00),
                       value: false,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        prefs.galeria = value;
+                      },
                     ),
                   )
                 ],

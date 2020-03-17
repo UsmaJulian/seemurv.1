@@ -31,4 +31,28 @@ class PreferenciasUsuario {
   set filtros(filtroSeleccionado) {
 	  _prefs.setStringList('filtro', filtroSeleccionado);
   }
+
+  get ubicacion {
+    return _prefs.getBool('ubicacion') ?? true;
+  }
+
+  set ubicacion(filtroSeleccionado) {
+    _prefs.setBool('ubicacion', filtroSeleccionado);
+  }
+
+  get notificaciones {
+    return _prefs.getBool('notificaciones') ?? true;
+  }
+
+  set notificaciones(filtroSeleccionado) {
+    _prefs.setBool('notificaciones', filtroSeleccionado);
+  }
+
+  get galeria {
+    return _prefs.getBool('galeria') ?? true;
+  }
+
+  set galeria(filtroSeleccionado) {
+    _prefs.setBool('galeria', filtroSeleccionado);
+  }
 }

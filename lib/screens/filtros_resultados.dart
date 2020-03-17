@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/auth/auth.dart';
+import 'package:seemur_v1/components/widgets/clients_body.dart';
 import 'package:seemur_v1/components/widgets/searchbar.dart';
 import 'package:seemur_v1/models/user_model.dart';
 import 'package:seemur_v1/src/share_prefs/preferencias%20_usuario.dart';
@@ -91,7 +92,7 @@ class _FiltrosresultState extends State<Filtrosresult>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+	  return Scaffold(
       body: Stack(
         children: <Widget>[
           Container(
@@ -315,6 +316,18 @@ class _FiltrosresultState extends State<Filtrosresult>
                                       ],
                                     ),
                                   ),
+	                                onTap: () {
+		                                final datasnp =
+				                                snapshot.data.documents[index].data;
+		                                Navigator.push(
+			                                context,
+			                                MaterialPageRoute(
+					                                builder: (context) =>
+							                                ClientBody(
+								                                datos: datasnp,
+							                                )),
+		                                );
+	                                },
                                 );
                               },
                             ),

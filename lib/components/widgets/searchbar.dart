@@ -110,7 +110,7 @@ class _SearchBarState extends State<SearchBar> {
 						width: MediaQuery
 								.of(context)
 								.size
-								.width * 0.5,
+								.width * 0.25,
 						decoration: BoxDecoration(
 							border: Border.all(width: 0, style: BorderStyle.none),
 							borderRadius: BorderRadius.horizontal(
