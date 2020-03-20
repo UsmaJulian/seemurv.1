@@ -297,7 +297,7 @@ class _LoginPageState extends State<LoginPage> {
                 )),
           ),
         ),
-  
+
         Padding(
           padding: const EdgeInsets.only(
             top: 12.0,
@@ -341,7 +341,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-  
+
         Padding(
           padding: const EdgeInsets.only(top: 16.0, left: 114.0, right: 0),
           child: Container(
@@ -473,7 +473,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-  
+
         // Container(
         //   child: DropdownButtonFormField(
         //     validator: (value) =>

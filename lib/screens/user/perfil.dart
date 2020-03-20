@@ -176,7 +176,7 @@ class _PerfilPageState extends State<PerfilPage> {
                   Padding(
                     padding: const EdgeInsets.only(top: 58.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         botonvisitados(),
                         botonfavoritos(context),
@@ -469,7 +469,7 @@ class _PerfilPageState extends State<PerfilPage> {
   Widget botonresenas() {
     return Container(
       height: 32,
-      width: 92,
+      width: 94,
       decoration: BoxDecoration(
         border: Border.all(width: 0, style: BorderStyle.none),
         borderRadius: BorderRadius.horizontal(
@@ -502,7 +502,7 @@ class _PerfilPageState extends State<PerfilPage> {
   Widget botonfavoritos(BuildContext context) {
 	  return Container(
       height: 32,
-      width: 92,
+      width: 94,
       decoration: BoxDecoration(
         border: Border.all(width: 0, style: BorderStyle.none),
         borderRadius: BorderRadius.horizontal(
@@ -535,7 +535,7 @@ class _PerfilPageState extends State<PerfilPage> {
   Widget botonvisitados() {
     return Container(
       height: 32,
-      width: 92,
+      width: 94,
       decoration: BoxDecoration(
         border: Border.all(width: 0, style: BorderStyle.none),
         borderRadius: BorderRadius.horizontal(

@@ -2,9 +2,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:seemur_v1/src/share_prefs/preferencias%20_usuario.dart';
 
-class ConfigurarPage extends StatelessWidget {
+class ConfigurarPage extends StatefulWidget {
+  @override
+  _ConfigurarPageState createState() => _ConfigurarPageState();
+}
+
+class _ConfigurarPageState extends State<ConfigurarPage> {
+  bool ubicacion;
+  bool notificaciones;
+  bool galeria;
   final prefs = new PreferenciasUsuario();
   
+  @override
+  void initState() {
+    super.initState();
+    ubicacion = prefs.ubicacion;
+    notificaciones = prefs.notificaciones;
+    galeria = prefs.galeria;
+    setState(() {
+    
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,9 +73,13 @@ class ConfigurarPage extends StatelessWidget {
                     scale: 1.5,
                     child: Switch(
                       activeColor: Color(0xfff5af00),
-                      value: false,
+                      value: ubicacion,
                       onChanged: (value) {
-                        prefs.ubicacion = value;
+                        setState(() {
+                          ubicacion = value;
+                          prefs.ubicacion = value;
+                        });
+                        
                       },
                     ),
                   )
@@ -87,9 +109,13 @@ class ConfigurarPage extends StatelessWidget {
                     scale: 1.5,
                     child: Switch(
                       activeColor: Color(0xfff5af00),
-                      value: false,
+                      value: notificaciones,
                       onChanged: (value) {
-                        prefs.notificaciones = value;
+                        setState(() {
+                          notificaciones = value;
+                          prefs.notificaciones = value;
+                        });
+                        
                       },
                     ),
                   )
@@ -119,9 +145,12 @@ class ConfigurarPage extends StatelessWidget {
                     scale: 1.5,
                     child: Switch(
                       activeColor: Color(0xfff5af00),
-                      value: false,
+                      value: galeria,
                       onChanged: (value) {
-                        prefs.galeria = value;
+                        setState(() {
+                          galeria = value;
+                          prefs.galeria = value;
+                        });
                       },
                     ),
                   )

@@ -257,11 +257,12 @@ class _PreferencesPageState extends State<PreferencesPage> {
 															.size
 															.width,
 													child: new FlatButton(
-															onPressed: () {},
-															// share(
-															//     context,
-															//     Text('texto a enviar en la invitacion'),
-															//     Text('url')),
+															onPressed: () =>
+																	share(
+																			context,
+																			"Hola, quiero invitarte a que descargues la app Seemur y descubras los mejores establecimientos en tu ciudad.   Disponible en Android: https://play.google.com/store/apps/details?id=com.seemur.seemur_v1 y en IOS: https://apps.apple.com/co/app/seemur/id1498028666",
+																			"hola2"),
+
 															child: Row(
 																children: <Widget>[
 																	Icon(
